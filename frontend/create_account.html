@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Recruitment Signup</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-box {
+            background-color:white;
+            border-radius: 20px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 350px;
+            background-color: #281961;
+            color: white;
+        }
+
+        .signup-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .signup-box input[type="text"],
+        .signup-box input[type="email"],
+        .signup-box input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: none;
+            font-size: 14px;
+        }
+
+        .signup-box input[type="password"]:focus,
+        .signup-box input[type="text"]:focus,
+        .signup-box input[type="email"]:focus {
+            outline: none;
+            border: 10px solid #281969;
+        }
+
+        .signup-box button {
+            width: 105%;
+            padding: 10px;
+            margin: 20px 0px;
+            justify-content: center;
+            background-color: white;
+            color: #281969;
+            border:none;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bolder;
+            
+        }
+
+        .signup-box button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .signup-image {
+            background-color: #f4f4f4;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .signup-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="signup-box">
+            <h2>Create your account</h2>
+            <form action="../backend/register.php" method="POST">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Full name" required>
+                
+                <label for="email">Email ID</label>
+                <input type="email" id="email" name="email" placeholder="Email ID" required>
+                
+                <label for="rollno">University Roll No</label>
+                <input type="text" id="rollno" name="rollno" placeholder="University Roll No" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm Password" required>
+                
+                <button type="submit">SIGN UP</button>
+            </form>
+            
+        </div>
+
+        <div class="signup-image">
+            <img src="C:\Users\user\Desktop\3.png" alt="Signup Image">
+        </div>
+    </div>
+</body>
+</html>
