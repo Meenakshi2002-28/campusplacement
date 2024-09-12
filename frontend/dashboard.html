@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .sidebar {
+        height: 500px;
+        width: 215px;
+        position: fixed;
+        left: 10px;
+        top: 75px;
+        background-color: #2F5597;
+        color: white;
+        padding: 10px;
+    }
+
+    .sidebar a {
+        text-decoration: none;
+        color: white;
+        display: block;
+        padding: 20px;
+        font-size: 24px;
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
+
+    .sidebar a:hover {
+        border-left: 3px solid #ffffff;
+        background: #1e165f;
+    }
+
+    .sidebar .logo {
+        text-align: center;
+        margin: 10px 0;
+        font-size: 24px;
+    }
+
+    .main-content {
+        margin-left: 250px;
+        padding: 20px;
+    }
+
+    .logo{
+        align-content: end;
+    }
+</style>
+</head>
+<body>
+<div class="header">
+    <div class="logo"></div>
+        <img src="illustrations/profile.png" alt="welcome">
+    </div>
+</div>
+<div class="sidebar">
+    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+    <a href="#profile"><i class="fa fa-fw fa-user"></i> Profile</a>
+    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+</div>
+<div class="main-content">
+    <h1></h1>
+    <p></p>
+</div>
+</body>
+</html>
