@@ -21,36 +21,40 @@
             background-color: #241A64;
             display: flex;
             justify-content: flex-end;
-            padding: 13px;
+            padding: 15px;
         }
 
         .login {
+            width: 110px;
+            height: 35px;
             background: none;
             border: none;
             color: white;
             padding: 10px 20px;
             margin-left: 10px;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             border-radius: 5px;
         }
 
         button.signup:hover {
-            background-color: #c9e7f9;
+            background-color: #e6f6ff;
         }
 
         button.login:hover {
             color: black;
-            background-color: white;
+            background-color: #e6f6ff;
         }
 
         .signup {
             background: white;
             border: none;
+            width: 110px;
+            height: 35px;
             color: black;
             padding: 10px 20px;
             margin-left: 10px;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -78,6 +82,8 @@
             text-align: left;
             font-size: 50px;
             color: black;
+            padding: 25px;
+            padding-top: px;
            
         }
 
@@ -85,6 +91,20 @@
             text-align: left;
             font-size: 34px;
             color: black;
+            padding: 5px;
+            padding-left: 25px;
+        }
+
+        .image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .image img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
         }
     </style>
 </head>
@@ -97,8 +117,9 @@
         <h1>Explore the Latest Job <br> Opportunities Tailored<br> for You</h1>
         <p>Discover job openings from top recruiters<br> across various industries</p>
     </div>
-    <div class="footer">
-      
+    <div class="image">
+        <img src="illustrations/home.png" alt="welcome">
     </div>
+    <div class="footer"></div>
 </body>
 </html>
