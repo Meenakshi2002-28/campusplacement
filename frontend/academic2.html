@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Academic Details</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 215px;
+            height: 620px;
+            position: fixed;
+            left: 10px;
+            top: 75px;
+            background-color: #2F5597;
+            color: white;
+            padding: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            padding: 20px;
+            font-size: 24px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #1a3a73; /* Hover color */
+        }
+
+        .sidebar a.active {
+            background-color: #271b65; /* Active link color */
+        }
+
+        .sidebar a img {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .profile-info {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .profile-info img {
+            width: 80px;
+            border-radius: 50%;
+        }
+
+        .content{
+            flex: 1;
+            padding: 30px;
+            padding-left: 40px;
+            padding-top: 30px;
+            background-color: #f8f8f8;
+        }
+
+        .details-section {
+            background-color: white;
+            padding-top: 45px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .details-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group label {
+            width: 150px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: calc(100% - 160px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .action-buttons button {
+            padding: 10px 20px;
+            background-color: #a3bdf3;
+            border: none;
+            color: #333;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        .action-buttons button:hover {
+            background-color: #879ce0;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile-info">
+            <img src="profile-icon.png" alt="Profile Picture">
+            <p>Meenakshi B</p>
+            <p>KH.EN.U3CDS22035</p>
+        </div>
+        <a href="#"><img src="home-icon.png" alt="Home Icon"> Home</a>
+        <a href="#"><img src="job-icon.png" alt="Jobs Icon"> Jobs</a>
+        <a href="#"><img src="applications-icon.png" alt="Applications Icon"> Applications</a>
+        <a href="#"><img src="company-icon.png" alt="Company Icon"> Company</a>
+        <a href="#" class="active"><img src="profile-icon.png" alt="Profile Icon"> Profile</a>
+        <a href="#"><img src="feedback-icon.png" alt="Feedback Icon"> Feedback</a>
+    </div>
+    <div class="content">
+        <div class="details-section">
+            <h2>Class 10 Details</h2>
+            <div class="form-group">
+                <label for="school-name">School Name:</label>
+                <input type="text" id="school-name" value="Jawahar Navodaya Vidyalaya">
+            </div>
+            <div class="form-group">
+                <label for="board">Board:</label>
+                <input type="text" id="board" value="CBSE">
+            </div>
+            <div class="form-group">
+                <label for="year-of-passing">Year Of Passing:</label>
+                <input type="text" id="year-of-passing" value="2019">
+            </div>
+            <div class="form-group">
+                <label for="percentage">Percentage:</label>
+                <input type="text" id="percentage" value="92%">
+            </div>
+            <div class="action-buttons">
+                <button>Edit</button>
+                <button>Save</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
