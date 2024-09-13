@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Redirect to success page
-    header("Location: success.php");
+    header("Location: ../frontend/acc_created.html");
     exit(); // Ensure no further code is executed after redirection
 
     // Close the statement
