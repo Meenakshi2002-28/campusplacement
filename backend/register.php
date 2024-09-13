@@ -5,6 +5,7 @@ $username = "root"; // MySQL username
 $password = ""; // MySQL password
 $dbname = "campus_placement"; // Replace with your database name
 
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
@@ -19,25 +20,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $rollno = $_POST['rollno'];
     $password = $_POST['password'];
-    
+    $confirm_password = $_POST['confirm_password'];
+
+    // Basic validation
+    if (empty($name) || empty($email) || empty($rollno) || empty($password) || empty($confirm_password)) {
+        die("All fields are required.");
+    }
+
+    if ($password !== $confirm_password) {
+        die("Passwords do not match.");
+    }
+
+    // Email validation
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        die("Invalid email format.");
+    }
+
+    // Check if user already exists
+    $stmt = $conn->prepare("SELECT * FROM login WHERE email = ? OR user_id = ?");
+    $stmt->bind_param("ss", $email, $rollno);
+
+    if (!$stmt->execute()) {
+        die("Error executing query: " . $stmt->error);
+    }
+
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        die("User with this email or roll number already exists.");
+    }
+
     // Hash the password for security
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert data into login table
-    $sql_login = "INSERT INTO login (user_id, email, password) VALUES ('$rollno', '$email', '$hashed_password')";
-    
-    if ($conn->query($sql_login) === TRUE) {
-        // After successfully inserting into the login table, insert data into student table
-        $sql_student = "INSERT INTO student (user_id, name) VALUES ('$rollno', '$name')";
-        if ($conn->query($sql_student) === TRUE) {
-            echo "Registration successful!";
-        } else {
-            echo "Error: " . $sql_student . "<br>" . $conn->error;
-        }
-    } else {
-        echo "Error: " . $sql_login . "<br>" . $conn->error;
+    $stmt = $conn->prepare("INSERT INTO login (user_id, email, password) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $rollno, $email, $hashed_password);
+
+    if (!$stmt->execute()) {
+        die("Error inserting into login table: " . $stmt->error);
     }
-    
+
+    // After successfully inserting into the login table, insert data into student table
+    $stmt = $conn->prepare("INSERT INTO student (user_id, name) VALUES (?, ?)");
+    $stmt->bind_param("ss", $rollno, $name);
+
+    if (!$stmt->execute()) {
+        die("Error inserting into student table: " . $stmt->error);
+    }
+
+    // Redirect to success page
+    header("Location: ../frontend/acc_created.html");
+    exit(); // Ensure no further code is executed after redirection
+
+    // Close the statement
+    $stmt->close();
     $conn->close();
 }
 ?>

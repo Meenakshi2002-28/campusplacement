@@ -7,7 +7,7 @@
     <style>
         body {
             margin: 0;
-            padding: 0;
+            padding:0;
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
             display: flex;
@@ -19,22 +19,32 @@
         .login-container {
             display: flex;
             justify-content:space-evenly;
-            width: 80%;
-            max-width: 1000px;
+            width: 70%;
+            max-width: 800px;
+            padding-left:350px;
+            height:480px;
+            
         }
 
         .login-box {
             background-color: #2a2a7c;
             color: white;
             padding: 60px 40px;
-            border-radius: 30px;
+            border-radius:30px;
             width: 350px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            
         }
 
         .login-box h2 {
             margin: 0;
-            font-size: 26px;
+            font-size: 50px;
+            
+        }
+        .login-box h1 {
+            margin:0;
+            font-size: 35px;
+            
         }
 
         .login-box form {
@@ -49,6 +59,8 @@
             border-radius: 8px;
             border: none;
             font-size: 16px;
+            padding-left:15px;
+            padding-right:1px;
         }
 
         .login-box .forgot-password {
@@ -101,14 +113,20 @@
         /* Right side image */
         .illustration {
             flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display:flex;
+            justify-content:left;
+            align-items:flex;
+            border-spacing:5mm;
+            padding-block:10px;
+            
+            
         }
 
         .illustration img {
-            width: 300px;
-            height: auto;
+            width: 380px;
+            height:280px;
+            padding-top:200px;
+            padding-right:10px;
         }
     </style>
 </head>
@@ -118,7 +136,7 @@
         <!-- Login Box -->
         <div class="login-box">
             <center>
-            <h2>Welcome!<br>Login</h2>
+            <h2><b>Welcome!</b></h2><br><b><h1>Login</b></h1>
             </center>
             <form action="#">
                 <input type="text" placeholder="Username" required>
@@ -135,7 +153,7 @@
 
         <!-- Illustration Image -->
         <div class="illustration">
-            <img src="path_to_image/illustration.png" alt="Login Illustration">
+            <img src="images/login.png" alt="Login Illustration">
         </div>
     </div>
 
