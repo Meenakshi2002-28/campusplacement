@@ -5,6 +5,7 @@ $username = "root"; // MySQL username
 $password = ""; // MySQL password
 $dbname = "campus_placement"; // Replace with your database name
 
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
@@ -38,7 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if user already exists
     $stmt = $conn->prepare("SELECT * FROM login WHERE email = ? OR user_id = ?");
     $stmt->bind_param("ss", $email, $rollno);
-    $stmt->execute();
+
+    if (!$stmt->execute()) {
+        die("Error executing query: " . $stmt->error);
+    }
+
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
@@ -52,20 +57,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("INSERT INTO login (user_id, email, password) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $rollno, $email, $hashed_password);
 
-    if ($stmt->execute()) {
-        // After successfully inserting into the login table, insert data into student table
-        $stmt = $conn->prepare("INSERT INTO student (user_id, name) VALUES (?, ?)");
-        $stmt->bind_param("ss", $rollno, $name);
-        
-        if ($stmt->execute()) {
-            echo "Registration successful!";
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-    } else {
-        echo "Error: " . $stmt->error;
+    if (!$stmt->execute()) {
+        die("Error inserting into login table: " . $stmt->error);
     }
 
+    // After successfully inserting into the login table, insert data into student table
+    $stmt = $conn->prepare("INSERT INTO student (user_id, name) VALUES (?, ?)");
+    $stmt->bind_param("ss", $rollno, $name);
+
+    if (!$stmt->execute()) {
+        die("Error inserting into student table: " . $stmt->error);
+    }
+
+    // Redirect to success page
+    header("Location: success.php");
+    exit(); // Ensure no further code is executed after redirection
+
+    // Close the statement
     $stmt->close();
     $conn->close();
 }
