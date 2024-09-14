@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>profile-personal details-student</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+    .sidebar {
+        width: 200px;
+        height: 610px;
+        position: fixed;
+        left: 10px;
+        top: 85px;
+        background-color: #2F5597;
+        color: white;
+        padding: 10px;
+    }
+
+    .sidebar a {
+        text-decoration: none;
+        color: white;
+        display: block;
+        padding: 15px;
+        font-size: 24px;
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
+
+    .sidebar a:hover {
+        border-left: 3px solid #ffffff;
+        background: #1e165f
+    }
+
+    .profile-content {
+        margin-left: 200px;
+        padding: 50px;
+        left: 70px;
+    }
+
+    .sub-sidebar {
+        width: 210px;
+        height: 610px;
+        position: fixed;
+        left: 35px;
+        top: 85px;
+        background-color: #832525;
+        padding: 10px;
+        margin-left: 200px;
+    }
+
+    .contents a{
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        display: block;
+        padding: 15px;
+        font-size: 24px;
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
+
+    .sub-sidebar a:hover {
+        border-left: 3px solid #ffffff;
+        color: #ffffff;
+        background: #1e165f
+    }
+
+    form {
+        border: 1px solid #ccc;
+        padding: 20px;
+        width: 300px;
+        left: 70px;
+    }
+    input, select, button {
+        width: 100%;
+        padding: 8px;
+        margin: 10px 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+    <a href="#profile"><i class="fa fa-fw fa-user"></i> Profile</a>
+    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+</div>
+   
+<div class="sub-sidebar">
+    <div class="profile"></div>
+        <img src="images/Customer.png" alt="profile_pic">
+    </div>
+    <div class="contents">    
+        <a href="#personal_details">Personal Deatils</a>
+        <a href="academic_details">Academic Deatils</a>
+        <a href="resume">Resume</a>
+    </div>
+<div>
+<div class="profile-content">
+    <form>
+        <table>
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input id="name" name="name" type="text"></td>
+            </tr>
+            <tr>
+                <td><label for="branch">Branch:</label></td>
+                <td>
+                    <select id="branch" name="branch">
+                        <option value="data-science">Data Science</option>
+                        <!-- Add more options here -->
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="course">Course:</label></td>
+                <td><input id="course" name="course" type="text"></td>
+            </tr>
+            <tr>
+                <td><label for="semester">Current Semester:</label></td>
+                <td><input id="semester" name="semester" type="number"></td>
+            </tr>
+            <tr>
+                <td><label for="year">Pass Out Year:</label></td>
+                <td><input id="year" name="year" type="number"></td>
+            </tr>
+            <tr>
+                <td><label for="gender">Gender:</label></td>
+                <td>
+                    <select id="gender" name="gender">
+                        <option value="female">Female</option>
+                        <!-- Add more options here -->
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="dob">Date of Birth:</label></td>
+                <td><input id="dob" name="dob" type="date"></td>
+            </tr>
+            <tr>
+                <td><label for="phone">Phone Number:</label></td>
+                <td><input id="phone" name="phone" type="text"></td>
+            </tr>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input id="email" name="email" type="email"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="button">Edit</button>
+                    <button type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+</body>
+</html>
