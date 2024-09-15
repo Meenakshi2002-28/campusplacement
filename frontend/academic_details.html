@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Academic Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .profile-card {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-card h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .profile-card form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .profile-card label {
+            font-weight: bold;
+        }
+
+        .profile-card input[type="text"], 
+        .profile-card input[type="email"],
+        .profile-card input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .profile-card input[type="submit"] {
+            grid-column: span 2;
+            padding: 10px;
+            background-color: #27428f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .profile-card input[type="submit"]:hover {
+            background-color: #0f2552;
+        }
+
+        .avatar {
+            text-align: center;
+        }
+
+        .avatar img {
+            width: 100px;
+            border-radius: 50%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Campus Recruitment</h2>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Jobs</a></li>
+                <li><a href="#">Applications</a></li>
+                <li><a href="#">Company</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Feedback</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="profile-card">
+                <h2>Academic Details</h2>
+                <form>
+                    <!-- User avatar and name -->
+                    <div class="avatar">
+                        <img src="https://via.placeholder.com/100" alt="User Avatar">
+                        <p>Meenakshi B</p>
+                        <p>ID: KH.EN.U3CDS22035</p>
+                    </div>
+
+                    <!-- Academic Form -->
+                    <label for="course">Course:</label>
+                    <input type="text" id="course" name="course" value="BCA">
+
+                    <label for="branch">Branch:</label>
+                    <input type="text" id="branch" name="branch" value="Data Science">
+
+                    <label for="current-year">Current Year:</label>
+                    <input type="text" id="current-year" name="current-year" value="3">
+
+                    <label for="pass-out-year">Pass Out Year:</label>
+                    <input type="text" id="pass-out-year" name="pass-out-year" value="2025">
+
+                    <label for="arrears">Current Arrears:</label>
+                    <input type="text" id="arrears" name="arrears" value="0">
+
+                    <label for="cgpa">CGPA:</label>
+                    <input type="text" id="cgpa" name="cgpa" value="9.11">
+
+                    <h3>Class 12 Details</h3>
+
+                    <label for="school-name">School Name:</label>
+                    <input type="text" id="school-name" name="school-name" value="GHSS Puthoor">
+
+                    <label for="board">Board:</label>
+                    <input type="text" id="board" name="board" value="Kerala State Board of Examinations">
+
+                    <label for="year-of-passing">Year of Passing:</label>
+                    <input type="text" id="year-of-passing" name="year-of-passing" value="2021">
+
+                    <label for="percentage">Percentage:</label>
+                    <input type="text" id="percentage" name="percentage" value="95%">
+
+                    <input type="submit" value="Save">
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
