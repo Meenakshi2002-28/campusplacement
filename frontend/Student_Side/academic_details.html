@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Academic Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -16,6 +17,7 @@
         body {
             background-color:#f5f5f5;
             padding-left:10px;
+            width:max-content;
             
         }
 
@@ -23,14 +25,14 @@
             display: flex;
             height: 100vh;
             background-color: #f5f5f5;
-
+            
         }
 
         .sidebar {
-            width: 198px;
-            height: 610px;
+            width: 200px;
+            height: 530px;
             position: fixed;
-            left: 10px;
+            left: 0px;
             top: 85px;
             background-color: #2F5597;
             color: white;
@@ -44,13 +46,13 @@
             display: block;
             padding: 15px;
             font-size: 22px;
-            border-left: 3px solid transparent;
             transition: all 0.3s;
         }
 
         .sidebar a:hover{
             border-left: 3px solid #ffffff;
             background: #1e165f;
+            font-size: 22px;
         }
         .sub-sidebar{
             width: 205px;
@@ -192,7 +194,7 @@
             <div class="sidebar">
                 <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
                 <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
-                <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+                <a href="#applications"><i class="fa fa-fw fa-envelope"></i>Applications</a>
                 <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
                 <a href="#profile"><i class="fa fa-fw fa-user"></i> Profile</a>
                 <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
