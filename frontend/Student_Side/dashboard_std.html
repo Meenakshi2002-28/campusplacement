@@ -26,8 +26,8 @@
         text-decoration: none;
         color: white;
         display: block;
-        padding: 15px;
-        font-size: 24px;
+        padding: 15px; /* Adjust padding for better alignment */
+        font-size: 22px; /* Smaller font size */
         border-left: 3px solid transparent;
         transition: all 0.3s;
     }
@@ -37,29 +37,38 @@
         background: #1e165f;
     }
 
-    .sidebar .logo {
-        text-align: center;
-        margin: 10px 0;
-        font-size: 24px;
-    }
 
     .main-content {
-        margin-left: 250px;
-        padding: 20px;
+        margin-left: 220px; /* Adjust left margin */
+        padding: 50px;
+        font-size: 18px; /* Larger font size for main content */
+        padding-top: 15px;
     }
 
-    .logo img{
-        height: 5px;
-        width: 5px;
+    img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
     }
+    .container {
+        padding: 5px;
+        display: flex;
+        justify-content: flex-end; /* Aligns children to the right */
+        align-items: center; /* Vertically centers the images */
+    }
+    .icon {
+        margin-left: 1px; /* Adds spacing between the icons */
+    }
+
+
+
 </style>
 </head>
 <body>
-<div class="header">
-    <div class="logo"></div>
-        <img align="right" src="images/profile.png" alt="profile">
-    </div>
+<div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon">
+        <img src="../images/down_arrow.png" alt="Expand Arrow" class="icon">
 </div>
+
 <div class="sidebar">
     <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
     <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
@@ -69,8 +78,7 @@
     <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
 </div>
 <div class="main-content">
-    <h1></h1>
-    <p></p>
+    <h1>Welcome, Meenakshi B</h1>
 </div>
 </body>
 </html>
