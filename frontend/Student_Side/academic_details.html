@@ -17,8 +17,6 @@
             background-color:#f5f5f5;
             padding-left:10px;
             
-            
-            
         }
 
         .container {
@@ -26,7 +24,6 @@
             height: 100vh;
             background-color: #f5f5f5;
 
-            
         }
 
         .sidebar {
@@ -38,6 +35,7 @@
             background-color: #2F5597;
             color: white;
             padding: 10px;
+            border-left: 1px solid transparent;
         }
 
         .sidebar a{
@@ -46,7 +44,6 @@
             display: block;
             padding: 15px;
             font-size: 24px;
-            border-left: 3px solid transparent;
             transition: all 0.3s;
         }
 
@@ -113,19 +110,21 @@
         .profile-card h2 {
             margin-bottom: 20px;
             text-align: center;
-            
         }
 
         .profile-card form {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+           
             
         }
 
         .profile-card label {
-            font-weight: bold;
-            
+            font-weight:50px;
+            display:grid;
+            grid-template-columns: 1fr 1fr;
+            gap:20px;
         }
 
         .profile-card input[type="text"], 
@@ -135,11 +134,11 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            
+           
         }
 
         .profile-card input[type="submit"] {
-            grid-column: span 2;
+            grid-column: span 1;
             padding: 10px;
             background-color: #27428f;
             color: white;
@@ -150,11 +149,22 @@
 
         .profile-card input[type="submit"]:hover {
             background-color: #0f2552;
+        
         }
-        .h3
+        .profile-card h3
         {
-            font-size:100px;
+            padding-left:
+            font-size:30px;
+            padding-top:40px;
+            padding-bottom:40px;
             
+        }
+        .profile-card h2
+        {
+            padding-left:30px;
+            padding:10px;
+            text-align:justify;
+            font-size:30px;
         }
         
     </style>
@@ -177,11 +187,12 @@
 
         <!-- Main Content -->
         <div class="main-content">
+            
             <div class="profile-card">
-                <h2>Academic Details</h2>
+                <h2>ACADEMIC DETAILS</h2>
+                <h3>UG</h3>
                 <form>
-                    <!-- User avatar and name -->
-                   
+                    
                     <div class="sub-sidebar">
                         <div class="profile">
                             <img src="../images/Customer.png" alt="profile picture">
@@ -220,7 +231,7 @@
                     <input type="text" id="cgpa" name="cgpa" value="9.11">
                     
 
-                    <h3>Class 12 Details</h3>
+                    <h3>CLASS 12 DETAILS</h3>
                     <br>
                     <br>
                     
