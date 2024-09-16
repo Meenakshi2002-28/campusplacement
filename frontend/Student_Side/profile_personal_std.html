@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile-Personal Details-Student</title>
+    <title>Profile - Student</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        body,html{
-            margin:0;
+        body, html {
+            margin: 0;
             padding: 0;
-            font-family: Arial,sans-serif;
+            font-family: Arial, sans-serif;
         }
-
         .sidebar {
             width: 198px;
-            height: 610px;
+            height: 100vh;
             position: fixed;
             left: 10px;
             top: 85px;
@@ -22,8 +21,7 @@
             color: white;
             padding: 10px;
         }
-
-        .sidebar a{
+        .sidebar a {
             text-decoration: none;
             color: white;
             display: block;
@@ -32,53 +30,43 @@
             border-left: 3px solid transparent;
             transition: all 0.3s;
         }
-
-        .sidebar a:hover{
+        .sidebar a:hover {
             border-left: 3px solid #ffffff;
             background: #1e165f;
         }
-
-        .sub-sidebar{
+        .sub-sidebar {
             width: 205px;
             height: 100vh;
             position: fixed;
             left: 32px;
             top: 0px;
-            background-color: #d06363;
+            background-color: white;
             color: rgb(0, 0, 0);
-            padding: 10px;
             padding-top: 50px;
             margin-left: 200px;
-            text-align:center;
+            text-align: center;
             border-bottom: #1e165f;
         }
-
-        .menu a{
-            text-align:center;
+        .menu a {
+            text-align: center;
             text-decoration: none;
-            color: rgb(0, 0, 0);
+            color: black;
             display: block;
             padding: 15px;
-            padding-top: 15px;
-            padding-left: 1px;
             font-size: 20px;
-            border-left: 3px solid transparent;
             transition: all 0.3s;
         }
-
-        .menu a:hover{
-            border-left: 3px solid #000000;
+        .menu a:hover {
+            border-left: 3px solid #000;
             background: #1e165f;
             color: white;
         }
-
         .profile img{
             height: 160px;
             width: 140px;
             padding: 0;
             margin: 0;
         }
-
         .text{
             padding-top: 5px;
         }
@@ -87,40 +75,45 @@
             font-size: 18px;
             color: #000000;
         }
-        .details{
-            background-color: rgb(255, 255, 255);
-            padding: 100px;
-            border-radius: 3px;
-            max-width: 500px;
+        .details {
+            background-color: white;
+            padding: left 200px;
+            padding: 30px;
+            max-width: 700px;
             margin: auto;
-            padding-left: 10px;
-            padding-top: 30px;
+            display: none;
         }
 
+        .details.active {
+            background-color: #ffffff;
+            padding-left: 150px;
+            display: block;
+        }
         table {
-            width: 700px; /* Stretch to the width */
+            width: 100%;
+            margin-bottom: 20px;
         }
         table td {
             padding: 6px;
             font-size: 18px;
+            white-space: nowrap;
         }
-
         input, select {
             padding: 8px;
             border-radius: 3px;
             border: 1px solid #ddd;
             font-size: 16px;
+            width: 100%;
         }
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 15px; /* Adjust the space between the buttons */
-            margin-top: 20px; /* Add some margin to push it down */
+            gap: 15px;
+            margin-top: 20px;
         }
         button {
             padding: 10px 25px;
             background-color: #AFC8F3;
-            color: rgb(0, 0, 0);
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -130,29 +123,29 @@
             background-color: #1e165f;
             color: white;
         }
+        .container {
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end; 
+            align-items: center; 
+        }
         img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
-    .container {
-        padding: 5px;
-        display: flex;
-        justify-content: flex-end; /* Aligns children to the right */
-        align-items: center; /* Vertically centers the images */
-    }
-    .icon {
-        margin-left: 1px; /* Adds spacing between the icons */
-    }
-
+            height: 40px; 
+            width: auto;
+        }   
+        .icon {
+            margin-left: 1px; 
+        }
     </style>
 </head>
-
 <body>
+    <!--Header_profile-->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon">
-        <img src="../images/down_arrow.png" alt="Expand Arrow" class="icon">
+        <img src="profile.png" alt="Profile Icon" class="icon">
+        <img src="arrow.png" alt="Expand Arrow" class="icon">
     </div>
 
+    <!--Main Side Bar-->
     <div class="sidebar">
         <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
@@ -162,32 +155,30 @@
         <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
     </div> 
 
+    <!--Sub SideBar-->
     <div class="sub-sidebar">
         <div class="profile">
-            <img src="../images/Customer.png" alt="profile picture">
+            <img src="Customer.png" alt="profile picture">
             <div class="text">
                 <h4>Meenakshi B</h4>
                 <p>KH.EN.U3CDS22035</p>
             </div>
         </div>
         <div class="menu">
-            <a href="profile_personal_std.html">Personal Details</a>
-            <a href="academic_details.html">Academic Details</a>
-            <a href="resume.html">Resume</a>
+            <a href="#" onclick="showSection('personal')">Personal Details</a>
+            <a href="#" onclick="showSection('academic')">Academic Details</a>
+            <a href="#" onclick="showSection('resume')">Resume</a>
         </div>
     </div>
-    
-    <div class="details">
+
+    <!-- Personal Details Section -->
+    <div id="personal" class="details active">
+        <h2>Personal Details</h2>
         <form>
             <table>
-                <tr>
-                    <td><label for="name">Name :</label></td>
-                    <td><input id="name" name="name" type="text" size="50" ></td>
-                </tr>
-                <tr>
-                    <td><label for="branch">Branch :</label></td>
-                    <td>
-                        <select name="branch" id="branch">
+                <tr><td>Name :</td><td><input type="text" id="name" name="name"></td></tr>
+                <tr><td>Branch :</td>
+                    <td><select name="branch" id="branch">
                             <option value="Commerce">Commerce</option>
                             <option value="cs">Computer Science</option>
                             <option value="english">English</option>
@@ -197,10 +188,8 @@
                         </select>
                     </td>
                 </tr>
-                <tr>
-                    <td><label for="course">Course :</label></td>
-                    <td>
-                        <select name="course" id="course">
+                <tr><td>Course :</td>
+                    <td><select name="course" id="course">
                             <option value="BCA">BCA</option>
                             <option value="BCA DS">BCA Data Science</option>
                             <option value="Int MCA">INT MCA</option>
@@ -212,53 +201,160 @@
                             <option value="Int msc maths">INT M.Sc Mathematics</option>
                             <option value="Bdes">B.des(Hons.)in Communicative Design</option>
                             <option value="bsc in vm">B.Sc in Visual Media</option>
-                            <option value="bsc in vm">BCA(Hons.)</option>
-                            <option value="bsc in vm">B.Com.(Hons./ Hons. with Research)in Taxation & Finance</option>
-                            <option value="bsc in vm">B.Com(Hons.)in FinTech</option>
-                            <option value="bsc in vm">BBA(Hons./Hons. with Research)</option>
-                            <option value="bsc in vm">B.Sc(Hons.)in Visual Media & Communication</option>
-                    </select>
-                </td>
+                            <option value="bca hons.">BCA(Hons.)</option>
+                            <option value="bcom hons.">B.Com.(Hons.)in Taxation & Finance</option>
+                            <option value="bcom fintech hons.">B.Com(Hons.)in FinTech</option>
+                            <option value="bba hons.">BBA(Hons./Hons. with Research)</option>
+                            <option value="bsc in vm hons">B.Sc(Hons.)in Visual Media</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td>Current Year :</td>
+                    <td><input type="text" id="year" name="year"></td>
                 </tr>
                 <tr>
-                    <td><label for="year">Current Year :</label></td>
-                    <td><input id="year" name="year" type="text" size="50"></td>
+                    <td>Pass Out Year :</td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
                 </tr>
-                <tr>
-                    <td><label for="pass_out_year">Pass Out Year :</label></td>
-                    <td><input id="pass_out_year" name="pass_out_year" type="text" size="50"></td>
-                </tr>
-                <tr>
-                    <td><label for="gender">Gender :</label></td>
+                <tr><td>Gender :</td>
                     <td>
-                        <input type="radio" name="gender" id="male" value="male" checked>Male
-                        <input type="radio" name="gender" id="female" value="female">Female
-                        <input type="radio" name="gender" id="other" value="other">Others
+                        <input type="radio" name="gender" value="male"> Male 
+                        <input type="radio" name="gender" value="female"> Female
+                        <input type="radio" name="gender" value="other"> Other
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="dob">Date of Birth :</label></td>
-                    <td><input id="dob" name="dob" type="date"></td>
+                    <td>Date of Birth :</td><td><input type="date" id="dob" name="dob"></td>
                 </tr>
             </table>
-    
-            <h4><b>CONTACT INFORMATION</b></h4>
-     
+            <h4>Contact Information</h4>
             <table>
                 <tr>
-                    <td><label for="number">Phone Number :</label></td>
-                    <td><input id="number" name="number" type="text" size="50"></td>
+                    <td>Phone Number :</td><td><input type="text" id="number" name="number"></td>
                 </tr>
                 <tr>
-                    <td><label for="email">E-Mail :</label></td>
-                    <td><input id="email" name="email" type="text" size="50"></td>
+                    <td>Email :</td><td><input type="text" id="email" name="email"></td>
                 </tr>
             </table>
             <div class="button-container">
-                <button type="button"><b>EDIT</b></button>
-                <button type="submit"><b>SAVE</b></button>
+                <button type="button">EDIT</button>
+                <button type="submit">SAVE</button>
             </div>
         </form>
     </div>
+
+    <!-- Academic Details Section -->
+    <div id="academic" class="details">
+        <h2>Academic Details</h2>
+        <form>
+            <table>
+                <th>UG Details</th>
+                <tr><td>Branch :</td>
+                    <td><select name="branch" id="branch">
+                            <option value="cs">Computer Science</option>
+                            <option value="Commerce">Commerce</option>
+                            <option value="english">English</option>
+                            <option value="physical sciences">Physical Sciences</option>
+                            <option value="physics">Physics</option>
+                            <option value="vm">Visual Media</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td>Course :</td>
+                    <td><select name="course" id="course">
+                            <option value="BCA">BCA</option>
+                            <option value="BCA DS">BCA Data Science</option>
+                            <option value="Int MCA">INT MCA</option>
+                            <option value="bcom">B.com Taxation and Finance</option>
+                            <option value="bba">BBA</option>
+                            <option value="bcom fintech">B.com Fintech</option>
+                            <option value="BA english">BA English and Literature</option>
+                            <option value="Int ma">INT MA  English and Literature</option>
+                            <option value="Int msc maths">INT M.Sc Mathematics</option>
+                            <option value="Bdes">B.des(Hons.)in Communicative Design</option>
+                            <option value="bsc in vm">B.Sc in Visual Media</option>
+                            <option value="bca hons.">BCA(Hons.)</option>
+                            <option value="bcom hons.">B.Com.(Hons.)in Taxation & Finance</option>
+                            <option value="bcom fintech hons.">B.Com(Hons.)in FinTech</option>
+                            <option value="bba hons.">BBA(Hons./Hons. with Research)</option>
+                            <option value="bsc in vm hons">B.Sc(Hons.)in Visual Media</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Current Year :</td><td><input type="text" id="current_year" name="current_year"></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year :</td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
+                </tr>
+                <tr>
+                    <td>Current Arrears :</td><td><input type="text" id="current_arrears" name="current_arrears"></td>
+                </tr>
+                <tr>
+                    <td>CGPA :</td><td><input type="cgpa" id="cgpa" name="cgpa"></td>
+                </tr>
+            </table>
+            <br>
+            <table>
+                <th>12th Details</th>
+                <tr>
+                    <td>School Name :</td><td><input type="text" id="school_name_twelfth" name="school_name_twelfth"></td>
+                </tr>
+                <tr>
+                    <td>Board :</td><td><input type="text" id=board_twelfth name="board_twelfth"></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year :</td><td><input type="text" id=pass_out_year_twelfth name="pass_out_year_twelfth"></td>
+                </tr>
+                <tr>
+                    <td>Percentage :</td><td><input type="text" id=percentage_twelfth name="percentage_twelfth"></td>
+                </tr>
+            </table>
+            <br>
+            <table>
+                <th>10th Details</th>
+                <tr>
+                    <td>School Name :</td><td><input type="text" id="school_name_tenth" name="school_name_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Board :</td><td><input type="text" id=board_tenth name="board_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year :</td><td><input type="text" id=pass_out_year_tenth name="pass_out_year_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Percentage :</td><td><input type="text" id=percentage_tenth name="percentage_tenth"></td>
+                </tr>
+            </table>
+            <div class="button-container">
+                <button type="button">EDIT</button>
+                <button type="submit">SAVE</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Resume Section -->
+    <div id="resume" class="details">
+        <h2>Resume</h2>
+        <p>Upload your resume here.</p>
+        <form>
+            <input type="file" id="resume_file" name="resume_file">
+            <div class="button-container">
+                <button type="submit">UPLOAD</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.details').forEach(section => section.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+        }
+</script>
+
 </body>
 </html>
+
+
