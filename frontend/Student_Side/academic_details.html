@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Academic Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -16,8 +17,7 @@
         body {
             background-color:#f5f5f5;
             padding-left:10px;
-            
-            
+            width:max-content;
             
         }
 
@@ -25,34 +25,34 @@
             display: flex;
             height: 100vh;
             background-color: #f5f5f5;
-
             
         }
 
         .sidebar {
-            width: 198px;
-            height: 610px;
+            width: 200px;
+            height: 530px;
             position: fixed;
-            left: 10px;
+            left: 0px;
             top: 85px;
             background-color: #2F5597;
             color: white;
             padding: 10px;
+            border-left: 1px solid transparent;
         }
 
         .sidebar a{
-            text-decoration: none;
-            color: white;
-            display: block;
-            padding: 15px;
-            font-size: 22px;
-            border-left: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
+        text-decoration: none;
+        color: white;
+        display: block;
+        padding: 15px; /* Adjust padding for better alignment */
+        font-size: 22px; /* Smaller font size */
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
         .sidebar a:hover{
             border-left: 3px solid #ffffff;
             background: #1e165f;
+            font-size: 22px;
         }
         .sub-sidebar{
             width: 205px;
@@ -80,6 +80,7 @@
             font-size: 22px;
             border-right:1px solid ;
             transition: all 0.3s;
+            height:70px;
         }
 
         .menu a:hover{
@@ -113,18 +114,20 @@
         .profile-card h2 {
             margin-bottom: 20px;
             text-align: center;
-            
         }
 
         .profile-card form {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap:10px;
+           
             
         }
 
         .profile-card label {
-            font-weight: bold;
+            font-weight:50px;
+            display:grid;
+            grid-template-columns: 1fr 1fr;
             
         }
 
@@ -135,26 +138,50 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
+           
+        }
+        .profile-card h4{
+            font-size:20px;
+        }
+        
+
+       
+        .profile-card h3
+        {
+            padding-left:
+            font-size:30px;
+            padding-top:40px;
+            padding-bottom:40px;
             
         }
+        .profile-card h2
+        {
+            padding-left:30px;
+            padding:10px;
+            text-align:justify;
+            font-size:30px;
+        }
+        
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
 
-        .profile-card input[type="submit"] {
-            grid-column: span 2;
-            padding: 10px;
-            background-color: #27428f;
-            color: white;
+        .action-buttons button {
+            padding: 8px 20px;
+            background-color:#2F5597;
             border: none;
+            color:#f5f5f5;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
+            margin:10px;
+            margin-left:50px;
+            
         }
 
-        .profile-card input[type="submit"]:hover {
-            background-color: #0f2552;
-        }
-        .h3
-        {
-            font-size:100px;
-            
+        .action-buttons button:hover {
+            background-color:#2F5597;
         }
         
     </style>
@@ -167,7 +194,7 @@
             <div class="sidebar">
                 <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
                 <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
-                <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+                <a href="#applications"><i class="fa fa-fw fa-envelope"></i>Applications</a>
                 <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
                 <a href="#profile"><i class="fa fa-fw fa-user"></i> Profile</a>
                 <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
@@ -177,11 +204,12 @@
 
         <!-- Main Content -->
         <div class="main-content">
+            
             <div class="profile-card">
-                <h2>Academic Details</h2>
+                <h2>ACADEMIC DETAILS</h2>
+                <h3>UG</h3>
                 <form>
-                    <!-- User avatar and name -->
-                   
+                    
                     <div class="sub-sidebar">
                         <div class="profile">
                             <img src="../images/Customer.png" alt="profile picture">
@@ -220,7 +248,7 @@
                     <input type="text" id="cgpa" name="cgpa" value="9.11">
                     
 
-                    <h3>Class 12 Details</h3>
+                    <h3>CLASS 12 DETAILS</h3>
                     <br>
                     <br>
                     
@@ -235,8 +263,29 @@
 
                     <label for="percentage">Percentage:</label>
                     <input type="text" id="percentage" name="percentage" value="95%">
+                    <h3>CLASS 10 DETAILS</h3>
+                    <br>
+                        <label for="school-name">School Name:</label>
+                        <input type="text" id="school-name" value="Jawahar Navodaya Vidyalaya">
                     
-                    <input type="submit" value="Save">
+                    
+                        <label for="board">Board:</label>
+                        <input type="text" id="board" value="CBSE">
+                    
+                    
+                        <label for="year-of-passing">Year Of Passing:</label>
+                        <input type="text" id="year-of-passing" value="2019">
+                    
+                    
+                        <label for="percentage">Percentage:</label>
+                        <input type="text" id="percentage" value="92%">
+                    
+                    <div class="action-buttons">
+                        <button>Edit</button>
+                        <button>Save</button>
+                    </div>
+                    
+                    
                 </form>
             </div>
         </div>
