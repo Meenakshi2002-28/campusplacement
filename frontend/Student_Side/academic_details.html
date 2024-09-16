@@ -9,46 +9,40 @@
         * {
             margin: 0;
             padding:0;
-            box-sizing: border-box;
             font-family: Arial, sans-serif;
-            
         }
 
         body {
             background-color:#f5f5f5;
             padding-left:10px;
-            
-            
         }
 
         .container {
             display: flex;
             height: 100vh;
             background-color: #f5f5f5;
-            
         }
 
         .sidebar {
-            width: 200px;
-            height:630px;
+            width: 198px;
+            height:610px;
             position: fixed;
             left:10px;
             top: 85px;
             background-color: #2F5597;
             color: white;
             padding: 10px;
-            
         }
 
         .sidebar a{
             text-decoration: none;
             color: white;
             display: block;
-            padding: 15px;
-            font-size: 22px;
+            padding: 15px; /* Adjust padding for better alignment */
+            font-size: 22px; /* Smaller font size */
+            border-left: 3px solid transparent;
             transition: all 0.3s;
         }
-
         .sidebar a:hover{
             border-left: 3px solid #ffffff;
             background: #1e165f;
@@ -60,7 +54,7 @@
             position: fixed;
             left: 32px;
             top: 0px;
-            background-color: #ffffff;
+            background-color: #c08080;
             color: rgb(0, 0, 0);
             padding: 10px;
             padding-top: 50px;
@@ -80,7 +74,6 @@
             font-size: 20px;
             border-right:1px solid ;
             transition: all 0.3s;
-            
         }
 
         .menu a:hover{
@@ -119,16 +112,13 @@
         .profile-card form {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap:10px;
-           
-            
+            gap:10px;    
         }
 
         .profile-card label {
             font-weight:50px;
             display:grid;
-            grid-template-columns: 1fr 1fr;
-            
+            grid-template-columns: 1fr 1fr;    
         }
 
         .profile-card input[type="text"], 
@@ -140,19 +130,23 @@
             border-radius: 5px;
            
         }
-        .profile-card h4{
-            font-size:20px;
+
+        .profile-card text{
+            padding-top: 5px;
         }
-        
+
+        .profile-card h4,p{
+            margin: 2px;
+            font-size: 18px;
+            color: #000000;
+        }
 
         .profile-card h3
         {
-
             padding-left:10px;
             font-size:20px;
             padding-top:40px;
             padding-bottom:40px;
-            
         }
         .profile-card h2
         {
@@ -177,7 +171,6 @@
             font-size: 16px;
             margin:10px;
             margin-left:50px;
-            
         }
 
         .action-buttons button:hover {
