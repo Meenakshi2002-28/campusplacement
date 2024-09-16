@@ -1,7 +1,7 @@
 LOGIN TABLE
 CREATE TABLE login (
   user_id varchar(25) PRIMARY KEY,
-  password varchar(25) NOT NULL,
+  password varchar(255) NOT NULL,      //password changed to 255
   role varchar(10),
   email varchar(50) NOT NULL
 ) 
