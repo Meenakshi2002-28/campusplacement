@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile-Personal Deatils-Student</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<style>
-    body,html{
+    <style>
+        body,html{
             margin:0;
             padding: 0;
             font-family: Arial,sans-serif;
@@ -52,65 +52,61 @@
             text-align:center;
             border-bottom: #1e165f;
         }
-    .menu a{
-        text-align:center;
-        text-decoration: none;
-        color: rgb(0, 0, 0);
-        display: block;
-        padding: 15px;
-        padding-top: 15px;
-        padding-left: 1px;
-        font-size: 20px;
-        border-left: 3px solid transparent;
-        transition: all 0.3s;
+        .menu a{
+            text-align:center;
+            text-decoration: none;
+            color: rgb(0, 0, 0);
+            display: block;
+            padding: 15px;
+            padding-top: 15px;
+            padding-left: 1px;
+            font-size: 20px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
 
-    }
+        .menu a:hover{
+            border-left: 3px solid #ffffff;
+            background: #1e165f;
+            color: white;
+        }
 
-    .menu a:hover{
-        border-left: 3px solid #ffffff;
-        background: #1e165f;
-        color: white;
-    }
-
-    .profile img{
-        height: 160px;
-        width: 140px;
-        padding: 0;
-        margin: 0;
-    }
-    .text h4,p{
-        margin: 0;
-        padding: 0;
-    }
-    .details{
-        background-color: white;
-        padding: 100px;
-        border-radius: 3px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        max-width: 350px;
-        margin: auto;
-        height: 2000px;
-    }
-    .details a{
-        color: rgb(0, 0, 0);
-        display: inline-block;
-        padding: 15px;
-        padding-top: 15px;
-        padding-left: 1px;
-        font-size: 18px;
-        border-left: 3px solid transparent;
-        transition: all 0.3s;
-    }
-    .details a:hover{
-        border-left: 3px solid #ffffff;
-        background: #89869e;
-        color: white;
-    }
-
-</style>
+        .profile img{
+            height: 160px;
+            width: 140px;
+            padding: 0;
+            margin: 0;
+        }
+        .text h4,p{
+            margin: 0;
+            padding: 0;
+        }
+        .details{
+            background-color: white;
+            padding: 100px;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            margin: auto;
+            height: 2000px;
+        }
+        .details a{
+            color: rgb(0, 0, 0);
+            display: inline-block;
+            padding: 15px;
+            padding-top: 15px;
+            padding-left: 1px;
+            font-size: 18px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .details a:hover{
+            border-left: 2px solid #ffffff;
+            color: rgb(43, 93, 232);
+        }
+        
+    </style>
 </head>
-
-
 <body>
     <div class="sidebar">
         <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
@@ -143,6 +139,8 @@
                 <button class="delete-button">&#x1F5D1;</button>
             </div>
         </div>
+        <button class="edit-button">Edit</button>
+        <button class="save-button">Save</button>
     </div>
 </body>
 </html>
