@@ -3,42 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Academic Details</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-        }
+    <title>Profile-Personal Deatils-Student</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    body,html{
+        margin:0;
+        padding: 0;
+        font-family: Arial,sans-serif;
+    }
 
-        .sidebar {
-            width: 215px;
-            height: 620px;
-            position: fixed;
-            left: 10px;
-            top: 75px;
-            background-color: #2F5597;
-            color: white;
-            padding: 10px;
-        }
+    .sidebar {
+        width: 198px;
+        height: 610px;
+        position: fixed;
+        left: 10px;
+        top: 85px;
+        background-color: #2F5597;
+        color: white;
+        padding: 10px;
+    }
 
-        .sidebar a {
-            text-decoration: none;
-            color: white;
-            display: block;
-            padding: 20px;
-            font-size: 24px;
-            border-left: 3px solid transparent;
-            transition: all 0.3s;
-        }
+    .sidebar a{
+        text-decoration: none;
+        color: white;
+        display: block;
+        padding: 15px;
+        font-size: 24px;
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
 
-        .sidebar a:hover {
-            background-color: #1a3a73; /* Hover color */
-        }
+    .sidebar a:hover{
+        border-left: 3px solid #ffffff;
+        background: #1e165f;
+    }
 
-        .sidebar a.active {
-            background-color: #271b65; /* Active link color */
-        }
+    .sub-sidebar{
+        width: 205px;
+        height: 610px;
+        position: fixed;
+        left: 32px;
+        top: 85px;
+        background-color: #ffffff;
+        color: rgb(0, 0, 0);
+        padding: 10px;
+        margin-left: 200px;
+        text-align:center;
+        border-bottom: #1e165f;
+    }
 
         .sidebar a img {
             width: 20px;
@@ -49,112 +61,98 @@
             padding: 20px;
             border-bottom: 1px solid #ddd;
         }
+    .menu a{
+        text-align:center;
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        display: block;
+        padding: 15px;
+        padding-top: 15px;
+        padding-left: 1px;
+        font-size: 24px;
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
 
-        .profile-info img {
-            width: 80px;
-            border-radius: 50%;
-        }
+    }
 
-        .content{
-            flex: 1;
-            padding: 30px;
-            padding-left: 40px;
-            padding-top: 30px;
-            background-color: #f8f8f8;
-        }
+    .menu a:hover{
+        border-left: 3px solid #ffffff;
+        background: #1e165f;
+        color: white;
+    }
 
-        .details-section {
-            background-color: white;
-            padding-top: 45px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: auto;
-        }
+    .profile img{
+        height: 160px;
+        width: 140px;
+        padding: 0;
+        margin: 0;
+    }
+    .text h4,p{
+        margin: 0;
+        padding: 0;
+    }
+    .details{
+        background-color: white;
+        padding: 100px;
+        border-radius: 3px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 350px;
+        margin: auto;
+    }
 
-        .details-section h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .form-group label {
-            width: 150px;
-            font-weight: bold;
-        }
-
-        .form-group input {
-            width: calc(100% - 160px);
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .action-buttons {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .action-buttons button {
-            padding: 10px 20px;
-            background-color: #a3bdf3;
-            border: none;
-            color: #333;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 5px;
-        }
-
-        .action-buttons button:hover {
-            background-color: #879ce0;
-        }
-    </style>
+</style>
 </head>
+
+
 <body>
     <div class="sidebar">
-        <div class="profile-info">
-            <img src="profile-icon.png" alt="Profile Picture">
-            <p>Meenakshi B</p>
-            <p>KH.EN.U3CDS22035</p>
+        <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+        <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="#profile"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+    </div> 
+
+    <div class="sub-sidebar">
+        <div class="profile">
+            <img  src="images/Customer.png" alt="profile picture">
+            <div class="text">
+                <h4>Meenakshi B</h4>
+                <p>KH.EN.U3CDS22035</p>
+            </div>
         </div>
-        <a href="#"><img src="home-icon.png" alt="Home Icon"> Home</a>
-        <a href="#"><img src="job-icon.png" alt="Jobs Icon"> Jobs</a>
-        <a href="#"><img src="applications-icon.png" alt="Applications Icon"> Applications</a>
-        <a href="#"><img src="company-icon.png" alt="Company Icon"> Company</a>
-        <a href="#" class="active"><img src="profile-icon.png" alt="Profile Icon"> Profile</a>
-        <a href="#"><img src="feedback-icon.png" alt="Feedback Icon"> Feedback</a>
+        <div class="menu">
+            <a href="#personal_details">Personal Details</a>
+            <a href="academic_details">Academic Details</a>
+            <a href="resume">Resume</a>
+        </div>
     </div>
-    <div class="content">
-        <div class="details-section">
-            <h2>Class 10 Details</h2>
-            <div class="form-group">
-                <label for="school-name">School Name:</label>
-                <input type="text" id="school-name" value="Jawahar Navodaya Vidyalaya">
-            </div>
-            <div class="form-group">
-                <label for="board">Board:</label>
-                <input type="text" id="board" value="CBSE">
-            </div>
-            <div class="form-group">
-                <label for="year-of-passing">Year Of Passing:</label>
-                <input type="text" id="year-of-passing" value="2019">
-            </div>
-            <div class="form-group">
-                <label for="percentage">Percentage:</label>
-                <input type="text" id="percentage" value="92%">
-            </div>
-            <div class="action-buttons">
-                <button>Edit</button>
-                <button>Save</button>
-            </div>
-        </div>
+    <div class="container">
+    <div class="details">
+        <form>
+            <table>
+                <h2>Class 10</h2>
+                <tr>
+                    <td><label for="schoolname">School Name :</label></td>
+                    <td><input id="name" name="name" type="text" ></td>
+                </tr>
+                <tr>
+                    <td><label for="board">Board :</label></td>
+                    <td><input id="board" name="board" type="text"></td>
+                </tr>
+                <tr>
+                    <td><label for="pass_out_year">Year of Passing :</label></td>
+                    <td><input id="pass_out_year" name="pass_out_year" type="text"></td>
+                </tr>
+                <tr>
+                    <td><label for="percentage">Percentage :</label></td>
+                    <td><input id="percentage" name="percentage" type="text"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
     </div>
 </body>
 </html>
+
