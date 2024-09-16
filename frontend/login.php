@@ -44,9 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 // Redirect based on the role
                 if ($db_role == 'admin') {
-                    header('Location: admin_dashboard.php');
+                    header('Location: Admin_Side/dashboard_admin.html');
                 } elseif ($db_role == 'student') {
-                    header('Location: dashboard.html');
+                    header('Location: Student_Side/dashboard_std.html');
                 } else {
                     echo "Invalid role.";
                 }
