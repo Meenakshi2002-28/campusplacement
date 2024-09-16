@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile-Personal Deatils-Student</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    body,html{
+        margin:0;
+        padding: 0;
+        font-family: Arial,sans-serif;
+    }
+
+    .sidebar {
+        width: 198px;
+        height: 610px;
+        position: fixed;
+        left: 10px;
+        top: 85px;
+        background-color: #2F5597;
+        color: white;
+        padding: 10px;
+    }
+
+    .sidebar a{
+        text-decoration: none;
+        color: white;
+        display: block;
+        padding: 15px;
+        font-size: 24px;
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
+
+    .sidebar a:hover{
+        border-left: 3px solid #ffffff;
+        background: #1e165f;
+    }
+
+    .sub-sidebar{
+        width: 205px;
+        height: 610px;
+        position: fixed;
+        left: 32px;
+        top: 85px;
+        background-color: #ffffff;
+        color: rgb(0, 0, 0);
+        padding: 10px;
+        margin-left: 200px;
+        text-align:center;
+        border-bottom: #1e165f;
+    }
+
+    .menu a{
+        text-align:center;
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        display: block;
+        padding: 15px;
+        padding-top: 15px;
+        padding-left: 1px;
+        font-size: 24px;
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+
+    }
+
+    .menu a:hover{
+        border-left: 3px solid #ffffff;
+        background: #1e165f;
+        color: white;
+    }
+
+    .profile img{
+        height: 160px;
+        width: 140px;
+        padding: 0;
+        margin: 0;
+    }
+    .text h4,p{
+        margin: 0;
+        padding: 0;
+    }
+    .details{
+        background-color: white;
+        padding: 100px;
+        border-radius: 3px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 350px;
+        margin: auto;
+    }
+
+</style>
+</head>
+
+
+<body>
+    <div class="sidebar">
+        <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+        <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="#profile"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+    </div> 
+
+    <div class="sub-sidebar">
+        <div class="profile">
+            <img  src="images/Customer.png" alt="profile picture">
+            <div class="text">
+                <h4>Meenakshi B</h4>
+                <p>KH.EN.U3CDS22035</p>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="#personal_details">Personal Details</a>
+            <a href="academic_details">Academic Details</a>
+            <a href="resume">Resume</a>
+        </div>
+    </div>
+    <div class="details">
+        <h3>Resume</h3>
+        <div class="resume-file">
+            <div class="resume-name">
+                <span>Resume_1</span>
+                <button class="delete-button">&#x1F5D1;</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
