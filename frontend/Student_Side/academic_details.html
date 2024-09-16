@@ -117,7 +117,7 @@
         .profile-card form {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap:10px;
            
             
         }
@@ -126,7 +126,7 @@
             font-weight:50px;
             display:grid;
             grid-template-columns: 1fr 1fr;
-            gap:20px;
+            
         }
 
         .profile-card input[type="text"], 
@@ -158,6 +158,28 @@
             padding:10px;
             text-align:justify;
             font-size:30px;
+        }
+        
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .action-buttons button {
+            padding: 8px 20px;
+            background-color:#2F5597;
+            border: none;
+            color:#f5f5f5;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin:10px;
+            margin-left:50px;
+            
+        }
+
+        .action-buttons button:hover {
+            background-color:#2F5597;
         }
         
     </style>
@@ -239,7 +261,27 @@
 
                     <label for="percentage">Percentage:</label>
                     <input type="text" id="percentage" name="percentage" value="95%">
+                    <h3>CLASS 10 DETAILS</h3>
+                    <br>
+                        <label for="school-name">School Name:</label>
+                        <input type="text" id="school-name" value="Jawahar Navodaya Vidyalaya">
                     
+                    
+                        <label for="board">Board:</label>
+                        <input type="text" id="board" value="CBSE">
+                    
+                    
+                        <label for="year-of-passing">Year Of Passing:</label>
+                        <input type="text" id="year-of-passing" value="2019">
+                    
+                    
+                        <label for="percentage">Percentage:</label>
+                        <input type="text" id="percentage" value="92%">
+                    
+                    <div class="action-buttons">
+                        <button>Edit</button>
+                        <button>Save</button>
+                    </div>
                     
                     
                 </form>
