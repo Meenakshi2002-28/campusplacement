@@ -14,7 +14,7 @@
 
 .sidebar {
     width: 198px;
-    height: 100vh;
+    height: 610px;
     position: fixed;
     left: 10px;
     top: 85px;
@@ -62,7 +62,7 @@
     transition: all 0.3s;
 }
 
-.menu a:hover {
+.menu a.active {
     border-left: 3px solid #000;
     background: #1e165f;
     color: white;
@@ -76,7 +76,7 @@
 }
 
 .text {
-    padding-top: 5px;
+    padding-top: 1px;
 }
 
 .text h4, p {
@@ -130,6 +130,16 @@ input[type="radio"] {
     gap: 60px; /* Adds space between radio button groups */
     align-items: center; /* Aligns the radio buttons vertically with labels */
 }
+input, select {
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    width: 100%;
+}
+
+
+
 input, select {
     padding: 8px;
     border-radius: 3px;
@@ -204,7 +214,7 @@ img {
             </div>
         </div>
         <div class="menu">
-            <a href="#" onclick="showSection('personal')">Personal Details</a>
+            <a href="#" onclick="showSection('personal')" class="active">Personal Details</a>
             <a href="#" onclick="showSection('academic')">Academic Details</a>
             <a href="#" onclick="showSection('resume')">Resume</a>
         </div>
@@ -218,8 +228,8 @@ img {
                 <tr><td>Name </td><td><input type="text" id="name" name="name"></td></tr>
                 <tr><td>Branch </td>
                     <td><select name="branch" id="branch">
-                            <option value="Commerce">Commerce</option>
                             <option value="cs">Computer Science</option>
+                            <option value="Commerce">Commerce</option>
                             <option value="english">English</option>
                             <option value="physical sciences">Physical Sciences</option>
                             <option value="physics">Physics</option>
@@ -394,15 +404,19 @@ img {
 
     <script>
         function showSection(sectionId) {
-            // Hide all sections
             document.querySelectorAll('.details').forEach(section => section.classList.remove('active'));
-
-            // Show selected section
             document.getElementById(sectionId).classList.add('active');
         }
-</script>
+
+        function setActiveTab(event) {
+            document.querySelectorAll('.menu a').forEach(item => item.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        document.querySelectorAll('.menu a').forEach(item => {
+            item.addEventListener('click', setActiveTab);
+        });
+    </script>
 
 </body>
 </html>
-
-
