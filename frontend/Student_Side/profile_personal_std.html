@@ -126,10 +126,17 @@ input[type="radio"] {
 }
 
 .gender-options {
-    display: flex; /* Ensures the radio buttons are laid out horizontally */
-    gap: 60px; /* Adds space between radio button groups */
-    align-items: center; /* Aligns the radio buttons vertically with labels */
+    display: flex; /* Ensures horizontal layout */
+    gap: 5px; /* Adds space between radio button groups */
+    align-items: center; /* Aligns radio buttons with labels */
 }
+
+.gender-options label {
+    display: flex;
+    align-items: center;
+    gap: 1px; /* Adds space between radio button and its label */
+}
+
 input, select {
     padding: 8px;
     border-radius: 3px;
@@ -137,8 +144,6 @@ input, select {
     font-size: 16px;
     width: 100%;
 }
-
-
 
 input, select {
     padding: 8px;
@@ -420,3 +425,5 @@ img {
 
 </body>
 </html>
+
+
