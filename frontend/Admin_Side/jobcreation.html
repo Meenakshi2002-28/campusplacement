@@ -59,9 +59,7 @@
             margin-bottom: 30px;
             text-align: justify;
             color:black;
-            font-weight: 550;
-
-             
+            font-weight: 550;  
     }
             
             
@@ -69,9 +67,7 @@
             margin-bottom: 30px;
             text-align: center;
             color:black;
-            font-weight: 600;
-
-             
+            font-weight: 600;      
     }
 
     .job-form {
@@ -190,19 +186,32 @@
             <label for="cgpa">Required CGPA:</label>
             <input type="number" id="cgpa" name="cgpa" step="0.01" placeholder="Enter Required CGPA">
 
-            <label for="course">Course:</label>
-            <input type="text" id="course" name="course" placeholder="Enter Eligible Course">
-
+            <label for="course">Eligible Courses:</label>
+            <div>
+                <input type="checkbox" id="BCA" name="course" value="BCA">
+                <label for ="BCA">BCA</label>
+                <input type="checkbox" id="BCA DS" name="course" value="BCA DS">
+                <label for ="BCA DS">BCA DS</label>
+                <input type="checkbox" id="i=INT MCA" name="course" value="INT MCA">
+                <label for ="INT MCA">INT MCA</label>
+                <input type="checkbox" id="MCA" name="course" value="MCA">
+                <label for ="MCA">MCA</label>
+            </div>    
+            
             <label for="pass-out-year">Pass Out Year:</label>
-            <select id="pass-out-year" name="pass-out-year">
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-            </select>
-
+            <div>   
+                <input type="checkbox" id="2025" name="year" value="2025">
+                <label for ="2025">2025</label>
+                <input type="checkbox" id="2026" name="year" value="2026">
+                <label for ="2026">2026</label>
+            
+            </div>
+            
+            
             <label for="description">Description:</label>
+            <div>
             <textarea id="description" name="description" placeholder="Enter Job Description"></textarea>
-
+            </div>
             
             <label for="max-arrears">Maximum Arrears:</label>
             <input type="text" id="max-arrears">
@@ -228,15 +237,19 @@
             <h3>Hiring Workflow Rounds</h3>
             <br>
             <label for="round-1">Round 1:</label>
+            <div>
             <input type="text" id="round-1">
-            
+            </div>
 
             <label for="round-2">Round 2:</label>
+            <div>
             <input type="text" id="round-2">
+            </div>
             
-
             <label for="round-3">Round 3:</label>
+            <div>
             <input type="text" id="round-3">
+            </div>
             
 
             <input type="submit" value="Save">
