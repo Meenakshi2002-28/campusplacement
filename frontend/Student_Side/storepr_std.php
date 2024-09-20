@@ -28,9 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $course_name = $_POST['course'];
     $branch = $_POST['branch'];
     $email = $_POST['email'];
-    $phone_number = $_POST['phone_number'];
-    $graduation_year = $_POST['graduation_year'];
-    $current_year = $_POST['current_year'];
+    $phone_number = $_POST['number'];
+    $graduation_year = $_POST['pass_out_year'];
+    $current_year = $_POST['year'];
     $dob = $_POST['dob'];
 
     // Prepare statement to get course_id based on course_name and branch
@@ -71,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "Error: " . $stmt->error;
     }
+    
 
     // Close connection
     $stmt->close();
@@ -300,6 +301,7 @@ img {
         </div>
         <div class="menu">
             <a href="#" onclick="showSection('personal')" class="active">Personal Details</a>
+            <a href="#" onclick="showSection('academic')">Academic Details</a>
             
         </div>
     </div>
@@ -307,7 +309,7 @@ img {
     <!-- Personal Details Section -->
     <div id="personal" class="details active">
         <h2>Personal Details</h2>
-        <form>
+        <form action="storepr_std.php" method="post">
             <table>
                 
                 <tr><td>Branch </td>
@@ -384,6 +386,113 @@ img {
             </div>
         </form>
     </div>
+      <!-- Academic Details Section -->
+      <div id="academic" class="details">
+        <h2>Academic Details</h2>
+        <form action="1.php" method="post">
+            <table>
+                <th>UG Details</th>
+                <tr>
+    <td>Branch</td>
+    <td><select name="branch" id="branch">
+                            <option value="CS">Computer Science</option>
+                            <option value="COMMERCE">Commerce</option>
+                            <option value="ENGLISH">English</option>
+                            <option value="PHYSICAL SCIENCES">Physical Sciences</option>
+                            <option value="PHYSICS">Physics</option>
+                            <option value="VM">Visual Media</option>
+                        </select></td>
+</tr>
+
+                <tr>
+    <td>Course</td>
+    <td><select name="course" id="course">
+                        <option value="BCA">BCA</option>
+                        <option value="BCA DataScience">BCA Data Science</option>
+                        <option value="Int MCA">INT MCA</option>
+                        <option value="B.com taxation and finance">B.com Taxation and Finance</option>
+                        <option value="BBA">BBA</option>
+                        <option value="B.com Fintech">B.com Fintech</option>
+                        <option value="BA English and Literature">BA English and Literature</option>
+                        <option value="INT MA English and Literature">INT MA English and Literature</option>
+                        <option value="INT M.Sc Mathematics">INT M.Sc Mathematics</option>
+                        <option value="B.des(Hons.) in Communicative Design">B.des(Hons.) in Communicative Design</option>
+                        <option value="B.Sc in Visual Media">B.Sc in Visual Media</option>
+                        <option value="BCA(Hons.)">BCA(Hons.)</option>
+                        <option value="B.Com.(Hons.) in Taxation & Finance">B.Com.(Hons.) in Taxation & Finance</option>
+                        <option value="B.Com(Hons.) in FinTech">B.Com(Hons.) in FinTech</option>
+                        <option value="BBA(Hons./Hons. with Research)">BBA(Hons./Hons. with Research)</option>
+                        <option value="B.Sc(Hons.) in Visual Media">B.Sc(Hons.) in Visual Media</option>
+                    </select></td>
+</tr>
+
+                <tr>
+                    <td>Current Year </td><td><input type="text" id="current_year" name="year"></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year </td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
+                </tr>
+                <tr>
+                    <td>Current Arrears </td><td><input type="text" id="current_arrears" name="current_arrears"></td>
+                </tr>
+                <tr>
+                    <td>CGPA </td><td><input type="number" id="cgpa" name="cgpa"></td>
+                </tr>
+            </table>
+            <br>
+            <table>
+                <th>12th Details</th>
+                <tr>
+                    <td>School Name </td><td><input type="text" id="school_name_twelfth" name="school_name_twelfth"></td>
+                </tr>
+                <tr>
+                    <td>Board </td><td><input type="text" id=board_twelfth name="board_twelfth"></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year </td><td><input type="text" id=pass_out_year_twelfth name="pass_out_year_twelfth"></td>
+                </tr>
+                <tr>
+                    <td>Percentage </td><td><input type="text" id=percentage_twelfth name="percentage_twelfth"></td>
+                </tr>
+            </table>
+            <br>
+            <table>
+                <th>10th Details</th>
+                <tr>
+                    <td>School Name </td><td><input type="text" id="school_name_tenth" name="school_name_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Board </td><td><input type="text" id=board_tenth name="board_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year </td><td><input type="text" id=pass_out_year_tenth name="pass_out_year_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Percentage </td><td><input type="text" id=percentage_tenth name="percentage_tenth"></td>
+                </tr>
+            </table>
+            <div class="button-container">
+              
+              <button type="submit">SAVE</button>
+          </div>
+        </form>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.details').forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function setActiveTab(event) {
+            document.querySelectorAll('.menu a').forEach(item => item.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        document.querySelectorAll('.menu a').forEach(item => {
+            item.addEventListener('click', setActiveTab);
+        });
+    </script>
 
    
 
