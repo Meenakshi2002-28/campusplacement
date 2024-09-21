@@ -1,3 +1,41 @@
+<?php
+session_start(); // Start the session to access session variables
+
+// Assuming you have already set the user_id or email in the session during login
+if (isset($_SESSION['user_id'])) {
+    $servername = "localhost";
+    $db_username = "root"; // MySQL username
+    $db_password = ""; // MySQL password
+    $dbname = "campus_placement"; // Replace with your database name
+
+    // Create connection
+    $conn = new mysqli($servername, $db_username, $db_password, $dbname);
+
+    // Check the connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    } // Make sure this file contains your DB connection code
+
+    // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id'];
+
+    // Prepare and execute a SQL query to fetch the user's name
+    $query = "SELECT name FROM student WHERE user_id = ?";
+    
+    // Using prepared statements to prevent SQL injection
+    if ($stmt = $conn->prepare($query)) {
+        $stmt->bind_param("s", $user_id); // Assuming user_id is an integer
+        $stmt->execute();
+        $stmt->bind_result($name);
+        $stmt->fetch();
+        $stmt->close();
+    }
+} else {
+    // If no session is set, redirect to the login page
+    header("Location: login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,11 +112,13 @@
     <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
     <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
     <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
-    <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+    <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
     <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+    <a href="../logout.php">Logout</a>
+
 </div>
 <div class="main-content">
-    <h1>Welcome, Meenakshi B</h1>
-</div>
+        <h1>Welcome, <?php echo htmlspecialchars($name); ?></h1>
+    </div>
 </body>
 </html>

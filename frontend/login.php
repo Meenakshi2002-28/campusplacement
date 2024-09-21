@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($db_role == 'admin') {
                     header('Location: Admin_Side/dashboard_admin.html');
                 } elseif ($db_role == 'student') {
-                    header('Location: Student_Side/dashboard_std.html');
+                    header('Location: Student_Side/dashboard_std.php');
                 } else {
                     echo "Invalid role.";
                 }
