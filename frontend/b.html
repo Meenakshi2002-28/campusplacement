@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fcf6f6;
+}
+
+.forgot-password-container {
+    display: flex;
+    align-items: center;
+    padding-left: 350px;
+}
+
+.forgot-password-box {
+    background-color: #281f63; /* Purple background */
+    color: white;
+    border-radius: 30px;
+    padding: 50px;
+    text-align: center;
+    width: 400px;
+    height: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.forgot-password-box h1 {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+
+.forgot-password-box p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.forgot-password-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+.forgot-password-box button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.forgot-password-box button:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.back-to-login {
+    display: block;
+    margin-top: 20px;
+    color: #f8f8f8;
+    text-decoration: none;
+}
+
+.back-to-login:hover {
+    color: #050505;
+}
+
+.illustration {
+            flex-grow: 1;
+            display:flex;
+            justify-content:left;
+            align-items:flex;
+            border-spacing:5mm;
+            padding-block:10px;
+        }
+
+    .illustration img {
+            width: 380px;
+            height:450px;
+            padding-top:200px;
+            padding-right: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <center>
+    <div class="forgot-password-container">
+        <div class="forgot-password-box">
+            <h1>Forgot your password?</h1>
+            <p>Please enter your E-mail ID to get instructions to reset your password</p>
+            <form action="#" method="POST">
+                <input type="email" placeholder="Email Address" required>
+                <button type="submit">SUBMIT</button>
+            </form>
+            <a href="#" class="back-to-login">← Back to Login</a>
+        </div>
+        <div class="illustration">
+            <img src="images/password.png" alt="Illustration">
+        </div>
+    </div>
+    </center>
+</body>
+</html>
