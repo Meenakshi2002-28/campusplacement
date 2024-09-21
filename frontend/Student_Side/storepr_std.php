@@ -302,6 +302,7 @@ img {
         <div class="menu">
             <a href="#" onclick="showSection('personal')" class="active">Personal Details</a>
             <a href="#" onclick="showSection('academic')">Academic Details</a>
+            <a href="#" onclick="showSection('resume')">Resume</a>
             
         </div>
     </div>
@@ -477,11 +478,23 @@ img {
           </div>
         </form>
     </div>
+     <!-- Resume Section -->
+     <div id="resume" class="details">
+        <h2>Resume</h2>
+        <p>Upload your resume here.</p>
+        <form action="upload_resume.php" method="POST" enctype="multipart/form-data">
+        <input type="file" id="resume_file" name="resume_file">
+        <div class="button-container">
+            <button type="submit">SAVE</button>
+        </div>
+    </form>
+    </div>
 
     <script>
         function showSection(sectionId) {
             document.querySelectorAll('.details').forEach(section => section.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
+            
         }
 
         function setActiveTab(event) {
