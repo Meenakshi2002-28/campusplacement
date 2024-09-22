@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+    
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .sidebar {
+        width: 198px;
+        height: 610px;
+        position: fixed;
+        left: 10px;
+        top: 85px;
+        background-color: #2F5597;
+        color: white;
+        padding: 10px;
+    }
+
+    .sidebar a {
+        text-decoration: none;
+        color: white;
+        display: block;
+        padding: 15px; /* Adjust padding for better alignment */
+        font-size: 22px; /* Smaller font size */
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
+
+    .sidebar a:hover {
+        border-left: 3px solid #ffffff;
+        background: #1e165f;
+    }
+    .logout a{
+        font-size: 20px;
+        margin-top: 210px;
+    }
+    .main-content {
+        margin-left: 220px; /* Adjust left margin */
+        padding: 50px;
+        font-size: 18px; /* Larger font size for main content */
+        padding-top: 15px;
+    }
+
+    img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
+    .container {
+        padding: 5px;
+        display: flex;
+        justify-content: flex-end; /* Aligns children to the right */
+        align-items: center; /* Vertically centers the images */
+        cursor: pointer;
+    }
+    .icon {
+        margin-left: 1px; /* Adds spacing between the icons */
+    }
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2F5597;
+    min-width: 150px;
+    z-index: 1;
+    top: 55px; /* Adjust this value as needed */
+    border-radius: 3px;
+
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #1e165f;
+    color: white;
+    border-radius: 3px;
+}
+.company-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 10px;
+}
+
+.company-card {
+    background-color: #ffffff;
+    border: 1px solid #aaaaaa;
+    padding: 20px;
+    border-radius: 50px;
+    font-size: 16px;
+}
+.company-card img{
+    align-items: center;
+}
+.search {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin: 0; /* Removes default margin */
+}
+
+.search-bar {
+    margin: 0;
+}
+
+#companySearch {
+    width: 250px; /* Fixed width or adjust as needed */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+
+        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>    
+
+<div class="sidebar">
+    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+    <a href="#profile"><i class="fa fa-fw fa-user"></i> Profile</a>
+    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
+</div>
+<div class="main-content">
+    <div class="search">
+        <h2>Companies</h2>
+        <div class="search-bar">
+            <input type="text" id="companySearch" placeholder="Search..." onkeyup="filterCompanies()">
+        </div>
+    </div>
+        <div class="company-info">
+            <div class="company-card">
+                <img src="../images/company_logo/infosys.png" alt="Infosys">
+                <h3>Infosys</h3>
+                <p>Infosys Limited is an Indian multinational information technology company that offers business consulting, information technology, and outsourcing services.</p>
+            </div>
+            <div class="company-card">
+                <img src="../images/company_logo/tcs.png" alt="Tata Consultancy Services">
+                <h3>Tata Consultancy Services (TCS)</h3>
+                <p>Tata Consultancy Services is an Indian multinational corporation specializing in information technology services and consulting.</p>
+            </div>
+            <div class="company-card">
+                <img src="../images/company_logo/cisco.png" alt="Cisco">
+                <h3>Cisco</h3>
+                <p>Cisco Systems, Inc. is an American multinational digital communications technology conglomerate corporation headquartered in San Jose, California.</p>
+            </div>
+            <div class="company-card">
+                <img src="../images/company_logo/wipro.png" alt="Wipro">
+                <h3>Wipro</h3>
+                <p>Wipro Limited is an Indian multinational corporation that provides information technology, consulting and business process services.</p>
+            </div>
+            <div class="company-card">
+                <img src="../images/company_logo/LTImindtree.png" alt="LTIMindtree">
+                <h3>LTIMindtree</h3>
+                <p>LTIMindtree Limited is an Indian multinational IT services and consulting company that helps enterprises innovate, grow and transform using digital technologies.</p>
+            </div>
+            <div class="company-card">
+                <img src="../images/company_logo/Deloitte.png" alt="Deloitte">
+                <h3>Deloitte</h3>
+                <p>Deloitte Touche Tohmatsu Limited known as Deloitte is a multinational professional services network offering top-tier audit, consulting, tax and advisory services to leading global brands.</p>
+            </div>
+            <div class="company-card">
+                <img src="../images/company_logo/accenture.png" alt="Accenture">
+                <h3>Accenture</h3>
+                <p>Accenture plc is a global professional services company, headquartered in Dublin, specializing in IT services and consulting across industries like communications, financial services, health and consumer products.</p>
+            </div>
+            <div class="company-card">
+                <img src="../images/company_logo/intel.png" alt="Intel">
+                <h3>Intel Corporation</h3>
+                <p>Intel Corporation is an American multinational technology company, headquartered in Santa Clara, California, that designs, manufactures and sells computer components for business and consumer markets.</p>
+            </div>
+            <div class="company-card">
+                <img src="../images/company_logo/cognizant.jpg" alt="Wipro">
+                <h3>Cognizant</h3>
+                <p>Cognizant Technology Solutions Corporation is an American multinational information technology services and consulting company.</p>
+            </div>
+        </div>
+</div>
+<script>
+
+    // Change profile image
+    function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+            };
+            reader.readAsDataURL(file); // Read the image file
+        }
+    }
+    let dropdownOpen = false;
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdownOpen = !dropdownOpen;
+        dropdown.style.display = dropdownOpen ? "block" : "none";
+    }
+
+    function goToProfile() {
+        showSection('personal'); // Redirect to profile section
+        toggleDropdown(); // Close the dropdown after redirection
+    }
+
+    //Search Company
+    function filterCompanies() {
+        let input = document.getElementById('companySearch');
+        let filter = input.value.toUpperCase();
+        let companyInfo = document.querySelector('.company-info');
+        let cards = companyInfo.getElementsByClassName('company-card');
+    
+        for (let i = 0; i < cards.length; i++) {
+            let title = cards[i].getElementsByTagName('h3')[0];
+            if (title.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+
+</script>
+</body>
+</html>
