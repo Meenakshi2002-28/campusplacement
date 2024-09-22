@@ -36,6 +36,11 @@
         border-left: 3px solid #ffffff;
         background: #1e165f;
     }
+    .logout a{
+        font-size: 20px;
+        margin-top: 160px;
+        text-align: center;
+    }
     .main-content {
         margin-left: 220px; 
         padding: 50px;
@@ -65,7 +70,6 @@
             
     .job-form-container h2 {
             margin-bottom: 30px;
-            text-align: center;
             color:black;
             font-weight: 600;      
     }
@@ -73,11 +77,12 @@
     .job-form {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 10px;
      }
 
      .job-form label {
             font-weight:0;
+            padding: 10px;
      }
 
     .job-form input[type="text"], 
@@ -85,13 +90,15 @@
         .job-form input[type="date"],
         .job-form select {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            margin-left: -60px;
      }
 
     .job-form input[type="radio"] {
-            margin-right: 5px;
+            margin-right: 3px;
+            margin-left:1px;
     }
 
     .job-form textarea {
@@ -103,22 +110,23 @@
             resize: none;
             height: 100px;
             font-family: Arial, Helvetica, sans-serif;
-
+            margin-left: -60px;
         }
 
     .job-form input[type="submit"] {
             grid-column:span 1;
-            padding: 10px;
+            padding: 10px 25px;
             background-color: #27428f;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-left: 350px;
+            margin-left: 400px;
+            font-size: 18px;
         }
 
     .job-form input[type="submit"]:hover {
-            background-color: #0f2552;
+            background-color: #1e165f;
         }
 
     img {
@@ -135,15 +143,43 @@
     .icon {
         margin-left: 1px; 
     }
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2F5597;
+    min-width: 150px;
+    z-index: 1;
+    top: 55px; /* Adjust this value as needed */
+    border-radius: 3px;
+}
 
-    
+    .dropdown-content a {
+        color: white;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #1e165f;
+        color: white;
+        border-radius: 3px;
+    }
+ 
 </style>
 </head>
 <body>
 <div class="container">
-    <img src="../images/profile.png" alt="Profile Icon" class="icon">
-    <img src="../images/down_arrow.png" alt="Expand Arrow" class="icon">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+
+        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Admin_Side/profile_admin.html"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
 </div>
+
 <div class="sidebar">
     <a href="#home"><i class="fas fa-home"></i> Home</a>
     <a href="#jobs"><i class="fas fa-briefcase"></i> Jobs</a>
@@ -152,111 +188,150 @@
     <a href="#company"><i class="fas fa-building"></i> Company</a>
     <a href="#profile"><i class="fas fa-user"></i> Profile</a>
     <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
 </div>
+
 <div class="main-content">
     <div class="job-form-container">
         <h2>New Job Creation</h2>
         <form class="job-form">
-            <label for="title">Title:</label>
+            <label for="title">Title </label>
             <input type="text" id="title" name="title" placeholder="Enter Job Title">
 
-            <label for="company">Company:</label>
+            <label for="company">Company </label>
             <input type="text" id="company" name="company" placeholder="Enter Company Name">
 
-            <label for="location">Location:</label>
+            <label for="location">Location </label>
             <input type="text" id="location" name="location" placeholder="Enter Job Location">
 
-            <label for="work-mode">Work Mode:</label>
+            <label for="work-mode">Work Mode </label>
             <input type="text" id="work-mode" name="work-mode" placeholder="Remote/On-site">
 
-            <label for="salary">Salary:</label>
+            <label for="salary">Salary </label>
             <input type="number" id="salary" name="salary" placeholder="Enter Salary">
 
-            <label for="deadline">Application Deadline:</label>
+            <label for="deadline">Application Deadline </label>
             <input type="date" id="deadline" name="deadline">
 
-            <label for="type">Type:</label>
+            <label for="type">Type </label>
             <div>
                 <input type="radio" id="job" name="type" value="job" checked>
                 <label for="job">Job</label>
                 <input type="radio" id="internship" name="type" value="internship">
-                <label for="internship">Internship</label>
+                <label for="internship">Internship </label>
             </div>
 
-            <label for="cgpa">Required CGPA:</label>
+            <label for="cgpa">Required CGPA </label>
             <input type="number" id="cgpa" name="cgpa" step="0.01" placeholder="Enter Required CGPA">
 
-            <label for="course">Eligible Courses:</label>
+            <label for="course">Eligible Courses </label>
             <div>
-                <input type="checkbox" id="BCA" name="course" value="BCA">
-                <label for ="BCA">BCA</label>
-                <input type="checkbox" id="BCA DS" name="course" value="BCA DS">
-                <label for ="BCA DS">BCA DS</label>
-                <input type="checkbox" id="i=INT MCA" name="course" value="INT MCA">
-                <label for ="INT MCA">INT MCA</label>
-                <input type="checkbox" id="MCA" name="course" value="MCA">
-                <label for ="MCA">MCA</label>
+                <input type="text" id="selectedOptions" name="selectedOptions" readonly placeholder="Select Eligible Courses">
+                <select name="options[]" id="course" multiple>
+                    <option value="option1">BCA</option>
+                    <option value="option2">B.Com</option>
+                    <option value="option3">BBA</option>
+                    <option value="option4">BA English</option>
+                    <option value="option5">B.Sc Mathematics</option>
+                    <option value="option6">B.des</option>
+                    <option value="option7">B.Sc Visual Media</option>
+                </select>
             </div>    
             
-            <label for="pass-out-year">Pass Out Year:</label>
-            <div>   
-                <input type="checkbox" id="2025" name="year" value="2025">
-                <label for ="2025">2025</label>
-                <input type="checkbox" id="2026" name="year" value="2026">
-                <label for ="2026">2026</label>
-            
+            <label for="pass_out_year">Pass Out Year </label>
+            <div>  
+                <select name="pass_out_year" id="pass_out_year">
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                </select>
             </div>
             
-            
-            <label for="description">Description:</label>
+            <label for="description">Description </label>
             <div>
             <textarea id="description" name="description" placeholder="Enter Job Description"></textarea>
             </div>
             
-            <label for="max-arrears">Maximum Arrears:</label>
-            <input type="text" id="max-arrears">
+            <label for="max-arrears">Maximum Arrears </label>
+            <input type="text" id="max-arrears" placeholder="Enter Maximum Number of Arrears">
+            
+            <label for="gender">Gender </label>
+            <input type="text" id="gender" placeholder="Enter Gender">
             
 
-            
-            <label for="gender">Gender:</label>
-            <input type="text" id="gender">
-            
-
-            <label for="tenth-req">10th Requirement:</label>
-            <input type="text" id="tenth-req">
+            <label for="tenth-req">10th Requirement </label>
+            <input type="text" id="tenth-req" placeholder="Enter 10th Requirement">
             
 
-            <label for="twelfth-req">12th Requirement:</label>
-            <input type="text" id="twelfth-req">
+            <label for="twelfth-req">12th Requirement </label>
+            <input type="text" id="twelfth-req" placeholder="Enter 12th Requirement">
             
 
-            <label for="job-status">Job Status:</label>
-            <input type="text" id="job-status">
+            <label for="job-status">Job Status </label>
+            <input type="text" id="job-status" placeholder="Applications Open/Closed">
             
 
             <h3>Hiring Workflow Rounds</h3>
             <br>
-            <label for="round-1">Round 1:</label>
+            <label for="round-1">Round 1 </label >
             <div>
-            <input type="text" id="round-1">
+            <input type="text" id="round-1" placeholder="Round 1">
             </div>
 
-            <label for="round-2">Round 2:</label>
+            <label for="round-2">Round 2 </label>
             <div>
-            <input type="text" id="round-2">
-            </div>
-            
-            <label for="round-3">Round 3:</label>
-            <div>
-            <input type="text" id="round-3">
+            <input type="text" id="round-2" placeholder="Round 2">
             </div>
             
-
-            <input type="submit" value="Save">
-       
-
+            <label for="round-3">Round 3 </label>
+            <div>
+            <input type="text" id="round-3" placeholder="Round 3">
+            </div>
+            
+            <input type="submit" value="SAVE">
         </form>
     </div>
+    <script>
+
+        // Change profile image
+        function triggerFileInput() {
+                document.getElementById('fileInput').click();
+            }
+    
+        function changeProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+                };
+                reader.readAsDataURL(file); // Read the image file
+            }
+        }
+        let dropdownOpen = false;
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdownOpen = !dropdownOpen;
+            dropdown.style.display = dropdownOpen ? "block" : "none";
+        }
+    
+        function goToProfile() {
+            showSection('personal'); // Redirect to profile section
+            toggleDropdown(); // Close the dropdown after redirection
+        }
+        const selectElement = document.getElementById('course');
+    const selectedOptionsTextBox = document.getElementById('selectedOptions');
+
+    // Add an event listener for when the user selects options
+    selectElement.addEventListener('change', function() {
+      const selectedOptions = Array.from(selectElement.selectedOptions)
+                                   .map(option => option.text); // Get selected option text
+      selectedOptionsTextBox.value = selectedOptions.join(', '); // Show selected options in text box
+    });
+    </script>
 </div>
 </body>
 </html>

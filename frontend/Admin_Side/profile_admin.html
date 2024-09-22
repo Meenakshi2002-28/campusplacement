@@ -37,6 +37,11 @@
     border-left: 3px solid #ffffff;
     background: #1e165f;
 }
+.logout a{
+        font-size: 20px;
+        margin-top: 160px;
+        text-align: center;
+    }
 
 .sub-sidebar {
     width: 205px;
@@ -71,8 +76,9 @@
 .profile img {
     height: 160px;
     width: 140px;
-    padding: 0;
+    padding-top: 40px;
     margin: 0;
+    cursor: pointer;
 }
 
 .text {
@@ -157,6 +163,7 @@ button:hover {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    cursor: pointer;
 }
 
 img {
@@ -167,14 +174,41 @@ img {
 .icon {
     margin-left: 1px;
 }
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2F5597;
+    min-width: 150px;
+    z-index: 1;
+    top: 55px; /* Adjust this value as needed */
+    border-radius: 3px;
+}
 
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #1e165f;
+    color: white;
+    border-radius: 3px;
+    }
 </style>
 </head>
 <body>
-<div class="container">
-    <img src="../images/profile.png" alt="Profile Icon" class="icon">
-    <img src="../images/down_arrow.png" alt="Expand Arrow" class="icon">
-</div>
+    <div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+
+        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Admin_Side/profile_admin.html"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>
 <div class="sidebar">
     <a href="#home"><i class="fas fa-home"></i> Home</a>
     <a href="#jobs"><i class="fas fa-briefcase"></i> Jobs</a>
@@ -183,10 +217,13 @@ img {
     <a href="#company"><i class="fas fa-building"></i> Company</a>
     <a href="#profile"><i class="fas fa-user"></i> Profile</a>
     <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
 </div>
 <div class="sub-sidebar">
     <div class="profile">
-        <img src="../images/Customer.png" alt="profile picture">
+        <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()">
         <div class="text">
             <h4>Niranjana A S</h4>
             <p>Admin</p>
@@ -208,9 +245,39 @@ img {
                 </tr>
             </table>
                 <div class="button-container">
-                    <button type="submit">Save Changes</button>
+                    <button type="submit">SAVE</button>
                 </div>
         </form>
     </div>
+    <script>
+
+        // Change profile image
+        function triggerFileInput() {
+                document.getElementById('fileInput').click();
+            }
+    
+        function changeProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+                };
+                reader.readAsDataURL(file); // Read the image file
+            }
+        }
+        let dropdownOpen = false;
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdownOpen = !dropdownOpen;
+            dropdown.style.display = dropdownOpen ? "block" : "none";
+        }
+    
+        function goToProfile() {
+            showSection('personal'); // Redirect to profile section
+            toggleDropdown(); // Close the dropdown after redirection
+        }
+    </script>
 </body>
 </html>
