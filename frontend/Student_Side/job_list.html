@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job List </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+
+    }
+
+    .sidebar {
+        width: 198px;
+        height: 610px;
+        position: fixed;
+        left: 10px;
+        top: 85px;
+        background-color: #2F5597;
+        color: white;
+        padding: 10px;
+    }
+
+    .sidebar a {
+        text-decoration: none;
+        color: white;
+        display: block;
+        padding: 15px; /* Adjust padding for better alignment */
+        font-size: 22px; /* Smaller font size */
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
+
+    .sidebar a:hover {
+        border-left: 3px solid #ffffff;
+        background: #1e165f;
+    }
+
+    img {
+        height: 40px; 
+        width: auto;
+    }
+    .container {
+        padding: 5px;
+        display: flex;
+        justify-content: flex-end; 
+        align-items: center;
+    }
+    .icon {
+        margin-left: 1px; 
+    }
+   
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: #fff;
+    
+}
+
+
+.tabs {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-left:280px;
+    padding-right:1px;
+}
+
+.tab-button {
+    background-color: #f5f5f5;
+    border: 2px solid #ccc;
+    padding: 5px 15px;
+    border-radius: 50px;
+    margin-right: 50px;
+    margin-left: 0px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.tab-button.active {
+    background-color: #1c4a82;
+    color: white;
+}
+
+.search-bar {
+    flex-grow: 1;
+    padding: 5px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-left: 40px;
+    font-size: 16px;
+}
+
+/* Job table styling */
+.job-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.job-table th, .job-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    padding-left: 200px;
+}
+
+.job-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    color: #333;
+}
+
+.job-table td {
+    font-size: 16px;
+}
+
+.job-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon">
+        <img src="../images/down_arrow.png" alt="Expand Arrow" class="icon">
+</div>
+
+<div class="sidebar">
+    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+    <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+</div>
+<div class="main-content">
+    <!-- Jobs/Internships Tabs -->
+    <div class="tabs">
+        <button class="tab-button active">JOBS</button>
+        <button class="tab-button">INTERNSHIPS</button>
+        <input type="text" class="search-bar" placeholder="Search">
+    </div>
+
+    <!-- Job List Table -->
+    <table class="job-table">
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>TCS Atlas</td>
+                <td>Software Quality Engineer</td>
+                <td>Full Time</td>
+                <td>3.5 LPA</td>
+            </tr>
+            <tr>
+                <td>Cisco Ltd</td>
+                <td>Data Scientist</td>
+                <td>Full Time</td>
+                <td>7 LPA</td>
+            </tr>
+            <tr>
+                <td>Infosys</td>
+                <td>Trainee Consultant</td>
+                <td>Full Time</td>
+                <td>4 LPA</td>
+            </tr>
+            <tr>
+                <td>LTI MindTree</td>
+                <td>Associate Trainee</td>
+                <td>Full Time</td>
+                <td>4.5 LPA</td>
+            </tr>
+            <tr>
+                <td>Wipro</td>
+                <td>Data Analyst</td>
+                <td>Full Time</td>
+                <td>5 LPA</td>
+            </tr>
+            <tr>
+                <td>TCS Ninja</td>
+                <td>Associate Trainee</td>
+                <td>Full Time</td>
+                <td>3.5 LPA</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+</html>
