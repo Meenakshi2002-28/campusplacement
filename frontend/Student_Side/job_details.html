@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+
+    }
+
+    .sidebar {
+        width: 198px;
+        height: 610px;
+        position: fixed;
+        left: 10px;
+        top: 85px;
+        background-color: #2F5597;
+        color: white;
+        padding: 10px;
+    }
+
+    .sidebar a {
+        text-decoration: none;
+        color: white;
+        display: block;
+        padding: 15px; /* Adjust padding for better alignment */
+        font-size: 22px; /* Smaller font size */
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
+
+    .sidebar a:hover {
+        border-left: 3px solid #ffffff;
+        background: #1e165f;
+    }
+
+    img {
+        height: 40px; 
+        width: auto;
+    }
+    .container {
+        padding: 5px;
+        display: flex;
+        justify-content: flex-end; 
+        align-items: center;
+    }
+    .icon {
+        margin-left: 1px; 
+    }
+   
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color:white;
+    padding-left: 250px;
+    
+}
+.job-details {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 30px;
+}
+
+.job-details h2 {
+    margin-top: 0;
+    color:black;
+}
+
+.apply-btn {
+    background-color: #1c4a82;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.apply-btn:hover {
+    background-color: #0e3363;
+    transition: 0.3s;
+}
+
+/* Eligibility section */
+.eligibility-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    
+    
+}
+
+.eligibility-section h3 {
+    margin-top: 0;
+    color: #333;
+}
+.eligibility-1{
+    display:grid;
+    grid-template-columns:repeat(3,50px); /* Three equal-width columns */
+    gap: 30px; /* Spacing between columns */
+    padding-left: 50px;
+    margin-left:70px;
+    column-gap: 280px;
+    row-gap: 10px;
+    
+
+    
+}
+.eligibility-1 label{
+    padding-left:2px;
+    padding-right:0px;
+    text-wrap:balance;
+}
+.form-group {
+    display: inline-block;
+    margin-bottom: 10px; /* Adds space between each row */
+    
+}
+
+.form-group label {
+    display:inline-block;
+    width: 80px; /* Set a fixed width for label */
+    text-align:left;
+    margin-right: 20px; /* Space between label and input */
+    padding-top: 20px;
+    padding-left: 20px;
+    
+
+}
+
+.form-group input {
+    display: inline-block;
+    width: 150px; 
+    
+}
+
+
+form label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-wrap:nowrap;
+    padding-right: 20px;
+    
+
+}
+
+form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color:white;
+    font-size: 16px;
+    width:100%;
+    padding-left: 10px;
+    padding-right: 0;
+    padding:5px;
+    display:inline-block;
+  
+}
+.jobstatus input {
+    background-color:#bdd0e7;
+    border-radius: 10px;
+    border: 1px solid rgb(53, 53, 158) ;
+    width: 220px; /* Increased width slightly */
+    height: 25px; /* Adjust height for better vertical alignment */
+    font-size: 15px;
+    margin-top: 20px;
+    margin-left: 370px;
+    text-align: center; /* Horizontal center */
+    line-height: 40px; /* Vertically centers the text */
+    padding: 0px; /* Remove all padding */
+    box-sizing:content-box; /* Ensure padding doesn't affect width */
+}
+
+
+.jobimg a {
+    display:inline-flexbox;
+    text-decoration: none;
+    color:black;
+    padding: 60px;
+    border-left: 3px solid transparent;
+    
+}
+        .job-description {
+            background-color: white;
+            padding-left: 20px;
+        }
+        .job-description h3{
+            color: black;
+            
+        }
+        .job-description p{
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        /* Hiring workflow section */
+        .workflow-section {
+            background-color:white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            
+        }
+
+        .workflow-section h3 {
+            margin-top: 0;
+            color:black;
+        }
+
+        .workflow-rounds {
+            margin-top: 30px;
+        }
+
+        .workflow-rounds label {
+            font-weight: bold;
+        }
+
+        .workflow-rounds input {
+            margin-bottom: 10px;
+            background-color: white;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        /* Apply button */
+        .apply-btn {
+            background-color: #1C4A82;
+            color: white;
+            padding: 5px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            margin-left:420px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .apply-btn:hover {
+            background-color: #0e3363;
+        }
+
+
+</style>
+</head>
+<body>
+<div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon">
+        <img src="../images/down_arrow.png" alt="Expand Arrow" class="icon">
+</div>
+
+<div class="sidebar">
+    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+    <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+</div>
+<div class="main-content">
+    <div class="job-details">
+        <h2>Software Quality Engineer</h2>
+        <p>TCS Atlas</p>
+    <div class="jobimg">
+        <a href="#location-dot"><i class="fas fa-map-marker-alt"></i>Ernakulam/Trivandrum</a>
+        <a href="#briefacse"><i class="fa fa -fw fa-solid fa-briefcase"></i> Full Time</a>
+        <a href="#indian-rupee-sign"><i class="fas fa-rupee-sign"></i>4.2 LPA</a>
+        <a href="#calendar-days"><i class="fa fa-fw  fa-solid fa-calendar"></i>Sep 2024,16:00</a>
+    </div>
+        <div class="jobstatus">
+           <input type="text"id="jobstatus" value="Job Status:Open for Applications" readonly>
+        </div>
+    </div>
+
+    <!-- Eligibility Section -->
+    <div class="eligibility-section">
+        
+        <form>
+            <div class="eligibility-1">
+            <label for="10th">10th</label>
+            <label for="12th">12th</label>
+            <label for="arrears">Max Current Arrears</label>
+            
+            <input type="text" id="12th" value="60%" readonly>
+            <input type="text" id="10th" value="60%" readonly>
+            <input type="text" id="arrears" value="0" readonly>
+            
+            </div>
+        
+            <div class="form-group">
+            <label for="gender">Gender:</label>
+            <input type="text" id="gender" value="-" readonly>
+            <br>
+
+            
+            <label for="passout-year">Pass Out Year:</label>
+            <input type="text" id="passout-year" value="2025" readonly>
+            <br>
+
+            
+            <label for="course">Course:</label>
+            <input type="text" id="course" value="BCA" readonly>
+            <input type="text" id="specialization" value="BCA (Data Science)" readonly>
+            </div>
+        </form>
+        
+        <div class="job-description">
+            <h3>Description</h3>
+                    <p>
+                        The selected Software QA Engineer will join a world-class software team to plan, manage, execute, 
+                        and report results for all qualification activities for the team. He/She will be an effective team 
+                        player and leader that will be responsible for the quality of all released products. He/She will 
+                        be a strong process advocate with an acute attention to detail and desire to continually improve 
+                        the Qualification process.
+                    </p>
+        </div>
+            <p>
+            <!-- Hiring Workflow Section -->
+            <div class="workflow-section">
+                
+                <h3>Hiring Workflow Rounds</h3>
+    
+                    <div class="workflow-rounds">
+                    <label for="round1">Round 1</label>
+                    <input type="text" id="round1" value="Online Test (Aptitude, Verbal, Technical)" readonly>
+                    
+
+                    <label for="round2">Round 2</label>
+                    <input type="text" id="round2" value="Technical Interview" readonly>
+                    
+                    
+                    <label for="round3">Round 3</label>
+                    <input type="text" id="round3" value="HR Interview" readonly>
+                    
+                    </div>
+    
+                <button class="apply-btn">APPLY</button>
+                
+            </div>
+        </div>
+    </div>
+   </body>
+   </html> 
