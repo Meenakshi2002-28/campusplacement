@@ -29,22 +29,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone_number = $_POST['phone_number'];
-
-    // Handle file upload (profile picture)
-    $photo = '';
+   
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-        $photo = "uploads/" . basename($_FILES['photo']['name']);
-        move_uploaded_file($_FILES['photo']['tmp_name'], $photo);
+        $photo = "../uploads/profile_pictures/" . basename($_FILES['photo']['name']);
+        if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photo)) {
+            die("Error moving uploaded file.");
+        }
+    } else {
+        die("File upload error: " . $_FILES['photo']['error']);
     }
+    
+    // Check the photo path
+    echo "Photo path: " . $photo;
 
-    // Insert or update the admin table
-    $sql = "INSERT INTO admin (name, phone_number, photo, user_id)
-            VALUES (?, ?, ?, ?)
-            ON DUPLICATE KEY UPDATE
-            name = VALUES(name), phone_number = VALUES(phone_number), photo = VALUES(photo)";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $name, $phone_number, $photo, $user_id);
+    // If no photo was uploaded, don't update the photo field
+    if ($photo) {
+        $sql = "INSERT INTO admin (name, phone_number, photo, user_id)
+                VALUES (?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                name = VALUES(name), phone_number = VALUES(phone_number), photo = VALUES(photo)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssss", $name, $phone_number, $photo, $user_id);
+    } else {
+        $sql = "INSERT INTO admin (name, phone_number, user_id)
+                VALUES (?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                name = VALUES(name), phone_number = VALUES(phone_number)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $name, $phone_number, $user_id);
+    }
 
     if ($stmt->execute()) {
         echo "Admin details saved successfully.";
@@ -260,7 +273,7 @@ img {
 <body>
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <input type="file" id="fileInput" name="photo" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
 
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
@@ -282,7 +295,7 @@ img {
 </div>
 <div class="sub-sidebar">
     <div class="profile">
-        <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()">
+        <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" name="photo"onclick="triggerFileInput()">
         <div class="text">
             <h4>Niranjana A S</h4>
             <p>Admin</p>
@@ -291,16 +304,16 @@ img {
 </div>
     <div id="personal" class="details active">
         <h2>Personal Details</h2>
-        <form>
+        <form action="store_admin.php" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td>Name </td><td><input type="text" id="name" name="name"></td>
                 </tr>
                 <tr>
-                    <td>Email </td><td><input type="text" id="name" name="name"></td>
+                    <td>Email </td><td><input type="text" id="email" name="email"></td>
                 </tr>
                 <tr>
-                    <td>Phone No </td><td><input type="text" id="name" name="name"></td>
+                    <td>Phone No </td><td><input type="text" id="phone_number" name="phone_number"></td>
                 </tr>
             </table>
                 <div class="button-container">
