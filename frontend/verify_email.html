@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+        }
+
+        .email-box {
+            background-color: #281f63; /* Purple background */
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            width: 360px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .email-box h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .email-box p{
+            font-size: 14px;
+            padding-bottom: 20px;
+        }
+
+        .email-box form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .email-box input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            position: relative;
+        }
+
+        .email-box input::placeholder {
+            color: #aaa;
+        }
+
+        .email-box button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ffffff;
+            color: #281f63;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .email-box button:hover {
+            background-color: #ffffff;
+        }
+
+        .back-to-login {
+            display: block;
+            margin-top: 20px;
+            color: #f8f8f8;
+            text-decoration: none;
+        }
+
+        .back-to-login:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="email-box">
+        <h1>Verify with your Email</h1>
+        <p>Please check the email address abcderfghijk@gmail.com for instructions to reset the password</p>
+        <form action="#" method="POST">
+            <button type="submit">RESEND MAIL</button>
+        </form>
+        <a href="#" class="back-to-login">← Back to Login</a>
+    </div>
+</body>
+</html>
