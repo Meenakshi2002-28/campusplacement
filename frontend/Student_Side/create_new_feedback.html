@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+    
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .sidebar {
+        width: 198px;
+        height: 610px;
+        position: fixed;
+        left: 10px;
+        top: 85px;
+        background-color: #2F5597;
+        color: white;
+        padding: 10px;
+    }
+
+    .sidebar a {
+        text-decoration: none;
+        color: white;
+        display: block;
+        padding: 15px; /* Adjust padding for better alignment */
+        font-size: 22px; /* Smaller font size */
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
+
+    .sidebar a:hover {
+        border-left: 3px solid #ffffff;
+        background: #1e165f;
+    }
+    .logout a{
+        font-size: 20px;
+        margin-top: 210px;
+    }
+    .main-content {
+        margin-left: 220px; /* Adjust left margin */
+        padding: 50px;
+        font-size: 18px; /* Larger font size for main content */
+        padding-top: 15px;
+    }
+
+    img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
+    .container {
+        padding: 5px;
+        display: flex;
+        justify-content: flex-end; /* Aligns children to the right */
+        align-items: center; /* Vertically centers the images */
+        cursor: pointer;
+    }
+    .icon {
+        margin-left: 1px; /* Adds spacing between the icons */
+    }
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2F5597;
+    min-width: 150px;
+    z-index: 1;
+    top: 55px; /* Adjust this value as needed */
+    border-radius: 3px;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #1e165f;
+    color: white;
+    border-radius: 3px;
+    }
+    .feedback-container {
+    padding: 20px;
+    background-color: #ffffff; /* Light grey background */
+    border-radius: 8px; /* Rounded corners */
+    text-align: center;
+}
+
+.feedback-container {
+    margin-top: 20px; /* Space from the top */
+    padding: 20px;
+    background-color: #ffffff; /* Background color set to white */
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center aligns the text */
+    width: 80%; /* Relative width to adapt better to screen size */
+    margin-left: auto; /* Centers the container */
+    margin-right: auto; /* Centers the container */
+}
+
+.feedback-container h2 {
+    color: #333; /* Dark grey color for the text */
+    margin-bottom: 10px; /* Space below the header */
+    margin-top: 0px;
+}
+
+.feedback-container textarea {
+    width: 90%; /* Percentage width to maintain responsiveness */
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid #ccc; /* Light grey border */
+    border-radius: 4px; /* Rounded corners for the textarea */
+    display: block; /* Ensures it starts on a new line */
+    margin-left: auto; /* Centers the textarea */
+    margin-right: auto; /* Centers the textarea */
+    resize: none; /* Prevents resizing the textarea */
+}
+
+.feedback-container button {
+    background-color: #2F5597; /* Primary color for the button */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* Ensures it starts on a new line */
+    width: 200px; /* Fixed width for consistency */
+    margin-top: 20px; /* Space above the button */
+    margin-left: auto; /* Centers the button */
+    margin-right: auto; /* Centers the button */
+    font-size:16px
+}
+
+.feedback-container button:hover {
+    background-color: #1e165f; /* Slightly darker green */
+}
+.feedback-container .feedback-image {
+    width: 80%; /* Adjust the width as needed */
+    max-width: 350px; /* Ensures it doesn't get too large */
+    height: 300px; /* Maintains the aspect ratio */
+    display: block; /* Makes it a block element */
+    margin-top: 1px; /* Adds space above the image */
+    margin-left: 10px; /* Centers the image */
+    margin-right: auto; /* Centers the image */
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+
+        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>    
+
+<div class="sidebar">
+    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+    <a href="#profile"><i class="fa fa-fw fa-user"></i> Profile</a>
+    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
+</div>
+<div class="main-content">
+    <div class="feedback-container">
+        <h2>Share your thoughts</h2>
+        <textarea id="feedbackText" name="feedback" placeholder="Enter here..." rows="10" cols="50"></textarea>
+        <button onclick="submitFeedback()">SUBMIT</button>
+        <img src="../images/feedback (2).png" alt="Feedback Image" class="feedback-image">
+    </div>
+    
+    
+</div>
+<script>
+
+    // Change profile image
+    function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+            };
+            reader.readAsDataURL(file); // Read the image file
+        }
+    }
+    let dropdownOpen = false;
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdownOpen = !dropdownOpen;
+        dropdown.style.display = dropdownOpen ? "block" : "none";
+    }
+
+    function goToProfile() {
+        showSection('personal'); // Redirect to profile section
+        toggleDropdown(); // Close the dropdown after redirection
+    }
+    function submitFeedback() {
+    var feedback = document.getElementById('feedbackText').value;
+    alert('Feedback submitted: '); // Display feedback for demonstration
+    // Implement AJAX or API call here to submit the feedback to the server
+}
+
+</script>
+</body>
+</html>
+
