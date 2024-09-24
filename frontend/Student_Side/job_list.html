@@ -5,170 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job List </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<style>
-    
-    body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: white;
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
 
-    }
+        .sidebar {
+            width: 198px;
+            height: 610px;
+            position: fixed;
+            left: 10px;
+            top: 85px;
+            background-color: #2F5597;
+            color: white;
+            padding: 10px;
+        }
 
-    .sidebar {
-        width: 198px;
-        height: 610px;
-        position: fixed;
-        left: 10px;
-        top: 85px;
-        background-color: #2F5597;
-        color: white;
-        padding: 10px;
-    }
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            padding: 15px;
+            font-size: 22px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
 
-    .sidebar a {
-        text-decoration: none;
-        color: white;
-        display: block;
-        padding: 15px; /* Adjust padding for better alignment */
-        font-size: 22px; /* Smaller font size */
-        border-left: 3px solid transparent;
-        transition: all 0.3s;
-    }
+        .sidebar a:hover {
+            border-left: 3px solid #ffffff;
+            background: #1e165f;
+        }
 
-    .sidebar a:hover {
-        border-left: 3px solid #ffffff;
-        background: #1e165f;
-    }
+        img {
+            height: 40px;
+            width: auto;
+        }
 
-    img {
-        height: 40px; 
-        width: auto;
-    }
-    .container {
-        padding: 5px;
-        display: flex;
-        justify-content: flex-end; 
-        align-items: center;
-    }
-    .icon {
-        margin-left: 1px; 
-    }
-   
-.main-content {
-    flex-grow: 1;
-    padding: 40px;
-    background-color:white;
-    
-    
-    
-}
+        .container {
+            padding: 5px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
 
+        .icon {
+            margin-left: 1px;
+        }
 
-.tabs {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-left:280px;
-    padding-right:1px;
-    word-break:keep-all;
-}
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            background-color: white;
+        }
 
-.tab-button {
-    background-color: white;
-    border: 1px solid #000000;
-    padding: 0px;
-    border-radius: 50px;
-    margin-right: 50px;
-    margin-left: 0px;
-    cursor: pointer;
-    font-size: 16px;
-    height: 26px;
-    width:130px;
-}
+        .tabs {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-left: 280px;
+            padding-right: 1px;
+            word-break: keep-all;
+        }
 
-.tab-button.active {
-    background-color: #1c4a82;
-    color: white;
-    padding: 0px;
-}
+        .tab-button {
+            background-color: white;
+            border: 1px solid #000000;
+            padding: 0px;
+            border-radius: 50px;
+            margin-right: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            height: 26px;
+            width: 130px;
+        }
 
-.search-bar {
-    flex-grow: 1;
-    padding: 4px;
-    border: 1px solid black;
-    border-radius: 10px;
-    margin-left: 150px;
-    font-size: 16px;
-}
+        .tab-button.active {
+            background-color: #1c4a82;
+            color: white;
+        }
 
-/* Job table styling */
-.job-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+        .search-bar {
+            flex-grow: 1;
+            padding: 4px;
+            border: 1px solid black;
+            border-radius: 10px;
+            margin-left: 150px;
+            font-size: 16px;
+        }
 
-.job-table th, .job-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    padding-left: 200px;
-    
-}
+        .job-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-.job-table th {
-    background-color: #f5f5f5;
-    font-weight: bold;
-    color: #333;
-    border-bottom: 1px solid black;
-}
+        .job-table th, .job-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            padding-left: 200px;
+        }
 
-.job-table td {
-    font-size: 15px;
-    word-break:break-all;
-}
+        .job-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 1px solid black;
+        }
 
-.job-table tr:hover {
-    background-color: #f1f1f1;
-}
-.container {
-        padding: 5px;
-        display: flex;
-        justify-content: flex-end; /* Aligns children to the right */
-        align-items: center; /* Vertically centers the images */
-        cursor: pointer;
-    }
-    .icon {
-        margin-left: 1px; /* Adds spacing between the icons */
-    }
-    .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #2F5597;
-    min-width: 150px;
-    z-index: 1;
-    top: 55px; /* Adjust this value as needed */
-    border-radius: 3px;
-}
+        .job-table td {
+            font-size: 15px;
+            word-break: break-all;
+        }
 
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
+        .job-table tr:hover {
+            background-color: #f1f1f1;
+        }
 
-.dropdown-content a:hover {
-    background-color: #1e165f;
-    color: white;
-    border-radius: 3px;
-    }
-    .logout a{
-        font-size: 20px;
-        margin-top: 210px;
-    }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #2F5597;
+            min-width: 150px;
+            z-index: 1;
+            top: 55px;
+            border-radius: 3px;
+        }
 
-</style>
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1e165f;
+        }
+
+        .logout a {
+            font-size: 20px;
+            margin-top: 210px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -182,107 +163,88 @@
         </div>
     </div> 
 
-<div class="sidebar">
-    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
-    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
-    <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
-    <div class="logout">
-        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
-    </div>
-</div>
-<div class="main-content">
-    <!-- Jobs/Internships Tabs -->
-    <div class="tabs">
-        <button class="tab-button active">JOBS</button>
-        <button class="tab-button">INTERNSHIPS</button>
-        <input type="text" class="search-bar" placeholder="Search">
+    <div class="sidebar">
+        <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+        <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
     </div>
 
-    <!-- Job List Table -->
-    <table class="job-table">
-        <thead>
-            <tr>
-                <th>Company</th>
-                <th>Title</th>
-                <th>Type</th>
-                <th>Salary</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>TCS Atlas</td>
-                <td>Software Quality Engineer</td>
-                <td>Full Time</td>
-                <td>3.5 LPA</td>
-            </tr>
-            <tr>
-                <td>Cisco Ltd</td>
-                <td>Data Scientist</td>
-                <td>Full Time</td>
-                <td>7 LPA</td>
-            </tr>
-            <tr>
-                <td>Infosys</td>
-                <td>Trainee Consultant</td>
-                <td>Full Time</td>
-                <td>4 LPA</td>
-            </tr>
-            <tr>
-                <td>LTI MindTree</td>
-                <td>Associate Trainee</td>
-                <td>Full Time</td>
-                <td>4.5 LPA</td>
-            </tr>
-            <tr>
-                <td>Wipro</td>
-                <td>Data Analyst</td>
-                <td>Full Time</td>
-                <td>5 LPA</td>
-            </tr>
-            <tr>
-                <td>TCS Ninja</td>
-                <td>Associate Trainee</td>
-                <td>Full Time</td>
-                <td>3.5 LPA</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-</div>
-<script>
+    <div class="main-content">
+        <div class="tabs">
+            <button class="tab-button active">JOBS</button>
+            <button class="tab-button">INTERNSHIPS</button>
+            <input type="text" class="search-bar" placeholder="Search" id="searchInput" onkeyup="filterJobs()">
+        </div>
 
-    // Change profile image
-    function triggerFileInput() {
-            document.getElementById('fileInput').click();
+        <!-- Job List Table -->
+        <table class="job-table" id="jobTable">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody id="jobTableBody">
+                <!-- Jobs will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetch job data from the server
+        async function fetchJobs() {
+            try {
+                const response = await fetch('get_jobs.php'); // Example API endpoint
+                const jobs = await response.json(); // Assuming JSON response
+
+                const jobTableBody = document.getElementById('jobTableBody');
+                jobTableBody.innerHTML = ''; // Clear existing table rows
+
+                jobs.forEach(job => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${job.company}</td>
+                        <td>${job.title}</td>
+                        <td>${job.type}</td>
+                        <td>${job.salary}</td>
+                    `;
+                    jobTableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching jobs:', error);
+            }
         }
 
-    function changeProfilePicture(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
-                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
-            };
-            reader.readAsDataURL(file); // Read the image file
-        }
-    }
-    let dropdownOpen = false;
-    function toggleDropdown() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdownOpen = !dropdownOpen;
-        dropdown.style.display = dropdownOpen ? "block" : "none";
-    }
+        // Filter jobs based on the search input
+        function filterJobs() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#jobTable tbody tr');
 
-    function goToProfile() {
-        showSection('personal'); // Redirect to profile section
-        toggleDropdown(); // Close the dropdown after redirection
-    }
-</script>
-</body>
-</html>
+            rows.forEach(row => {
+                const cells = row.getElementsByTagName('td');
+                const company = cells[0].textContent.toLowerCase();
+                const title = cells[1].textContent.toLowerCase();
+                const type = cells[2].textContent.toLowerCase();
+                const salary = cells[3].textContent.toLowerCase();
+
+                if (company.includes(searchValue) || title.includes(searchValue) || type.includes(searchValue) || salary.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize the job list on page load
+        document.addEventListener('DOMContentLoaded', fetchJobs);
+    </script>
 </body>
 </html>
