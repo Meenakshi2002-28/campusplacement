@@ -1,11 +1,18 @@
 <?php
-// Database connection
-$host = 'localhost'; // your database host
-$db = 'your_database'; // your database name
-$user = 'your_username'; // your database username
-$pass = 'your_password'; // your database password
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-$conn = new mysqli($host, $user, $pass, $db);
+// Load Composer's autoloader if PHPMailer is installed via Composer
+require '../vendor/autoload.php';
+
+// Database connection
+$servername = "localhost";
+$username = "root"; // Update with your database username
+$password = "";     // Update with your database password
+$dbname = "campus_placement"; // Update with your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
@@ -23,26 +30,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Generate a unique token for the password reset link
-        $token = bin2hex(random_bytes(50));
+         // Generate a unique token for the password reset link
+         $token = bin2hex(random_bytes(50));
         
-        // Store the token in the database (optional: store expiration time)
-        $stmt = $conn->prepare("UPDATE login SET reset_token = ? WHERE email = ?");
-        $stmt->bind_param("ss", $token, $email);
-        $stmt->execute();
+         // Set token expiration time (e.g., 1 hour from now)
+         date_default_timezone_set('Asia/Kolkata');
+         $expiresAt = date("Y-m-d H:i:s", strtotime('+1 hour'));
+ 
+         // Update the database with the reset token and expiration time
+         $stmt = $conn->prepare("UPDATE login SET reset_token_hash = ?, reset_token_expires_at = ? WHERE email = ?");
+         $stmt->bind_param("sss", $token, $expiresAt, $email);
+         $stmt->execute();
 
         // Create the reset link
-        $resetLink = "http://yourwebsite.com/reset_password.php?token=" . $token;
+        $resetLink = "http://localhost/campus_placement/frontend/new_password.php?token=" . $token;
 
-        // Send email with the reset link
-        $subject = "Password Reset Request";
-        $message = "Please click the link below to reset your password:\n\n" . $resetLink;
-        $headers = "From: no-reply@yourwebsite.com\r\n";
+        // Send email with PHPMailer
+        $mail = new PHPMailer(true);
 
-        if (mail($email, $subject, $message, $headers)) {
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com'; // Google SMTP server
+            $mail->SMTPAuth = true;
+            $mail->Username = 'meenakshiasas45@gmail.com'; // Your Gmail address
+            $mail->Password = 'xpxr ottm oljg aine'; // Your app-specific password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port = 465; // Port for SSL (465)
+
+            // Recipients
+            $mail->setFrom('no-reply@yourwebsite.com', 'Your Website');
+            $mail->addAddress($email); // Add recipient
+
+            // Content
+            $mail->isHTML(true); // Set email format to HTML
+            $mail->Subject = 'Password Reset Request';
+            $mail->Body = "Please click the link below to reset your password:<br><br><a href='" . $resetLink . "'>Reset Password</a>";
+            $mail->AltBody = "Please click the link below to reset your password:\n\n" . $resetLink;
+
+            $mail->send();
             echo "An email has been sent to $email with a link to reset your password.";
-        } else {
-            echo "Failed to send email.";
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     } else {
         echo "No account found with that email address.";
@@ -53,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
 
 
 <!DOCTYPE html>
@@ -165,8 +195,8 @@ body {
         <div class="forgot-password-box">
             <h1>Forgot your password?</h1>
             <p>Please enter your E-mail ID to get instructions to reset your password</p>
-            <form action="#" method="POST">
-                <input type="email" placeholder="Email Address" required>
+            <form action="forgot_password.php" method="POST">
+                <input type="email"  name="email"  placeholder="Email Address" required>
                 <button type="submit">SUBMIT</button>
             </form>
             <a href="#" class="back-to-login">← Back to Login</a>
