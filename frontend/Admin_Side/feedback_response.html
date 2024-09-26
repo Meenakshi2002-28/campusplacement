@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Recruitment System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .sidebar {
+        width: 198px;
+        height: 610px;
+        position: fixed;
+        left: 10px;
+        top: 85px;
+        background-color: #2F5597;
+        color: white;
+        padding: 10px;
+    }
+
+    .sidebar a {
+        text-decoration: none;
+        color: white;
+        display: block;
+        padding: 15px; /* Adjust padding for better alignment */
+        font-size: 22px; /* Smaller font size */
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
+
+    .sidebar a:hover {
+        border-left: 3px solid #ffffff;
+        background: #1e165f;
+    }
+
+    .logout a{
+        font-size: 20px;
+        margin-top: 160px;
+    }
+
+    .main-content {
+        margin-left: 220px; /* Adjust left margin */
+        padding: 50px;
+        font-size: 18px; /* Larger font size for main content */
+        padding-top: 15px;
+    }
+
+    img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
+    .container {
+        padding: 5px;
+        display: flex;
+        justify-content: flex-end; /* Aligns children to the right */
+        align-items: center; /* Vertically centers the images */
+        cursor: pointer;
+    }
+    .icon {
+        margin-left: 1px; /* Adds spacing between the icons */
+    }
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2F5597;
+    min-width: 150px;
+    z-index: 1;
+    top: 55px; /* Adjust this value as needed */
+    border-radius: 3px;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #1e165f;
+    color: white;
+    border-radius: 3px;
+    }
+    .response-container {
+        align-items: center;
+     /* Aligns with the rest of the content */
+    padding: 20px;
+}
+
+.feedback-response {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.feedback-response h2 {
+    color: #333;
+}
+
+.feedback-response p {
+    color: #666;
+    line-height: 1.5;
+}
+
+textarea {
+    width: 90%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-top: 10px;
+    resize: none;
+}
+
+button {
+    background-color: #1e165f; /* Primary color for the button */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* Ensures it starts on a new line */
+    width: 150px; /* Fixed width for consistency */
+    margin-top: 20px; /* Space above the button */
+    margin-left: auto; /* Centers the button */
+    margin-right: auto; /* Centers the button */
+    font-size:16px
+}
+
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+
+        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Admin_Side/profile_admin.html"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>  
+
+<div class="sidebar">
+    <a href="#home"><i class="fas fa-home"></i> Home</a>
+    <a href="#jobs"><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="#company"><i class="fas fa-building"></i> Company</a>
+    <a href="store_admin.php"><i class="fas fa-user"></i> Profile</a>
+    <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
+</div>
+<div class="main-content">
+    <div class="response-container">
+        <div class="feedback-response">
+            <h2>Jesine Maria Wilson</h2>
+            <p>I could upload my resume, update my profile, and see all the important dates and deadlines in one place. It saved me a lot of time and effort.</p>
+            <textarea id="responseText" placeholder="Enter Your Response Here...." rows="10" cols="50"></textarea>
+            <button onclick="submitResponse()">SUBMIT</button>
+        </div>
+    </div>
+    
+</div>
+<script>
+
+    // Change profile image
+    function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+            };
+            reader.readAsDataURL(file); // Read the image file
+        }
+    }
+    let dropdownOpen = false;
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdownOpen = !dropdownOpen;
+        dropdown.style.display = dropdownOpen ? "block" : "none";
+    }
+
+    function goToProfile() {
+        showSection('personal'); // Redirect to profile section
+        toggleDropdown(); // Close the dropdown after redirection
+    }
+    function submitResponse() {
+    var responseText = document.getElementById('responseText').value;
+    if (responseText === "") {
+        alert("Please enter a response before submitting.");
+    } else {
+        // Assume an AJAX call here to submit the response to the server
+        alert("Response submitted: " + responseText);
+        // Optionally clear the textarea after submission
+        document.getElementById('responseText').value = "";
+    }
+}
+
+</script>
+</body>
+</html>
