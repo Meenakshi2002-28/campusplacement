@@ -1,12 +1,12 @@
 <?php
 // Database connection
-$servername = "localhost"; // Change if necessary
-$username = "your_username"; // Your database username
-$password = "your_password"; // Your database password
-$dbname = "campus_placement"; // Your database name
+$servername = "localhost"; // Change to your server name
+$username = "root";        // Change to your database username
+$password = "";            // Change to your database password
+$dbname = "campus_placement"; // Change to your database name
 
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -25,15 +25,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cgpa = (float)$_POST['cgpa'];
     $pass_out_year = (int)$_POST['pass_out_year'];
     $description = $conn->real_escape_string($_POST['description']);
-    $max_arrears = (int)$_POST['max-arrears'];
-    $gender = $conn->real_escape_string($_POST['gender']);
-    $tenth_req = (int)$_POST['tenth-req'];
-    $twelfth_req = (int)$_POST['twelfth-req'];
-    $job_status = $conn->real_escape_string($_POST['job-status']);
-    $round_1 = $conn->real_escape_string($_POST['round-1']);
-    $round_2 = $conn->real_escape_string($_POST['round-2']);
-    $round_3 = $conn->real_escape_string($_POST['round-3']);
-    
+    $max_arrears = isset($_POST['max-arrears']) ? (int)$_POST['max-arrears'] : 0; // Handle undefined key
+    $gender = isset($_POST['gender']) ? $conn->real_escape_string($_POST['gender']) : ''; // Handle undefined key
+    $tenth_req = isset($_POST['tenth-req']) ? (int)$_POST['tenth-req'] : 0; // Handle undefined key
+    $twelfth_req = isset($_POST['twelfth-req']) ? (int)$_POST['twelfth-req'] : 0; // Handle undefined key
+    $job_status = isset($_POST['job-status']) ? $conn->real_escape_string($_POST['job-status']) : ''; // Handle undefined key
+    $round_1 = isset($_POST['round-1']) ? $conn->real_escape_string($_POST['round-1']) : ''; // Handle undefined key
+    $round_2 = isset($_POST['round-2']) ? $conn->real_escape_string($_POST['round-2']) : ''; // Handle undefined key
+    $round_3 = isset($_POST['round-3']) ? $conn->real_escape_string($_POST['round-3']) : ''; // Handle undefined key
+    var_dump($_POST['deadline']);
+    if (!empty($_POST['deadline'])) {
+        $deadline = date('Y-m-d', strtotime($_POST['deadline'])); // Ensure correct date format
+    } else {
+        $deadline = null; // Handle empty deadline case if necessary
+    }
     // Handle eligible courses
     if (isset($_POST['options'])) {
         $selected_courses = $_POST['options'];
@@ -49,25 +54,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssiissiiisssssss", $company, $title, $location, $work_mode, 
+    $stmt->bind_param("ssssisdiissiissss", $company, $title, $location, $work_mode, 
                       $salary, $deadline, $cgpa, $max_arrears, $pass_out_year, 
                       $description, $gender, $tenth_req, $twelfth_req, 
                       $job_status, $round_1, $round_2, $round_3);
     
+    // Execute the job insertion
     if ($stmt->execute()) {
-        $job_id = $stmt->insert_id; // Get the inserted job ID
-        
+        // Get the last inserted job_id
+        $job_id = $conn->insert_id;
+
+        // Now, insert course_ids into Job_Course table
         // Insert into Job_Course table
-        foreach ($selected_courses as $course_id) {
-            $course_id = (int)$course_id; // Ensure the course ID is an integer
-            
-            $sql = "INSERT INTO Job_Course (job_id, course_id) VALUES (?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ii", $job_id, $course_id);
-            $stmt->execute();
-        }
+foreach ($selected_courses as $courseName) {
+    // Fetch course_id from Course table
+    $courseQuery = "SELECT course_id FROM course WHERE course_name = ?";
+    $courseStmt = $conn->prepare($courseQuery);
+    $courseStmt->bind_param("s", $courseName);
+    $courseStmt->execute();
+    $courseResult = $courseStmt->get_result();
+
+    if ($courseResult->num_rows > 0) {
+        $courseRow = $courseResult->fetch_assoc();
+        $course_id = $courseRow['course_id'];
+
+        // Insert into Job_Course table
+        $jobCourseSql = "INSERT INTO job_course (job_id, course_id) VALUES (?, ?)";
+        $jobCourseStmt = $conn->prepare($jobCourseSql);
+        $jobCourseStmt->bind_param("ii", $job_id, $course_id);
         
-        echo "Job created successfully!";
+        if (!$jobCourseStmt->execute()) {
+            echo "Error inserting into Job_Course: " . $jobCourseStmt->error; // Log error
+        }
+    } else {
+        echo "No matching course found for: " . $courseName; // Log no match found
+    }
+
+    $courseStmt->close();
+}
+
+
+        echo "Job and eligible courses have been successfully added.";
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -77,6 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -310,9 +338,9 @@ $conn->close();
             <div>
                 <input type="text" id="selectedOptions" name="selectedOptions" readonly placeholder="Select Eligible Courses">
                 <select name="options[]" id="course" multiple>
-                    <option value="option1">BCA</option>
+                    <option value="BCA">BCA</option>
                     <option value="option2">B.Com</option>
-                    <option value="option3">BBA</option>
+                    <option value="BBA">BBA</option>
                     <option value="option4">BA English</option>
                     <option value="option5">B.Sc Mathematics</option>
                     <option value="option6">B.des</option>
@@ -335,39 +363,39 @@ $conn->close();
             </div>
             
             <label for="max-arrears">Maximum Arrears </label>
-            <input type="text" id="max-arrears" placeholder="Enter Maximum Number of Arrears">
+            <input type="text" id="max-arrears"name="max-arrears" placeholder="Enter Maximum Number of Arrears">
             
             <label for="gender">Gender </label>
-            <input type="text" id="gender" placeholder="Enter Gender">
+            <input type="text" id="gender" name="gender"placeholder="Enter Gender">
             
 
             <label for="tenth-req">10th Requirement </label>
-            <input type="text" id="tenth-req" placeholder="Enter 10th Requirement">
+            <input type="text" id="tenth-req" name="tenth-req"placeholder="Enter 10th Requirement">
             
 
             <label for="twelfth-req">12th Requirement </label>
-            <input type="text" id="twelfth-req" placeholder="Enter 12th Requirement">
+            <input type="text" id="twelfth-req" name="twelfth-req"  placeholder="Enter 12th Requirement">
             
 
             <label for="job-status">Job Status </label>
-            <input type="text" id="job-status" placeholder="Applications Open/Closed">
+            <input type="text" id="job-status" name="job-status"placeholder="Applications Open/Closed">
             
 
             <h3>Hiring Workflow Rounds</h3>
             <br>
             <label for="round-1">Round 1 </label >
             <div>
-            <input type="text" id="round-1" placeholder="Round 1">
+            <input type="text" id="round-1" name="round-1" placeholder="Round 1">
             </div>
 
             <label for="round-2">Round 2 </label>
             <div>
-            <input type="text" id="round-2" placeholder="Round 2">
+            <input type="text" id="round-2" name="round-2" placeholder="Round 2">
             </div>
             
             <label for="round-3">Round 3 </label>
             <div>
-            <input type="text" id="round-3" placeholder="Round 3">
+            <input type="text" id="round-3" name="round-3" placeholder="Round 3">
             </div>
             
             <input type="submit" value="SAVE">

@@ -1,47 +1,3 @@
-<?php
-// Database connection parameters
-$servername = "localhost"; // or your server name
-$username = "your_username"; // your database username
-$password = "your_password"; // your database password
-$dbname = "your_database_name"; // your database name
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Fetch job data from the database
-$query = "SELECT company_name, job_title, work_environment, salary FROM job";
-$result = $conn->query($query);
-
-$jobs = array();
-
-if ($result->num_rows > 0) {
-    // Fetch each row and add to the jobs array
-    while ($row = $result->fetch_assoc()) {
-        $jobs[] = array(
-            'company' => $row['company_name'], // Company
-            'title' => $row['job_title'],      // Title
-            'type' => $row['work_environment'], // Type
-            'salary' => $row['salary']          // Salary
-        );
-    }
-} else {
-    // No jobs found
-    $jobs = [];
-}
-
-// Set the content type to JSON and return the jobs data
-header('Content-Type: application/json');
-echo json_encode($jobs);
-
-// Close the database connection
-$conn->close();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,26 +44,12 @@ $conn->close();
             width: auto;
         }
 
-    img {
-        height: 40px; 
-        width: auto;
-    }
-    .container {
-        padding: 5px;
-        display: flex;
-        justify-content: flex-end; 
-        align-items: center;
-    }
-    .icon {
-        margin-left: 1px; 
-    }
-   
-.main-content {
-    flex-grow: 1;
-    padding: 40px;
-    background-color:white;
-    
-}
+        .container {
+            padding: 5px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
 
         .icon {
             margin-left: 1px;
@@ -171,17 +113,24 @@ $conn->close();
             font-weight: bold;
             color: #333;
             border-bottom: 1px solid black;
+            font-size: 18.5px;
         }
 
         .job-table td {
-            font-size: 15px;
+            font-size: 17.5px;
             word-break: break-all;
         }
 
         .job-table tr:hover {
             background-color: #f1f1f1;
         }
+        .job-table a {
+        color: inherit;            /* Inherit the color from the parent element */
+        text-decoration: none;     /* Remove underline */
+        cursor: pointer;           /* Change cursor to pointer */
+    }
 
+    
         .dropdown-content {
             display: none;
             position: absolute;
@@ -213,31 +162,23 @@ $conn->close();
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
             <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div> 
-
-<div class="sidebar">
-    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
-    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
-    <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
-    <div class="logout">
-        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
     </div>
-</div>
-<div class="main-content">
-    <!-- Jobs/Internships Tabs -->
-    <div class="tabs">
-        <button class="tab-button active">JOBS</button>
-        <button class="tab-button">INTERNSHIPS</button>
-        <input type="text" class="search-bar"  placeholder="Search">
+
+    <div class="sidebar">
+        <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+        <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
     </div>
 
     <div class="main-content">
@@ -257,59 +198,13 @@ $conn->close();
                     <th>Salary</th>
                 </tr>
             </thead>
-            <tbody id="jobTableBody">
-                <!-- Jobs will be dynamically inserted here -->
-            </tbody>
-        </table>
+           
     </div>
+        <tbody id="jobTableBody">
+            <!-- Jobs will be dynamically inserted here -->
+        </tbody>
+    </table>
 
-    <script>
-        // Fetch job data from the server
-        async function fetchJobs() {
-            try {
-                const response = await fetch('get_jobs.php'); // Example API endpoint
-                const jobs = await response.json(); // Assuming JSON response
-
-                const jobTableBody = document.getElementById('jobTableBody');
-                jobTableBody.innerHTML = ''; // Clear existing table rows
-
-                jobs.forEach(job => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-    <td>${job.company}</td>
-    <td>${job.title}</td>
-    <td>${job.type}</td>
-    <td>${job.salary}</td>
-`;
-                    jobTableBody.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Error fetching jobs:', error);
-            }
-        }
-
-        // Filter jobs based on the search input
-        function filterJobs() {
-            const searchValue = document.getElementById('searchInput').value.toLowerCase();
-            const rows = document.querySelectorAll('#jobTable tbody tr');
-
-            rows.forEach(row => {
-                const cells = row.getElementsByTagName('td');
-                const company = cells[0].textContent.toLowerCase();
-                const title = cells[1].textContent.toLowerCase();
-                const type = cells[2].textContent.toLowerCase();
-                const salary = cells[3].textContent.toLowerCase();
-
-                if (company.includes(searchValue) || title.includes(searchValue) || type.includes(searchValue) || salary.includes(searchValue)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
-
-        // Initialize the job list on page load
-        document.addEventListener('DOMContentLoaded', fetchJobs);
-    </script>
+    <script src="script.js"></script> <!-- Link to your JavaScript file -->
 </body>
 </html>

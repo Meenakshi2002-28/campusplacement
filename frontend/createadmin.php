@@ -17,32 +17,46 @@ if ($conn->connect_error) {
 $user_id = 'JESINE';
 $role = 'admin';
 $email = 'jesine@gmail.com';
-$plain_password = 'jesine123'; // Replace with the desired plain password
+$plain_password = 'jesine123'; // Replace with the desired plain paSssword
+$phone_number = '8075562315'; // Admin phone number
+$name = 'Jesine Maria'; // Admin name
 
 // Hash the password using bcrypt
 $hashed_password = password_hash($plain_password, PASSWORD_BCRYPT);
 
-// Check if admin already exists
-$sql = "SELECT * FROM login WHERE user_id = 'JESINE'";
-$result = $conn->query($sql);
+// Check if user exists in login table
+$sql = "SELECT * FROM login WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-if ($result->num_rows > 0) {
-    echo "Admin already exists!";
-} else {
-    // Prepare and bind SQL statement
+if ($result->num_rows === 0) {
+    // User does not exist, insert into login table
     $stmt = $conn->prepare("INSERT INTO login (user_id, password, role, email) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssss", $user_id, $hashed_password, $role, $email);
 
     // Execute the statement
     if ($stmt->execute()) {
-        echo "New admin record created successfully";
+        // Now insert into admin table
+        $stmt = $conn->prepare("INSERT INTO admin (user_id, name, phone_number) VALUES (?, ?, ?)");
+        $stmt->bind_param("ssi", $user_id, $name, $phone_number); // Changed to 'ssi' to match data types
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            echo "New admin record created successfully";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
     } else {
         echo "Error: " . $stmt->error;
     }
-
-    // Close the statement
-    $stmt->close();
+} else {
+    echo "Admin already exists!";
 }
+
+// Close the statement
+$stmt->close();
 
 // Close the connection
 $conn->close();

@@ -1,46 +1,4 @@
-<?php
-// Database connection parameters
-$servername = "localhost"; // or your server name
-$username = "your_username"; // your database username
-$password = "your_password"; // your database password
-$dbname = "your_database_name"; // your database name
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Fetch job data from the database
-$query = "SELECT company_name, job_title, work_environment, salary FROM job";
-$result = $conn->query($query);
-
-$jobs = array();
-
-if ($result->num_rows > 0) {
-    // Fetch each row and add to the jobs array
-    while ($row = $result->fetch_assoc()) {
-        $jobs[] = array(
-            'company' => $row['company_name'], // Company
-            'title' => $row['job_title'],      // Title
-            'type' => $row['work_environment'], // Type
-            'salary' => $row['salary']          // Salary
-        );
-    }
-} else {
-    // No jobs found
-    $jobs = [];
-}
-
-// Set the content type to JSON and return the jobs data
-header('Content-Type: application/json');
-echo json_encode($jobs);
-
-// Close the database connection
-$conn->close();
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,26 +46,12 @@ $conn->close();
             width: auto;
         }
 
-    img {
-        height: 40px; 
-        width: auto;
-    }
-    .container {
-        padding: 5px;
-        display: flex;
-        justify-content: flex-end; 
-        align-items: center;
-    }
-    .icon {
-        margin-left: 1px; 
-    }
-   
-.main-content {
-    flex-grow: 1;
-    padding: 40px;
-    background-color:white;
-    
-}
+        .container {
+            padding: 5px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
 
         .icon {
             margin-left: 1px;
@@ -213,31 +157,23 @@ $conn->close();
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
             <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div> 
-
-<div class="sidebar">
-    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
-    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
-    <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
-    <div class="logout">
-        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
     </div>
-</div>
-<div class="main-content">
-    <!-- Jobs/Internships Tabs -->
-    <div class="tabs">
-        <button class="tab-button active">JOBS</button>
-        <button class="tab-button">INTERNSHIPS</button>
-        <input type="text" class="search-bar"  placeholder="Search">
+
+    <div class="sidebar">
+        <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+        <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
     </div>
 
     <div class="main-content">
@@ -276,11 +212,11 @@ $conn->close();
                 jobs.forEach(job => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-    <td>${job.company}</td>
-    <td>${job.title}</td>
-    <td>${job.type}</td>
-    <td>${job.salary}</td>
-`;
+                         <td><a href="job_desc.php?job_id=${job.id}">${job.company}</a></td>
+        <td>${job.title}</td>
+        <td>${job.type}</td>
+        <td>${job.salary}</td>
+                    `;
                     jobTableBody.appendChild(row);
                 });
             } catch (error) {

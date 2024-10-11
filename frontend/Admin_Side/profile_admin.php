@@ -1,3 +1,37 @@
+<?php
+// Database connection
+$servername = "localhost"; // Change to your server name
+$username = "root";        // Change to your database username
+$password = "";            // Change to your database password
+$dbname = "campus_placement"; // Change to your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Assuming you have the user_id available (for example, from a session)
+$user_id = 'JESINE'; // Replace with the actual user ID
+
+// Fetch admin details
+$sql = "SELECT a.name, a.phone_number, l.email FROM admin a JOIN login l ON a.user_id = l.user_id WHERE a.user_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$adminDetails = null;
+if ($result->num_rows > 0) {
+    $adminDetails = $result->fetch_assoc();
+}
+
+// Close the connection
+$stmt->close();
+$conn->close();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -225,30 +259,35 @@ img {
     <div class="profile">
         <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()">
         <div class="text">
-            <h4>Niranjana A S</h4>
-            <p>Admin</p>
+        <h4><?php echo htmlspecialchars($adminDetails['name']); ?></h4> <!-- Admin's name -->
+        <p>Admin</p> 
         </div>
     </div>
 </div>
-    <div id="personal" class="details active">
-        <h2>Personal Details</h2>
-        <form>
-            <table>
-                <tr>
-                    <td>Name </td><td><input type="text" id="name" name="name"></td>
-                </tr>
-                <tr>
-                    <td>Email </td><td><input type="text" id="name" name="name"></td>
-                </tr>
-                <tr>
-                    <td>Phone No </td><td><input type="text" id="name" name="name"></td>
-                </tr>
-            </table>
-                <div class="button-container">
-                    <button type="submit">SAVE</button>
-                </div>
-        </form>
-    </div>
+<div id="personal" class="details active">
+    <h2>Personal Details</h2>
+    <form>
+        <table>
+            <tr>
+                <td>Name </td>
+                <td><input type="text" id="name" name="name" value="<?php echo htmlspecialchars($adminDetails['name']); ?>" readonly></td>
+            </tr>
+            <tr>
+                <td>Email </td>
+                <td><input type="text" id="email" name="email" value="<?php echo htmlspecialchars($adminDetails['email']); ?>" readonly></td>
+            </tr>
+            <tr>
+                <td>Phone No </td>
+                <td><input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($adminDetails['phone_number']); ?>" readonly></td>
+            </tr>
+        </table>
+        <div class="button-container">
+            <button type="button" onclick="enableEdit()">EDIT</button> <!-- Add an edit button -->
+        </div>
+    </form>
+</div>
+
+    
     <script>
 
         // Change profile image

@@ -23,7 +23,7 @@ if ($conn->connect_error) {
 }
 
 // Prepare statement to fetch student details
-$sql = "SELECT gender, email, phone_number, graduation_year, current_year, dob, 
+$sql = "SELECT name,gender, email, phone_number, graduation_year, current_year, dob, 
         course.course_name, course.course_branch 
         FROM STUDENT 
         JOIN course ON STUDENT.course_id = course.course_id
@@ -32,7 +32,7 @@ $sql = "SELECT gender, email, phone_number, graduation_year, current_year, dob,
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $user_id);
 $stmt->execute();
-$stmt->bind_result($gender, $email, $phone_number, $graduation_year, $current_year, $dob, $course_name, $course_branch);
+$stmt->bind_result($name, $gender, $email, $phone_number, $graduation_year, $current_year, $dob, $course_name, $course_branch);
 $stmt->fetch();
 
 // If no records are found
@@ -164,7 +164,7 @@ $conn->close();
 
 .details.active {
     background-color: #ffffff;
-    padding-left: 150px;
+    padding-left: 300px;
     display: block;
 }
 
@@ -282,13 +282,14 @@ img {
         <div class="profile">
             <img src="../images/Customer.png" alt="profile picture">
             <div class="text">
-                <h4></h4>
-                <p></p>
+                <h4><?php echo htmlspecialchars($name); ?></h4>
+                <p><?php echo htmlspecialchars($user_id); ?></p>
             </div>
         </div>
         <div class="menu">
             <a href="#" onclick="showSection('personal')" class="active">Personal Details</a>
             <a href="#" onclick="showSection('academic')">Academic Details</a>
+            <a href="#" onclick="showSection('resume')">Resume</a>
             
             
         </div>
@@ -339,6 +340,7 @@ img {
         <div class="button-container">
             <a href="edit_profile.php"><button>Edit Profile</button></a>
         </div>
+        </form>
     </div>
     <!-- Academic Details Section -->
     <div id="academic" class="details">
@@ -438,8 +440,41 @@ img {
               <button type="submit">SAVE</button>
           </div>
 </form>
+</div>
+<!-- Resume Section -->
+<<!-- Resume Section -->
+<div id="resume" class="details">
+    <h2>Resume</h2>
 
-     
+    <?php
+    // Fetch the resume path from the STUDENT table
+    $user_id = $_SESSION['user_id'];
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    $sql = "SELECT resume FROM STUDENT WHERE user_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $user_id);
+    $stmt->execute();
+    $stmt->bind_result($resume_path);
+    $stmt->fetch();
+    $stmt->close();
+    $conn->close();
+
+    // Check if the resume exists
+    if (!empty($resume_path) && file_exists($resume_path)) {
+        echo "<iframe src='$resume_path' width='100%' height='600px'></iframe>"; // Display PDF in an iframe
+    } else {
+      
+        echo '<p>Upload your resume here.</p>';
+        echo '<form action="upload_resume.php" method="POST" enctype="multipart/form-data">';
+        echo '<input type="file" id="resume_file" name="resume_file" required>';
+        echo '<div class="button-container">';
+        echo '<button type="submit">SAVE</button>';
+        echo '</div>';
+        echo '</form>';
+    }
+    ?>
+</div>
+
 
     <script>
         function showSection(sectionId) {

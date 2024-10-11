@@ -139,7 +139,7 @@ if (isset($_SESSION['user_id'])) {
 
 <div class="sidebar">
     <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+    <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
     <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
     <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
     <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
