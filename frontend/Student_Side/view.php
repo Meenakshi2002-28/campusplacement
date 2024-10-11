@@ -457,9 +457,6 @@ img {
         });
     </script>
 
-   
-
-   
 
 </body>
 </html>
