@@ -1,3 +1,33 @@
+<?php
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "campus_placement";
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (isset($_GET['job_id'])) {
+    $job_id = $_GET['job_id'];
+    echo "Job ID: " . $job_id;  // Debugging: check if job_id is passed
+} else {
+    die('Job ID not set.');
+}
+// Fetch job details from the database
+$query = "SELECT * FROM job WHERE job_id = $job_id";
+$result = $conn->query($query);
+
+if ($result->num_rows > 0) {
+    $job = $result->fetch_assoc();
+} else {
+    echo "Job not found.";
+}
+
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -304,16 +334,16 @@
 </div>
 <div class="main-content">
     <div class="job-details">
-        <h2>Software Quality Engineer</h2>
-        <p>TCS Atlas</p>
+        <h2><?php echo $job['job_title']; ?></h2>
+        <p><?php echo $job['company_name']; ?></p>
     <div class="jobimg">
-        <a href="#location-dot"><i class="fas fa-map-marker-alt"></i> Ernakulam/Trivandrum</a>
+        <a href="#location-dot"><i class="fas fa-map-marker-alt"></i> <?php echo $job['location']; ?></a>
         <a href="#briefacse"><i class="fa fa -fw fa-solid fa-briefcase"></i> Full Time</a>
-        <a href="#indian-rupee-sign"><i class="fas fa-rupee-sign"></i> 4.2 LPA</a>
-        <a href="#calendar-days"><i class="fa fa-fw  fa-solid fa-calendar"></i> Apply By Sep 2024,16:00</a>
+        <a href="#indian-rupee-sign"><i class="fas fa-rupee-sign"></i><?php echo $job['salary']; ?></a>
+        <a href="#calendar-days"><i class="fa fa-fw  fa-solid fa-calendar"></i> Apply By <?php echo $job['application_deadline']; ?></a>
     </div>
         <div class="jobstatus">
-           <input type="text"id="jobstatus" value="Job Status: Open for Applications" readonly>
+           <input type="text"id="jobstatus" value="Job Status: <?php echo $job['job_status']; ?> for Applications" readonly>
         </div>
     </div>
 
