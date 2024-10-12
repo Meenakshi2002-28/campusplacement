@@ -28,7 +28,8 @@ if ($result->num_rows > 0) {
             'salary' => $row['salary']          
         );
     }
-} else {
+} else 
+{
     $jobs = [];
 }
 
