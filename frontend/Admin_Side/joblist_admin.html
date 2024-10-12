@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job List </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .sidebar {
+            width: 198px;
+            height: 610px;
+            position: fixed;
+            left: 10px;
+            top: 85px;
+            background-color: #2F5597;
+            color: white;
+            padding: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            padding: 15px;
+            font-size: 22px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover {
+            border-left: 3px solid #ffffff;
+            background: #1e165f;
+        }
+
+        img {
+            height: 40px;
+            width: auto;
+        }
+
+        .container {
+            padding: 5px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .icon {
+            margin-left: 1px;
+        }
+
+        .tabs {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-left: 145px;
+            word-break: keep-all;
+        }
+
+        .tab-button {
+            background-color: white;
+            border: 1px solid #000000;
+            padding: 0px;
+            border-radius: 50px;
+            margin-right: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            height: 26px;
+            width: 130px;
+        }
+
+        .tab-button.active {
+            background-color: #1c4a82;
+            color: white;
+        }
+
+        .job-table {
+            
+            border-collapse: collapse;
+        }
+
+        .job-table th, .job-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            padding-left: 200px;
+        }
+
+        .job-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 1px solid black;
+        }
+
+        .job-table td {
+            font-size: 15px;
+            word-break: break-all;
+        }
+
+        .job-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        .main-content {
+        flex-grow: 1;
+        padding: 40px 10px 0 10px;
+        margin-left: 120px;
+        background-color:white;
+        }
+
+        .maincontent {
+                flex-grow: 1;
+            margin-top: 20px;
+            padding: 5px;
+            padding-right: 50px;
+            background-color:white;
+            padding-left: 130px;
+        }
+
+        .job-details {
+        position: relative;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        margin-bottom: 30px;
+        margin-right: 100px;
+        }
+
+        .job-details h2 {
+            margin-top: 0;
+            color:black;
+            margin-left: 20px;
+        }
+
+        .job-details p{
+            margin-left: 100px;
+        }
+
+        .jobimg a {
+            display:inline-flexbox;
+            text-decoration: none;
+            color:black;
+            padding: 60px;
+            border-left: 3px solid transparent;  
+        }
+
+        .delete-btn {
+            background-color: transparent;
+            border: none;
+            width: 50px;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 20px;
+            margin-left: 10px;
+            color: #ff0000; /* Black color for trash icon */
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #ffffff;
+        }
+
+        .jobstatus{
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            margin-left: 810px;
+        }
+
+        .jobstatus input {
+            background-color:#e2e2e2;
+            border-radius: 10px;
+            border: 1px solid rgb(197, 197, 197) ;
+            width: 270px; 
+            height: 25px; 
+            font-size: 16px;
+            margin-top: 20px;
+            margin-left: 370px;
+            text-align: center; 
+            line-height: 40px; 
+            padding: 0px; 
+            padding-left: 20px;
+            box-sizing:content-box;
+            font-weight: 600;
+        }
+
+        .create-btn {
+            display: flex;
+            align-items: center;
+            background-color: #f3f3f3;
+            border: 2px solid #000000;
+            color: #000000;
+            padding: 10px 10px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .create-btn .plus-icon {
+            background-color: #d9d9d9;
+            border-radius: 50%;
+            display: inline-block;
+            padding: 0 8px;
+            margin-left: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        /* Pencil icon styling (Edit option) */
+        .edit-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: rgb(95, 95, 95);
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        /* Pencil icon hover effect */
+        .edit-icon:hover {
+            color: rgb(95, 95, 95); /* Blue color on hover */
+        }
+
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #2F5597;
+            min-width: 150px;
+            z-index: 1;
+            top: 55px;
+            border-radius: 3px;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1e165f;
+        }
+
+        .logout{
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+        }
+
+        .logout a {
+            font-size: 20px;
+            margin-top: 210px;
+        }
+        .fas fa-trash-alt{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+
+        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div> 
+
+    <div class="sidebar">
+        <a href="#home"><i class="fas fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
+        <a href="#company"><i class="fas fa-building"></i> Company</a>
+        <a href="#profile"><i class="fas fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="tabs">
+            <button class="create-btn">Create+</button>
+        </div>
+
+        <!-- Job List Table -->
+        <table class="job-table" id="jobTable">
+            <div class="maincontent">
+                <div class="job-details">
+                    <i class="fas fa-pencil-alt edit-icon"></i>
+                    <h2>Software Quality Engineer</h2>
+                    <p>TCS Atlas</p>
+                    <div class="jobimg">
+                        <a href="#location-dot"><i class="fas fa-map-marker-alt"></i> Ernakulam/Trivandrum</a>
+                        <a href="#briefacse"><i class="fa fa -fw fa-solid fa-briefcase"></i> Full Time</a>
+                        <a href="#indian-rupee-sign"><i class="fas fa-rupee-sign"></i> 4.2 LPA</a>
+                        <a href="#calendar-days"><i class="fa fa-fw  fa-solid fa-calendar"></i> Apply By Sep 2024,16:00</a>
+                    </div>
+                    <div class="jobstatus">
+                        <button class="delete-btn">
+                            &#128465; <!-- Unicode for trash can symbol -->
+                        </button>
+                        <button class="view-btn"><b>View Applicants</b></button>
+                    </div>
+                </div>
+            </div>
+        </table>
+    </div>
+
+    <script>
+
+        // Change profile image
+        function triggerFileInput() {
+                document.getElementById('fileInput').click();
+            }
+    
+        function changeProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+                };
+                reader.readAsDataURL(file); // Read the image file
+            }
+        }
+        let dropdownOpen = false;
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdownOpen = !dropdownOpen;
+            dropdown.style.display = dropdownOpen ? "block" : "none";
+        }
+    
+        function goToProfile() {
+            showSection('personal'); // Redirect to profile section
+            toggleDropdown(); // Close the dropdown after redirection
+        }
+    </script>
+</body>
+</html>
+
