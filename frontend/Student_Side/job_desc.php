@@ -346,7 +346,67 @@ $conn->close();
            <input type="text"id="jobstatus" value="Job Status: <?php echo $job['job_status']; ?> for Applications" readonly>
         </div>
     </div>
+<!-- Eligibility Section -->
+<div class="eligibility-section">
+        
+        <form>
+            <div class="eligibility-1">
+            <label for="10th">10th</label>
+            <label for="12th">12th</label>
+            <label for="arrears">Max Current Arrears</label>
+            
+            <input type="text" id="12th" name="10th"value="<?php echo $job['tenth_requirement']; ?>" readonly>
+            <input type="text" id="10th" name="12th"value="<?php echo $job['tweflth_requirement']; ?>" readonly>
+            <input type="text" id="arrears" name="arrears" value="<?php echo $job['max_arrears']; ?>" readonly>
+            
+            </div>
+        
+            <div class="form-group">
+            <label for="gender">Gender </label>
+            <input type="text" id="gender" name="gender" value="<?php echo $job['gender']; ?>" readonly>
+            <br>
 
+            
+            <label for="passout-year">Pass Out Year </label>
+            <input type="text" id="passout-year" name="passout-year"value="<?php echo $job['passout_year']; ?>" readonly>
+            <br>
+
+            
+            <label for="course">Course </label>
+            <input type="text" id="course" name="course" value="BCA" readonly>
+            <input type="text" id="specialization" name="specialization=" value="BCA (Data Science)" readonly>
+            </div>
+        </form>
+        
+        <div class="job-description">
+            <h4>Description </h4>
+                    <p><?php echo $job['description']; ?>
+                    </p>
+        </div>
+            <p>
+            <!-- Hiring Workflow Section -->
+            <div class="workflow-section">
+                
+                <h3>Hiring Workflow Rounds</h3>
+    
+                    <div class="workflow-rounds">
+                    <label for="round1">Round 1</label>
+                    <input type="text" id="round1" name="round1" value="<?php echo $job['round_1']; ?>" readonly>
+                    
+
+                    <label for="round2">Round 2</label>
+                    <input type="text" id="round2" name="round2" value="<?php echo $job['round_2']; ?>" readonly>
+                    
+                    
+                    <label for="round3">Round 3</label>
+                    <input type="text" id="round3" name="round3"value="<?php echo $job['round_3']; ?>" readonly>
+                    
+                    </div>
+    
+                <button class="apply-btn">APPLY</button>
+                
+            </div>
+        </div>
     
     </div>
     <script>
