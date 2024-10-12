@@ -99,9 +99,18 @@
     margin-bottom: 20px;
 }
 
-.feedback-response h2 {
-    color: #333;
-}
+.feedback-card .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+.feedback-card .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
 
 .feedback-response p {
     color: #666;
@@ -164,7 +173,10 @@ button {
 <div class="main-content">
     <div class="response-container">
         <div class="feedback-response">
-            <h2>Jesine Maria Wilson</h2>
+            <div class="user-info">
+                <img src="../images/profile.png" alt="User Profile">
+                <span class="name">Meenakshi B</span>
+            </div>
             <p>I could upload my resume, update my profile, and see all the important dates and deadlines in one place. It saved me a lot of time and effort.</p>
             <textarea id="responseText" placeholder="Enter Your Response Here...." rows="10" cols="50"></textarea>
             <button onclick="submitResponse()">SUBMIT</button>
