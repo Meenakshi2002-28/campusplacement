@@ -1,6 +1,6 @@
 <?php
 session_start(); // Start the session
-
+$error = ''; // Initialize the error message variable
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Database connection
@@ -48,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 } elseif ($db_role == 'student') {
                     header('Location: Student_Side/dashboard_std.php');
                 } else {
-                    echo "Invalid role.";
+                    $error = "Invalid role.";
                 }
                 exit();
             } else {
-                echo "Invalid password.";
+                $error = "Invalid password."; // Assign error message
             }
         } else {
-            echo "No account found with that username.";
+            $error = "No account found with that username."; // Assign error message
         }
 
         $stmt->close(); // Close the statement
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin: 0;
             padding:0;
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .login-box {
-            background-color: #2a2a7c;
+            background-color: #281f63;
             color: white;
             padding: 60px 40px;
             border-radius:30px;
@@ -139,6 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             text-align:end;
             color: white;
             font-size: 14px;
+            margin-top: 5px;
             margin-bottom: 20px;
         }
 
@@ -163,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .login-box button:hover {
-            background-color: #ddd;
+            background-color: #f0f0f0;
         }
 
         .login-box .signup {
@@ -200,6 +201,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             padding-top:200px;
             padding-right:10px;
         }
+        .error-message {
+            color: white; /* Change this to your desired color */
+            font-size: 14px; /* Adjust the font size */
+            margin-left: 5px;
+        }
+
     </style>
 </head>
 <body>
@@ -208,11 +215,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-- Login Box -->
         <div class="login-box">
             <center>
-            <h2><b>Welcome!</b></h2><br><b><h1>Login</b></h1>
+            <h2><b>Welcome!</b></h2><b><h1>Login</b></h1>
             </center>
             <form action="" method="POST">
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="password"  name="password"placeholder="Password" required>
+                <div class="error-message">
+                    <?php echo $error; ?>
+                </div>
                 <div class="forgot-password">
                     <a href="forgot_password.php">Forgot Password?</a>
                 </div>
