@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 
 if (isset($_GET['job_id'])) {
     $job_id = $_GET['job_id'];
-    echo "Job ID is : " . $job_id;  // Debugging: check if job_id is passed
+   
 } else {
     die('Job ID not set.');
 }
@@ -25,14 +25,21 @@ $query = "SELECT job.*, course.course_name
           JOIN job_course ON job.job_id = job_course.job_id
           JOIN course ON job_course.course_id = course.course_id
           WHERE job.job_id = $job_id";
-          
+
 $result = $conn->query($query);
 
+// Store the job details and courses in an array
+$jobDetails = [];
 if ($result->num_rows > 0) {
-    $job = $result->fetch_assoc();
+    while ($row = $result->fetch_assoc()) {
+        $jobDetails[] = $row;  // Store each row (job + course data) into $jobDetails array
+    }
 } else {
     echo "Job not found.";
+    exit;
 }
+
+// Close the database connection
 $conn->close();
 ?>
 <!DOCTYPE html>
@@ -341,16 +348,16 @@ $conn->close();
 </div>
 <div class="main-content">
     <div class="job-details">
-        <h2><?php echo $job['job_title']; ?></h2>
-        <p><?php echo $job['company_name']; ?></p>
+        <h2><?php echo htmlspecialchars($jobDetails[0]['job_title']); ?></h2>
+        <p><?php echo htmlspecialchars($jobDetails[0]['company_name']); ?></p>
     <div class="jobimg">
-        <a href="#location-dot"><i class="fas fa-map-marker-alt"></i> <?php echo $job['location']; ?></a>
+        <a href="#location-dot"><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($jobDetails[0]['location']); ?></a>
         <a href="#briefacse"><i class="fa fa -fw fa-solid fa-briefcase"></i> Full Time</a>
-        <a href="#indian-rupee-sign"><i class="fas fa-rupee-sign"></i><?php echo $job['salary']; ?></a>
-        <a href="#calendar-days"><i class="fa fa-fw  fa-solid fa-calendar"></i> Apply By <?php echo $job['application_deadline']; ?></a>
+        <a href="#indian-rupee-sign"><i class="fas fa-rupee-sign"></i><?php echo htmlspecialchars($jobDetails[0]['salary']); ?></a>
+        <a href="#calendar-days"><i class="fa fa-fw  fa-solid fa-calendar"></i> Apply By <?php echo htmlspecialchars($jobDetails[0]['application_deadline']); ?></a>
     </div>
         <div class="jobstatus">
-           <input type="text"id="jobstatus" value="Job Status: <?php echo $job['job_status']; ?> for Applications" readonly>
+           <input type="text"id="jobstatus" value="Job Status: <?php echo htmlspecialchars($jobDetails[0]['job_status']); ?> for Applications" readonly>
         </div>
     </div>
 <!-- Eligibility Section -->
@@ -362,32 +369,34 @@ $conn->close();
             <label for="12th">12th</label>
             <label for="arrears">Max Current Arrears</label>
             
-            <input type="text" id="12th" name="10th"value="<?php echo $job['tenth_requirement']; ?>" readonly>
-            <input type="text" id="10th" name="12th"value="<?php echo $job['tweflth_requirement']; ?>" readonly>
-            <input type="text" id="arrears" name="arrears" value="<?php echo $job['max_arrears']; ?>" readonly>
+            <input type="text" id="12th" name="10th"value="<?php echo htmlspecialchars($jobDetails[0]['tenth_requirement']); ?>" readonly>
+            <input type="text" id="10th" name="12th"value="<?php echo htmlspecialchars($jobDetails[0]['tweflth_requirement']); ?>" readonly>
+            <input type="text" id="arrears" name="arrears" value="<?php echo htmlspecialchars($jobDetails[0]['max_arrears']); ?>" readonly>
             
             </div>
         
             <div class="form-group">
             <label for="gender">Gender </label>
-            <input type="text" id="gender" name="gender" value="<?php echo $job['gender']; ?>" readonly>
+            <input type="text" id="gender" name="gender" value="<?php echo htmlspecialchars($jobDetails[0]['gender']); ?>" readonly>
             <br>
 
             
             <label for="passout-year">Pass Out Year </label>
-            <input type="text" id="passout-year" name="passout-year"value="<?php echo $job['passout_year']; ?>" readonly>
+            <input type="text" id="passout-year" name="passout-year"value="<?php echo htmlspecialchars($jobDetails[0]['passout_year']); ?>" readonly>
             <br>
 
             
             <label for="course">Course </label>
-            <input type="text" id="course" name="course" value="<?php echo $job['course_name']; ?>" readonly>
-            <input type="text" id="specialization" name="specialization=" value="BCA (Data Science)" readonly>
+            <?php foreach ($jobDetails as $index => $detail) : ?>
+                    <input type="text" id="course_<?php echo $index; ?>" name="course_<?php echo $index; ?>"
+                           value="<?php echo htmlspecialchars($detail['course_name']); ?>" readonly>
+                <?php endforeach; ?>
             </div>
         </form>
         
         <div class="job-description">
             <h4>Description </h4>
-                    <p><?php echo $job['description']; ?>
+                    <p><?php echo htmlspecialchars($jobDetails[0]['description']); ?>
                     </p>
         </div>
             <p>
@@ -398,16 +407,13 @@ $conn->close();
     
                     <div class="workflow-rounds">
                     <label for="round1">Round 1</label>
-                    <input type="text" id="round1" name="round1" value="<?php echo $job['round_1']; ?>" readonly>
-                    
+                    <input type="text" id="round1" name="round1" value="<?php echo htmlspecialchars($jobDetails[0]['round_1']); ?>" readonly>
 
                     <label for="round2">Round 2</label>
-                    <input type="text" id="round2" name="round2" value="<?php echo $job['round_2']; ?>" readonly>
-                    
+                    <input type="text" id="round2" name="round2" value="<?php echo htmlspecialchars($jobDetails[0]['round_2']); ?>" readonly>
                     
                     <label for="round3">Round 3</label>
-                    <input type="text" id="round3" name="round3"value="<?php echo $job['round_3']; ?>" readonly>
-                    
+                    <input type="text" id="round3" name="round3"value="<?php echo htmlspecialchars($jobDetails[0]['round_3']); ?>" readonly>
                     </div>
     
                 <button class="apply-btn">APPLY</button>

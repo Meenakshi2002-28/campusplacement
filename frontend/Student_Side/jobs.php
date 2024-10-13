@@ -182,12 +182,13 @@
     </div>
 
     <div class="main-content">
-        <div class="tabs">
-            <button class="tab-button active">JOBS</button>
-            <button class="tab-button">INTERNSHIPS</button>
-            <input type="text" class="search-bar" placeholder="Search" id="searchInput" onkeyup="filterJobs()">
-        </div>
+    <div class="tabs">
+    <button class="tab-button active" data-tab="jobs" onclick="showTab('jobs')">JOBS</button>
+    <button class="tab-button" data-tab="internships" onclick="showTab('internships')">INTERNSHIPS</button>
+    <input type="text" class="search-bar" placeholder="Search" id="searchInput" onkeyup="filterJobs()">
+</div>
 
+<div id="jobsSection">
         <!-- Job List Table -->
         <table class="job-table" id="jobTable">
             <thead>
@@ -199,12 +200,27 @@
                 </tr>
             </thead>
            
-    </div>
         <tbody id="jobTableBody">
             <!-- Jobs will be dynamically inserted here -->
         </tbody>
     </table>
+</div>
 
+<div id="internshipsSection" style="display: none;">
+    <table class="job-table" id="internshipTable">
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody id="internshipTableBody">
+            <!-- Internships will be dynamically inserted here -->
+        </tbody>
+    </table>
+</div>
     <script src="script.js"></script> <!-- Link to your JavaScript file -->
 </body>
 </html>
