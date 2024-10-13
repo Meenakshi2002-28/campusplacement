@@ -104,7 +104,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #fcf6f6;
+    background-color: white;
 }
 
 .forgot-password-container {
