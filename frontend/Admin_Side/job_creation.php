@@ -339,7 +339,7 @@ $conn->close();
                 <input type="text" id="selectedOptions" name="selectedOptions" readonly placeholder="Select Eligible Courses">
                 <select name="options[]" id="course" multiple>
                     <option value="BCA">BCA</option>
-                    <option value="BCA DS">BCA Data Science</option>
+                    <option value="BCA DataScience">BCA Data Science</option>
                     <option value="Int MCA">INT MCA</option>
                     <option value="bcom">B.com Taxation and Finance</option>
                     <option value="bba">BBA</option>
