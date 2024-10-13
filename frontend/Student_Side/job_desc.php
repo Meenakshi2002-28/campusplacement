@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -9,6 +10,10 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+if (!isset($_SESSION['user_id'])) {
+    die("You must be logged in to apply for a job.");
+}
+$user_id = $_SESSION['user_id']; 
 
 if (isset($_GET['job_id'])) {
     $job_id = $_GET['job_id'];
@@ -416,7 +421,13 @@ $conn->close();
                     <input type="text" id="round3" name="round3"value="<?php echo htmlspecialchars($jobDetails[0]['round_3']); ?>" readonly>
                     </div>
     
-                <button class="apply-btn">APPLY</button>
+<div class="jobstatus">
+    <form action="apply_job.php" method="POST">
+    <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($jobDetails[0]['job_id']); ?>">
+        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>"> <!-- Assuming you have the user ID -->
+        <button type="submit" class="apply-btn">Apply</button>
+    </form>
+</div>
                 
             </div>
         </div>
