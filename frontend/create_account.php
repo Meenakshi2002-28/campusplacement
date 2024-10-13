@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: white;
         }
 
         .container {
@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
             padding: 40px;
             width: 350px;
-            background-color: #281961;
+            background-color: #281f63;
             color: white;
         }
 
@@ -116,13 +116,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 10px;
             border: none;
             font-size: 14px;
-        }
-
-        .signup-box input[type="password"]:focus,
-        .signup-box input[type="text"]:focus,
-        .signup-box input[type="email"]:focus {
-            outline: none;
-            border: 10px solid #281969;
         }
 
         .signup-box button {
@@ -169,7 +162,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container">
         <div class="signup-box">
+            <center>
             <h2>Create your account</h2>
+            </center>
             <form method="POST" action="" onsubmit="return validateForm()">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" placeholder="Full name" required>
