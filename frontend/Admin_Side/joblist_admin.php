@@ -383,7 +383,7 @@ $result = $conn->query($sql);
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </form>
-                                <button class="view-btn"><b>View Applicants</b></button>
+                                <a href="applicants.php?job_id=<?php echo htmlspecialchars($job['job_id']); ?>" class="view-btn"><b>View Applicants</b></a>
                             </div>
                         </div>
                     <?php endwhile; ?>
