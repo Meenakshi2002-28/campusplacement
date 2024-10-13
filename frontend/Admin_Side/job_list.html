@@ -192,28 +192,15 @@
             font-weight: 600;
         }
 
-        .create-btn {
-            display: flex;
-            align-items: center;
-            background-color: #f3f3f3;
-            border: 2px solid #000000;
-            color: #000000;
-            padding: 10px 10px;
-            border-radius: 10px;
-            font-size: 16px;
+        .create-button {
+            background-color: #ddd;
+            color: black;
+            font-size: 17px;
+            padding: 10px;
+            border: none;
             cursor: pointer;
-            position: relative;
-        }
-
-        .create-btn .plus-icon {
-            background-color: #d9d9d9;
-            border-radius: 50%;
-            display: inline-block;
-            padding: 0 8px;
-            margin-left: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #000000;
+            margin-bottom: 20px;
+            border-radius: 15px;
         }
 
         /* Pencil icon styling (Edit option) */
@@ -295,7 +282,7 @@
     </div>
     <div class="main-content">
         <div class="tabs">
-            <button class="create-btn">Create+</button>
+            <button class="create-button"><i class="fas fa-plus"></i> Create</button>
         </div>
 
         <!-- Job List Table -->
@@ -312,9 +299,7 @@
                         <a href="#calendar-days"><i class="fa fa-fw  fa-solid fa-calendar"></i> Apply By Sep 2024,16:00</a>
                     </div>
                     <div class="jobstatus">
-                        <button class="delete-btn">
-                            &#128465; <!-- Unicode for trash can symbol -->
-                        </button>
+                        <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
                         <button class="view-btn"><b>View Applicants</b></button>
                     </div>
                 </div>
