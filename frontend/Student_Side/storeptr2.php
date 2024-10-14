@@ -1,71 +1,91 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Personal Details</title>
-</head>
-<body>
-    <?php
-    // Enable error reporting to debug issues
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+<?php
+session_start(); // Start the session
 
-    // Array to store error messages
-    $errors = [];
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Database connection
+    $servername = "localhost";
+    $username = "root"; // Update with your database username
+    $password = "";     // Update with your database password
+    $dbname = "campus_placement"; // Update with your database name
 
-    // Check if form is submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Retrieve form data
-        $department = isset($_POST['department']) ? trim($_POST['department']) : '';
-        $course = isset($_POST['course']) ? trim($_POST['course']) : '';
-        $current_year = isset($_POST['current_year']) ? trim($_POST['current_year']) : '';
-        $passing_out_year = isset($_POST['passing_out_year']) ? trim($_POST['passing_out_year']) : '';
-        $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
-        $dob = isset($_POST['dob']) ? trim($_POST['dob']) : '';
-        $contact_number = isset($_POST['contact_number']) ? trim($_POST['contact_number']) : '';
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-        // Validate required fields
-        if (empty($department)) {
-            $errors[] = "Department is required.";
-        }
-        if (empty($course)) {
-            $errors[] = "Course is required.";
-        }
-        if (empty($current_year)) {
-            $errors[] = "Current Year is required.";
-        }
-        if (empty($passing_out_year)) {
-            $errors[] = "Passing Out Year is required.";
-        }
-        if (empty($gender)) {
-            $errors[] = "Gender is required.";
-        }
-        if (empty($dob)) {
-            $errors[] = "Date of Birth is required.";
-        }
-        if (empty($contact_number)) {
-            $errors[] = "Contact Number is required.";
-        }
-
-        // If there are no errors, process the form data
-        if (empty($errors)) {
-            // You can add your database insert query here
-            // Example: Store data in the database
-            // $query = "INSERT INTO students (department, course, current_year, passing_out_year, gender, dob, contact_number)
-            //           VALUES ('$department', '$course', '$current_year', '$passing_out_year', '$gender', '$dob', '$contact_number')";
-            // mysqli_query($conn, $query);
-
-            echo "<p style='color:green;'>Details saved successfully!</p>";
-        } else {
-            // Display errors
-            echo "<ul>";
-            foreach ($errors as $error) {
-                echo "<li style='color:red;'>$error</li>";
-            }
-            echo "</ul>";
-        }
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
-    ?>
+
+    // Retrieve user_id from session
+
+    if (!isset($_SESSION['user_id'])) {
+        die("User not logged in.");
+    }
+    $user_id = $_SESSION['user_id'];
+
+    // Retrieve form data
+    $gender = $_POST['gender'];
+    $course_name = $_POST['course'];
+    $branch = $_POST['branch'];
+    $email = $_POST['email'];
+    $phone_number = $_POST['number'];
+    $graduation_year = $_POST['pass_out_year'];
+    $current_year = $_POST['year'];
+    $dob = $_POST['dob'];
+
+    // Check if any required field is empty
+    if (empty($gender) || empty($course_name) || empty($branch) || empty($email) || empty($phone_number) || empty($graduation_year) || empty($current_year) || empty($dob))
+     {
+        die("All fields are required.");
+    }
+    
+    // Prepare statement to get course_id based on course_name and branch
+    $sql = "SELECT course_id FROM course WHERE course_name = ? AND course_branch = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $course_name, $branch);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($course_id);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Check if a course_id was found
+    if (!$course_id) {
+        die("Invalid course or branch selected.");
+    }
+
+    // Prepare and bind statement for updating data in STUDENT table
+    $sql = "UPDATE STUDENT 
+            SET gender = ?, 
+                course_id = ?, 
+                email = ?, 
+                phone_number = ?, 
+                graduation_year = ?, 
+                current_year = ?, 
+                dob = ? 
+            WHERE user_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sissssss", $gender, $course_id, $email, $phone_number, $graduation_year, $current_year, $dob, $user_id);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        if ($stmt->affected_rows > 0) {
+            echo "Record successfully updated.";
+        } else {
+            echo "No changes made. Ensure the data is different from existing values.";
+        }
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+    
+
+    // Close connection
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -298,48 +318,207 @@ img {
     <div id="personal" class="details active">
         <h2>Personal Details</h2>
         <form action="storepr_std.php" method="post">
-            <table></table>
-    <form method="POST" action="">
-        <h3>Personal Details</h3>
+            <table>
+                
+                <tr><td>Bran</td>
+                    <td><select name="branch" id="branch">
+                            <option value="CS">Computer Science</option>
+                            <option value="COMMERCE">Commerce</option>
+                            <option value="ENGLISH">English</option>
+                            <option value="PHYSICAL SCIENCES">Physical Sciences</option>
+                            <option value="PHYSICS">Physics</option>
+                            <option value="VM">Visual Media</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td>Course </td>
+                    <td><select name="course" id="course">
+                        <option value="BCA">BCA</option>
+                        <option value="BCA DataScience">BCA Data Science</option>
+                        <option value="Int MCA">INT MCA</option>
+                        <option value="B.com taxation and finance">B.com Taxation and Finance</option>
+                        <option value="BBA">BBA</option>
+                        <option value="B.com Fintech">B.com Fintech</option>
+                        <option value="BA English and Literature">BA English and Literature</option>
+                        <option value="INT MA English and Literature">INT MA English and Literature</option>
+                        <option value="INT M.Sc Mathematics">INT M.Sc Mathematics</option>
+                        <option value="B.des(Hons.) in Communicative Design">B.des(Hons.) in Communicative Design</option>
+                        <option value="B.Sc in Visual Media">B.Sc in Visual Media</option>
+                        <option value="BCA(Hons.)">BCA(Hons.)</option>
+                        <option value="B.Com.(Hons.) in Taxation & Finance">B.Com.(Hons.) in Taxation & Finance</option>
+                        <option value="B.Com(Hons.) in FinTech">B.Com(Hons.) in FinTech</option>
+                        <option value="BBA(Hons./Hons. with Research)">BBA(Hons./Hons. with Research)</option>
+                        <option value="B.Sc(Hons.) in Visual Media">B.Sc(Hons.) in Visual Media</option>
+                    </select>
+                    
+                    </td>
+                </tr>
+                <tr><td>Current Year </td>
+                    <td><input type="text" id="year" name="year"></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year </td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <div class="gender-options">
+                            <label>
+                                <input type="radio" name="gender" value="male"> Male
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" value="female"> Female
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" value="other"> Other
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of Birth </td><td><input type="date" id="dob" name="dob"></td>
+                </tr>
+            </table>
+            <h4>Contact Information</h4>
+            <table>
+                <tr>
+                    <td>Phone Number </td><td><input type="text" id="number" name="number"></td>
+                </tr>
+                <tr>
+                    <td>Email </td><td><input type="text" id="email" name="email"></td>
+                </tr>
+            </table>
+            <div class="button-container">
+              
+                <button type="submit">SAVE</button>
+            </div>
+        </form>
+    </div>
+      <!-- Academic Details Section -->
+      <div id="academic" class="details">
+        <h2>Academic Details</h2>
+        <form action="1.php" method="post">
+            <table>
+                <th>UG Details</th>
+                <tr>
+    <td>Branch<span style="color:red">*</span></td>
+    <td><select name="branch" id="branch">
+                            <option value="CS">Computer Science</option>
+                            <option value="COMMERCE">Commerce</option>
+                            <option value="ENGLISH">English</option>
+                            <option value="PHYSICAL SCIENCES">Physical Sciences</option>
+                            <option value="PHYSICS">Physics</option>
+                            <option value="VM">Visual Media</option>
+                        </select></td>
+</tr>
 
-        <!-- Department (Mandatory) -->
-        <label for="department">Department <span style="color:red;">*</span>:</label>
-        <input type="text" id="department" name="department" value="<?php echo isset($_POST['department']) ? $_POST['department'] : ''; ?>">
-        <br>
+                <tr>
+    <td>Course</td>
+    <td><select name="course" id="course">
+                        <option value="BCA">BCA</option>
+                        <option value="BCA DataScience">BCA Data Science</option>
+                        <option value="Int MCA">INT MCA</option>
+                        <option value="B.com taxation and finance">B.com Taxation and Finance</option>
+                        <option value="BBA">BBA</option>
+                        <option value="B.com Fintech">B.com Fintech</option>
+                        <option value="BA English and Literature">BA English and Literature</option>
+                        <option value="INT MA English and Literature">INT MA English and Literature</option>
+                        <option value="INT M.Sc Mathematics">INT M.Sc Mathematics</option>
+                        <option value="B.des(Hons.) in Communicative Design">B.des(Hons.) in Communicative Design</option>
+                        <option value="B.Sc in Visual Media">B.Sc in Visual Media</option>
+                        <option value="BCA(Hons.)">BCA(Hons.)</option>
+                        <option value="B.Com.(Hons.) in Taxation & Finance">B.Com.(Hons.) in Taxation & Finance</option>
+                        <option value="B.Com(Hons.) in FinTech">B.Com(Hons.) in FinTech</option>
+                        <option value="BBA(Hons./Hons. with Research)">BBA(Hons./Hons. with Research)</option>
+                        <option value="B.Sc(Hons.) in Visual Media">B.Sc(Hons.) in Visual Media</option>
+                    </select></td>
+</tr>
 
-        <!-- Course (Mandatory) -->
-        <label for="course">Course <span style="color:red;">*</span>:</label>
-        <input type="text" id="course" name="course" value="<?php echo isset($_POST['course']) ? $_POST['course'] : ''; ?>">
-        <br>
-
-        <!-- Current Year (Mandatory) -->
-        <label for="current_year">Current Year <span style="color:red;">*</span>:</label>
-        <input type="text" id="current_year" name="current_year" value="<?php echo isset($_POST['current_year']) ? $_POST['current_year'] : ''; ?>">
-        <br>
-
-        <!-- Passing Out Year (Mandatory) -->
-        <label for="passing_out_year">Passing Out Year <span style="color:red;">*</span>:</label>
-        <input type="text" id="passing_out_year" name="passing_out_year" value="<?php echo isset($_POST['passing_out_year']) ? $_POST['passing_out_year'] : ''; ?>">
-        <br>
-
-        <!-- Gender (Mandatory) -->
-        <label for="gender">Gender <span style="color:red;">*</span>:</label>
-        <input type="radio" name="gender" value="Male" <?php if (isset($_POST['gender']) && $_POST['gender'] == 'Male') echo 'checked'; ?>> Male
-        <input type="radio" name="gender" value="Female" <?php if (isset($_POST['gender']) && $_POST['gender'] == 'Female') echo 'checked'; ?>> Female
-        <input type="radio" name="gender" value="Other" <?php if (isset($_POST['gender']) && $_POST['gender'] == 'Other') echo 'checked'; ?>> Other
-        <br>
-
-        <!-- Date of Birth (Mandatory) -->
-        <label for="dob">Date of Birth <span style="color:red;">*</span>:</label>
-        <input type="date" id="dob" name="dob" value="<?php echo isset($_POST['dob']) ? $_POST['dob'] : ''; ?>">
-        <br>
-
-        <!-- Contact Number (Mandatory) -->
-        <label for="contact_number">Contact Number <span style="color:red;">*</span>:</label>
-        <input type="text" id="contact_number" name="contact_number" value="<?php echo isset($_POST['contact_number']) ? $_POST['contact_number'] : ''; ?>">
-        <br>
-
-        <button type="submit" name="submit">Save</button>
+                <tr>
+                    <td>Current Year </td><td><input type="text" id="current_year" name="year"></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year </td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
+                </tr>
+                <tr>
+                    <td>Current Arrears </td><td><input type="text" id="current_arrears" name="current_arrears"></td>
+                </tr>
+                <tr>
+                    <td>CGPA </td><td><input type="number" id="cgpa" name="cgpa"></td>
+                </tr>
+            </table>
+            <br>
+            <table>
+                <th>12th Details</th>
+                <tr>
+                    <td>School Name </td><td><input type="text" id="school_name_twelfth" name="school_name_twelfth"></td>
+                </tr>
+                <tr>
+                    <td>Board </td><td><input type="text" id=board_twelfth name="board_twelfth"></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year </td><td><input type="text" id=pass_out_year_twelfth name="pass_out_year_twelfth"></td>
+                </tr>
+                <tr>
+                    <td>Percentage </td><td><input type="text" id=percentage_twelfth name="percentage_twelfth"></td>
+                </tr>
+            </table>
+            <br>
+            <table>
+                <th>10th Details</th>
+                <tr>
+                    <td>School Name </td><td><input type="text" id="school_name_tenth" name="school_name_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Board </td><td><input type="text" id=board_tenth name="board_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year </td><td><input type="text" id=pass_out_year_tenth name="pass_out_year_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Percentage </td><td><input type="text" id=percentage_tenth name="percentage_tenth"></td>
+                </tr>
+            </table>
+            <div class="button-container">
+              
+              <button type="submit">SAVE</button>
+          </div>
+        </form>
+    </div>
+     <!-- Resume Section -->
+     <div id="resume" class="details">
+        <h2>Resume</h2>
+        <p>Upload your resume here.</p>
+        <form action="upload_resume.php" method="POST" enctype="multipart/form-data">
+        <input type="file" id="resume_file" name="resume_file">
+        <div class="button-container">
+            <button type="submit">SAVE</button>
+        </div>
     </form>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.details').forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            
+        }
+
+        function setActiveTab(event) {
+            document.querySelectorAll('.menu a').forEach(item => item.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        document.querySelectorAll('.menu a').forEach(item => {
+            item.addEventListener('click', setActiveTab);
+        });
+    </script>
+
+   
+
+   
+
 </body>
 </html>
+
+
