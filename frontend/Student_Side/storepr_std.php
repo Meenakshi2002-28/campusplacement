@@ -38,9 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      {
         echo "<script>alert('All fields are required. Please fill out all mandatory fields.');</script>";
     }
-    else{
-        
-    }
+    
     // Prepare statement to get course_id based on course_name and branch
     $sql = "SELECT course_id FROM course WHERE course_name = ? AND course_branch = ?";
     $stmt = $conn->prepare($sql);
