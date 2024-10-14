@@ -34,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dob = htmlspecialchars(trim($_POST['dob']));
 
     // Check if any required field is empty
-    if (empty($gender) || empty($course_name) || empty($branch) || empty($email) || empty($phone_number) || empty($graduation_year) || empty($current_year) || empty($dob)) {
+    if (empty($gender) || empty($course_name) || empty($branch) || empty($email) || empty($phone_number) || empty($graduation_year) || empty($current_year) || empty($dob))
+     {
         echo "All fields are required.";
         exit; // Stop script execution and return a graceful message
     }
