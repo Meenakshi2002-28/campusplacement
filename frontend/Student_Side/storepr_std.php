@@ -70,13 +70,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Execute the statement
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {
-            echo "Record successfully updated.";
+            echo "<script>displayMessage('Record successfully updated.');</script>";
         } else {
-            echo "No changes made. Ensure the data is different from existing values.";
+            echo "<script>displayMessage('No changes made. Ensure the data is different from existing values.');</script>";
         }
     } else {
-        echo "Error: " . $stmt->error;
+        echo "<script>displayMessage('Error: " . $stmt->error . "');</script>";
     }
+
     
 
     // Close connection
@@ -277,6 +278,27 @@ img {
     margin-left: 1px;
 }
 
+.message-box {
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745; /* Success message color */
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    text-align: center;
+    z-index: 1000;
+}
+
+.message-box i {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
     </style>
 </head>
 <body>
@@ -392,6 +414,11 @@ img {
                 <button type="submit">SAVE</button>
             </div>
         </form>
+        <div id="messageBox" class="message-box">
+    Record updated successfully.
+    <i class="fas fa-times" onclick="closeMessage()"></i> <!-- Font Awesome icon for close button -->
+</div>
+
     </div>
       <!-- Academic Details Section -->
       <div id="academic" class="details">
