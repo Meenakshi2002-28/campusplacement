@@ -18,8 +18,11 @@ if ($conn->connect_error) {
 
 // Fetch selected fields
 $fields = isset($_POST['fields']) ? $_POST['fields'] : [];
-$job_id = $_GET['job_id']; // Ensure job_id is passed or validated
-
+if (isset($_POST['job_id']) && is_numeric($_POST['job_id'])) {
+    $job_id = (int)$_POST['job_id']; // Cast to integer for safety
+} else {
+    die("Error: job_id not set or invalid.");
+}
 // Prepare SQL query
 $fieldQueryParts = [];
 $selectFields = [];
@@ -86,17 +89,18 @@ $result = $stmt->get_result();
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
-// Set header
-$sheet->setRowHeight(1, 20);
+$sheet->getRowDimension(1)->setRowHeight(20); // Set the height of the first row
 foreach ($fields as $index => $field) {
-    $sheet->setCellValueByColumnAndRow($index + 1, 1, ucfirst(str_replace('_', ' ', $field)));
+    $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($index + 1);
+    $sheet->setCellValue($columnLetter . '1', ucfirst(str_replace('_', ' ', $field)));
 }
 
 // Populate data
 $rowIndex = 2;
 while ($row = $result->fetch_assoc()) {
     foreach ($fields as $index => $field) {
-        $sheet->setCellValueByColumnAndRow($index + 1, $rowIndex, $row[$field]);
+        $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($index + 1);
+        $sheet->setCellValue($columnLetter . $rowIndex, $row[$field]);
     }
     $rowIndex++;
 }

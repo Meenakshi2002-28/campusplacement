@@ -367,7 +367,9 @@ $result = $conn->query($sql);
                 <?php if ($result->num_rows > 0): ?>
                     <?php while ($job = $result->fetch_assoc()): ?>
                         <div class="job-details">
-                            <i class="fas fa-pencil-alt edit-icon"></i>
+                        <a href="job_edit.php?job_id=<?php echo $job['job_id']; ?>" title="Edit" class="edit-icon-link">
+                    <i class="fas fa-pencil-alt edit-icon"></i>
+                    </a>
                             <h2><?php echo htmlspecialchars($job['job_title']); ?></h2>
                             <p><?php echo htmlspecialchars($job['company_name']); ?></p>
                             <div class="jobimg">

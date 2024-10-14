@@ -254,8 +254,8 @@ $conn->close();
         </div>
 
         <!-- Filter Section -->
-         <button>Export</button>
          <form id="exportForm" method="POST" action="export.php">
+         <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
     <div class="filters">
         <label><input type="checkbox" name="fields[]" value="name" checked> Name</label><br>
         <label><input type="checkbox" name="fields[]" value="user_id" checked> Roll Number</label><br>
