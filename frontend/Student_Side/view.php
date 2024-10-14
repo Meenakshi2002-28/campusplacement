@@ -261,6 +261,28 @@ img {
             font-size: 20px;
             margin-top: 210px;
         }
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2F5597;
+    min-width: 150px;
+    z-index: 1;
+    top: 55px; 
+    border-radius: 3px;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #1e165f;
+    color: white;
+    border-radius: 3px;
+    }
 
     </style>
 </head>
@@ -268,10 +290,12 @@ img {
 <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+
+    <!--Dropdown Menu-->
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 
@@ -451,8 +475,8 @@ img {
           </div>
 </form>
 </div>
+
 <!-- Resume Section -->
-<<!-- Resume Section -->
 <div id="resume" class="details">
     <h2>Resume</h2>
 
@@ -500,6 +524,35 @@ img {
         document.querySelectorAll('.menu a').forEach(item => {
             item.addEventListener('click', setActiveTab);
         });
+        // Change profile image
+        function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+        function changeProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+                };
+                reader.readAsDataURL(file); // Read the image file
+            }
+        }
+
+//Dropdown in the header area
+    let dropdownOpen = false;
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdownOpen = !dropdownOpen;
+        dropdown.style.display = dropdownOpen ? "block" : "none";
+    }
+
+    function goToProfile() {
+        showSection('personal'); // Redirect to profile section
+        toggleDropdown(); // Close the dropdown after redirection
+    }
     </script>
 
 
