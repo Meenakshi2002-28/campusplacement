@@ -342,7 +342,7 @@ img {
         <form action="storepr_std.php" method="post">
             <table>
                 
-                <tr><td></td>
+                <tr><td>Bran</td>
                     <td><select name="branch" id="branch">
                             <option value="CS">Computer Science</option>
                             <option value="COMMERCE">Commerce</option>
