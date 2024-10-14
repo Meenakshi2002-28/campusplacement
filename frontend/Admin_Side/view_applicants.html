@@ -94,6 +94,7 @@
             position: absolute;
             top: 80px;
             right: 20px;
+            border: 1px solid #000000;
             background-color: white;
             padding: 15px;
             border-radius: 5px;
@@ -107,6 +108,24 @@
 
         .filters input[type="checkbox"] {
             margin-right: 10px;
+        }
+
+        .export-btn {
+            background-color: #2F5597;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+        }
+
+        .export-btn:hover {
+            background-color: #1e165f;
+            transform: scale(1.05);
         }
 
         .dropdown-content {
@@ -217,7 +236,6 @@
         </div>
 
         <!-- Filter Section -->
-         <button>Export</button>
         <div class="filters">
             <label><input type="checkbox" checked> Name</label><br>
             <label><input type="checkbox" checked> Roll Number</label><br>
@@ -230,6 +248,7 @@
             <label><input type="checkbox"> tenth percentage</label><br>
             <label><input type="checkbox"> twelfth percentage</label><br>
             <label><input type="checkbox" checked> resume</label><br>
+            <button class="export-btn">Export</button>
         </div>
     </div>
 
