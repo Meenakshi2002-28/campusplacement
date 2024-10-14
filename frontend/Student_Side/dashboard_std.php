@@ -123,30 +123,36 @@ if (isset($_SESSION['user_id'])) {
     color: white;
     border-radius: 3px;
     }
+    .logout a {
+            font-size: 20px;
+            margin-top: 210px;
+            padding-left: 5px;
+            padding-right: 75px;
+        }
 </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
             <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div>    
+    </div>
 
-<div class="sidebar">
-    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
-    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
-    <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
-    <a href="../logout.php">Logout</a>
-
-</div>
+    <div class="sidebar">
+        <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+        <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>
 <div class="main-content">
         <h1>Welcome, <?php echo htmlspecialchars($name); ?></h1>
     </div>

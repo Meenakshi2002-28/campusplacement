@@ -360,9 +360,7 @@ $conn->close();
 
                 <label for="cgpa">Required CGPA</label>
                 <input type="number" id="cgpa" name="cgpa" step="0.01" value="<?php echo htmlspecialchars($job['cgpa_requirement']); ?>" required>
-
                 <label for="course">Eligible Courses </label>
-                <label for="course">Eligible Courses</label>
 <div>
     <input type="text" id="selectedOptions" name="selectedOptions" readonly placeholder="Select Eligible Courses">
     <select name="options[]" id="course" multiple>
@@ -380,17 +378,19 @@ $conn->close();
         <option value="Int Msc Mathematics" <?php echo in_array('Int Msc Mathematics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Mathematics</option>
     </select>
 </div>
-
+                
                 <label for="pass_out_year">Pass Out Year</label>
+                <div>
                 <select name="pass_out_year" id="pass_out_year">
                     <option value="2022" <?php echo ($job['passout_year'] == 2022) ? 'selected' : ''; ?>>2022</option>
                     <option value="2023" <?php echo ($job['passout_year'] == 2023) ? 'selected' : ''; ?>>2023</option>
                     <option value="2024" <?php echo ($job['passout_year'] == 2024) ? 'selected' : ''; ?>>2024</option>
                 </select>
-
+                </div>
                 <label for="description">Description</label>
+                <div>
                 <textarea id="description" name="description" required><?php echo htmlspecialchars($job['description']); ?></textarea>
-
+                </div>
                 <label for="max-arrears">Maximum Arrears</label>
                 <input type="text" id="max-arrears" name="max-arrears" value="<?php echo htmlspecialchars($job['max_arrears']); ?>">
 
@@ -407,15 +407,19 @@ $conn->close();
                 <input type="text" id="job-status" name="job-status" value="<?php echo htmlspecialchars($job['job_status']); ?>">
 
                 <h3>Hiring Workflow Rounds</h3>
+                <br>
                 <label for="round-1">Round 1</label>
+                <div>
                 <input type="text" id="round-1" name="round-1" value="<?php echo htmlspecialchars($job['round_1']); ?>">
-
+                </div>
                 <label for="round-2">Round 2</label>
+                <div>
                 <input type="text" id="round-2" name="round-2" value="<?php echo htmlspecialchars($job['round_2']); ?>">
-
+                </div>
                 <label for="round-3">Round 3</label>
+                <div>
                 <input type="text" id="round-3" name="round-3" value="<?php echo htmlspecialchars($job['round_3']); ?>">
-
+                </div>
                 <input type="submit" value="Update Job">
             </form>
             <?php else: ?>
