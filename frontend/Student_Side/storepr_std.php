@@ -18,26 +18,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Retrieve user_id from session
-
     if (!isset($_SESSION['user_id'])) {
         die("User not logged in.");
     }
     $user_id = $_SESSION['user_id'];
 
-    // Retrieve form data
-    $gender = $_POST['gender'];
-    $course_name = $_POST['course'];
-    $branch = $_POST['branch'];
-    $email = $_POST['email'];
-    $phone_number = $_POST['number'];
-    $graduation_year = $_POST['pass_out_year'];
-    $current_year = $_POST['year'];
-    $dob = $_POST['dob'];
+    // Retrieve and sanitize form data
+    $gender = htmlspecialchars(trim($_POST['gender']));
+    $course_name = htmlspecialchars(trim($_POST['course']));
+    $branch = htmlspecialchars(trim($_POST['branch']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $phone_number = htmlspecialchars(trim($_POST['number']));
+    $graduation_year = htmlspecialchars(trim($_POST['pass_out_year']));
+    $current_year = htmlspecialchars(trim($_POST['year']));
+    $dob = htmlspecialchars(trim($_POST['dob']));
 
     // Check if any required field is empty
-    if (empty($gender) || empty($course_name) || empty($branch) || empty($email) || empty($phone_number) || empty($graduation_year) || empty($current_year) || empty($dob))
-     {
-        die("All fields are required.");
+    if (empty($gender) || empty($course_name) || empty($branch) || empty($email) || empty($phone_number) || empty($graduation_year) || empty($current_year) || empty($dob)) {
+        echo "All fields are required.";
+        exit; // Stop script execution and return a graceful message
     }
     
     // Prepare statement to get course_id based on course_name and branch
@@ -52,7 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Check if a course_id was found
     if (!$course_id) {
-        die("Invalid course or branch selected.");
+        echo "Invalid course or branch selected.";
+        exit; // Stop script execution and return a graceful message
     }
 
     // Prepare and bind statement for updating data in STUDENT table
@@ -80,12 +80,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     
-
     // Close connection
     $stmt->close();
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
