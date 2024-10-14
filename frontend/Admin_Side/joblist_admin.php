@@ -345,21 +345,23 @@ $result = $conn->query($sql);
     </div> 
 
     <div class="sidebar">
-        <a href="#home"><i class="fas fa-home"></i> Home</a>
-        <a href="#jobs"><i class="fas fa-briefcase"></i> Jobs</a>
-        <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
-        <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
-        <a href="#company"><i class="fas fa-building"></i> Company</a>
-        <a href="#profile"><i class="fas fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
-        <div class="logout">
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
-        </div>
+    <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
+    <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="#company"><i class="fas fa-building"></i> Company</a>
+    <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+    <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
     </div>
     <div class="main-content">
-        <div class="tabs">
-            <button class="create-button"><i class="fas fa-plus"></i> Create</button>
-        </div>
+    <div class="tabs">
+        <button class="create-button" onclick="window.location.href='job_creation.php'">
+            <i class="fas fa-plus"></i> Create
+        </button>
+    </div>
 
         <!-- Job List Table -->
         <table class="job-table" id="jobTable">

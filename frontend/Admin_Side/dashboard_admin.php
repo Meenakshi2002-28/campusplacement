@@ -20,7 +20,7 @@ if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 
     // Prepare and execute a SQL query to fetch the user's name
-    $query = "SELECT name FROM student WHERE user_id = ?";
+    $query = "SELECT name FROM admin WHERE user_id = ?";
     
     // Using prepared statements to prevent SQL injection
     if ($stmt = $conn->prepare($query)) {
@@ -139,19 +139,19 @@ if (isset($_SESSION['user_id'])) {
     </div>  
 
 <div class="sidebar">
-    <a href="#home"><i class="fas fa-home"></i> Home</a>
-    <a href="#jobs"><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
+    <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
     <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
     <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
     <a href="#company"><i class="fas fa-building"></i> Company</a>
     <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
     <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
     <div class="logout">
-        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
     </div>
 </div>
 <div class="main-content">
-    <h1>Welcome, Gowri Parvathy Sailesh</h1>
+    <h1>Welcome, <?php echo htmlspecialchars($name); ?></h1>
 </div>
 <script>
 
