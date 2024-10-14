@@ -33,6 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $current_year = $_POST['year'];
     $dob = $_POST['dob'];
 
+    // Check if any required field is empty
+    if (empty($gender) || empty($course_name) || empty($branch) || empty($email) || empty($phone_number) || empty($graduation_year) || empty($current_year) || empty($dob))
+     {
+        die("All fields are required.");
+    }
+
     // Prepare statement to get course_id based on course_name and branch
     $sql = "SELECT course_id FROM course WHERE course_name = ? AND course_branch = ?";
     $stmt = $conn->prepare($sql);
