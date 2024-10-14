@@ -1,4 +1,4 @@
-<?php
+<span?php
 session_start(); // Start the session
 
 // Check if the form is submitted
@@ -427,7 +427,7 @@ img {
             <table>
                 <th>UG Details</th>
                 <tr>
-    <td>Branch</td>
+    <td>Branch<span style="color:red;">*</span></td>
     <td><select name="branch" id="branch">
                             <option value="CS">Computer Science</option>
                             <option value="COMMERCE">Commerce</option>
