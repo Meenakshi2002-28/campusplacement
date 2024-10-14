@@ -18,27 +18,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Retrieve user_id from session
+
     if (!isset($_SESSION['user_id'])) {
         die("User not logged in.");
     }
     $user_id = $_SESSION['user_id'];
 
-    // Retrieve and sanitize form data
-    $gender = htmlspecialchars(trim($_POST['gender']));
-    $course_name = htmlspecialchars(trim($_POST['course']));
-    $branch = htmlspecialchars(trim($_POST['branch']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $phone_number = htmlspecialchars(trim($_POST['number']));
-    $graduation_year = htmlspecialchars(trim($_POST['pass_out_year']));
-    $current_year = htmlspecialchars(trim($_POST['year']));
-    $dob = htmlspecialchars(trim($_POST['dob']));
+    // Retrieve form data
+    $gender = $_POST['gender'];
+    $course_name = $_POST['course'];
+    $branch = $_POST['branch'];
+    $email = $_POST['email'];
+    $phone_number = $_POST['number'];
+    $graduation_year = $_POST['pass_out_year'];
+    $current_year = $_POST['year'];
+    $dob = $_POST['dob'];
 
-    // Check if any required field is empty
-    if (empty($gender) || empty($course_name) || empty($branch) || empty($email) || empty($phone_number) || empty($graduation_year) || empty($current_year) || empty($dob))
-     {
-        echo "All fields are required.";
-        exit; // Stop script execution and return a graceful message
-    }
     
     // Prepare statement to get course_id based on course_name and branch
     $sql = "SELECT course_id FROM course WHERE course_name = ? AND course_branch = ?";
@@ -52,8 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Check if a course_id was found
     if (!$course_id) {
-        echo "Invalid course or branch selected.";
-        exit; // Stop script execution and return a graceful message
+        die("Invalid course or branch selected.");
     }
 
     // Prepare and bind statement for updating data in STUDENT table
@@ -72,21 +66,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Execute the statement
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {
-            echo "<script>displayMessage('Record successfully updated.');</script>";
+            echo "Record successfully updated.";
         } else {
-            echo "<script>displayMessage('No changes made. Ensure the data is different from existing values.');</script>";
+            echo "No changes made. Ensure the data is different from existing values.";
         }
     } else {
-        echo "<script>displayMessage('Error: " . $stmt->error . "');</script>";
+        echo "Error: " . $stmt->error;
     }
-
     
+
     // Close connection
     $stmt->close();
     $conn->close();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -280,27 +273,6 @@ img {
     margin-left: 1px;
 }
 
-.message-box {
-    display: none; /* Hidden by default */
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #28a745; /* Success message color */
-    color: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 18px;
-    text-align: center;
-    z-index: 1000;
-}
-
-.message-box i {
-    margin-left: 10px;
-    cursor: pointer;
-}
-
     </style>
 </head>
 <body>
@@ -343,7 +315,7 @@ img {
         <form action="storepr_std.php" method="post">
             <table>
                 
-                <tr><td>Bran</td>
+                <tr><td>Branch</td>
                     <td><select name="branch" id="branch">
                             <option value="CS">Computer Science</option>
                             <option value="COMMERCE">Commerce</option>
@@ -416,11 +388,6 @@ img {
                 <button type="submit">SAVE</button>
             </div>
         </form>
-        <div id="messageBox" class="message-box">
-    Record updated successfully.
-    <i class="fas fa-times" onclick="closeMessage()"></i> <!-- Font Awesome icon for close button -->
-</div>
-
     </div>
       <!-- Academic Details Section -->
       <div id="academic" class="details">
@@ -429,7 +396,7 @@ img {
             <table>
                 <th>UG Details</th>
                 <tr>
-    <td>Branch<span style="color:red">*</span></td>
+    <td>Branch</td>
     <td><select name="branch" id="branch">
                             <option value="CS">Computer Science</option>
                             <option value="COMMERCE">Commerce</option>
