@@ -427,7 +427,7 @@ img {
             <table>
                 <th>UG Details</th>
                 <tr>
-    <td>Branch<span style="color:red">*</span></td>
+    <td><span style="color:red">*</span></td>
     <td><select name="branch" id="branch">
                             <option value="CS">Computer Science</option>
                             <option value="COMMERCE">Commerce</option>
