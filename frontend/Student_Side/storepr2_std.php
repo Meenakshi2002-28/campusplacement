@@ -354,7 +354,7 @@ img {
                         </select>
                     </td>
                 </tr>
-                <tr><td>Course </td>
+                <tr><td>Course<span style="color:red;">*</span></td>
                     <td><select name="course" id="course">
                         <option value="BCA">BCA</option>
                         <option value="BCA DataScience">BCA Data Science</option>
@@ -376,14 +376,14 @@ img {
                     
                     </td>
                 </tr>
-                <tr><td>Current Year </td>
+                <tr><td>Current Year <span style="color:red;">*</span></td>
                     <td><input type="text" id="year" name="year"></td>
                 </tr>
                 <tr>
-                    <td>Pass Out Year </td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
+                    <td>Pass Out Year<span style="color:red;">*</span> </td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
                 </tr>
                 <tr>
-                    <td>Gender</td>
+                    <td>Gender<span style="color:red;">*</span></td>
                     <td>
                         <div class="gender-options">
                             <label>
@@ -399,16 +399,16 @@ img {
                     </td>
                 </tr>
                 <tr>
-                    <td>Date of Birth </td><td><input type="date" id="dob" name="dob"></td>
+                    <td>Date of Birth <span style="color:red;">*</span></td><td><input type="date" id="dob" name="dob"></td>
                 </tr>
             </table>
             <h4>Contact Information</h4>
             <table>
                 <tr>
-                    <td>Phone Number </td><td><input type="text" id="number" name="number"></td>
+                    <td>Phone Number<span style="color:red;">*</span> </td><td><input type="text" id="number" name="number"></td>
                 </tr>
                 <tr>
-                    <td>Email </td><td><input type="text" id="email" name="email"></td>
+                    <td>Email <span style="color:red;">*</span></td><td><input type="text" id="email" name="email"></td>
                 </tr>
             </table>
             <div class="button-container">
