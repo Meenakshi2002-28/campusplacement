@@ -1,4 +1,4 @@
-<span?php
+<?php
 session_start(); // Start the session
 
 // Check if the form is submitted
@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Retrieve user_id from session
+
     if (!isset($_SESSION['user_id'])) {
         die("User not logged in.");
     }
@@ -341,7 +342,7 @@ img {
         <form action="storepr_std.php" method="post">
             <table>
                 
-                <tr><td>Branch </td>
+                <tr><td></td>
                     <td><select name="branch" id="branch">
                             <option value="CS">Computer Science</option>
                             <option value="COMMERCE">Commerce</option>
