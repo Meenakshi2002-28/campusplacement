@@ -21,22 +21,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!isset($_SESSION['user_id'])) {
         die("User not logged in.");
     }
-    
     $user_id = $_SESSION['user_id'];
-    $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
-    $course_name = isset($_POST['course']) ? $_POST['course'] : '';
-    $branch = isset($_POST['branch']) ? $_POST['branch'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
-    $phone_number = isset($_POST['number']) ? $_POST['number'] : '';
-    $graduation_year = isset($_POST['pass_out_year']) ? $_POST['pass_out_year'] : '';
-    $current_year = isset($_POST['year']) ? $_POST['year'] : '';
-    $dob = isset($_POST['dob']) ? $_POST['dob'] : '';
-    
+
+    // Retrieve form data
+    $gender = $_POST['gender'];
+    $course_name = $_POST['course'];
+    $branch = $_POST['branch'];
+    $email = $_POST['email'];
+    $phone_number = $_POST['number'];
+    $graduation_year = $_POST['pass_out_year'];
+    $current_year = $_POST['year'];
+    $dob = $_POST['dob'];
+
     // Check if any required field is empty
-    if (empty($gender) || empty($course_name) || empty($branch) || empty($email) || empty($phone_number) || empty($graduation_year) || empty($current_year) || empty($dob)) {
+    if (empty($gender) || empty($course_name) || empty($branch) || empty($email) || empty($phone_number) || empty($graduation_year) || empty($current_year) || empty($dob))
+     {
         die("All fields are required.");
     }
-    
 
     // Prepare statement to get course_id based on course_name and branch
     $sql = "SELECT course_id FROM course WHERE course_name = ? AND course_branch = ?";
