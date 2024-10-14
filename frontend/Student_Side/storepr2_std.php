@@ -376,7 +376,7 @@ img {
                     
                     </td>
                 </tr>
-                <tr><td>Current Year <span style="color:red;">*</span></td>
+                <tr><td>Current Year<span style="color:red;">*</span></td>
                     <td><input type="text" id="year" name="year"></td>
                 </tr>
                 <tr>
@@ -399,7 +399,7 @@ img {
                     </td>
                 </tr>
                 <tr>
-                    <td>Date of Birth <span style="color:red;">*</span></td><td><input type="date" id="dob" name="dob"></td>
+                    <td>Date of Birth<span style="color:red;">*</span></td><td><input type="date" id="dob" name="dob"></td>
                 </tr>
             </table>
             <h4>Contact Information</h4>
@@ -408,7 +408,7 @@ img {
                     <td>Phone Number<span style="color:red;">*</span> </td><td><input type="text" id="number" name="number"></td>
                 </tr>
                 <tr>
-                    <td>Email <span style="color:red;">*</span></td><td><input type="text" id="email" name="email"></td>
+                    <td>Email<span style="color:red;">*</span></td><td><input type="text" id="email" name="email"></td>
                 </tr>
             </table>
             <div class="button-container">
