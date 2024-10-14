@@ -255,19 +255,22 @@ $conn->close();
 
         <!-- Filter Section -->
          <button>Export</button>
-        <div class="filters">
-            <label><input type="checkbox" checked> Name</label><br>
-            <label><input type="checkbox" checked> Roll Number</label><br>
-            <label><input type="checkbox" checked> Course</label><br>
-            <label><input type="checkbox" checked> Branch</label><br>
-            <label><input type="checkbox" checked> CGPA</label><br>
-            <label><input type="checkbox"> E-Mail ID</label><br>
-            <label><input type="checkbox" checked> Current Arrears</label><br>
-            <label><input type="checkbox" checked> Pass out Year</label><br>
-            <label><input type="checkbox"> tenth percentage</label><br>
-            <label><input type="checkbox"> twelfth percentage</label><br>
-            <label><input type="checkbox" checked> resume</label><br>
-        </div>
+         <form id="exportForm" method="POST" action="export.php">
+    <div class="filters">
+        <label><input type="checkbox" name="fields[]" value="name" checked> Name</label><br>
+        <label><input type="checkbox" name="fields[]" value="user_id" checked> Roll Number</label><br>
+        <label><input type="checkbox" name="fields[]" value="course_name" checked> Course</label><br>
+        <label><input type="checkbox" name="fields[]" value="course_branch" checked> Branch</label><br>
+        <label><input type="checkbox" name="fields[]" value="cgpa" checked> CGPA</label><br>
+        <label><input type="checkbox" name="fields[]" value="email"> E-Mail ID</label><br>
+        <label><input type="checkbox" name="fields[]" value="current_arrears" checked> Current Arrears</label><br>
+        <label><input type="checkbox" name="fields[]" value="graduation_year" checked> Pass out Year</label><br>
+        <label><input type="checkbox" name="fields[]" value="percentage_tenth"> Tenth Percentage</label><br>
+        <label><input type="checkbox" name="fields[]" value="percentage_twelfth"> Twelfth Percentage</label><br>
+        <label><input type="checkbox" name="fields[]" value="resume" checked> Resume</label><br>
+    </div>
+    <button type="submit">Export</button>
+</form>
     </div>
 
     <script>
