@@ -19,6 +19,12 @@ if (isset($_POST['delete_job_id'])) {
     $conn->begin_transaction();
 
     try {
+         // Delete from the job_application table first
+    $deleteJobApplicationSql = "DELETE FROM job_application WHERE job_id = ?";
+    $stmt = $conn->prepare($deleteJobApplicationSql);
+    $stmt->bind_param("i", $job_id);
+    $stmt->execute();
+    
         // Delete from job_course table first
         $deleteJobCourseSql = "DELETE FROM job_course WHERE job_id = ?";
         $stmt = $conn->prepare($deleteJobCourseSql);

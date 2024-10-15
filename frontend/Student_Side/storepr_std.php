@@ -307,6 +307,11 @@ img {
             padding-left: 5px;
             padding-right: 75px;
         }
+        .error-message {
+            color: red;
+            font-size: 12px; /* Make the error message text smaller */
+            margin-top: 5px; /* Add space between input and error message */
+        }
 
     </style>
 </head>
@@ -350,7 +355,8 @@ img {
     <!-- Personal Details Section -->
     <div id="personal" class="details active">
         <h2>Personal Details</h2>
-        <form action="storepr_std.php" method="post">
+        <form action="storepr_std.php" method="post" onsubmit="return validateForm()">
+        <div id="form-error" class="error-message" style="color:red;"></div>
             <table>
                  <tr>
                     <td>Branch<span style="color:red;">*</span></td>
@@ -409,16 +415,19 @@ img {
                     </td>
                 </tr>
                 <tr>
-                    <td>Date of Birth<span style="color:red;">*</span></td><td><input type="date" id="dob" name="dob"></td>
+                    <td>Date of Birth<span style="color:red;">*</span></td><td><input type="date" id="dob" name="dob"onblur="validateDOB()"></td>
+                    <div id="dob-error" class="error-message"></div>
                 </tr>
             </table>
             <h4>Contact Information</h4>
             <table>
                 <tr>
-                    <td>Phone Number<span style="color:red;">*</span> </td><td><input type="text" id="number" name="number"></td>
+                    <td>Phone Number<span style="color:red;">*</span> </td><td><input type="text" id="number" name="number"onblur="validatePhone()"></td>
+                    <div id="phone-error" class="error-message"></div> <!-
                 </tr>
                 <tr>
-                    <td>Email<span style="color:red;">*</span></td><td><input type="text" id="email" name="email"></td>
+                    <td>Email<span style="color:red;">*</span></td><td><input type="text" id="email" name="email"onblur="validateEmail()"></td>
+                    <div id="email-error" class="error-message"></div> 
                 </tr>
             </table>
             <div class="button-container">
@@ -430,16 +439,14 @@ img {
           Record updated successfully.
       <i class="fas fa-times" onclick="closeMessage()"></i> <!-- Font Awesome icon for close button -->
 </div>
-<div id="error-message" style="color: red; margin-top: 10px;">All fields are required.
-<i class="fas fa-times" onclick="closeMessage()"></i>
-</div>
+
          
 
     </div>
       <!-- Academic Details Section -->
       <div id="academic" class="details">
         <h2>Academic Details</h2>
-        <form action="1.php" method="post">
+        <form action="1.php" method="post" onsubmit="return validateForm2()">
             <table>
                 <th>UG Details</th>
                 <tr>
@@ -486,7 +493,11 @@ img {
                     <td>Current Arrears<span style="color:red;">*</span></td><td><input type="text" id="current_arrears" name="current_arrears"></td>
                 </tr>
                 <tr>
-                    <td>CGPA<span style="color:red;">*</span></td><td><input type="number" id="cgpa" name="cgpa"step="0.01"></td>
+                    <td>CGPA<span style="color:red;">*</span></td>
+                    <td>
+                    <input type="number" id="cgpa" name="cgpa" step="0.01">
+                    <div id="cgpa-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
+                </td>
                 </tr>
             </table>
             <br>
@@ -502,8 +513,12 @@ img {
                     <td>Pass Out Year<span style="color:red;">*</span></td><td><input type="text" id=pass_out_year_twelfth name="pass_out_year_twelfth"></td>
                 </tr>
                 <tr>
-                    <td>Percentage<span style="color:red;">*</span></td><td><input type="text" id=percentage_twelfth name="percentage_twelfth"></td>
-                </tr>
+                    <td>Percentage<span style="color:red;">*</span></td>
+                    <td>
+                    <input type="text" id="percentage_twelfth" name="percentage_twelfth"step="0.01">
+                    <div id="percentage12th-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
+                </td>
+            </tr>
             </table>
             <br>
             <table>
@@ -518,8 +533,11 @@ img {
                     <td>Pass Out Year<span style="color:red;">*</span></td><td><input type="text" id=pass_out_year_tenth name="pass_out_year_tenth"></td>
                 </tr>
                 <tr>
-                    <td>Percentage<span style="color:red;">*</span></td><td><input type="text" id=percentage_tenth name="percentage_tenth"></td>
-                </tr>
+                    <td>Percentage<span style="color:red;">*</span></td>
+                    <td>
+                    <input type="text" id="percentage_tenth" name="percentage_tenth"step="0.01">
+                    <div id="percentage10th-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
+                </td>
             </table>
             <div class="button-container">
               
@@ -554,12 +572,219 @@ img {
         document.querySelectorAll('.menu a').forEach(item => {
             item.addEventListener('click', setActiveTab);
         });
+        function validateDOB() {
+            const dob = document.getElementById('dob').value;
+            const dobError = document.getElementById('dob-error');
+            const minDate = new Date('1990-01-01');
+            const maxDate = new Date('2009-01-01');
+            const selectedDate = new Date(dob);
+
+            if (selectedDate < minDate || selectedDate > maxDate) {
+                dobError.textContent = "Date of birth must be between 1st Jan 1990 and 1st Jan 2009.";
+                return false;
+            } else {
+                dobError.textContent = ""; // Clear error
+                return true;
+            }
+        }
+
+        // Validate Phone Number
+        function validatePhone() {
+            const phone = document.getElementById('number').value;
+            const phoneError = document.getElementById('phone-error');
+            const phoneRegex = /^[0-9]{10}$/; // Regex for 10 digits
+
+            if (!phoneRegex.test(phone)) {
+                phoneError.textContent = "Phone number must be a 10-digit number.";
+                return false;
+            } else {
+                phoneError.textContent = ""; 
+                return true;// Clear error
+            }
+        }
+
+        // Validate Email
+        function validateEmail() {
+            const email = document.getElementById('email').value;
+            const emailError = document.getElementById('email-error');
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/; // Simple email regex
+
+            if (!emailRegex.test(email)) {
+                emailError.textContent = "Please enter a valid email address.";
+                return false;
+            } else {
+                emailError.textContent = "";
+                return true; // Clear error
+            }
+        }
+        function isNumeric(value) {
+    return !isNaN(value) && value.trim() !== ""; // Check if the value is a number and not empty
+}
+
+function validateCGPA() {
+    const cgpa = document.getElementById('cgpa');
+    const errorContainer = document.getElementById('cgpa-error');
+    
+    // Clear previous error message
+    errorContainer.textContent = ""; 
+
+    if (!isNumeric(cgpa.value)) {
+        errorContainer.textContent = "CGPA must be a numeric value.";
+        return false; // Validation failed
+    }
+    return true; // Validation passed
+}
+
+function validatePercentage12th() {
+    const percentage12th = document.getElementById('percentage_twelfth');
+    const errorContainer = document.getElementById('percentage12th-error');
+    
+    // Clear previous error message
+    errorContainer.textContent = ""; 
+
+    if (!isNumeric(percentage12th.value)) {
+        errorContainer.textContent = "Percentage in 12th must be a numeric value.";
+        return false; // Validation failed
+    }
+    return true; // Validation passed
+}
+
+function validatePercentage10th() {
+    const percentage10th = document.getElementById('percentage_tenth');
+    const errorContainer = document.getElementById('percentage10th-error');
+    
+    // Clear previous error message
+    errorContainer.textContent = ""; 
+
+    if (!isNumeric(percentage10th.value)) {
+        errorContainer.textContent = "Percentage in 10th must be a numeric value.";
+        return false; // Validation failed
+    }
+    return true; // Validation passed
+}
+window.onload = function() {
+    document.getElementById('cgpa').onblur = validateCGPA;
+    document.getElementById('percentage_twelfth').onblur = validatePercentage12th;
+    document.getElementById('percentage_tenth').onblur = validatePercentage10th;
+};
+        function validateForm() {
+    let isValid = true;
+    let errorMessage = "All fields are required."; // Unified error message
+
+    // Clear previous error messages
+    const errorContainer = document.getElementById('form-error');
+    errorContainer.textContent = ""; // Clear previous error message
+
+    // Check if branch is selected
+    const branch = document.getElementById('branch').value;
+    if (branch === "") {
+        isValid = false;
+    }
+
+    // Check if course is selected
+    const course = document.getElementById('course').value;
+    if (course === "") {
+        isValid = false;
+    }
+
+    // Check if current year is filled
+    const year = document.getElementById('year').value;
+    if (year === "") {
+        isValid = false;
+    }
+
+    // Check if pass out year is filled
+    const passOutYear = document.getElementById('pass_out_year').value;
+    if (passOutYear === "") {
+        isValid = false;
+    }
+
+    // Check if gender is selected
+    const gender = document.querySelector('input[name="gender"]:checked');
+    if (!gender) {
+        isValid = false;
+    }
+
+    // If all fields are filled, validate individual fields
+    if (isValid) {
+        if (!validateDOB() || !validatePhone() || !validateEmail()) {
+            isValid = false; // Set isValid to false if any validation fails
+        }
+    } else {
+        errorContainer.textContent = errorMessage; // Display the unified error message
+    }
+
+    return isValid; // If all validations pass, form will submit
+}
+
+function validateForm2() {
+    let isValid = true;
+    const errorMessage = "All fields are required.";
+
+    // Clear previous error messages
+    const errorElements = document.querySelectorAll('.error-message');
+    errorElements.forEach(function (element) {
+        element.textContent = ""; // Clear any previous error message
+    });
+
+    // Get all required fields and validate them
+    const branch = document.getElementById('branch').value.trim();
+    const course = document.getElementById('course').value.trim();
+    const currentYear = document.getElementById('current_year').value.trim();
+    
+    const currentArrears = document.getElementById('current_arrears').value.trim();
+    const cgpa = document.getElementById('cgpa').value.trim();
+
+    const schoolName12 = document.getElementById('school_name_twelfth').value.trim();
+    const board12 = document.getElementById('board_twelfth').value.trim();
+    const passOutYear12 = document.getElementById('pass_out_year_twelfth').value.trim();
+    const percentage12 = document.getElementById('percentage_twelfth').value.trim();
+
+    const schoolName10 = document.getElementById('school_name_tenth').value.trim();
+    const board10 = document.getElementById('board_tenth').value.trim();
+    const passOutYear10 = document.getElementById('pass_out_year_tenth').value.trim();
+    const percentage10 = document.getElementById('percentage_tenth').value.trim();
+
+    // Validate UG fields
+    if (!branch) {
+        document.getElementById('cgpa-error').textContent = "Branch is required.";
+        isValid = false;
+    }
+    if (!course) {
+        document.getElementById('cgpa-error').textContent = "Course is required.";
+        isValid = false;
+    }
+    if (!currentYear) {
+        document.getElementById('cgpa-error').textContent = "Current Year is required.";
+        isValid = false;
+    }
+   
+    if (!currentArrears) {
+        document.getElementById('cgpa-error').textContent = "Current Arrears are required.";
+        isValid = false;
+    }
+    if (!cgpa) {
+        document.getElementById('cgpa-error').textContent = "CGPA is required.";
+        isValid = false;
+    }
+
+    // Validate 12th fields
+    if (!schoolName12 || !board12 || !passOutYear12 || !percentage12) {
+        document.getElementById('percentage12th-error').textContent = errorMessage;
+        isValid = false;
+    }
+
+    // Validate 10th fields
+    if (!schoolName10 || !board10 || !passOutYear10 || !percentage10) {
+        document.getElementById('percentage10th-error').textContent = errorMessage;
+        isValid = false;
+    }
+
+    return isValid; // Form submission will only proceed if true
+}
+
+
     </script>
-
-   
-
-   
-
 </body>
 </html>
 

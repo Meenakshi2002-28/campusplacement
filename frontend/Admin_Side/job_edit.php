@@ -326,6 +326,7 @@ $conn->close();
     </style>
 </head>
 <body>
+    
     <div class="main-content">
         <div class="job-form-container">
             <h2>Edit Job</h2>
@@ -360,32 +361,32 @@ $conn->close();
                 <label for="cgpa">Required CGPA</label>
                 <input type="number" id="cgpa" name="cgpa" step="0.01" value="<?php echo htmlspecialchars($job['cgpa_requirement']); ?>" required>
                 <label for="course">Eligible Courses </label>
-<div>
-    <input type="text" id="selectedOptions" name="selectedOptions" readonly placeholder="Select Eligible Courses">
-    <select name="options[]" id="course" multiple>
-        <option value="B.com taxation and finance" <?php echo in_array('B.com taxation and finance', $selected_courses) ? 'selected' : ''; ?>>B.com Taxation and Finance</option>
-        <option value="BBA" <?php echo in_array('BBA', $selected_courses) ? 'selected' : ''; ?>>BBA</option>
-        <option value="B.com fintech" <?php echo in_array('B.com fintech', $selected_courses) ? 'selected' : ''; ?>>B.com Fintech</option>
-        <option value="Int MCA" <?php echo in_array('Int MCA', $selected_courses) ? 'selected' : ''; ?>>INT MCA</option>
-        <option value="BCA" <?php echo in_array('BCA', $selected_courses) ? 'selected' : ''; ?>>BCA</option>
-        <option value="BCA DataScience" <?php echo in_array('BCA DataScience', $selected_courses) ? 'selected' : ''; ?>>BCA Data Science</option>
-        <option value="BA English and Literature" <?php echo in_array('BA English and Literature', $selected_courses) ? 'selected' : ''; ?>>BA English and Literature</option>
-        <option value="Int MA English and Literature" <?php echo in_array('Int MA English and Literature', $selected_courses) ? 'selected' : ''; ?>>INT MA English and Literature</option>
-        <option value="Int MSC mathematics" <?php echo in_array('Int MSC mathematics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Mathematics</option>
-        <option value="Int Physics" <?php echo in_array('Int Physics', $selected_courses) ? 'selected' : ''; ?>>INT Physics</option>
-        <option value="Int Msc Physics" <?php echo in_array('Int Msc Physics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Physics</option>
-        <option value="Int Msc Mathematics" <?php echo in_array('Int Msc Mathematics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Mathematics</option>
-    </select>
-</div>
+            <div>
+                <input type="text" id="selectedOptions" name="selectedOptions" readonly placeholder="Select Eligible Courses">
+                    <select name="options[]" id="course" multiple>
+                    <option value="B.com taxation and finance" <?php echo in_array('B.com taxation and finance', $selected_courses) ? 'selected' : ''; ?>>B.com Taxation and Finance</option>
+                    <option value="BBA" <?php echo in_array('BBA', $selected_courses) ? 'selected' : ''; ?>>BBA</option>
+                    <option value="B.com fintech" <?php echo in_array('B.com fintech', $selected_courses) ? 'selected' : ''; ?>>B.com Fintech</option>
+                    <option value="Int MCA" <?php echo in_array('Int MCA', $selected_courses) ? 'selected' : ''; ?>>INT MCA</option>
+                    <option value="BCA" <?php echo in_array('BCA', $selected_courses) ? 'selected' : ''; ?>>BCA</option>
+                    <option value="BCA DataScience" <?php echo in_array('BCA DataScience', $selected_courses) ? 'selected' : ''; ?>>BCA Data Science</option>
+                    <option value="BA English and Literature" <?php echo in_array('BA English and Literature', $selected_courses) ? 'selected' : ''; ?>>BA English and Literature</option>
+                    <option value="Int MA English and Literature" <?php echo in_array('Int MA English and Literature', $selected_courses) ? 'selected' : ''; ?>>INT MA English and Literature</option>
+                    <option value="Int MSC mathematics" <?php echo in_array('Int MSC mathematics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Mathematics</option>
+                    <option value="Int Physics" <?php echo in_array('Int Physics', $selected_courses) ? 'selected' : ''; ?>>INT Physics</option>
+                    <option value="Int Msc Physics" <?php echo in_array('Int Msc Physics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Physics</option>
+                    <option value="Int Msc Mathematics" <?php echo in_array('Int Msc Mathematics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Mathematics</option>
+                    </select>
+            </div>
                 
                 <label for="pass_out_year">Pass Out Year</label>
-                <div>
+            <div>
                 <select name="pass_out_year" id="pass_out_year">
                     <option value="2022" <?php echo ($job['passout_year'] == 2022) ? 'selected' : ''; ?>>2022</option>
                     <option value="2023" <?php echo ($job['passout_year'] == 2023) ? 'selected' : ''; ?>>2023</option>
                     <option value="2024" <?php echo ($job['passout_year'] == 2024) ? 'selected' : ''; ?>>2024</option>
                 </select>
-                </div>
+            </div>
                 <label for="description">Description</label>
                 <div>
                 <textarea id="description" name="description" required><?php echo htmlspecialchars($job['description']); ?></textarea>
