@@ -72,7 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Execute the statement
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {
-            echo "<script>displayMessage('Record successfully updated.');</script>";
+            header("Location: storepr_std.php"); // Change "anotherfile.php" to the desired file
+            exit(); // Always use exit() after header redirection
         } else {
             echo "<script>displayMessage('No changes made. Ensure the data is different from existing values.');</script>";
         }
@@ -300,6 +301,12 @@ img {
     margin-left: 10px;
     cursor: pointer;
 }
+.logout a {
+            font-size: 20px;
+            margin-top: 210px;
+            padding-left: 5px;
+            padding-right: 75px;
+        }
 
     </style>
 </head>
@@ -312,12 +319,15 @@ img {
 
     <!--Main Side Bar-->
     <div class="sidebar">
-        <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
-        <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-        <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
-        <a href="#profile"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
         <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
     </div> 
 
     <!--Sub SideBar-->
@@ -476,7 +486,7 @@ img {
                     <td>Current Arrears<span style="color:red;">*</span></td><td><input type="text" id="current_arrears" name="current_arrears"></td>
                 </tr>
                 <tr>
-                    <td>CGPA<span style="color:red;">*</span></td><td><input type="number" id="cgpa" name="cgpa"></td>
+                    <td>CGPA<span style="color:red;">*</span></td><td><input type="number" id="cgpa" name="cgpa"step="0.01"></td>
                 </tr>
             </table>
             <br>

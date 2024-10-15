@@ -36,9 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($stmt === false) {
         die("Prepare failed: " . $conn->error);
     }
-    $stmt->bind_param("sss", $cgpa, $current_arrears, $user_id);
+    $stmt->bind_param("dss", $cgpa, $current_arrears, $user_id);
     if ($stmt->execute()) {
-        echo "Student record updated successfully.";
+        
     } else {
         echo "Error updating student record: " . $stmt->error;
     }
@@ -66,7 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("sssssssss", $user_id, $school_tenth, $board_tenth, $percentage_tenth, $year_tenth, 
                       $school_twelfth, $board_twelfth, $percentage_twelfth, $year_twelfth);
     if ($stmt->execute()) {
-        echo "Academic details inserted successfully.";
+        header("Location: view.php"); // Change "anotherfile.php" to the desired file
+        exit(); 
     } else {
         echo "Error inserting academic details: " . $stmt->error;
     }
