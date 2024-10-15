@@ -221,6 +221,7 @@
         </tbody>
     </table>
 </div>
-    <script src="script.js"></script> <!-- Link to your JavaScript file -->
+    <script src="script.js">
+    </script> <!-- Link to your JavaScript file -->
 </body>
 </html>

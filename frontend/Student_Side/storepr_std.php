@@ -312,15 +312,44 @@ img {
             font-size: 12px; /* Make the error message text smaller */
             margin-top: 5px; /* Add space between input and error message */
         }
+        .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2F5597;
+    min-width: 150px;
+    z-index: 1;
+    top: 55px; /* Adjust this value as needed */
+    border-radius: 3px;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #1e165f;
+    color: white;
+    border-radius: 3px;
+    }
 
     </style>
 </head>
 <body>
     <!--Header_profile-->
+    
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon">
-        <img src="../images/down_arrow.png" alt="Expand Arrow" class="icon">
-    </div>
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+
+        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Student_Side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>  
 
     <!--Main Side Bar-->
     <div class="sidebar">
@@ -328,7 +357,7 @@ img {
         <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
         <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
-        <a href="../Student_side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
         <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
