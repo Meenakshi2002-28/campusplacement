@@ -496,10 +496,23 @@ img {
 </tr>
 
                 <tr>
-                    <td>Current Year<span style="color:red;">*</span></td><td><input type="text" id="current_year" name="year"></td>
+                <td>Current Year<span style="color:red;">*</span></td>
+                <td><select name="current_year" id="current_year">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </td>
                 </tr>
                 <tr>
-                    <td>Pass Out Year<span style="color:red;">*</span></td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
+                <td>Pass Out Year<span style="color:red;">*</span> </td>
+                <td><select name="pass_out_year" id="pass_out_year" >
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                </td>
                 </tr>
                 <tr>
                     <td>Current Arrears<span style="color:red;">*</span></td><td><input type="text" id="current_arrears" name="current_arrears"></td>
