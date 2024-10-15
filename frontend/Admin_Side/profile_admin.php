@@ -240,9 +240,7 @@ img {
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../Admin_Side/profile_admin.html"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <div class="logout">
-                <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
-            </div>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 <div class="sidebar">
