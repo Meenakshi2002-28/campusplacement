@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = htmlspecialchars(trim($_POST['email']));
     $phone_number = htmlspecialchars(trim($_POST['number']));
     $graduation_year = htmlspecialchars(trim($_POST['pass_out_year']));
-    $current_year = htmlspecialchars(trim($_POST['year']));
+    $current_year = htmlspecialchars(trim($_POST['current_year']));
     $dob = htmlspecialchars(trim($_POST['dob']));
 
     // Check if any required field is empty
@@ -441,7 +441,7 @@ img {
             <table>
                 <tr>
                     <td>Phone Number<span style="color:red;">*</span> </td><td><input type="text" id="number" name="number"onblur="validatePhone()"></td>
-                    <div id="phone-error" class="error-message"></div> <!-
+                    <div id="phone-error" class="error-message"></div> 
                 </tr>
                 <tr>
                     <td>Email<span style="color:red;">*</span></td><td><input type="text" id="email" name="email"onblur="validateEmail()"></td>
