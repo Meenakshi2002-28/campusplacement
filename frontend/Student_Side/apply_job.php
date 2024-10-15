@@ -30,25 +30,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $checkJobStmt->close();
 
     if ($exists == 0) {
-        // Store error message in session
+        // Store error message in session if the job does not exist
         $_SESSION['message'] = "Job ID does not exist. Please check and try again.";
         $_SESSION['message_type'] = "error";
     } else {
-        // Prepare and bind
-        $stmt = $conn->prepare("INSERT INTO job_application (job_id, user_id, applied_date, status) VALUES (?, ?, ?, 'applied')");
-        $stmt->bind_param("iss", $job_id, $user_id, $applied_date);
+        // Check if the user has already applied for this job
+        $checkApplicationStmt = $conn->prepare("SELECT COUNT(*) FROM job_application WHERE user_id = ? AND job_id = ?");
+        $checkApplicationStmt->bind_param("ii", $user_id, $job_id);
+        $checkApplicationStmt->execute();
+        $checkApplicationStmt->bind_result($applicationExists);
+        $checkApplicationStmt->fetch();
+        $checkApplicationStmt->close();
 
-        // Execute the statement
-        if ($stmt->execute()) {
-            $_SESSION['message'] = "Application submitted successfully!";
-            $_SESSION['message_type'] = "success";
-        } else {
-            $_SESSION['message'] = "Error: " . $stmt->error;
+        if ($applicationExists > 0) {
+            // Store message in session if the user has already applied
+            $_SESSION['message'] = "You have already applied for this job.";
             $_SESSION['message_type'] = "error";
-        }
+        } else {
+            // Prepare and bind for inserting new application
+            $stmt = $conn->prepare("INSERT INTO job_application (job_id, user_id, applied_date, status) VALUES (?, ?, ?, 'applied')");
+            $stmt->bind_param("iss", $job_id, $user_id, $applied_date);
 
-        // Close the statement
-        $stmt->close();
+            // Execute the statement
+            if ($stmt->execute()) {
+                $_SESSION['message'] = "Application submitted successfully!";
+                $_SESSION['message_type'] = "success";
+            } else {
+                $_SESSION['message'] = "Error: " . $stmt->error;
+                $_SESSION['message_type'] = "error";
+            }
+
+            // Close the statement
+            $stmt->close();
+        }
     }
 
     // Redirect to the same page to display the message
@@ -68,6 +82,7 @@ if (isset($_SESSION['message'])) {
 // Close the connection
 $conn->close();
 ?>
+
 
 
 <!DOCTYPE html>
