@@ -10,7 +10,7 @@ async function fetchJobs() {
         jobs.forEach(job => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td><a href="job_desc.php?job_id=${job.id}">${job.company}</a></td>
+                <td><a href="job_description.php?job_id=${job.id}">${job.company}</a></td>
                 <td>${job.title}</td>
                 <td>${job.type}</td>
                 <td>${job.salary}</td>

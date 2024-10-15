@@ -94,7 +94,8 @@ foreach ($selected_courses as $courseName) {
 }
 
 
-        echo "Job and eligible courses have been successfully added.";
+header("Location: joblist_admin.php"); // Replace 'your_redirect_file.php' with the actual file you want to redirect to
+exit();
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -272,7 +273,12 @@ $conn->close();
         color: white;
         border-radius: 3px;
     }
- 
+    .error-message {
+    color: red;
+    font-size: 12px;
+    height: 20px; /* Set a fixed height */
+    margin-top: 5px; /* Space between input and error message */
+}
 </style>
 </head>
 <body>
@@ -303,25 +309,40 @@ $conn->close();
 <div class="main-content">
     <div class="job-form-container">
         <h2>New Job Creation</h2>
-        <form class="job-form" method="POST" action="job_creation.php">
+        <form class="job-form" method="POST" action="job_creation.php"onsubmit="return validateForm()">
 
             <label for="title">Title </label>
+            <div>
             <input type="text" id="title" name="title" placeholder="Enter Job Title">
+            <span id="title-error" class="error-message" style="color:red; font-size:12px;"></span>
+            </div>
 
             <label for="company">Company </label>
+            <div>
             <input type="text" id="company" name="company" placeholder="Enter Company Name">
-
+            <span id="company-error" class="error-message" style="color:red; font-size:12px;"></span>
+            </div>
             <label for="location">Location </label>
+            <div>
             <input type="text" id="location" name="location" placeholder="Enter Job Location">
+            <span id="location-error" class="error-message" style="color:red; font-size:12px;"></span>
+            </div>
 
             <label for="work-mode">Work Mode </label>
+            <div>
             <input type="text" id="work-mode" name="work-mode" placeholder="Remote/On-site">
+            <span id="work-mode-error" class="error-message" style="color:red; font-size:12px;"></span>
+            </div>
 
             <label for="salary">Salary </label>
             <input type="number" id="salary" name="salary" placeholder="Enter Salary">
 
             <label for="deadline">Application Deadline </label>
-            <input type="date" id="deadline" name="deadline">
+            <div>
+            <input type="date" id="deadline" name="deadline"onblur="validateApplicationDeadline()">>
+            <span id="deadline-error" class="error-message" style="color:red; font-size:12px;"></span>
+            </div>
+            
 
             <label for="type">Type </label>
             <div>
@@ -360,9 +381,9 @@ $conn->close();
             <label for="pass_out_year">Pass Out Year </label>
             <div>  
                 <select name="pass_out_year" id="pass_out_year">
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
                     <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
                 </select>
             </div>
             
@@ -387,8 +408,10 @@ $conn->close();
             
 
             <label for="job-status">Job Status </label>
+            <div>
             <input type="text" id="job-status" name="job-status"placeholder="Applications Open/Closed">
-            
+            <span id="job-status-error" class="error-message" style="color:red; font-size:12px;"></span>
+            </div>
 
             <h3>Hiring Workflow Rounds</h3>
             <br>
@@ -448,6 +471,78 @@ $conn->close();
                                    .map(option => option.text); // Get selected option text
       selectedOptionsTextBox.value = selectedOptions.join(', '); // Show selected options in text box
     });
+
+    function isFutureDate(dateString) {
+    const today = new Date();
+    const inputDate = new Date(dateString);
+    
+    // Set time to 00:00:00 for comparison
+    today.setHours(0, 0, 0, 0);
+    return inputDate >= today; // Returns true if input date is today or in the future
+}
+
+function validateApplicationDeadline() {
+    const deadline = document.getElementById('deadline');
+    const errorContainer = document.getElementById('deadline-error');
+
+    // Clear previous error message
+    errorContainer.textContent = "";
+
+    if (!isFutureDate(deadline.value)) {
+        errorContainer.textContent = "Application deadline must be today or in the future.";
+        return false; // Validation failed
+    }
+    return true; // Validation passed
+}
+
+function validateForm() {
+    let isValid = true;
+
+    // Clear previous error messages
+    const errorElements = document.querySelectorAll('.error-message');
+    errorElements.forEach(function (element) {
+        element.textContent = ""; // Clear any previous error message
+    });
+
+    // Validate title, company, location, work mode, application deadline, and job status
+    const title = document.getElementById('title').value;
+    const company = document.getElementById('company').value;
+    const location = document.getElementById('location').value;
+    const workMode = document.getElementById('work-mode').value;
+    const applicationDeadline = document.getElementById('deadline').value;
+    const jobStatus = document.getElementById('job-status').value;
+
+    if (!title) {
+        document.getElementById('title-error').textContent = " Job title is required.";
+        isValid = false;
+    }
+    if (!company) {
+        document.getElementById('company-error').textContent = "Company name is required.";
+        isValid = false;
+    }
+    if (!location) {
+        document.getElementById('location-error').textContent = "Location is required.";
+        isValid = false;
+    }
+    if (!workMode) {
+        document.getElementById('work-mode-error').textContent = "Work mode is required.";
+        isValid = false;
+    }
+    if (!applicationDeadline) {
+        document.getElementById('deadline-error').textContent = "Application deadline is required.";
+        isValid = false;
+    } else {
+        if (!validateApplicationDeadline()) {
+            isValid = false; // Validation for application deadline failed
+        }
+    }
+    if (!jobStatus) {
+        document.getElementById('job-status-error').textContent = "Job status is required.";
+        isValid = false;
+    }
+
+    return isValid; // Return overall validity
+}
     </script>
 </div>
 </body>
