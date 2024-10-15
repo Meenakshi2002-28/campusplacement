@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .sidebar {
+            width: 198px;
+            height: 610px;
+            position: fixed;
+            left: 10px;
+            top: 85px;
+            background-color: #2F5597;
+            color: white;
+            padding: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            padding: 15px;
+            font-size: 22px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover {
+            border-left: 3px solid #ffffff;
+            background: #1e165f;
+        }
+        h2 {
+        margin-left: 20px;
+         color: #333;
+}   
+
+input[type="text"] {
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.filter-btn {
+    background-color: #007bff;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+        img {
+            height: 40px;
+            width: auto;
+        }
+
+        .container {
+            padding: 5px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .icon {
+            margin-left: 1px;
+        }
+
+        .tabs {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-left: 145px;
+            word-break: keep-all;
+        }
+
+        .tab-button {
+            background-color: white;
+            border: 1px solid #000000;
+            padding: 0px;
+            border-radius: 50px;
+            margin-right: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            height: 26px;
+            width: 130px;
+        }
+
+        .tab-button.active {
+            background-color: #1c4a82;
+            color: white;
+        }
+
+        
+        .main-content {
+        flex-grow: 1;
+        padding: 40px 10px 0 10px;
+        margin-left: 120px;
+        background-color:white;
+        }
+
+        .maincontent {
+                flex-grow: 1;
+            margin-top: 20px;
+            padding: 5px;
+            padding-right: 50px;
+            background-color:white;
+            padding-left: 130px;
+        }
+        .search-filter {
+        display: flex;
+      margin-bottom: 20px;
+    }
+
+    .placement-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .placement-table th, .placement-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+    }
+
+    .placement-table th {
+    background-color: #35475e;
+    color: white;
+    }
+
+    .placement-table tr:hover {
+    background-color: #f1f1f1;
+    }
+        
+    .logout{
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+    }
+
+    .logout a {
+            font-size: 20px;
+            margin-top: 210px;
+    }
+    .fas fa-trash-alt{
+            text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+
+        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Admin_Side/"><i class="fa fa-fw fa-user"></i> Profile</a>
+            
+        </div>
+    </div> 
+
+    <div class="sidebar">
+        <a href="#home"><i class="fas fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
+        <a href="#company"><i class="fas fa-building"></i> Company</a>
+        <a href="#profile"><i class="fas fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <h2>Placement List Page - Admin</h2>
+
+        <!-- Search and Filter Bar -->
+        <div class="search-filter">
+            <input type="text" placeholder="Search" class="search-bar">
+            <button class="filter-btn">Filter</button>
+        </div>
+
+        <!-- Placement Table -->
+        <table class="placement-table">
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>YOP</th>
+                    <th>Company</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>KHEN.U3CDS22039</td>
+                    <td>Jesine Maria Wilson</td>
+                    <td>2022</td>
+                    <td>Cisco</td>
+                    <td>6.5 LPA</td>
+                </tr>
+                <tr>
+                    <td>KHEN.U3CDS22020</td>
+                    <td>Jithin Prasad</td>
+                    <td>2021</td>
+                    <td>Wipro</td>
+                    <td>4.5 LPA</td>
+                </tr>
+                <tr>
+                    <td>KHEN.I5MCA21021</td>
+                    <td>Megha R</td>
+                    <td>2021</td>
+                    <td>TCS Prime</td>
+                    <td>9 LPA</td>
+                </tr>
+                <tr>
+                    <td>KHEN.U3BCA22055</td>
+                    <td>Niranjana A.S</td>
+                    <td>2021</td>
+                    <td>TCS Digital</td>
+                    <td>7 LPA</td>
+                </tr>
+                <tr>
+                    <td>KHEN.U3CDS22035</td>
+                    <td>Gowri Parvathy Saileesh</td>
+                    <td>2022</td>
+                    <td>Aakash Institute</td>
+                    <td>6.5 LPA</td>
+                </tr>
+                <tr>
+                    <td>KHEN.U3CDS22045</td>
+                    <td>Meenakshi B</td>
+                    <td>2021</td>
+                    <td>TCS Digital</td>
+                    <td>8 LPA</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>    
+        
+    
+
+    

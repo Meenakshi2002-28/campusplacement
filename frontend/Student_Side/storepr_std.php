@@ -393,7 +393,7 @@ img {
                     </td>
                 </tr>
                 <tr><td>Current Year<span style="color:red;">*</span></td>
-                    <td><input type="text" id="year" name="year"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Pass Out Year<span style="color:red;">*</span> </td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
