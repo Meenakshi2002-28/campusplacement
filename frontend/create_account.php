@@ -135,9 +135,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .signup-box button:hover {
             background-color: #f0f0f0;
         }
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
     </style>
 
     <script>
+         function validateEmail() {
+            var email = document.getElementById('email').value;
+            var emailError = document.getElementById('email-error');
+            var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+            if (!email.match(emailPattern)) {
+                emailError.textContent = "Please enter a valid email address.";
+            } else {
+                emailError.textContent = ""; // Clear error
+            }
+        }
+
+        function validatePassword() {
+    var password = document.getElementById('password').value;
+    var passwordError = document.getElementById('password-error');
+
+    if (password.length > 0 && password.length < 8) {
+        passwordError.textContent = "Password must be at least 8 characters long.";
+    } else {
+        passwordError.textContent = ""; // Clear error
+    }
+}
+        function validateConfirmPassword() {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirm-password').value;
+            var confirmPasswordError = document.getElementById('confirm-password-error');
+
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = "Passwords do not match.";
+            } else {
+                confirmPasswordError.textContent = ""; // Clear error
+            }
+        }
         function validateForm() {
             var name = document.getElementById('name').value;
             var email = document.getElementById('email').value;
@@ -170,17 +207,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" id="name" name="name" placeholder="Full name" required>
                 
                 <label for="email">Email ID</label>
-                <input type="email" id="email" name="email" placeholder="Email ID" required>
+                <input type="email" id="email" name="email" placeholder="Email ID" required onblur="validateEmail()">
+                <div id="email-error" class="error-message"></div>
                 
                 <label for="rollno">University Roll No</label>
                 <input type="text" id="rollno" name="rollno" placeholder="University Roll No" required>
                 
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Password" required>
-                
+                <input type="password" id="password" name="password" placeholder="Password" required onblur="validatePassword()">
+                <div id="password-error" class="error-message"></div>
+
                 <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm Password" required>
-                
+                <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm Password" required onblur="validateConfirmPassword()">
+                <div id="confirm-password-error" class="error-message"></div>
+
                 <button type="submit">SIGN UP</button>
             </form>
         </div>
