@@ -43,11 +43,23 @@ if ($result->num_rows > 0) {
     echo "Job not found.";
     exit;
 }
+// Fetch user's CGPA
+$userCgpaQuery = "SELECT cgpa FROM student WHERE user_id = ?";
+$stmt = $conn->prepare($userCgpaQuery);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($user_cgpa);
+$stmt->fetch();
+$stmt->close();
 
+// Fetch job's CGPA requirement
+$jobCgpaRequirement = $jobDetails[0]['cgpa_requirement'];
 
 // Close the database connection
 $conn->close();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -336,20 +348,20 @@ $conn->close();
 
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div> 
 
 <div class="sidebar">
-    <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
+    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
     <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-    <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
-    <a href="profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-    <a href="feedback.html"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+    <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
     <div class="logout">
-        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
     </div>
 </div>
 <div class="main-content">
@@ -386,6 +398,9 @@ $conn->close();
             <input type="text" id="gender" name="gender" value="<?php echo htmlspecialchars($jobDetails[0]['gender']); ?>" readonly>
             <br>
 
+            <label for="cgpa">Cgpa Requirement </label>
+            <input type="text" id="cgpa" name="cgpa" value="<?php echo htmlspecialchars($jobDetails[0]['cgpa_requirement']); ?>" readonly>
+            <br>
             
             <label for="passout-year">Pass Out Year </label>
             <input type="text" id="passout-year" name="passout-year"value="<?php echo htmlspecialchars($jobDetails[0]['passout_year']); ?>" readonly>
@@ -402,10 +417,9 @@ $conn->close();
         
         <div class="job-description">
             <h4>Description </h4>
-                    <p><?php echo htmlspecialchars($jobDetails[0]['description']); ?>
-                    </p>
-        </div>
-            <p>
+            <p><?php echo nl2br(htmlspecialchars_decode(str_replace("\\r\\n", "\n", $jobDetails[0]['description']))); ?></p>
+            </div>
+            
             <!-- Hiring Workflow Section -->
             <div class="workflow-section">
                 
@@ -423,10 +437,10 @@ $conn->close();
                     </div>
     
 <div class="jobstatus">
-    <form action="apply_job.php" method="POST">
-    <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($jobDetails[0]['job_id']); ?>">
+<form id="jobApplicationForm" action="apply_job.php" method="POST">
+        <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($jobDetails[0]['job_id']); ?>">
         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>"> <!-- Assuming you have the user ID -->
-        <button type="submit" class="apply-btn">Apply</button>
+        <button type="submit" class="apply-btn" id="applyButton">Apply</button>
     </form>
 </div>
                 
@@ -463,6 +477,32 @@ $conn->close();
             showSection('personal'); // Redirect to profile section
             toggleDropdown(); // Close the dropdown after redirection
         }
+        function confirmApplication() {
+            const userCgpa = <?php echo json_encode($user_cgpa); ?>; // Get user's CGPA from PHP
+            const jobCgpaRequirement = <?php echo json_encode($jobCgpaRequirement); ?>; // Get job's CGPA requirement from PHP
+
+            if (userCgpa < jobCgpaRequirement) {
+                alert("You cannot apply for this job because your CGPA is below the requirement.");
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        }
+        
+    document.getElementById("jobApplicationForm").onsubmit = function(event) {
+        const applyButton = document.getElementById("applyButton");
+
+        // Check the application confirmation before submission
+        if (!confirmApplication()) {
+            return false; // Prevent submission if CGPA requirement not met
+        }
+
+        // Change button text and disable it after validation
+        applyButton.innerHTML = "Applied"; // Change button text
+        applyButton.disabled = true; // Disable button to prevent further submissions
+        
+        // Allow form submission to proceed
+        return true; // Make sure to return true to submit the form
+    }
     </script>
 </body>
 </html>
