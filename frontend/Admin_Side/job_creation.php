@@ -339,7 +339,7 @@ $conn->close();
 
             <label for="deadline">Application Deadline </label>
             <div>
-            <input type="date" id="deadline" name="deadline"onblur="validateApplicationDeadline()">>
+            <input type="date" id="deadline" name="deadline"onblur="validateApplicationDeadline()">
             <span id="deadline-error" class="error-message" style="color:red; font-size:12px;"></span>
             </div>
             
