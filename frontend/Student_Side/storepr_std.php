@@ -417,11 +417,13 @@ img {
             </div>
         </form>
         <div id="messageBox" class="message-box">
-    Record updated successfully.
-      <div id="error-message" style="color: red; margin-top: 10px;">All fields are required.</div>
-         
-    <i class="fas fa-times" onclick="closeMessage()"></i> <!-- Font Awesome icon for close button -->
+          Record updated successfully.
+      <i class="fas fa-times" onclick="closeMessage()"></i> <!-- Font Awesome icon for close button -->
 </div>
+<div id="error-message" style="color: red; margin-top: 10px;">All fields are required.
+<i class="fas fa-times" onclick="closeMessage()"></i>
+</div>
+         
 
     </div>
       <!-- Academic Details Section -->
