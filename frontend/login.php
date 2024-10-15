@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 // Redirect based on the role
                 if ($db_role == 'admin') {
-                    header('Location: Admin_Side/dashboard_admin.html');
+                    header('Location: Admin_Side/dashboard_admin.php');
                 } elseif ($db_role == 'student') {
                     header('Location: Student_Side/dashboard_std.php');
                 } else {

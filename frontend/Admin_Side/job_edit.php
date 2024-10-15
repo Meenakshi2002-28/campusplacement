@@ -1,11 +1,10 @@
 <?php
 // Database connection
-$servername = "localhost"; // Change to your server name
-$username = "root";        // Change to your database username
-$password = "";            // Change to your database password
-$dbname = "campus_placement"; // Change to your database name
+$servername = "localhost"; 
+$username = "root";        
+$password = "";            
+$dbname = "campus_placement"; 
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {

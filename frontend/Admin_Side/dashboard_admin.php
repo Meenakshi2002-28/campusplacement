@@ -20,7 +20,7 @@ if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 
     // Prepare and execute a SQL query to fetch the user's name
-    $query = "SELECT name FROM student WHERE user_id = ?";
+    $query = "SELECT name FROM admin WHERE user_id = ?";
     
     // Using prepared statements to prevent SQL injection
     if ($stmt = $conn->prepare($query)) {
@@ -41,9 +41,8 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
 <style>
     
     body {
@@ -75,11 +74,12 @@ if (isset($_SESSION['user_id'])) {
         border-left: 3px solid #ffffff;
         background: #1e165f;
     }
+
     .logout a{
         font-size: 20px;
-        margin-top: 210px;
-        text-align: center;
+        margin-top: 160px;
     }
+
     .main-content {
         margin-left: 220px; /* Adjust left margin */
         padding: 50px;
@@ -123,81 +123,54 @@ if (isset($_SESSION['user_id'])) {
     color: white;
     border-radius: 3px;
     }
-    .logout a {
-            font-size: 20px;
-            margin-top: 210px;
-            padding-left: 5px;
-            padding-right: 75px;
-        }
-        .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #2F5597;
-    min-width: 150px;
-    z-index: 1;
-    top: 55px; 
-    border-radius: 3px;
-}
 
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #1e165f;
-    color: white;
-    border-radius: 3px;
-    }
 </style>
 </head>
 <body>
-<div class="container">
+    <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
 
-    <!--Dropdown Menu-->
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../Admin_Side/profile_admin.html"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
+    </div>  
+
+<div class="sidebar">
+    <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
+    <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="#company"><i class="fas fa-building"></i> Company</a>
+    <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+    <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
     </div>
-    <div class="sidebar">
-        <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
-        <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
-        <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-        <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
-        <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
-        <div class="logout">
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
-        </div>
-    </div>
+</div>
 <div class="main-content">
-        <h1>Welcome, <?php echo htmlspecialchars($name); ?></h1>
-    </div>
-    <script>
+    <h1>Welcome, <?php echo htmlspecialchars($name); ?></h1>
+</div>
+<script>
+
     // Change profile image
-        function triggerFileInput() {
+    function triggerFileInput() {
             document.getElementById('fileInput').click();
         }
 
-        function changeProfilePicture(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
-                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
-                };
-                reader.readAsDataURL(file); // Read the image file
-            }
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+            };
+            reader.readAsDataURL(file); // Read the image file
         }
-
-//Dropdown in the header area
+    }
     let dropdownOpen = false;
     function toggleDropdown() {
         const dropdown = document.getElementById("dropdownMenu");
@@ -209,7 +182,6 @@ if (isset($_SESSION['user_id'])) {
         showSection('personal'); // Redirect to profile section
         toggleDropdown(); // Close the dropdown after redirection
     }
-    </script>
-
+</script>
 </body>
 </html>
