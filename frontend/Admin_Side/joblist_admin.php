@@ -346,10 +346,14 @@ $result = $conn->query($sql);
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <a href="../profile_admin.php"><i class="fa fa-fw fa-user"></i> Profile</a>
 =======
             <a href="../Admin_Side/"><i class="fa fa-fw fa-user"></i> Profile</a>
 >>>>>>> 549e4c0 (change)
+=======
+            <a href="../Admin_Side/profile_admin.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+>>>>>>> 7a7f448 (change)
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div> 
