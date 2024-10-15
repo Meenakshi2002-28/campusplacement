@@ -139,6 +139,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: red;
             font-size: 12px;
         }
+        .logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    }
+    .logo {
+    height: 55px;
+    width: auto;
+    }
     </style>
 
     <script>
@@ -197,6 +206,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
 </head>
 <body>
+<div class="logo-container">
+        <img src="../frontend/images/logo1.png" alt="Logo" class="logo">
+    </div>
     <div class="container">
         <div class="signup-box">
             <center>

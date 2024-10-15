@@ -163,12 +163,13 @@
     </style>
 </head>
 <body>
-<div class="logo-container">
+    <div class="logo-container">
         <img src="../images/logo1.png" alt="Logo" class="logo">
     </div>
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../Student_Side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
