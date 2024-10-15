@@ -230,9 +230,21 @@ img {
     color: white;
     border-radius: 3px;
     }
+    .logo-container {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        }
+        .logo {
+        height: 50px;
+        width: auto;
+        }
 </style>
 </head>
 <body>
+<div class="logo-container">
+        <img src="../images/logo1.png" alt="Logo" class="logo">
+    </div>
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
@@ -240,7 +252,7 @@ img {
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../Admin_Side/profile_admin.html"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 <div class="sidebar">

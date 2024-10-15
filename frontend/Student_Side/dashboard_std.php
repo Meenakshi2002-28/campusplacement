@@ -151,9 +151,21 @@ if (isset($_SESSION['user_id'])) {
     color: white;
     border-radius: 3px;
     }
+    .logo-container {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        }
+        .logo {
+        height: 50px;
+        width: auto;
+        }
 </style>
 </head>
 <body>
+    <div class="logo-container">
+        <img src="../images/logo1.png" alt="Logo" class="logo">
+    </div>
 <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
@@ -169,9 +181,9 @@ if (isset($_SESSION['user_id'])) {
         <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-        <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
         <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <a href="feedback.html"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>

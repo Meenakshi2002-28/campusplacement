@@ -164,8 +164,8 @@
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../Student_Side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 
@@ -173,9 +173,9 @@
         <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-        <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
         <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <a href="feedback.html"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
@@ -221,6 +221,7 @@
         </tbody>
     </table>
 </div>
-    <script src="script.js"></script> <!-- Link to your JavaScript file -->
+    <script src="script.js">
+    </script> <!-- Link to your JavaScript file -->
 </body>
 </html>

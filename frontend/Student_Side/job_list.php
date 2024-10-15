@@ -151,28 +151,40 @@
             font-size: 20px;
             margin-top: 210px;
         }
+        .logo-container {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        }
+        .logo {
+        height: 50px;
+        width: auto;
+        }
     </style>
 </head>
 <body>
+<div class="logo-container">
+        <img src="../images/logo1.png" alt="Logo" class="logo">
+    </div>
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../Student_Side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 
     <div class="sidebar">
-        <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
-        <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-        <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
-        <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="feedback.html"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 
@@ -200,6 +212,33 @@
     </div>
 
     <script>
+         // Change profile image
+    function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+            };
+            reader.readAsDataURL(file); // Read the image file
+        }
+    }
+    let dropdownOpen = false;
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdownOpen = !dropdownOpen;
+        dropdown.style.display = dropdownOpen ? "block" : "none";
+    }
+
+    function goToProfile() {
+        showSection('personal'); // Redirect to profile section
+        toggleDropdown(); // Close the dropdown after redirection
+    }
         // Fetch job data from the server
         async function fetchJobs() {
             try {
