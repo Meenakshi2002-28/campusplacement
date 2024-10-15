@@ -172,7 +172,7 @@
         <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
         <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 

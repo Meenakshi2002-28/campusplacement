@@ -328,7 +328,7 @@ img {
         <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
         <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
-        <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="../Student_side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
         <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
@@ -583,6 +583,35 @@ img {
     </div>
 
     <script>
+        // Change profile image
+        function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+        function changeProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+                };
+                reader.readAsDataURL(file); // Read the image file
+            }
+        }
+
+//Dropdown in the header area
+    let dropdownOpen = false;
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdownOpen = !dropdownOpen;
+        dropdown.style.display = dropdownOpen ? "block" : "none";
+    }
+
+    function goToProfile() {
+        showSection('personal'); // Redirect to profile section
+        toggleDropdown(); // Close the dropdown after redirection
+    }
         function showSection(sectionId) {
             document.querySelectorAll('.details').forEach(section => section.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
