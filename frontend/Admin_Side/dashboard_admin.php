@@ -124,9 +124,23 @@ if (isset($_SESSION['user_id'])) {
     border-radius: 3px;
     }
 
+    .logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    }
+    .logo {
+    height: 55px;
+    width: auto;
+    }
+
+
 </style>
 </head>
 <body>
+    <div class="logo-container">
+        <img src="../images/logo1.png" alt="Logo" class="logo">
+    </div>
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
