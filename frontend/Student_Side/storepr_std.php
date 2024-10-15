@@ -402,7 +402,13 @@ img {
                 </td>
                 </tr>
                 <tr>
-                    <td>Pass Out Year<span style="color:red;">*</span> </td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
+                    <td>Pass Out Year<span style="color:red;">*</span> </td>
+                    <td><select name="pass_out_year" id="pass_out_year" >
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    </td>
                 </tr>
                 <tr>
                     <td>Gender<span style="color:red;">*</span></td>
