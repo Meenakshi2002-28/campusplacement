@@ -305,7 +305,7 @@ img {
         <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
         <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
         <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <a href="feedback.html"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>

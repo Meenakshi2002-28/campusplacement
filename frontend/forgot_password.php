@@ -186,10 +186,22 @@ body {
             padding-top:200px;
             padding-right: 10px;
         }
+        .logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    }
+    .logo {
+    height: 55px;
+    width: auto;
+    }
 
     </style>
 </head>
 <body>
+<div class="logo-container">
+        <img src="../frontend/images/logo1.png" alt="Logo" class="logo">
+    </div>
     <center>
     <div class="forgot-password-container">
         <div class="forgot-password-box">
@@ -199,7 +211,7 @@ body {
                 <input type="email"  name="email"  placeholder="Email Address" required>
                 <button type="submit">SUBMIT</button>
             </form>
-            <a href="#" class="back-to-login">← Back to Login</a>
+            <a href="login.php" class="back-to-login">← Back to Login</a>
         </div>
         <div class="illustration">
             <img src="images/password.png" alt="Illustration">
