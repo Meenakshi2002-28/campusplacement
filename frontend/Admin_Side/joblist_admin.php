@@ -19,12 +19,6 @@ if (isset($_POST['delete_job_id'])) {
     $conn->begin_transaction();
 
     try {
-         // Delete from the job_application table first
-    $deleteJobApplicationSql = "DELETE FROM job_application WHERE job_id = ?";
-    $stmt = $conn->prepare($deleteJobApplicationSql);
-    $stmt->bind_param("i", $job_id);
-    $stmt->execute();
-    
         // Delete from job_course table first
         $deleteJobCourseSql = "DELETE FROM job_course WHERE job_id = ?";
         $stmt = $conn->prepare($deleteJobCourseSql);
@@ -345,7 +339,7 @@ $result = $conn->query($sql);
 
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../profile_admin.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="../Admin_Side/"><i class="fa fa-fw fa-user"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div> 
