@@ -164,10 +164,21 @@ if (isset($_GET['token'])) {
             width: 25px;
             height: 35px;
         }
+        .logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    }
+    .logo {
+    height: 55px;
+    width: auto;
+    }
     </style>
 </head>
 <body>
-
+    <div class="logo-container">
+        <img src="../frontend/images/logo1.png" alt="Logo" class="logo">
+    </div>
     <div class="password-box">
         <h1>Change Password</h1>
         <form action="#" method="POST">

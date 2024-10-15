@@ -319,17 +319,6 @@ img {
 .icon {
     margin-left: 1px;
 }
-<<<<<<< HEAD
-.logo-container {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        }
-        .logo {
-        height: 50px;
-        width: auto;
-        }
-=======
 .dropdown-content {
     display: none;
     position: absolute;
@@ -352,8 +341,16 @@ img {
     color: white;
     border-radius: 3px;
     }
+    .logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    }
+    .logo {
+    height: 55px;
+    width: auto;
+    }
 
->>>>>>> 8ca82dd7ec5a1f9d93629a63369babe569a650f4
     </style>
 </head>
 <body>
