@@ -326,7 +326,8 @@ $conn->close();
     </style>
 </head>
 <body>
-<div class="container">
+<div class="main-content">
+    <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
 
@@ -348,7 +349,6 @@ $conn->close();
     <div class="logout">
         <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
     </div>
-    <div class="main-content">
         <div class="job-form-container">
             <h2>Edit Job</h2>
             <?php if ($job): ?>
