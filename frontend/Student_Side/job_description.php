@@ -46,7 +46,7 @@ if ($result->num_rows > 0) {
 // Fetch user's CGPA
 $userCgpaQuery = "SELECT cgpa FROM student WHERE user_id = ?";
 $stmt = $conn->prepare($userCgpaQuery);
-$stmt->bind_param("i", $user_id);
+$stmt->bind_param("s", $user_id);
 $stmt->execute();
 $stmt->bind_result($user_cgpa);
 $stmt->fetch();
@@ -364,22 +364,7 @@ $conn->close();
         </div>
     </div>
 
-</style>
-</head>
-<body>
-    <div class="logo-container">
-        <img src="../images/logo1.png" alt="Logo" class="logo">
-    </div>
-    <div class="container">
-      img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
 
-        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
-        <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
-        </div>
-    </div> 
 
 <div class="sidebar">
     <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
