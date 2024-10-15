@@ -250,7 +250,7 @@ img {
     <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
     <a href="company.html"><i class="fas fa-building"></i> Company</a>
     <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-    <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
+    <a href="feedback_list.html"><i class="fas fa-comment"></i> Feedback</a>
     <div class="logout">
         <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
     </div>
