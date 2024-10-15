@@ -164,8 +164,8 @@
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../Student_Side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 
