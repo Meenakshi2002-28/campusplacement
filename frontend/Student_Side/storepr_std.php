@@ -418,7 +418,7 @@ img {
         </form>
         <div id="messageBox" class="message-box">
     Record updated successfully.
-      <div id="error-message" style="color: red; margin-top: 10px;"></div>
+      <div id="error-message" style="color: red; margin-top: 10px;">All fields are required.</div>
          
     <i class="fas fa-times" onclick="closeMessage()"></i> <!-- Font Awesome icon for close button -->
 </div>
