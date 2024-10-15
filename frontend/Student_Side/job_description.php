@@ -417,7 +417,29 @@ $conn->close();
         
         <div class="job-description">
             <h4>Description </h4>
-            <p><?php echo nl2br(htmlspecialchars_decode(str_replace("\\r\\n", "\n", $jobDetails[0]['description']))); ?></p>
+            <p>
+    <?php 
+    // Fetch the description
+    $description = $jobDetails[0]['description'];
+
+    // Debugging: Print raw description for inspection
+    // Uncomment the line below for debugging purposes
+    // echo "Raw Description: " . htmlspecialchars($description);
+
+    // Step 1: Unescape the double backslashes
+    $description = str_replace('\\\\', '', $description); // Removes the escaped backslashes
+    $description = str_replace('\r\n', "\n", $description); // Convert \r\n to newlines
+
+    // Step 2: Replace occurrences of 'rn' with actual newlines
+    $description = str_replace('rn', "\n", $description); // Convert 'rn' to newlines
+
+    // Step 3: Convert to HTML format for line breaks
+    echo nl2br(htmlspecialchars($description)); 
+    ?>
+</p>
+
+
+
             </div>
             
             <!-- Hiring Workflow Section -->
@@ -481,7 +503,7 @@ $conn->close();
             const userCgpa = <?php echo json_encode($user_cgpa); ?>; // Get user's CGPA from PHP
             const jobCgpaRequirement = <?php echo json_encode($jobCgpaRequirement); ?>; // Get job's CGPA requirement from PHP
 
-            if (userCgpa < jobCgpaRequirement) {
+            if (userCgpa >= jobCgpaRequirement) {
                 alert("You cannot apply for this job because your CGPA is below the requirement.");
                 return false; // Prevent form submission
             }

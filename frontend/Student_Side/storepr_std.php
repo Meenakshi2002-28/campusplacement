@@ -312,44 +312,15 @@ img {
             font-size: 12px; /* Make the error message text smaller */
             margin-top: 5px; /* Add space between input and error message */
         }
-        .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #2F5597;
-    min-width: 150px;
-    z-index: 1;
-    top: 55px; /* Adjust this value as needed */
-    border-radius: 3px;
-}
-
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #1e165f;
-    color: white;
-    border-radius: 3px;
-    }
 
     </style>
 </head>
 <body>
     <!--Header_profile-->
-    
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-
-        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
-        <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
-        </div>
-    </div>  
+        <img src="../images/profile.png" alt="Profile Icon" class="icon">
+        <img src="../images/down_arrow.png" alt="Expand Arrow" class="icon">
+    </div>
 
     <!--Main Side Bar-->
     <div class="sidebar">
@@ -358,7 +329,7 @@ img {
         <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
         <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
         <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-        <a href="feedback.html"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
@@ -390,6 +361,7 @@ img {
                  <tr>
                     <td>Branch<span style="color:red;">*</span></td>
                     <td><select name="branch" id="branch">
+                    <option value="">Select a branch</option>
                             <option value="CS">Computer Science</option>
                             <option value="COMMERCE">Commerce</option>
                             <option value="ENGLISH">English</option>
@@ -401,6 +373,7 @@ img {
                 </tr>
                 <tr><td>Course<span style="color:red;">*</span></td>
                     <td><select name="course" id="course">
+                    <option value="">Select a course</option>
                         <option value="BCA">BCA</option>
                         <option value="BCA DataScience">BCA Data Science</option>
                         <option value="Int MCA">INT MCA</option>
@@ -423,6 +396,7 @@ img {
                 </tr>
                 <tr><td>Current Year<span style="color:red;">*</span></td>
                     <td><select name="current_year" id="current_year">
+                    <option value="">Select year</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -432,12 +406,15 @@ img {
                 </tr>
                 <tr>
                     <td>Pass Out Year<span style="color:red;">*</span> </td>
-                    <td><select name="pass_out_year" id="pass_out_year" >
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
-                    <option value="2026">2026</option>
-                    <option value="2027">2027</option>
-                    </td>
+                    <td>
+        <select name="pass_out_year" id="pass_out_year">
+            <option value="">Select Year</option> <!-- Empty option for prompt -->
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+        </select>
+    </td>
                 </tr>
                 <tr>
                     <td>Gender<span style="color:red;">*</span></td>
@@ -525,8 +502,9 @@ img {
 </tr>
 
                 <tr>
-                <td>Current Year<span style="color:red;">*</span></td>
-                <td><select name="current_year" id="current_year">
+                    <td>Current Year<span style="color:red;">*</span></td>
+                    <td><select name="current_year" id="current_year">
+                    <option value="">Select year</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -535,13 +513,14 @@ img {
                 </td>
                 </tr>
                 <tr>
-                <td>Pass Out Year<span style="color:red;">*</span> </td>
-                <td><select name="pass_out_year" id="pass_out_year" >
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
-                    <option value="2026">2026</option>
-                    <option value="2027">2027</option>
-                </td>
+                    <td>Pass Out Year<span style="color:red;">*</span></td>
+                    <td> <select name="pass_out_year" id="pass_out_year">
+            <option value="">Select Year</option> <!-- Empty option for prompt -->
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+        </select></td>
                 </tr>
                 <tr>
                     <td>Current Arrears<span style="color:red;">*</span></td><td><input type="text" id="current_arrears" name="current_arrears"></td>
@@ -612,35 +591,6 @@ img {
     </div>
 
     <script>
-        // Change profile image
-        function triggerFileInput() {
-            document.getElementById('fileInput').click();
-        }
-
-        function changeProfilePicture(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
-                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
-                };
-                reader.readAsDataURL(file); // Read the image file
-            }
-        }
-
-//Dropdown in the header area
-    let dropdownOpen = false;
-    function toggleDropdown() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdownOpen = !dropdownOpen;
-        dropdown.style.display = dropdownOpen ? "block" : "none";
-    }
-
-    function goToProfile() {
-        showSection('personal'); // Redirect to profile section
-        toggleDropdown(); // Close the dropdown after redirection
-    }
         function showSection(sectionId) {
             document.querySelectorAll('.details').forEach(section => section.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
@@ -750,11 +700,8 @@ window.onload = function() {
     document.getElementById('percentage_twelfth').onblur = validatePercentage12th;
     document.getElementById('percentage_tenth').onblur = validatePercentage10th;
 };
-        function validateForm() {
+function validateForm() {
     let isValid = true;
-    let errorMessage = "All fields are required."; // Unified error message
-
-    // Clear previous error messages
     const errorContainer = document.getElementById('form-error');
     errorContainer.textContent = ""; // Clear previous error message
 
@@ -771,8 +718,8 @@ window.onload = function() {
     }
 
     // Check if current year is filled
-    const year = document.getElementById('year').value;
-    if (year === "") {
+    const current_year = document.getElementById('current_year').value; // Corrected ID
+    if (current_year === "") {
         isValid = false;
     }
 
@@ -788,17 +735,14 @@ window.onload = function() {
         isValid = false;
     }
 
-    // If all fields are filled, validate individual fields
-    if (isValid) {
-        if (!validateDOB() || !validatePhone() || !validateEmail()) {
-            isValid = false; // Set isValid to false if any validation fails
-        }
-    } else {
-        errorContainer.textContent = errorMessage; // Display the unified error message
+    // If any field is missing, display the unified error message
+    if (!isValid) {
+        errorContainer.textContent = "All fields are required."; // Unified error message
     }
 
     return isValid; // If all validations pass, form will submit
 }
+
 
 function validateForm2() {
     let isValid = true;
@@ -813,7 +757,7 @@ function validateForm2() {
     // Get all required fields and validate them
     const branch = document.getElementById('branch').value.trim();
     const course = document.getElementById('course').value.trim();
-    const currentYear = document.getElementById('current_year').value.trim();
+    
     
     const currentArrears = document.getElementById('current_arrears').value.trim();
     const cgpa = document.getElementById('cgpa').value.trim();
@@ -829,27 +773,10 @@ function validateForm2() {
     const percentage10 = document.getElementById('percentage_tenth').value.trim();
 
     // Validate UG fields
-    if (!branch) {
-        document.getElementById('cgpa-error').textContent = "Branch is required.";
-        isValid = false;
-    }
-    if (!course) {
-        document.getElementById('cgpa-error').textContent = "Course is required.";
-        isValid = false;
-    }
-    if (!currentYear) {
-        document.getElementById('cgpa-error').textContent = "Current Year is required.";
-        isValid = false;
-    }
-   
-    if (!currentArrears) {
-        document.getElementById('cgpa-error').textContent = "Current Arrears are required.";
-        isValid = false;
-    }
-    if (!cgpa) {
-        document.getElementById('cgpa-error').textContent = "CGPA is required.";
-        isValid = false;
-    }
+    if ( !currentArrears || !cgpa) {
+    document.getElementById('cgpa-error').textContent = errorMessage;
+    isValid = false;
+}
 
     // Validate 12th fields
     if (!schoolName12 || !board12 || !passOutYear12 || !percentage12) {

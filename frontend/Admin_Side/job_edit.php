@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $show_success_message = true; // Set this flag
-        header("Location: " . $_SERVER['PHP_SELF'] . "?job_id=" . $job_id);
+        header("Location: joblist_admin.php");
         exit;
     } else {
         echo "Error: " . $update_stmt->error;
@@ -382,9 +382,9 @@ $conn->close();
                 <label for="pass_out_year">Pass Out Year</label>
             <div>
                 <select name="pass_out_year" id="pass_out_year">
-                    <option value="2022" <?php echo ($job['passout_year'] == 2022) ? 'selected' : ''; ?>>2022</option>
-                    <option value="2023" <?php echo ($job['passout_year'] == 2023) ? 'selected' : ''; ?>>2023</option>
                     <option value="2024" <?php echo ($job['passout_year'] == 2024) ? 'selected' : ''; ?>>2024</option>
+                    <option value="2025" <?php echo ($job['passout_year'] == 2025) ? 'selected' : ''; ?>>2025</option>
+                    <option value="2026" <?php echo ($job['passout_year'] == 2026) ? 'selected' : ''; ?>>2026</option>
                 </select>
             </div>
                 <label for="description">Description</label>
