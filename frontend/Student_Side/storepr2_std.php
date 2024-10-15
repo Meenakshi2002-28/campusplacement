@@ -376,7 +376,7 @@ img {
                     
                     </td>
                 </tr>
-                <tr><td>Current Year <span style="color:red;">*</span></td>
+                <tr><td>Current Year<span style="color:red;">*</span></td>
                     <td><input type="text" id="year" name="year"></td>
                 </tr>
                 <tr>
@@ -399,7 +399,7 @@ img {
                     </td>
                 </tr>
                 <tr>
-                    <td>Date of Birth <span style="color:red;">*</span></td><td><input type="date" id="dob" name="dob"></td>
+                    <td>Date of Birth<span style="color:red;">*</span></td><td><input type="date" id="dob" name="dob"></td>
                 </tr>
             </table>
             <h4>Contact Information</h4>
@@ -408,7 +408,7 @@ img {
                     <td>Phone Number<span style="color:red;">*</span> </td><td><input type="text" id="number" name="number"></td>
                 </tr>
                 <tr>
-                    <td>Email <span style="color:red;">*</span></td><td><input type="text" id="email" name="email"></td>
+                    <td>Email<span style="color:red;">*</span></td><td><input type="text" id="email" name="email"></td>
                 </tr>
             </table>
             <div class="button-container">
@@ -441,7 +441,7 @@ img {
 </tr>
 
                 <tr>
-    <td>Course</td>
+    <td>Course<span style="color:red;">*</span></td>
     <td><select name="course" id="course">
                         <option value="BCA">BCA</option>
                         <option value="BCA DataScience">BCA Data Science</option>
@@ -463,48 +463,48 @@ img {
 </tr>
 
                 <tr>
-                    <td>Current Year </td><td><input type="text" id="current_year" name="year"></td>
+                    <td>Current Year<span style="color:red;">*</span></td><td><input type="text" id="current_year" name="year"></td>
                 </tr>
                 <tr>
-                    <td>Pass Out Year </td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
+                    <td>Pass Out Year<span style="color:red;">*</span></td><td><input type="text" id="pass_out_year" name="pass_out_year"></td>
                 </tr>
                 <tr>
-                    <td>Current Arrears </td><td><input type="text" id="current_arrears" name="current_arrears"></td>
+                    <td>Current Arrears<span style="color:red;">*</span></td><td><input type="text" id="current_arrears" name="current_arrears"></td>
                 </tr>
                 <tr>
-                    <td>CGPA </td><td><input type="number" id="cgpa" name="cgpa"></td>
-                </tr>
-            </table>
-            <br>
-            <table>
-                <th>12th Details</th>
-                <tr>
-                    <td>School Name </td><td><input type="text" id="school_name_twelfth" name="school_name_twelfth"></td>
-                </tr>
-                <tr>
-                    <td>Board </td><td><input type="text" id=board_twelfth name="board_twelfth"></td>
-                </tr>
-                <tr>
-                    <td>Pass Out Year </td><td><input type="text" id=pass_out_year_twelfth name="pass_out_year_twelfth"></td>
-                </tr>
-                <tr>
-                    <td>Percentage </td><td><input type="text" id=percentage_twelfth name="percentage_twelfth"></td>
+                    <td>CGPA<span style="color:red;">*</span></td><td><input type="number" id="cgpa" name="cgpa"></td>
                 </tr>
             </table>
             <br>
             <table>
-                <th>10th Details</th>
+                <th>12th Details</span></th>
                 <tr>
-                    <td>School Name </td><td><input type="text" id="school_name_tenth" name="school_name_tenth"></td>
+                    <td>School Name<span style="color:red;">*</span> </td><td><input type="text" id="school_name_twelfth" name="school_name_twelfth"></td>
                 </tr>
                 <tr>
-                    <td>Board </td><td><input type="text" id=board_tenth name="board_tenth"></td>
+                    <td>Board<span style="color:red;">*</span></td><td><input type="text" id=board_twelfth name="board_twelfth"></td>
                 </tr>
                 <tr>
-                    <td>Pass Out Year </td><td><input type="text" id=pass_out_year_tenth name="pass_out_year_tenth"></td>
+                    <td>Pass Out Year<span style="color:red;">*</span></td><td><input type="text" id=pass_out_year_twelfth name="pass_out_year_twelfth"></td>
                 </tr>
                 <tr>
-                    <td>Percentage </td><td><input type="text" id=percentage_tenth name="percentage_tenth"></td>
+                    <td>Percentage<span style="color:red;">*</span></td><td><input type="text" id=percentage_twelfth name="percentage_twelfth"></td>
+                </tr>
+            </table>
+            <br>
+            <table>
+                <th>10th Details<span style="color:red;">*</span></th>
+                <tr>
+                    <td>School Name<span style="color:red;">*</span></td><td><input type="text" id="school_name_tenth" name="school_name_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Board<span style="color:red;">*</span></td><td><input type="text" id=board_tenth name="board_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year<span style="color:red;">*</span></td><td><input type="text" id=pass_out_year_tenth name="pass_out_year_tenth"></td>
+                </tr>
+                <tr>
+                    <td>Percentage<span style="color:red;">*</span></td><td><input type="text" id=percentage_tenth name="percentage_tenth"></td>
                 </tr>
             </table>
             <div class="button-container">
