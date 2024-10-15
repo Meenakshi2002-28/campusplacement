@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($gender) || empty($course_name) || empty($branch) || empty($email) || empty($phone_number) || empty($graduation_year) || empty($current_year) || empty($dob))
      {
         echo "All fields are required.";
-        exit; // Stop script execution and return a graceful message
+        // Stop script execution and return a graceful message
     }
     
     // Prepare statement to get course_id based on course_name and branch
@@ -427,9 +427,13 @@ img {
             </div>
         </form>
         <div id="messageBox" class="message-box">
-    Record updated successfully.
-    <i class="fas fa-times" onclick="closeMessage()"></i> <!-- Font Awesome icon for close button -->
+          Record updated successfully.
+      <i class="fas fa-times" onclick="closeMessage()"></i> <!-- Font Awesome icon for close button -->
 </div>
+<div id="error-message" style="color: red; margin-top: 10px;">All fields are required.
+<i class="fas fa-times" onclick="closeMessage()"></i>
+</div>
+         
 
     </div>
       <!-- Academic Details Section -->
