@@ -319,6 +319,7 @@ img {
 .icon {
     margin-left: 1px;
 }
+<<<<<<< HEAD
 .logo-container {
         position: absolute;
         top: 10px;
@@ -328,6 +329,31 @@ img {
         height: 50px;
         width: auto;
         }
+=======
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2F5597;
+    min-width: 150px;
+    z-index: 1;
+    top: 55px; /* Adjust this value as needed */
+    border-radius: 3px;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #1e165f;
+    color: white;
+    border-radius: 3px;
+    }
+
+>>>>>>> 8ca82dd7ec5a1f9d93629a63369babe569a650f4
     </style>
 </head>
 <body>
@@ -336,9 +362,15 @@ img {
     </div>
     <!--Header_profile-->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon">
-        <img src="../images/down_arrow.png" alt="Expand Arrow" class="icon">
-    </div>
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+
+        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>  
 
     <!--Main Side Bar-->
     <div class="sidebar">
@@ -348,6 +380,9 @@ img {
         <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
         <a href="#profile"><i class="fa fa-fw fa-user"></i> Profile</a>
         <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <div class="logout">
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
     </div> 
 
     <!--Sub SideBar-->
@@ -542,6 +577,33 @@ img {
     </div>
 
     <script>
+        // Change profile image
+    function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+            };
+            reader.readAsDataURL(file); // Read the image file
+        }
+    }
+    let dropdownOpen = false;
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdownOpen = !dropdownOpen;
+        dropdown.style.display = dropdownOpen ? "block" : "none";
+    }
+
+    function goToProfile() {
+        showSection('personal'); // Redirect to profile section
+        toggleDropdown(); // Close the dropdown after redirection
+    }
         function showSection(sectionId) {
             document.querySelectorAll('.details').forEach(section => section.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
