@@ -137,50 +137,206 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Job</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
-       body {
-        font-family: Arial, sans-serif;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #d9e6f4;
+            color: #333;
+            overflow: hidden;
 
+        }
+    /* Sidebar styling */
     .sidebar {
-        width: 198px;
-        height: 610px;
-        position: fixed;
-        left: 10px;
-        top: 85px;
-        background-color: #2F5597;
-        color: white;
-        padding: 10px;
-    }
+    width: 220px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    height: 97vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #2a2185;
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+    transition: width 0.4s ease-in-out;
+    padding-top: 80px; /* Added padding for space at the top */
+    overflow: hidden;
+}
 
-    .sidebar a {
-        text-decoration: none;
-        color: white;
-        display: block;
-        padding: 15px; 
-        font-size: 22px; 
-        border-left: 3px solid transparent;
-        transition: all 0.3s;
-    }
 
-    .sidebar a:hover {
-        border-left: 3px solid #ffffff;
-        background: #1e165f;
-    }
+        .sidebar .logo {
+            position: absolute;
+            top: 20px; /* Positions logo/title closer to the top */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        .sidebar:hover {
+            width: 250px; /* Expands sidebar on hover */
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Fade-in effect for sidebar links */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Delayed animation for each link */
+        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
+        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
+        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
+        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
+        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
+        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
+
+        .sidebar a i {
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #1e3d7a;
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
+        }
+
+        .sidebar .logout {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+        }
+        .sidebar a.active {
+    background-color: #d9e6f4; /* Background color for active link */
+    border-left: 4px solid #ffffff;
+    padding-left: 30px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    color:#000000;
+    position: relative;
+    z-index: 1;
+    height: 45px;
+    
+}
     .logout a{
         font-size: 20px;
         margin-top: 160px;
     }
     .main-content {
-        margin-left: 220px; 
-        padding: 50px;
-        font-size: 18px; /* Larger font size for main content */
-        padding-top: 15px;
-    }
+            margin-left: 245px;
+            margin-top: 13px; 
+            margin-right: 20px;/* Default margin for sidebar */
+            padding: 40px;
+            font-size: 18px;
+            color: #333;
+            border-radius: 10px;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            background-color: #ffffff;
+            height: 86.5vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            overflow-y: auto;
+            
+        }
+
+        .main-content h1 {
+            color: #050505;
+            font-size: 2.5rem; /* Increased font size */
+            font-weight: bold;
+            padding-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            padding: 18px 20px;
+            width: 1268px;
+            margin-left: 245px; /* Default margin for container */
+            margin-top: 12px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+        }
+        .icon {
+            margin-left: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
+        .dropdown-content {
+            display: none;
+            opacity: 0;
+            position: absolute;
+            top: 55px;
+            right: 20px;
+            background: linear-gradient(135deg, #2F5597, #1e3d7a);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .dropdown-content.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1e3d7a;
+        }
+
+        
+        .sidebar .logo {
+    position: absolute;
+    top: 20px; /* Keep the same positioning */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 36px; /* Increase the font size here */
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
 
     .job-form-container {
         flex: 1;
-        padding: 30px;
+        padding-top: 0px;
+        padding-left: 30px;
         background-color:white;
         
         top: 0;           
@@ -199,7 +355,9 @@ $conn->close();
             
             
     .job-form-container h2 {
-            margin-bottom: 30px;
+        text-align: center;
+
+            margin-bottom: 20px;
             color:black;
             font-weight: 600;      
     }
@@ -245,18 +403,20 @@ $conn->close();
 
     .job-form input[type="submit"] {
             grid-column:span 1;
-            padding: 10px 25px;
+            padding: 5px 5px;
             background-color: #27428f;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             margin-left: 400px;
             font-size: 18px;
+            margin-top: 20px;
         }
 
     .job-form input[type="submit"]:hover {
             background-color: #1e165f;
+            letter-spacing: 2px;
         }
 
     img {
@@ -264,37 +424,11 @@ $conn->close();
         width: auto;
         display:flex;
     }
-    .container {
-        padding: 5px;
-        display: flex;
-        justify-content: flex-end; 
-        align-items: center; 
-    }
+    
     .icon {
         margin-left: 1px; 
     }
-    .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #2F5597;
-    min-width: 150px;
-    z-index: 1;
-    top: 55px; /* Adjust this value as needed */
-    border-radius: 3px;
-}
-
-    .dropdown-content a {
-        color: white;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-
-    .dropdown-content a:hover {
-        background-color: #1e165f;
-        color: white;
-        border-radius: 3px;
-    }
+   
     .success-message {
     display: none; /* Hidden by default */
     position: fixed;
@@ -326,10 +460,40 @@ $conn->close();
     </style>
 </head>
 <body>
+     <!-- Profile Container -->
+<div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+        
+        <!-- Dropdown Menu -->
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+</div>    
+
+<!-- Sidebar -->
+<div class="sidebar">
+        <!-- Logo or Website Name -->
+        <div class="logo">Lavoro</div>
+        
+    <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
+    <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="company.html"><i class="fas fa-building"></i> Company</a>
+    <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+    <a href="feedback_list.html"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
+</div>
+
     
-    <div class="main-content">
+<div class="main-content">
         <div class="job-form-container">
-            <h2>Edit Job</h2>
+            <h2>Edit Job Details</h2>
             <?php if ($job): ?>
             <form class="job-form" method="POST" action="job_edit.php?job_id=<?php echo $job_id; ?>">
                 <label for="title">Title</label>
@@ -406,7 +570,7 @@ $conn->close();
                 <label for="job-status">Job Status</label>
                 <input type="text" id="job-status" name="job-status" value="<?php echo htmlspecialchars($job['job_status']); ?>">
 
-                <h3>Hiring Workflow Rounds</h3>
+                <h4>Hiring Workflow Rounds</h4>
                 <br>
                 <label for="round-1">Round 1</label>
                 <div>
@@ -430,8 +594,8 @@ $conn->close();
     Job has been successfully updated.
     <button class="close-btn" onclick="hideSuccessMessage()">×</button>
 </div>
-        <script>
-        function showSuccessMessage() {
+<script>
+function showSuccessMessage() {
     var successMessage = document.getElementById('successMessage');
     successMessage.classList.add('show');
     
@@ -452,43 +616,94 @@ function hideSuccessMessage() {
     showSuccessMessage();
 <?php endif; ?>
 
-        // Change profile image
-        function triggerFileInput() {
-                document.getElementById('fileInput').click();
-            }
+// Change profile image
+function triggerFileInput() {
+        document.getElementById('fileInput').click();
+}
     
-        function changeProfilePicture(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
-                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
-                };
-                reader.readAsDataURL(file); // Read the image file
-            }
-        }
-        let dropdownOpen = false;
-        function toggleDropdown() {
-            const dropdown = document.getElementById("dropdownMenu");
-            dropdownOpen = !dropdownOpen;
-            dropdown.style.display = dropdownOpen ? "block" : "none";
-        }
-    
-        function goToProfile() {
-            showSection('personal'); // Redirect to profile section
-            toggleDropdown(); // Close the dropdown after redirection
-        }
-        const selectElement = document.getElementById('course');
-    const selectedOptionsTextBox = document.getElementById('selectedOptions');
+function changeProfilePicture(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+        document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+        document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+        };
+    reader.readAsDataURL(file); // Read the image file
+    }    
+}
 
-    // Add an event listener for when the user selects options
-    selectElement.addEventListener('change', function() {
-      const selectedOptions = Array.from(selectElement.selectedOptions)
-                                   .map(option => option.text); // Get selected option text
-      selectedOptionsTextBox.value = selectedOptions.join(', '); // Show selected options in text box
-    });
+// Dropdown toggle with smooth opening
+function toggleDropdown() {
+    const dropdown = document.getElementById("dropdownMenu");
+    dropdown.classList.toggle("show");
+}
+    
+// Hide dropdown on click outside
+window.onclick = function(event) {
+    if (!event.target.matches('.icon')) {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.classList.remove("show");
+    }
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+            // Sidebar tab click effect
+            const tabs = document.querySelectorAll('.sidebar a');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+    
+            // Set default active link on page load
+            const defaultLink = document.querySelector('.sidebar a.active');
+            if (defaultLink) {
+                defaultLink.classList.add('active');
+            }
+    
+            // Mobile nav handling (optional)
+            const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
+            mobileTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    mobileTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+        
+    
+function goToProfile() {
+    showSection('personal'); // Redirect to profile section
+    toggleDropdown(); // Close the dropdown after redirection
+}
+
+const selectElement = document.getElementById('course');
+const selectedOptionsTextBox = document.getElementById('selectedOptions');
+
+// Add an event listener for when the user selects options
+selectElement.addEventListener('change', function() {
+    const selectedOptions = Array.from(selectElement.selectedOptions)
+                                .map(option => option.text); // Get selected option text
+    selectedOptionsTextBox.value = selectedOptions.join(', '); // Show selected options in text box
+});
+
+// Adjust main content and container margin based on sidebar width
+const sidebar = document.querySelector('.sidebar');
+const mainContent = document.querySelector('.main-content');
+const container = document.querySelector('.container');
+    
+sidebar.addEventListener('mouseenter', () => {
+    mainContent.style.marginLeft = '270px'; // Expanded sidebar width
+    container.style.marginLeft = '270px'; // Adjust container margin
+});
+    
+sidebar.addEventListener('mouseleave', () => {
+    mainContent.style.marginLeft = '245px'; // Normal sidebar width
+    container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
+});
+});
     </script>
-    </div>
+ 
 </body>
 </html>

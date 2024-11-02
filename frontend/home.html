@@ -25,40 +25,47 @@
         }
 
         .login {
-            width: 110px;
-            height: 35px;
-            background: none;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            margin-left: 10px;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+    width: 110px;
+    height: 35px;
+    background: none;
+    border: none;
+    color: white;
+    padding: 7px 20px;
+    margin-left: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
 
-        button.signup:hover {
-            background-color: #e6f6ff;
-        }
+.login:hover {
+    color: black;
+    background-color: white;
+    transform: scale(1.1);
+    font-weight: 700;
+}
 
-        button.login:hover {
-            color: black;
-            background-color: #e6f6ff;
-        }
 
         .signup {
-            background: white;
-            border: none;
-            width: 110px;
-            height: 35px;
-            color: black;
-            padding: 10px 20px;
-            margin-left: 10px;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+    background: white;
+    border: none;
+    width: 110px;
+    height: 35px;
+    color: black;
+    padding: 7px 20px;
+    margin-left: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.signup:hover {
+    font-weight: 700;
+    letter-spacing: 1px;
+    transform: scale(1.1);
+}
 
         .footer {
             position: fixed;
@@ -80,42 +87,132 @@
             font-family: Georgia;
             padding-top: 10px;
         }
-
         .content h1 {
-            text-align: left;
             font-size: 50px;
             color: black;
             padding: 25px;
             padding-top: 10px;
             animation: slideIn 1s ease-out forwards;
-           
         }
 
         .content p {
-            text-align: left;
             font-size: 34px;
             color: black;
             padding: 5px;
             padding-left: 25px;
-            animation: slideIn 1.5s ease-out forwards;
-        }
-        
-
-        .get-started {
-            margin-left: 25px;
-            padding: 10px 30px;
-            margin-top: 20px;
-            background-color: #241A64;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 20px;
+            animation: fadeInUp 1.5s ease-out forwards;
         }
 
-        .get-started:hover {
-            background-color: #2f2478;
+        /* Keyframes for animations */
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 7px 35px;
+  margin-left: 30px;
+  margin-top: 15px;
+  border: 4px solid;
+  border-color: transparent;
+  font-size: 16px;
+  background-color: #241A64;
+  border-radius: 100px;
+  font-weight: 600;
+  color: white;
+  box-shadow: 0 0 0 2px #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  text-decoration: none
+}
+
+.animated-button svg {
+  position: absolute;
+  width: 24px;
+  fill: #ffffff;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 16px;
+}
+
+.animated-button .arr-2 {
+  left: -25%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #edf9f9;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  text-decoration: none; /* This prevents underline on hover */
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #212121;
+  border-radius: 12px;
+}
+
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+.animated-button:hover svg {
+  fill: #000000;
+}
+
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}
+
 
         .image {
             flex: 1;
@@ -142,7 +239,20 @@
         <div class="text">
             <h1>Explore the Latest Job <br> Opportunities Tailored<br> for You</h1>
             <p>Discover job openings from top recruiters<br> across various industries</p>
-            <a href="create_account.php"><button class="get-started">Get Started</button></a>
+            <a href="create_account.php" style="text-decoration: none;">
+                <button class="get-started animated-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="arr-2" viewBox="0 0 24 24">
+                        <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                    </svg>
+                    <span class="text">Get Started</span>
+                    <span class="circle"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="arr-1" viewBox="0 0 24 24">
+                        <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                    </svg>
+                </button>
+            </a>
+            
+            
         </div>
         <div class="image">
             <img src="images/placement.png" alt="welcome">
