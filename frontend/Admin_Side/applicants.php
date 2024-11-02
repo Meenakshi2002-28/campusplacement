@@ -20,7 +20,7 @@ if (isset($_GET['job_id'])) {
     $job_id = $_GET['job_id'];
 
     // Prepare and execute query
-    $query = "SELECT sa.name, ja.user_id, ca.course_name 
+    $query = "SELECT sa.name, ja.user_id, ca.course_name ,ja.status
               FROM job_application ja
               JOIN student sa ON ja.user_id = sa.user_id
               JOIN course ca ON sa.course_id = ca.course_id
@@ -49,68 +49,231 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Applicants</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-            *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: white;
-        }
 
-        .sidebar {
-            width: 198px;
-            height: 610px;
-            position: fixed;
-            left: 10px;
-            top: 85px;
-            background-color: #2F5597;
-            color: white;
-            padding: 10px;
-        }
+<style>
+    
+    body {
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #d9e6f4;
+        color: #333;
+        overflow: hidden;
 
-        .sidebar a {
-            text-decoration: none;
-            color: white;
-            display: block;
-            padding: 15px;
-            font-size: 22px;
-            border-left: 3px solid transparent;
-            transition: all 0.3s;
-        }
+    }
 
-        .sidebar a:hover {
-            border-left: 3px solid #ffffff;
-            background: #1e165f;
-        }
+/* Sidebar styling */
+.sidebar {
+    width: 220px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    height: 97vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #2a2185;
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+    transition: width 0.4s ease-in-out;
+    padding-top: 80px; /* Added padding for space at the top */
+    overflow: hidden;
+}
 
-        /* Main Content */
-        .main-content {
-            flex-grow: 1;
-            margin-left: 220px;
-            padding: 20px;
-        }
+.sidebar .logo {
+    position: absolute;
+    top: 20px; /* Positions logo/title closer to the top */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
 
+.sidebar:hover {
+    width: 250px; /* Expands sidebar on hover */
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Fade-in effect for sidebar links */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateX(-20px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Delayed animation for each link */
+.sidebar a:nth-child(2) { animation-delay: 0.1s; }
+.sidebar a:nth-child(3) { animation-delay: 0.2s; }
+.sidebar a:nth-child(4) { animation-delay: 0.3s; }
+.sidebar a:nth-child(5) { animation-delay: 0.4s; }
+.sidebar a:nth-child(6) { animation-delay: 0.5s; }
+.sidebar a:nth-child(7) { animation-delay: 0.6s; }
+.sidebar a:nth-child(8) { animation-delay: 0.7s; }
+
+.sidebar a i {
+    margin-right: 15px;
+    transition: transform 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #1e3d7a;
+    border-left: 4px solid #ffffff;
+    padding-left: 30px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
+}
+
+.sidebar .logout {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+.sidebar .logo {
+    position: absolute;
+    top: 20px; /* Keep the same positioning */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 36px; /* Increase the font size here */
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+.logout{
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+}
+
+.logout a {
+    font-size: 20px;
+    margin-top: 210px;
+}
+
+.sidebar a.active {
+    background-color: #d9e6f4; /* Background color for active link */
+    border-left: 4px solid #ffffff;
+    padding-left: 30px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    color:#000000;
+    position: relative;
+    z-index: 1;
+    height: 45px;
+    
+}
+    img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
+    /* Main content styling */
+.main-content {
+    margin-left: 245px;
+    margin-top: 13px; 
+    margin-right: 20px;/* Default margin for sidebar */
+    padding: 40px;
+    font-size: 18px;
+    color: #333;
+    border-radius: 10px;
+    transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+    background-color: #ffffff;
+    height: 86.5vh;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+    overflow-y: auto;
+}
+
+.main-content h1 {
+    color: #050505;
+    font-size: 2.5rem; /* Increased font size */
+    font-weight: bold;
+    padding-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+    .container {
+    padding: 18px 20px;
+    width: 1268px;
+    margin-left: 245px; /* Default margin for container */
+    margin-top: 12px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+}
+
+.icon {
+            margin-left: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .icon:hover {
+            transform: scale(1.1);
+        }
+/* Dropdown menu styling */
+.dropdown-content {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    top: 55px;
+    right: 20px;
+    background: linear-gradient(135deg, #2F5597, #1e3d7a);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+}
+
+.dropdown-content.show {
+    display: block;
+    opacity: 1;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: #1e3d7a;
+}
         /* Table Styling */
         .applicants {
-            margin-top: 20px;
+            margin-top: 0px
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 0px;
             background-color: #ffffff;
         }
 
         th, td {
-            padding: 15px;
+            padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -122,56 +285,39 @@ $conn->close();
 
         /* Setting specific column widths */
         th:nth-child(1), td:nth-child(1) {
-            width: 25%; /* Roll No Column */
+            width: 15%; /* Roll No Column */
         }
 
         th:nth-child(2), td:nth-child(2) {
-            width: 35%; /* Name Column */
+            width: 25%; /* Name Column */
         }
 
         th:nth-child(3), td:nth-child(3) {
-            width: 40%; /* Course Column */
+            width: 25%; /* Course Column */
         }
 
         /* Filter Section */
         .filters {
             position: absolute;
-            top: 80px;
-            right: 20px;
+            top: 150px;
+            right: 30px;
             background-color: white;
-            padding: 15px;
+            padding: 5px;
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            border: 0.5px solid #BBC4C2;
+
         }
 
         .filters label {
             display: block;
-            margin-bottom: 10px;
+            padding: 2px;
+            font-size: 14px;
+            
         }
 
         .filters input[type="checkbox"] {
-            margin-right: 10px;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #2F5597;
-            min-width: 150px;
-            z-index: 1;
-            top: 55px;
-            border-radius: 3px;
-        }
-
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #1e165f;
+            margin-right: 20px;
         }
 
         .logout{
@@ -189,12 +335,54 @@ $conn->close();
             width: auto;
         }
 
-        .container {
-            padding: 5px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
+       
+.filters button {
+    position: relative;
+    overflow: hidden;
+    height: 1.5rem; /* Set desired height */
+    width: 85px; /* Set desired width */
+    padding: 2px; /* Set desired padding */
+    border-radius: 1.5rem;
+    background-color: #1e3d7a;
+    background-size: 400%;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 13px;
+    transition: all 0.475s;
+}
+
+/* Add gradient animation effect */
+.filters button:hover::before {
+    transform: scaleX(1);
+}
+
+.filters button .button-content {
+    position: relative;
+    z-index: 1;
+}
+
+.filters button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    width: 100%;
+    height: inherit;
+    border-radius: inherit;
+    background: linear-gradient(82.3deg, rgba(150, 93, 233, 1) 10.8%, rgba(99, 88, 238, 1) 94.3%);
+    transition: all 0.475s;
+}
+
+input[type="file"]{
+    padding-left: 550px;
+}
 
     </style>
 </head>
@@ -211,11 +399,12 @@ $conn->close();
     </div> 
 
     <div class="sidebar">
+        <div class="logo">Lavoro</div>
         <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
         <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
-        <a href="#placements"><i class="fas fa-laptop-code"></i>Placements</a>
-        <a href="#company"><i class="fas fa-building"></i> Company</a>
+        <a href="placedstd_admin.php"><i class="fas fa-laptop-code"></i>Placements</a>
+        <a href="company.html"><i class="fas fa-building"></i> Company</a>
         <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
         <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
         <div class="logout">
@@ -227,50 +416,82 @@ $conn->close();
     <div class="main-content">
         <!-- Applicants Table -->
         <div class="applicants">
+            <!-- HTML Form to upload Excel file -->
+        <form action="status.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
+            <input type="file" name="excel_file" required>
+            <input type="submit" value="Upload Excel">
+        </form>
             <table>
                 <thead>
                     <tr>
                         <th>Roll No</th>
                         <th>Name</th>
                         <th>Course</th>
+                        <th>Status</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
                 <?php if (!empty($applications)): ?>
-            <?php foreach ($applications as $application): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($application['name']); ?></td>
-                    <td><?php echo htmlspecialchars($application['user_id']); ?></td>
-                    <td><?php echo htmlspecialchars($application['course_name']); ?></td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="3">No applications found for this job.</td>
-            </tr>
-        <?php endif; ?>
+                    <?php foreach ($applications as $application): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($application['user_id']); ?></td>
+                            <td><?php echo htmlspecialchars($application['name']); ?></td>
+                            <td><?php echo htmlspecialchars($application['course_name']); ?></td>
+                            <td><?php echo htmlspecialchars($application['status']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="3">No applications found for this job.</td>
+                    </tr>
+                <?php endif; ?>
                 </tbody>
             </table>
         </div>
 
         <!-- Filter Section -->
-         <form id="exportForm" method="POST" action="export.php">
-         <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
-    <div class="filters">
-        <label><input type="checkbox" name="fields[]" value="name" checked> Name</label><br>
-        <label><input type="checkbox" name="fields[]" value="user_id" checked> Roll Number</label><br>
-        <label><input type="checkbox" name="fields[]" value="course_name" checked> Course</label><br>
-        <label><input type="checkbox" name="fields[]" value="course_branch" checked> Branch</label><br>
-        <label><input type="checkbox" name="fields[]" value="cgpa" checked> CGPA</label><br>
-        <label><input type="checkbox" name="fields[]" value="email"> E-Mail ID</label><br>
-        <label><input type="checkbox" name="fields[]" value="current_arrears" checked> Current Arrears</label><br>
-        <label><input type="checkbox" name="fields[]" value="graduation_year" checked> Pass out Year</label><br>
-        <label><input type="checkbox" name="fields[]" value="percentage_tenth"> Tenth Percentage</label><br>
-        <label><input type="checkbox" name="fields[]" value="percentage_twelfth"> Twelfth Percentage</label><br>
-        <label><input type="checkbox" name="fields[]" value="resume" checked> Resume</label><br>
-    </div>
-    <button type="submit">Export</button>
-</form>
+        <form id="exportForm" method="POST" action="export.php">
+            <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
+            <div class="filters">
+                <label><input type="checkbox" name="fields[]" value="name" checked> Name</label>
+                <label><input type="checkbox" name="fields[]" value="user_id" checked> Roll Number</label>
+                <label><input type="checkbox" name="fields[]" value="course_name" checked> Course</label>
+                <label><input type="checkbox" name="fields[]" value="course_branch" checked> Branch</label>
+                <label><input type="checkbox" name="fields[]" value="cgpa" checked> CGPA</label>
+                <label><input type="checkbox" name="fields[]" value="email"> E-Mail ID</label>
+                <label><input type="checkbox" name="fields[]" value="current_arrears" checked> Current Arrears</label>
+                <label><input type="checkbox" name="fields[]" value="graduation_year" checked> Pass out Year</label>
+                <label><input type="checkbox" name="fields[]" value="percentage_tenth"> Tenth Percentage</label>
+                <label><input type="checkbox" name="fields[]" value="percentage_twelfth"> Twelfth Percentage</label>
+                <label><input type="checkbox" name="fields[]" value="resume" checked> Resume</label>
+                <button type="submit" class="button">
+                    <span class="button-content">Export</span>
+                </button>
+
+            </div>
+    
+        </form>
+
+        
+        
+        <?php
+            if (isset($_GET['status']) && $_GET['status'] == 'success') {
+                echo "<script>
+                Swal.fire({
+                title: 'Good job!',
+                text: 'Status Updation Successful!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'joblist_admin.php'; // Replace with your desired URL
+            }
+            });
+        </script>";
+            }
+    ?>
     </div>
 
     <script>
@@ -291,17 +512,65 @@ $conn->close();
                 reader.readAsDataURL(file); // Read the image file
             }
         }
-        let dropdownOpen = false;
-        function toggleDropdown() {
+        // Dropdown toggle with smooth opening
+    function toggleDropdown() {
             const dropdown = document.getElementById("dropdownMenu");
-            dropdownOpen = !dropdownOpen;
-            dropdown.style.display = dropdownOpen ? "block" : "none";
+            dropdown.classList.toggle("show");
         }
     
-        function goToProfile() {
-            showSection('personal'); // Redirect to profile section
-            toggleDropdown(); // Close the dropdown after redirection
-        }
+        // Hide dropdown on click outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.icon')) {
+                const dropdown = document.getElementById("dropdownMenu");
+                dropdown.classList.remove("show");
+            }
+        };
+        document.addEventListener("DOMContentLoaded", function () {
+            // Sidebar tab click effect
+            const tabs = document.querySelectorAll('.sidebar a');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+    
+            // Set default active link on page load
+            const defaultLink = document.querySelector('.sidebar a.active');
+            if (defaultLink) {
+                defaultLink.classList.add('active');
+            }
+    
+            // Mobile nav handling (optional)
+            const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
+            mobileTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    mobileTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+
+            function goToProfile() {
+    showSection('personal'); // Redirect to profile section
+    toggleDropdown(); // Close the dropdown after redirection
+}
+            // Adjust main content and container margin based on sidebar width
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const container = document.querySelector('.container');
+    
+            sidebar.addEventListener('mouseenter', () => {
+                mainContent.style.marginLeft = '270px'; // Expanded sidebar width
+                container.style.marginLeft = '270px'; // Adjust container margin
+            });
+    
+            sidebar.addEventListener('mouseleave', () => {
+                mainContent.style.marginLeft = '245px'; // Normal sidebar width
+                container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
+            });
+    
+          
+        });
     </script>
 </body>
 </html>
