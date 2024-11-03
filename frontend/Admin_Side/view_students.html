@@ -1,46 +1,3 @@
-<?php
-// Database connection
-$servername = "localhost";
-$username = "root"; // Update with your database username
-$password = "";     // Update with your database password
-$dbname = "campus_placement"; // Update with your database name
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// SQL query to fetch user_id, name, graduation_year, and course_name for 10 students
-$sql = "
-    SELECT s.user_id, s.name, s.graduation_year, c.course_name
-    FROM student s
-    JOIN course c ON s.course_id = c.course_id
-    LIMIT 10
-";
-
-$result = $conn->query($sql);
-
-// Check if there are results and output them
-if ($result->num_rows > 0) {
-    // Store results in an array
-    $students = [];
-    while ($row = $result->fetch_assoc()) {
-        $students[] = $row; // Add each row to the students array
-    }
-} else {
-    $students = []; // No students found
-}
-
-// Close connection
-$conn->close();
-
-// Return the results as JSON
-header('Content-Type: application/json');
-echo json_encode($students);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -375,30 +332,6 @@ echo json_encode($students);
 
 </div>
 <script>
-    
-document.addEventListener("DOMContentLoaded", function () {
-    fetch('fetch_students.php')
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.querySelector('.students tbody');
-            tbody.innerHTML = ''; // Clear existing rows
-            
-            // Populate table with fetched data
-            data.forEach(student => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${student.user_id}</td>
-                    <td>${student.name}</td>
-                    <td>${student.course_name}</td>
-                    <td>${student.graduation_year}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        })
-        .catch(error => console.error('Error fetching student data:', error));
-});
-
-
 
     // Change profile image
     function triggerFileInput() {
