@@ -496,7 +496,7 @@ button:hover {
     <div class="main-content">
         <div class="sub-sidebar">
             <div class="profile-picture">
-                <img src="profile-pic.jpg" alt="Profile Picture"> <!-- Add your profile picture source here -->
+                 <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()"> <!-- Add your profile picture source here -->
             </div>
          <!-- Profile Picture Section -->
             <div class="tabs">
