@@ -67,60 +67,163 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Details</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #d9e6f4;
+            color: #333;
+            overflow: hidden;
+
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+    width: 220px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    height: 97vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+    transition: width 0.4s ease-in-out;
+    padding-top: 80px; /* Added padding for space at the top */
+}
+
+
+        .sidebar .logo {
+            position: absolute;
+            top: 20px; /* Positions logo/title closer to the top */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        .sidebar:hover {
+            width: 250px; /* Expands sidebar on hover */
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Fade-in effect for sidebar links */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Delayed animation for each link */
+        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
+        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
+        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
+        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
+        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
+        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+
+        .sidebar a i {
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #1e3d7a;
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
+        }
+
+        .sidebar .logout {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+        }
+        .sidebar a.active {
+    background-color: #d9e6f4; /* Background color for active link */
+    border-left: 4px solid #ffffff;
+    padding-left: 30px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    color:#000000;
+    position: relative;
+    z-index: 1;
+    height: 45px;
     
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #ffffff;
-    }
+}
 
-    .sidebar {
-        width: 198px;
-        height: 610px;
-        position: fixed;
-        left: 10px;
-        top: 85px;
-        background-color: #2F5597;
-        color: white;
-        padding: 10px;
-    }
 
-    .sidebar a {
-        text-decoration: none;
-        color: white;
-        display: block;
-        padding: 15px; /* Adjust padding for better alignment */
-        font-size: 22px; /* Smaller font size */
-        border-left: 3px solid transparent;
-        transition: all 0.3s;
-    }
+        /* Main content styling */
+        .main-content {
+            margin-left: 245px;
+            margin-top: 13px; 
+            margin-right: 20px;/* Default margin for sidebar */
+            padding: 40px;
+            font-size: 18px;
+            color: #333;
+            border-radius: 10px;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            background-color: #ffffff;
+            height: 86.5vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            overflow-y: auto;
+            
+        }
 
-    .sidebar a:hover {
-        border-left: 3px solid #ffffff;
-        background: #1e165f;
-    }
+        .main-content h1 {
+            color: #050505;
+            font-size: 2.5rem; /* Increased font size */
+            font-weight: bold;
+            padding-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
 
-    img {
-        height: 40px; 
+        /* Profile section styling */
+        .container {
+            padding: 18px 20px;
+            width: 1268px;
+            margin-left: 245px; /* Default margin for container */
+            margin-top: 12px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+        }
+        .icon {
+            margin-left: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
+        img {
+        height: 40px; /* Adjust size as needed */
         width: auto;
-    }
-    .container {
-        padding: 5px;
-        display: flex;
-        justify-content: flex-end; 
-        align-items: center;
-    }
-    .icon {
-        margin-left: 1px; 
-    }
-   
-    .main-content {
-        flex-grow: 1;
-        padding: 40px;
-        background-color:white;
-        padding-left: 250px;
     }
     .job-details {
         background-color: white;
@@ -140,19 +243,6 @@ $conn->close();
         margin-left: 120px;
     }
 
-    .apply-btn {
-        background-color: #1c4a82;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .apply-btn:hover {
-        background-color: #0e3363;
-        transition: 0.3s;
-    }
 
     /* Eligibility section */
     .eligibility-section {
@@ -219,8 +309,12 @@ $conn->close();
         display:inline-block;
         margin-left: 20px;
         }
+
+        .form-group input{
+            margin-left: 100px;
+        }
     .jobstatus input {
-        background-color:#e2e2e2;
+        background-color:#075138;
         border-radius: 10px;
         border: 1px solid rgb(197, 197, 197) ;
         width: 270px; 
@@ -233,6 +327,7 @@ $conn->close();
         padding: 0px; 
         box-sizing:content-box;
         font-weight: 600;
+        color: white;
     }
     .jobimg a {
         display:inline-flexbox;
@@ -284,97 +379,117 @@ $conn->close();
     }
 
     /* Apply button */
-    .apply-btn {
-        background-color: #AFC8F3;
-        color: black;
-        padding: 10px 25px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-align: center;
-        display: block;
-        margin-left:420px;
-        margin-top: 10px;
-        font-size: 18px;
-    }
+   
 
-    .apply-btn:hover {
-        background-color: #1E165F;
-        color: white;
-    }
-    .container {
-        padding: 5px;
-        display: flex;
-        justify-content: flex-end; /* Aligns children to the right */
-        align-items: center; /* Vertically centers the images */
-        cursor: pointer;
-    }
-    .icon {
-        margin-left: 1px; /* Adds spacing between the icons */
-    }
-    .dropdown-content {
-    display: none;
+
+.apply-btn {
+  padding: 7px 35px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 2px solid #aeaeae;
+  background-color: white;
+  color: black;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  font-size: 18px;
+  transition: all 0.5s ease;
+  text-align: center;
+  display: block;
+  margin-left: 450px;
+  margin-top: 15px;
+  font-weight: 650;
+  text-transform: uppercase;
+  box-shadow: rgb(93 24 220) 0px 7px 10px 0px;
+}
+
+.apply-btn:hover {
+  letter-spacing: 3px;
+  background-color: linear-gradient(135deg, #022a52fd, #063dc9);
+  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+}
+
+.apply-btn:active {
+  letter-spacing: 2px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+    
+        /* Dropdown menu styling */
+        .dropdown-content {
+            display: none;
+            opacity: 0;
+            position: absolute;
+            top: 70px;
+            right: 25px;
+            background: linear-gradient(135deg, #2F5597, #1e3d7a);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .dropdown-content.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1e3d7a;
+        }
+        .sidebar .logo {
     position: absolute;
-    background-color: #2F5597;
-    min-width: 150px;
-    z-index: 1;
-    top: 55px; /* Adjust this value as needed */
-    border-radius: 3px;
+    top: 20px; /* Keep the same positioning */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 36px; /* Increase the font size here */
+    font-weight: bold;
+    color: white;
+    text-align: center;
 }
 
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
 
-.dropdown-content a:hover {
-    background-color: #1e165f;
-    color: white;
-    border-radius: 3px;
-    }
-.logout a{
-        font-size: 20px;
-        margin-top: 210px;
-    }
-    .logo-container {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        }
-        .logo {
-        height: 50px;
-        width: auto;
-        }
     </style>
 </head>
 <body>
-    <div class="logo-container">
-        <img src="../images/logo1.png" alt="Logo" class="logo">
-    </div>
+    <!-- Profile Container -->
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         
-        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div>
+    </div>    
 
-
-
-<div class="sidebar">
-    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
-    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
-    <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
-    <div class="logout">
-        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Logo or Website Name -->
+        <div class="logo">Lavoro</div>
+        
+        <a href="dashboard_std.php" ><i class="fa fa-home"></i> Home</a>
+        <a href="jobs.php" class="active"><i class="fa fa-search"></i> Jobs</a>
+        <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
+        <a href="company.html"><i class="fa fa-building"></i> Company</a>
+        <a href="../profile_redirect.php"><i class="fa fa-user"></i> Profile</a>
+        <a href="feedback.html"><i class="fa fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="../logout,php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
     </div>
 </div>
 <div class="main-content">
@@ -501,12 +616,45 @@ $conn->close();
                 reader.readAsDataURL(file); // Read the image file
             }
         }
-        let dropdownOpen = false;
+        // Dropdown toggle with smooth opening
         function toggleDropdown() {
             const dropdown = document.getElementById("dropdownMenu");
-            dropdownOpen = !dropdownOpen;
-            dropdown.style.display = dropdownOpen ? "block" : "none";
+            dropdown.classList.toggle("show");
         }
+    
+        // Hide dropdown on click outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.icon')) {
+                const dropdown = document.getElementById("dropdownMenu");
+                dropdown.classList.remove("show");
+            }
+        };
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            // Sidebar tab click effect
+            const tabs = document.querySelectorAll('.sidebar a');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+    
+            // Set default active link on page load
+            const defaultLink = document.querySelector('.sidebar a.active');
+            if (defaultLink) {
+                defaultLink.classList.add('active');
+            }
+    
+            // Mobile nav handling (optional)
+            const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
+            mobileTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    mobileTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+    
     
         function goToProfile() {
             showSection('personal'); // Redirect to profile section
@@ -538,6 +686,25 @@ $conn->close();
         // Allow form submission to proceed
         return true; // Make sure to return true to submit the form
     }
+    const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const container = document.querySelector('.container');
+    
+            sidebar.addEventListener('mouseenter', () => {
+                mainContent.style.marginLeft = '270px'; // Expanded sidebar width
+                container.style.marginLeft = '270px'; // Adjust container margin
+            });
+    
+            sidebar.addEventListener('mouseleave', () => {
+                mainContent.style.marginLeft = '245px'; // Normal sidebar width
+                container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
+            });
+    
+            // Example of how to log these values
+            console.log("Total Applications:", dashboardStats.totalApplications);
+            console.log("Active Jobs:", dashboardStats.activeJobs);
+            console.log("Profile Completion:", dashboardStats.profileCompletion);
+        });
     </script>
 </body>
 </html>

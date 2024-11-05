@@ -404,7 +404,7 @@ $conn->close();
     .job-form input[type="submit"] {
             grid-column:span 1;
             padding: 5px 5px;
-            background-color: #27428f;
+            background-color: #0056b3;
             color: white;
             border: none;
             border-radius: 10px;
