@@ -331,7 +331,7 @@ img {
         
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href=" ../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>    
@@ -373,7 +373,7 @@ img {
                 <div class="job-info">
                     <div class="salary">Salary: <?php echo htmlspecialchars($row['salary']); ?></div>
                    
-                    <button class="apply-now">Apply Now</button>
+                    <button class="apply-now">view details</button>
                 </div>
             </div>
             <?php

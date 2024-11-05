@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     position: fixed;
     left: 0;
     top: 0;
-    background: #2a2185;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
@@ -209,8 +209,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             display: none;
             opacity: 0;
             position: absolute;
-            top: 55px;
-            right: 20px;
+            top: 70px;
+            right: 25px;
             background: linear-gradient(135deg, #2F5597, #1e3d7a);
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
@@ -312,6 +312,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   text-transform: uppercase;
   background-color:#d4e5f7;
   color:#1e3d7a;
+  font-weight: 700;
   
 }
 
@@ -337,37 +338,47 @@ b.feedback-container:active {
    height:auto;
    transition: transform 0.2s ease;
         }
- 
+        .small-icon {
+            width: 50px;
+            /* Set desired width */
+            height: 50px;
+            /* Set desired height */
+            object-fit: cover;
+            /* Ensures the image scales properly */
+            border-radius: 50%;
+            /* Makes the image circular */
+        }
 
 </style>
 </head>
 <body>
-    <!-- Profile Container -->
-    <div class="container">
-        <img src="../profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+   <!-- Profile Container -->
+   <div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon"
+            onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*"
+            onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
+
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href=" ../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div>    
+    </div>      
 
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
-        
-        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
-        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
-        <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
-        <a href="#company"><i class="fa fa-building"></i> Company</a>
-        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
+        <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+        <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="../profile_redirect.php" ><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="feedbackview.php" class="active"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 

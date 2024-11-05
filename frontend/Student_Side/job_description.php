@@ -305,7 +305,7 @@ $conn->close();
         }
 
         .job-details {
-            background-color: whitesmoke;
+            background-color:  white;
             padding: 20px;
             border-radius: 10px;
             border: 1px solid #cccccc;
@@ -324,26 +324,43 @@ $conn->close();
         }
 
         .apply-btn {
-            background-color: #AFC8F3;
-            color: black;
-            padding: 10px 25px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            display: block;
-            margin-left: 420px;
-            margin-top: 10px;
-            font-size: 18px;
-        }
+  padding: 7px 35px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 2px solid #aeaeae;
+  background: linear-gradient(135deg, #022a52fd, #063dc9);
+  color: white;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  font-size: 18px;
+  transition: all 0.5s ease;
+  text-align: center;
+  display: block;
+  margin-left: 450px;
+  margin-top: 15px;
+  font-weight: 650;
+  text-transform: uppercase;
+  box-shadow: rgb(93 24 220) 0px 7px 10px 0px;
+}
 
-        .apply-btn:hover {
-            background-color: #1E165F;
-            color: white;
-        }
+.apply-btn:hover {
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, #022a52fd, #063dc9);
+  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+  color: white;
+}
 
+.apply-btn:active {
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #022a52fd, #063dc9);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+  color: white;
+}
         .eligibility-section {
-            background-color: whitesmoke;
+            background-color: white;
             padding: 20px;
             border-radius: 10px;
             border: 1px solid #cccccc;
@@ -420,7 +437,7 @@ $conn->close();
         }
 
         .jobstatus input {
-            background-color: #e2e2e2;
+            background-color: #075138;
             border-radius: 10px;
             border: 1px solid rgb(197, 197, 197);
             width: 270px;
@@ -433,6 +450,7 @@ $conn->close();
             padding: 0px;
             box-sizing: content-box;
             font-weight: 600;
+            color:white;
         }
 
         .jobimg a {
@@ -444,7 +462,7 @@ $conn->close();
         }
 
         .job-description {
-            background-color: whitesmoke;
+            background-color:  white;
             padding-left: 40px;
         }
 
@@ -460,7 +478,7 @@ $conn->close();
 
         /* Hiring workflow section */
         .workflow-section {
-            background-color: whitesmoke;
+            background-color:  white;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
@@ -515,8 +533,8 @@ $conn->close();
 
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href=" ../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>    
 
@@ -524,15 +542,14 @@ $conn->close();
     <div class="sidebar">
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
-
-        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
-        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
-        <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
-        <a href="#company"><i class="fa fa-building"></i> Company</a>
-        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
+        <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="job.php" class="active"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+        <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="feedbackview.php"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 
