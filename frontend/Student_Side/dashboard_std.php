@@ -1,7 +1,7 @@
 <?php
 session_start(); // Start the session to access session variables
 
-// Assuming you have already set the user_id or email in the session during login
+// Check if user_id is set in the session
 if (isset($_SESSION['user_id'])) {
     $servername = "localhost";
     $db_username = "root"; // MySQL username
@@ -14,22 +14,92 @@ if (isset($_SESSION['user_id'])) {
     // Check the connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-    } // Make sure this file contains your DB connection code
+    }
 
     // Retrieve the user ID from the session
     $user_id = $_SESSION['user_id'];
 
-    // Prepare and execute a SQL query to fetch the user's name
-    $query = "SELECT name FROM student WHERE user_id = ?";
-    
-    // Using prepared statements to prevent SQL injection
+    // Initialize variables for user details and profile completion
+    $name = '';
+    $cgpa = 0.0;
+    $profile_completion = 0;
+
+    // 1. Fetch the user's name, CGPA, and resume from the student table
+    $query = "SELECT name, cgpa, resume FROM student WHERE user_id = ?";
+    $has_student_row = false;
+    $resume = '';
+
     if ($stmt = $conn->prepare($query)) {
-        $stmt->bind_param("s", $user_id); // Assuming user_id is an integer
+        $stmt->bind_param("s", $user_id);
         $stmt->execute();
-        $stmt->bind_result($name);
+        $stmt->bind_result($name, $cgpa, $resume);
+        
+        if ($stmt->fetch()) {
+            $has_student_row = true;
+            $profile_completion = 40; // Profile completion is 40% if row exists in student table
+        }
+        $stmt->close();
+    }
+
+    // 2. Check if there is a row for the user in the academic_details table
+    if ($has_student_row) { // Only check if student row exists
+        $query_academic = "SELECT user_id FROM academic_details WHERE user_id = ?";
+        
+        if ($stmt = $conn->prepare($query_academic)) {
+            $stmt->bind_param("s", $user_id);
+            $stmt->execute();
+            
+            if ($stmt->fetch()) {
+                $profile_completion = 80; // Profile completion is 80% if row exists in academic_details table
+            }
+            $stmt->close();
+        }
+    }
+
+    // 3. Check if the resume is filled in the student table
+    if (!empty($resume)) {
+        $profile_completion = 100;
+    }
+
+    // 4. Count the number of applications for the user in the job_application table
+    $application_count = 0;
+    $query_applications = "SELECT COUNT(*) FROM job_application WHERE user_id = ?";
+    
+    if ($stmt = $conn->prepare($query_applications)) {
+        $stmt->bind_param("s", $user_id);
+        $stmt->execute();
+        $stmt->bind_result($application_count);
         $stmt->fetch();
         $stmt->close();
     }
+
+    // 5. Count the number of active jobs in the job table
+    $active_job_count = 0;
+    $query_active_jobs = "SELECT COUNT(*) FROM job WHERE is_active = 1";
+    
+    if ($stmt = $conn->prepare($query_active_jobs)) {
+        $stmt->execute();
+        $stmt->bind_result($active_job_count);
+        $stmt->fetch();
+        $stmt->close();
+    }
+
+    // 6. Count the number of jobs with cgpa_requirement <= user's CGPA
+    $eligible_job_count = 0;
+    $query_eligible_jobs = "SELECT COUNT(*) FROM job WHERE cgpa_requirement <= ? AND is_active = 1";
+    
+    if ($stmt = $conn->prepare($query_eligible_jobs)) {
+        $stmt->bind_param("d", $cgpa); // Bind CGPA as a double
+        $stmt->execute();
+        $stmt->bind_result($eligible_job_count);
+        $stmt->fetch();
+        $stmt->close();
+    }
+
+    // Close the database connection
+    $conn->close();
+
+    // Now you have $name, $cgpa, $application_count, $active_job_count, $eligible_job_count, and $profile_completion
 } else {
     // If no session is set, redirect to the login page
     header("Location: login.php");
@@ -44,7 +114,107 @@ if (isset($_SESSION['user_id'])) {
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.wrapper{
+  width: 450px;
+  height: 380px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 10px;
+  margin-left: 10px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+.wrapper header{
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: space-between;
+}
+header .icons{
+  display: flex;
+}
+header .icons span{
+  height: 38px;
+  width: 38px;
+  margin: 0 1px;
+  cursor: pointer;
+  color: #082765;
+  text-align: center;
+  line-height: 38px;
+  font-size: 1.9rem;
+  user-select: none;
+  border-radius: 50%;
+}
+.icons span:last-child{
+  margin-right: -10px;
+}
+header .icons span:hover{
+  background: #f2f2f2;
+}
+header .current-date{
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+.calendar{
+  padding: 20px;
+}
+.calendar ul{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  text-align: center;
+}
+.calendar .days{
+  margin-bottom: 20px;
+}
+.calendar li{
+  color: #333;
+  width: calc(100% / 7);
+  font-size: 1.07rem;
+}
+.calendar .weeks li{
+  font-weight: 500;
+  cursor: default;
+}
+.calendar .days li{
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  margin-top: 30px;
+}
+.days li.inactive{
+  color: #aaa;
+}
+.days li.active{
+  color: #fff;
+}
+.days li::before{
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  height: 40px;
+  width: 40px;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.days li.active::before{
+  background: #082765;
+}
+.days li:not(.active):hover::before{
+  background: #f2f2f2;
+}
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
@@ -176,6 +346,7 @@ if (isset($_SESSION['user_id'])) {
         .container {
             padding: 18px 20px;
             width: 1268px;
+            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -185,8 +356,15 @@ if (isset($_SESSION['user_id'])) {
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+        }
+.small-icon {
+    width: 50px; /* Set desired width */
+    height: 50px; /* Set desired height */
+    object-fit: cover; /* Ensures the image scales properly */
+    border-radius: 50%;
+     /* Makes the image circular */
+}
 
         .icon {
             margin-left: 15px;
@@ -279,10 +457,9 @@ if (isset($_SESSION['user_id'])) {
     <!-- Profile Container -->
     <div class="container">
         <h3>Welcome to Lavaro</h3>
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
+        <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon" onclick="triggerFileInput()">
+<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href=" ../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -313,7 +490,7 @@ if (isset($_SESSION['user_id'])) {
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Total Applications</h5>
-                        <p class="card-text"><i class="fas fa-file-alt"></i> <span class="counter" id="total-applications">12</span> Applications</p>
+                        <p class="card-text"><i class="fas fa-file-alt"></i> <span class="counter" id="total-applications"> <?php echo $application_count; ?></span> Applications</p>
                     </div>
                 </div>
             </div>
@@ -321,7 +498,7 @@ if (isset($_SESSION['user_id'])) {
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Active Jobs</h5>
-                        <p class="card-text"><i class="fas fa-briefcase"></i> <span class="counter" id="active-jobs">5</span> Open Positions</p>
+                        <p class="card-text"><i class="fas fa-briefcase"></i> <span class="counter" id="active-jobs"> <?php echo $active_job_count; ?></span> Open Positions</p>
                     </div>
                 </div>
             </div>
@@ -329,7 +506,7 @@ if (isset($_SESSION['user_id'])) {
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Eligible Jobs</h5>
-                        <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter" id="eligible-jobs">3</span> Eligible Positions</p>
+                        <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter" id="eligible-jobs"><?php echo $eligible_job_count; ?></span> Eligible Positions</p>
                     </div>
                 </div>
             </div>
@@ -337,13 +514,89 @@ if (isset($_SESSION['user_id'])) {
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Profile Completion</h5>
-                        <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter" id="profile-completion">80%</span> Complete</p>
+                        <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter" id="profile-completion"> <?php echo $profile_completion; ?>%</span><b> %</b>Complete</p>
                     </div>
                 </div>
             </div>
+            <div class="wrapper">
+      <header>
+        <p class="current-date"></p>
+        <div class="icons">
+          <span id="prev" class="material-symbols-rounded">chevron_left</span>
+          <span id="next" class="material-symbols-rounded">chevron_right</span>
+        </div>
+      </header>
+      <div class="calendar">
+        <ul class="weeks">
+          <li>Sun</li>
+          <li>Mon</li>
+          <li>Tue</li>
+          <li>Wed</li>
+          <li>Thu</li>
+          <li>Fri</li>
+          <li>Sat</li>
+        </ul>
+        <ul class="days"></ul>
+      </div>
+    </div>
         </div>
     </div>
     <script>
+        const daysTag = document.querySelector(".days"),
+currentDate = document.querySelector(".current-date"),
+prevNextIcon = document.querySelectorAll(".icons span");
+
+// getting new date, current year and month
+let date = new Date(),
+currYear = date.getFullYear(),
+currMonth = date.getMonth();
+
+// storing full name of all months in array
+const months = ["January", "February", "March", "April", "May", "June", "July",
+              "August", "September", "October", "November", "December"];
+
+const renderCalendar = () => {
+    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
+    lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
+    lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
+    lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
+    let liTag = "";
+
+    for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
+        liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+    }
+
+    for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
+        // adding active class to li if the current day, month, and year matched
+        let isToday = i === date.getDate() && currMonth === new Date().getMonth() 
+                     && currYear === new Date().getFullYear() ? "active" : "";
+        liTag += `<li class="${isToday}">${i}</li>`;
+    }
+
+    for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
+        liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
+    }
+    currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+    daysTag.innerHTML = liTag;
+}
+renderCalendar();
+
+prevNextIcon.forEach(icon => { // getting prev and next icons
+    icon.addEventListener("click", () => { // adding click event on both icons
+        // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
+        currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+
+        if(currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
+            // creating a new date of current year & month and pass it as date value
+            date = new Date(currYear, currMonth, new Date().getDate());
+            currYear = date.getFullYear(); // updating current year with new date year
+            currMonth = date.getMonth(); // updating current month with new date month
+        } else {
+            date = new Date(); // pass the current date as date value
+        }
+        renderCalendar(); // calling renderCalendar function
+    });
+});
     // Change profile image
         function triggerFileInput() {
             document.getElementById('fileInput').click();
@@ -403,16 +656,16 @@ if (isset($_SESSION['user_id'])) {
     
             // Dashboard stats extraction
             const dashboardStats = {
-                totalApplications: 12,     // Total Applications
-                activeJobs: 5,  
-                eligibleJobs: 3,            // Active Jobs
-                profileCompletion: "80%",    // Profile Completion
+                totalApplications:  <?php echo $application_count; ?>,     // Total Applications
+                activeJobs:  <?php echo $active_job_count; ?>,  
+                eligibleJobs:<?php echo $eligible_job_count; ?>,            // Active Jobs
+                profileCompletion: " <?php echo $profile_completion; ?>%",    // Profile Completion
             };
     
             // Animate counter values
             function animateCounter(element, endValue) {
                 let startValue = 0;
-                const duration = 2000; // Animation duration in milliseconds
+                const duration = 800; // Animation duration in milliseconds
                 const incrementTime = Math.floor(duration / endValue);
                 
                 const counterInterval = setInterval(() => {
