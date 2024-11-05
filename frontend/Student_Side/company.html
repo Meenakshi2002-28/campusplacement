@@ -29,7 +29,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    background: #2a2185;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
@@ -151,7 +151,7 @@
     background-color: #ffffff;
     height: 86.5vh;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-    overflow-y: auto;
+
 }
 
 .main-content h1 {
@@ -184,41 +184,46 @@
         .icon:hover {
             transform: scale(1.1);
         }
-/* Dropdown menu styling */
-.dropdown-content {
-    display: none;
-    opacity: 0;
-    position: absolute;
-    top: 55px;
-    right: 20px;
-    background: linear-gradient(135deg, #2F5597, #1e3d7a);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    z-index: 1;
-    transition: opacity 0.3s ease;
-}
 
-.dropdown-content.show {
-    display: block;
-    opacity: 1;
-}
+        /* Dropdown menu styling */
+        .dropdown-content {
+            display: none;
+            opacity: 0;
+            position: absolute;
+            top: 70px;
+            right: 25px;
+            background: linear-gradient(135deg, #2F5597, #1e3d7a);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
 
-.dropdown-content a {
-    color: white;
-    padding: 12px;
-    text-decoration: none;
-    display: block;
-    transition: background-color 0.2s;
-}
+        .dropdown-content.show {
+            display: block;
+            opacity: 1;
+        }
 
-.dropdown-content a:hover {
-    background-color: #1e3d7a;
-}
+        .dropdown-content a {
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1e3d7a;
+        }
 .company-info {
+    flex: 1;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 30px;
     padding: 10px;
+    overflow-y: auto;
+    height: 70vh;
+    
 }
 /* New styles for animations and effects */
 
@@ -246,6 +251,7 @@
     animation: fadeInCards 0.6s ease forwards;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: #000000;
+    height: 100%;
 }
 
 .company-card:hover {
@@ -266,7 +272,10 @@
 .company-card:nth-child(9) { animation-delay: 0.9s; }
 
 /* Subtle hover animation for the View Website link */
+
+
 .company-card a {
+    margin-bottom: 0;
     display: inline-block;
     padding: 8px 12px;
     color: #000000;
@@ -275,6 +284,7 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
     font-weight: 500;
     font-size: 14px;
+    
 }
 
 .company-card a:hover {
@@ -293,6 +303,7 @@
     padding-top: 5px;
     font-size: 15px /* Adjust the size as needed */
 }
+
 
 
 .search {
@@ -328,26 +339,28 @@
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-
-        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+        
+        <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href=" ../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>    
 
-<div class="sidebar">
-    <div class="logo">Lavoro</div>
-    <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
-    <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-    <a href="company.html" class="active"><i class="fa fa-fw fa-building"></i> Company</a>
-    <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-    <a href="feedback.html"><i class="fa fa-fw fa-comment"></i> Feedback</a>
-    <div class="logout">
-        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+    <div class="sidebar">
+        <!-- Logo or Website Name -->
+        <div class="logo">Lavoro</div>
+        <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+        <a href="company.html" class="active"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="feedbackview.php"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
     </div>
-</div>
 <div class="main-content">
     <div class="search">
         <h2>Companies</h2>

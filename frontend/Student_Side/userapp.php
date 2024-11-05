@@ -52,51 +52,159 @@ $conn->close();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-            *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+    body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #d9e6f4;
+            color: #333;
+            overflow: hidden;
+
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: white;
-        }
-
+        /* Sidebar styling */
         .sidebar {
-            width: 198px;
-            height: 610px;
-            position: fixed;
-            left: 10px;
-            top: 85px;
-            background-color: #2F5597;
+    width: 220px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    height: 97vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+    transition: width 0.4s ease-in-out;
+    padding-top: 80px; /* Added padding for space at the top */
+}
+
+
+        .sidebar .logo {
+            position: absolute;
+            top: 20px; /* Positions logo/title closer to the top */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
             color: white;
-            padding: 10px;
+            text-align: center;
+        }
+
+        .sidebar:hover {
+            width: 250px; /* Expands sidebar on hover */
         }
 
         .sidebar a {
-            text-decoration: none;
             color: white;
-            display: block;
-            padding: 15px;
-            font-size: 22px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            font-size: 18px;
+            transition: all 0.3s ease;
             border-left: 3px solid transparent;
-            transition: all 0.3s;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Fade-in effect for sidebar links */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Delayed animation for each link */
+        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
+        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
+        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
+        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
+        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
+        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+
+        .sidebar a i {
+            margin-right: 15px;
+            transition: transform 0.3s;
         }
 
         .sidebar a:hover {
-            border-left: 3px solid #ffffff;
-            background: #1e165f;
+            background-color: #1e3d7a;
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
         }
 
-        /* Main Content */
+        .sidebar .logout {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+        }
+        .sidebar a.active {
+    background-color: #d9e6f4; /* Background color for active link */
+    border-left: 4px solid #ffffff;
+    padding-left: 30px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    color:#000000;
+    position: relative;
+    z-index: 1;
+    height: 45px;
+    
+}
+.sidebar .logo {
+    position: absolute;
+    top: 20px; /* Keep the same positioning */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 36px; /* Increase the font size here */
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+
+        /* Main content styling */
         .main-content {
-            flex-grow: 1;
-            margin-left: 220px;
-            padding: 20px;
+            margin-left: 245px;
+            margin-top: 13px; 
+            margin-right: 20px;/* Default margin for sidebar */
+            padding: 40px;
+            font-size: 18px;
+            color: #333;
+            border-radius: 10px;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            background-color: #ffffff;
+            height: 86.5vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            overflow-y: auto;
+            overflow-x: hidden; 
+            
+        }
+
+        .main-content h1 {
+            color: #050505;
+            font-size: 2.5rem; /* Increased font size */
+            font-weight: bold;
+            padding-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Profile section styling */
+        .container {
+            padding: 18px 20px;
+            width: 1268px;
+            margin-left: 245px; /* Default margin for container */
+            margin-top: 12px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
         }
 
         /* Table Styling */
@@ -154,27 +262,54 @@ $conn->close();
         .filters input[type="checkbox"] {
             margin-right: 10px;
         }
+        .small-icon {
+    width: 50px; /* Set desired width */
+    height: 50px; /* Set desired height */
+    object-fit: cover; /* Ensures the image scales properly */
+    border-radius: 50%;
+     /* Makes the image circular */
+}
+        .icon {
+            margin-left: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
 
+        .icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Dropdown menu styling */
         .dropdown-content {
             display: none;
+            opacity: 0;
             position: absolute;
-            background-color: #2F5597;
-            min-width: 150px;
+            top: 70px;
+            right: 25px;
+            background: linear-gradient(135deg, #2F5597, #1e3d7a);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
             z-index: 1;
-            top: 55px;
-            border-radius: 3px;
+            transition: opacity 0.3s ease;
+        }
+
+        .dropdown-content.show {
+            display: block;
+            opacity: 1;
         }
 
         .dropdown-content a {
             color: white;
-            padding: 12px 16px;
+            padding: 12px;
             text-decoration: none;
             display: block;
+            transition: background-color 0.2s;
         }
 
         .dropdown-content a:hover {
-            background-color: #1e165f;
+            background-color: #1e3d7a;
         }
+
 
         .logout{
             position: absolute;
@@ -191,35 +326,30 @@ $conn->close();
             width: auto;
         }
 
-        .container {
-            padding: 5px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-
+        
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+<div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-
-        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+        
+        <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Admin_Side/profile_admin.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div> 
-
+    </div>
     <div class="sidebar">
-        <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
-        <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
-        <a href="#placements"><i class="fas fa-laptop-code"></i>Placements</a>
-        <a href="#company"><i class="fas fa-building"></i> Company</a>
-        <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
+        <!-- Logo or Website Name -->
+        <div class="logo">Lavoro</div>
+        <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
+        <a href="userapp.php" class="active"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+        <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+        <a href="feedbackview.php"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
@@ -251,7 +381,7 @@ $conn->close();
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="4">No applications found for this job.</td>
+                <td colspan="4">No applications found.</td>
             </tr>
         <?php endif; ?>
                 </tbody>
@@ -280,17 +410,66 @@ $conn->close();
                 reader.readAsDataURL(file); // Read the image file
             }
         }
-        let dropdownOpen = false;
+        // Dropdown toggle with smooth opening
         function toggleDropdown() {
             const dropdown = document.getElementById("dropdownMenu");
-            dropdownOpen = !dropdownOpen;
-            dropdown.style.display = dropdownOpen ? "block" : "none";
+            dropdown.classList.toggle("show");
         }
     
-        function goToProfile() {
-            showSection('personal'); // Redirect to profile section
-            toggleDropdown(); // Close the dropdown after redirection
-        }
+        // Hide dropdown on click outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.icon')) {
+                const dropdown = document.getElementById("dropdownMenu");
+                dropdown.classList.remove("show");
+            }
+        };
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            // Sidebar tab click effect
+            const tabs = document.querySelectorAll('.sidebar a');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+    
+            // Set default active link on page load
+            const defaultLink = document.querySelector('.sidebar a.active');
+            if (defaultLink) {
+                defaultLink.classList.add('active');
+            }
+    
+            // Mobile nav handling (optional)
+            const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
+            mobileTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    mobileTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+    
+            
+    
+            
+    
+            // Adjust main content and container margin based on sidebar width
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const container = document.querySelector('.container');
+    
+            sidebar.addEventListener('mouseenter', () => {
+                mainContent.style.marginLeft = '270px'; // Expanded sidebar width
+                container.style.marginLeft = '270px'; // Adjust container margin
+            });
+    
+            sidebar.addEventListener('mouseleave', () => {
+                mainContent.style.marginLeft = '245px'; // Normal sidebar width
+                container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
+            });
+    
+            
+        });
     </script>
 </body>
 </html>
