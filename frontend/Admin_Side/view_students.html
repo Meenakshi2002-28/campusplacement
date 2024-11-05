@@ -375,33 +375,6 @@ echo json_encode($students);
 
 </div>
 <script>
-<<<<<<< HEAD
-    
-document.addEventListener("DOMContentLoaded", function () {
-    fetch('fetch_students.php')
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.querySelector('.students tbody');
-            tbody.innerHTML = ''; // Clear existing rows
-            
-            // Populate table with fetched data
-            data.forEach(student => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${student.user_id}</td>
-                    <td>${student.name}</td>
-                    <td>${student.course_name}</td>
-                    <td>${student.graduation_year}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        })
-        .catch(error => console.error('Error fetching student data:', error));
-});
-
-
-=======
->>>>>>> f05d8f8d1fd8f2792e5cc4e97e651ce2d5b12191
 
     // Change profile image
     function triggerFileInput() {

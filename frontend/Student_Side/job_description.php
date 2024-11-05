@@ -509,7 +509,7 @@ $conn->close();
             <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div>
+    </div>    
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -682,7 +682,6 @@ $conn->close();
                 reader.readAsDataURL(file);
             }
         }
-
         // Dropdown toggle with smooth opening
         function toggleDropdown() {
             const dropdown = document.getElementById("dropdownMenu");
@@ -751,7 +750,6 @@ $conn->close();
                 mainContent.style.marginLeft = '270px'; // Expanded sidebar width
                 container.style.marginLeft = '270px'; // Adjust container margin
             });
-
             sidebar.addEventListener('mouseleave', () => {
                 mainContent.style.marginLeft = '245px'; // Normal sidebar width
                 container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
