@@ -1,9 +1,52 @@
+<?php
+// Database connection
+$servername = "localhost";
+$username = "root"; // Update with your database username
+$password = "";     // Update with your database password
+$dbname = "campus_placement"; // Update with your database name
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// SQL query to fetch user_id, name, graduation_year, and course_name for 10 students
+$sql = "
+    SELECT s.user_id, s.name, s.graduation_year, c.course_name
+    FROM student s
+    JOIN course c ON s.course_id = c.course_id
+    LIMIT 10
+";
+
+$result = $conn->query($sql);
+
+// Check if there are results and output them
+if ($result->num_rows > 0) {
+    // Store results in an array
+    $students = [];
+    while ($row = $result->fetch_assoc()) {
+        $students[] = $row; // Add each row to the students array
+    }
+} else {
+    $students = []; // No students found
+}
+
+// Close connection
+$conn->close();
+
+// Return the results as JSON
+header('Content-Type: application/json');
+echo json_encode($students);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavoro - Campus Recruitment System</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
@@ -14,8 +57,9 @@
             overflow: hidden;
 
         }
-    /* Sidebar styling */
-    .sidebar {
+
+        /* Sidebar styling */
+        .sidebar {
     width: 220px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -25,12 +69,11 @@
     position: fixed;
     left: 0;
     top: 0;
-    background: #2a2185;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
     padding-top: 80px; /* Added padding for space at the top */
-    overflow: hidden;
 }
 
 
@@ -76,6 +119,9 @@
         .sidebar a:nth-child(5) { animation-delay: 0.4s; }
         .sidebar a:nth-child(6) { animation-delay: 0.5s; }
         .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
+        
+
 
         .sidebar a i {
             margin-right: 15px;
@@ -108,6 +154,7 @@
     height: 45px;
     
 }
+
 
         /* Main content styling */
         .main-content {
@@ -158,14 +205,18 @@
         .icon:hover {
             transform: scale(1.1);
         }
+        img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
 
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
-            top: 55px;
-            right: 20px;
+            top: 70px;
+            right: 25px;
             background: linear-gradient(135deg, #2F5597, #1e3d7a);
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
@@ -189,8 +240,35 @@
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
+        .students {
+            margin-top: 20px;
+        }
+        /* Card styling with hover effects */
+        .card {
+            background: linear-gradient(135deg, #a2c4fb, #9babcd); /* Gradient background */
+        color: #000000; /* White text for better contrast */
+        transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Soft shadow effect */
+        }
+        .card-text i {
+        margin-right: 10px;
+        font-size: 1.8rem;
+        color: #082765; /* Icon color */
+    }
+        .card:hover {
+            transform: scale(1.05); /* Scale effect on hover */
+            background-color: #e0e0ee; /* Light blue background on hover */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        }
 
-        
+        /* Counter animation */
+        .counter {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #04070b;
+            transition: transform 0.3s ease-in-out;
+        }
         .sidebar .logo {
     position: absolute;
     top: 20px; /* Keep the same positioning */
@@ -201,141 +279,61 @@
     color: white;
     text-align: center;
 }
-.feedback-response{
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 20px;
-    background:linear-gradient(130deg, #f5f7fa,rgb(181, 181, 255));
-
+.container h3{
+    margin-right: 450px;
+    font-weight: 700;
 }
-
-
-        .feedback-response .user-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .feedback-response .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .feedback-response .user-info .name {
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .feedback-response p {
-            color: #333;
-            font-size: 16px;
-        }
-
-        .response-container {
-            margin-top: 20px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 10px;
-            border-radius: 10px;
-            border:1px solid #9ba2fd;
-            font-size: 16px;
-            margin-top: 10px;
-            resize: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-            @keyframes gradientAnimation {
-         0% { background-position: 0% 50%; }
-        100% { background-position: 100% 50%; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
     }
-        textarea:hover {
-         transform: scale(1.03);
-         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-        }
-            
-            
-        
-        button { 
-            margin-top: 20px;
-            padding: 15px 40px;
-            border-radius: 50px;
-            cursor: pointer;
-            border-width: 3px;
-            border:0;
-            box-shadow: rgba(255, 255, 255, 0.05) 0 0 8px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-size: 15px;
-            transition: all 0.5s ease;
-            margin-left:400px;
+    
+    th {
+        padding: 10px 20px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th, td {
+    padding: 10px 20px;
 }
 
- button:hover {
-  letter-spacing: 3px;
-  background-color:#1e3d7a;
-  color: hsl(0, 0%, 100%);
-  box-shadow: rgb(44, 11, 105) 0px 7px 29px 0px;
+/* Style the top bar container */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    position: relative;
 }
 
-        /* Top-right profile and dropdown */
-        .container {
-            padding: 5px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            cursor: pointer;
-        }
+/* Style the search bar container */
+.search-bar-container {
+    margin-right: 20px;
+}
 
-        .container img {
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
+/* Style the search bar */
+.search-bar {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+}
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #2F5597;
-            min-width: 150px;
-            z-index: 1;
-            top: 55px;
-            right: 0;
-            border-radius: 3px;
-        }
-
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #1e165f;
-            color: white;
-            border-radius: 3px;
-        }
-        .logo-container {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        }
-        .logo {
-        height: 50px;
-        width: auto;
-        }
+.search-bar:focus {
+    outline: none;
+    border-color: #363636;
+}
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <div class="search-bar-container">
+            <input type="text" class="search-bar" placeholder="Search...">
+        </div>
+        
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         
@@ -351,59 +349,75 @@
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
         
-        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
-        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
-        <a href="#placement"><i class="fas fa-laptop-code"></i>Placements</a>
-        <a href="#company"><i class="fa fa-building"></i> Company</a>
-        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
+        <a href="dashboard_admin.php" class="active"><i class="fas fa-home"></i> Home</a>
+        <a href="joblist_admin.php" ><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
+        <a href="company.html"><i class="fas fa-building"></i> Company</a>
+        <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+        <a href="feedback_list.html"><i class="fas fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
+<div class="main-content">
+    <div class="students">
+        <table>
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Pass Out Year</th>
+                </tr>
+            </thead>
+        </table>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <div class="feedback-response">
-            <div class="user-info">
-                <img src="../profile.png" alt="User Profile">
-                <span class="name">Jesine Maria Wilson</span>
-            </div>
-            <p>I could upload my resume, update my profile, and see all the important dates and deadlines in one place. It saved me a lot of time and effort.</p>
-        </div>
+</div>
+<script>
+    
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('fetch_students.php')
+        .then(response => response.json())
+        .then(data => {
+            const tbody = document.querySelector('.students tbody');
+            tbody.innerHTML = ''; // Clear existing rows
+            
+            // Populate table with fetched data
+            data.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.user_id}</td>
+                    <td>${student.name}</td>
+                    <td>${student.course_name}</td>
+                    <td>${student.graduation_year}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error fetching student data:', error));
+});
 
-        <!-- Response Input Area -->
-        <div class="response-container">
-            <textarea placeholder="Enter Your Response Here....."></textarea>
-            <button>SUBMIT</button>
-        </div>
-    </div>
 
-        
-       
-        
-    </div>
 
-    <!-- JavaScript -->
-    <script>
-        // Change Profile Picture
-        function triggerFileInput() {
+    // Change profile image
+    function triggerFileInput() {
             document.getElementById('fileInput').click();
         }
-    
-        function changeProfilePicture(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('profileIcon').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
+
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+            };
+            reader.readAsDataURL(file); // Read the image file
         }
-    
-        // Dropdown toggle with smooth opening
-        function toggleDropdown() {
+    }
+    // Dropdown toggle with smooth opening
+    function toggleDropdown() {
             const dropdown = document.getElementById("dropdownMenu");
             dropdown.classList.toggle("show");
         }
@@ -441,25 +455,7 @@
                 });
             });
     
-            // Dashboard stats extraction
-            
-            // Animate counter values
-            function animateCounter(element, endValue) {
-                let startValue = 0;
-                const duration = 2000; // Animation duration in milliseconds
-                const incrementTime = Math.floor(duration / endValue);
-                
-                const counterInterval = setInterval(() => {
-                    if (startValue < endValue) {
-                        startValue++;
-                        element.textContent = startValue;
-                    } else {
-                        clearInterval(counterInterval);
-                    }
-                }, incrementTime);
-            }
-    
-          
+        
     
             // Adjust main content and container margin based on sidebar width
             const sidebar = document.querySelector('.sidebar');
@@ -475,10 +471,7 @@
                 mainContent.style.marginLeft = '245px'; // Normal sidebar width
                 container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
             });
-    
-          
         });
-    </script>
-    
+</script>
 </body>
 </html>

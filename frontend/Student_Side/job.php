@@ -1,3 +1,21 @@
+<?php
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "campus_placement";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Query to get all job postings
+$sql = "SELECT job_id, company_name, job_title, work_environment, salary, job_status FROM job";
+$result = $conn->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +32,9 @@
             overflow: hidden;
 
         }
-    /* Sidebar styling */
-    .sidebar {
+
+        /* Sidebar styling */
+        .sidebar {
     width: 220px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -25,12 +44,11 @@
     position: fixed;
     left: 0;
     top: 0;
-    background: #2a2185;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
     padding-top: 80px; /* Added padding for space at the top */
-    overflow: hidden;
 }
 
 
@@ -96,17 +114,10 @@
             text-align: center;
         }
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
+    background-color: #1e3d7a; /* Background color for active link */
     border-left: 4px solid #ffffff;
     padding-left: 30px;
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
 }
 
         /* Main content styling */
@@ -122,6 +133,8 @@
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            overflow-y: auto;
+            overflow-x: hidden; 
             
         }
 
@@ -201,141 +214,107 @@
     color: white;
     text-align: center;
 }
-.feedback-response{
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 20px;
-    background:linear-gradient(130deg, #f5f7fa,rgb(181, 181, 255));
-
+.job-card {
+    width: 130vh;
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space out items */
+    align-items: center; /* Align items vertically */
+    margin-bottom: 20px;
+    /* Set the width of the card */
+    height: 110px; /* Adjust height based on content */
+    padding: 20px; /* Add padding inside the card */
+    border: 1px solid #ddd; /* Optional: border for visual separation */
+    border-radius: 5px; /* Optional: rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow for depth */
+    transition: transform 0.3s, box-shadow 0.3s;
+     /* Smooth transition for transform and box-shadow */
+     margin-left:50px;
+     background-color: white;
+     position:relative;
 }
 
-
-        .feedback-response .user-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .feedback-response .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .feedback-response .user-info .name {
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .feedback-response p {
-            color: #333;
-            font-size: 16px;
-        }
-
-        .response-container {
-            margin-top: 20px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 10px;
-            border-radius: 10px;
-            border:1px solid #9ba2fd;
-            font-size: 16px;
-            margin-top: 10px;
-            resize: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-            @keyframes gradientAnimation {
-         0% { background-position: 0% 50%; }
-        100% { background-position: 100% 50%; }
-    }
-        textarea:hover {
-         transform: scale(1.03);
-         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-        }
-            
-            
-        
-        button { 
-            margin-top: 20px;
-            padding: 15px 40px;
-            border-radius: 50px;
-            cursor: pointer;
-            border-width: 3px;
-            border:0;
-            box-shadow: rgba(255, 255, 255, 0.05) 0 0 8px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-size: 15px;
-            transition: all 0.5s ease;
-            margin-left:400px;
+.job-card:hover {
+    transform: translateY(-5px); /* Lift the card up on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+    border-color: #063dc9;
 }
 
- button:hover {
-  letter-spacing: 3px;
-  background-color:#1e3d7a;
-  color: hsl(0, 0%, 100%);
-  box-shadow: rgb(44, 11, 105) 0px 7px 29px 0px;
+.job-details {
+    flex: 1; /* Take up available space */
 }
 
-        /* Top-right profile and dropdown */
-        .container {
-            padding: 5px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            cursor: pointer;
-        }
+.job-info {
+    text-align: right; /* Align text to the right */
+}
 
-        .container img {
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
+.company-name {
+    font-size: 1.5rem; /* Increase company name font size */
+    font-weight: bold;
+}
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #2F5597;
-            min-width: 150px;
-            z-index: 1;
-            top: 55px;
-            right: 0;
-            border-radius: 3px;
-        }
+.position {
+    font-size: 1.2rem; /* Position font size */
+}
 
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
+.salary {
+    font-size: 1.2rem; /* Salary font size */
+    font-weight: bold; /* Make salary bold */
+    margin-right: 175px;
+    margin-top: 25px;
+}
 
-        .dropdown-content a:hover {
-            background-color: #1e165f;
-            color: white;
-            border-radius: 3px;
-        }
-        .logo-container {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        }
-        .logo {
-        height: 50px;
-        width: auto;
-        }
+.apply-now {
+    background-color: #0056b3; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    height: 45px;
+    border-radius: 5px; /* Rounded corners for button */
+    cursor: pointer; 
+    margin-bottom: 25px;
+   
+    /* Pointer on hover */
+}
+
+.apply-now:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+.remote {
+    background-color:white; /* Green background for remote label */
+    color: black; /* White text color */
+    padding: 3px 8px; /* Padding around the label */
+     /* Rounded corners */
+    font-size: 0.8rem; /* Smaller font size */
+    /* Increased space between company name and remote label */
+    vertical-align: middle; /* Align vertically with text */
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 230px;
+}
+.open {
+    position: absolute;
+    top: 50px; /* Adjust as needed */
+    left: 250px; /* Adjust as needed */
+    background-color: #075138;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    margin-left: 130px;
+}
+
+.company-logo {
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    margin-right: 20px; /* Space between logo and job details */
+    border-radius: 5px; /* Optional: rounded edges */
+}
+
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         
@@ -353,7 +332,7 @@
         
         <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
         <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
-        <a href="#placement"><i class="fas fa-laptop-code"></i>Placements</a>
+        <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
         <a href="#company"><i class="fa fa-building"></i> Company</a>
         <a href="#profile"><i class="fa fa-user"></i> Profile</a>
         <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
@@ -364,25 +343,43 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <div class="feedback-response">
-            <div class="user-info">
-                <img src="../profile.png" alt="User Profile">
-                <span class="name">Jesine Maria Wilson</span>
+        <?php
+    if ($result->num_rows > 0) {
+        // Output data of each job row
+        while ($row = $result->fetch_assoc()) {
+            ?>
+              <div class="job-card" onclick="window.location.href='job_description.php?job_id=<?php echo $row['job_id']; ?>'">
+               
+                <div class="job-details">
+                    <div class="company-name"><?php echo htmlspecialchars($row['company_name']); ?></div>
+                    <div class="position"><?php echo htmlspecialchars($row['job_title']); ?></div>
+                    <div class="remote"><?php echo htmlspecialchars($row['work_environment']); ?></div>
+                    <?php if ($row['job_status'] == 'Open') { ?>
+                        <span class="open">Open for Applicants</span>
+                    <?php } else { ?>
+                        <span class="open">Closed for Applicants</span>
+                    <?php } ?>
+                </div>
+                <div class="job-info">
+                    <div class="salary">Salary: <?php echo htmlspecialchars($row['salary']); ?></div>
+                   
+                    <button class="apply-now">Apply Now</button>
+                </div>
             </div>
-            <p>I could upload my resume, update my profile, and see all the important dates and deadlines in one place. It saved me a lot of time and effort.</p>
-        </div>
+            <?php
+        }
+    } else {
+        echo "<p>No job postings available at the moment.</p>";
+    }
 
-        <!-- Response Input Area -->
-        <div class="response-container">
-            <textarea placeholder="Enter Your Response Here....."></textarea>
-            <button>SUBMIT</button>
-        </div>
-    </div>
+    // Close the database connection
+    $conn->close();
+    ?>
 
-        
-       
-        
-    </div>
+  </div>
+  
+  
+    
 
     <!-- JavaScript -->
     <script>

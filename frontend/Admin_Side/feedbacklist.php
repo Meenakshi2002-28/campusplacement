@@ -1,3 +1,25 @@
+<?php
+$servername = "localhost"; // Server name
+$db_username = "root"; // MySQL username
+$db_password = ""; // MySQL password
+$dbname = "campus_placement"; // Database name
+
+// Create connection
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch feedback from the database
+$sql = "SELECT feedback.user_id,feedback.feedback_id, feedback.feedback,  feedback.submission_date,student.name 
+        FROM feedback 
+        JOIN student ON feedback.user_id = student.user_id
+         ORDER BY feedback.submission_date DESC";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,7 +144,8 @@
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-            
+            overflow-x: auto;
+            overflow-y: auto;
         }
 
         .main-content h1 {
@@ -201,127 +224,62 @@
     color: white;
     text-align: center;
 }
-.feedback-response{
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+.feedback-container {
+    margin-top: -30px;
     padding: 5px;
+}
+
+.feedback-item {
+    background-color: #ffffff;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    padding: 4px;
     margin-bottom: 10px;
     border-radius: 20px;
-    background:linear-gradient(130deg, #f5f7fa,rgb(181, 181, 255));
-
+    border-style:linear-gradient(130deg, #f5f7fa,rgb(181, 181, 255));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
-
-        .feedback-response .user-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
+.feedback-item:hover {
+        transform: scale(1.01);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
         }
-
-        .feedback-response .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .feedback-response .user-info .name {
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .feedback-response p {
-            color: #333;
-            font-size: 16px;
-        }
-
-        .response-container {
-            margin-top: 20px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 10px;
-            border-radius: 10px;
-            border:1px solid #9ba2fd;
-            font-size: 16px;
-            margin-top: 10px;
-            resize: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-            @keyframes gradientAnimation {
+@keyframes gradientAnimation {
          0% { background-position: 0% 50%; }
         100% { background-position: 100% 50%; }
-    }
-        textarea:hover {
-         transform: scale(1.03);
-         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
         }
-            
-            
         
-        button { 
-            margin-top: 20px;
-            padding: 15px 40px;
-            border-radius: 50px;
-            cursor: pointer;
-            border-width: 3px;
-            border:0;
-            box-shadow: rgba(255, 255, 255, 0.05) 0 0 8px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-size: 15px;
-            transition: all 0.5s ease;
-            margin-left:400px;
+
+        .feedback-item:hover {
+    background: linear-gradient(130deg, #f5f7fa, rgb(181, 181, 255));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
- button:hover {
-  letter-spacing: 3px;
-  background-color:#1e3d7a;
-  color: hsl(0, 0%, 100%);
-  box-shadow: rgb(44, 11, 105) 0px 7px 29px 0px;
+    
+
+.feedback-item h3 {
+    color: #000000;
 }
 
-        /* Top-right profile and dropdown */
-        .container {
-            padding: 5px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            cursor: pointer;
-        }
+.feedback-item p {
+    color: #000000;
+    font-size: 16px;
+}
 
-        .container img {
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #2F5597;
-            min-width: 150px;
-            z-index: 1;
-            top: 55px;
-            right: 0;
-            border-radius: 3px;
-        }
-
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #1e165f;
-            color: white;
-            border-radius: 3px;
-        }
-        .logo-container {
+button {
+    background-color:#ffc107; 
+    border: none;
+    color: white ;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-top:-70px;
+    margin-left:5px;
+}
+.logo-container {
         position: absolute;
         top: 10px;
         left: 10px;
@@ -330,6 +288,22 @@
         height: 50px;
         width: auto;
         }
+        .user-info {
+    display: flex;
+    align-items:center ; /* Vertically centers the icon and name */
+    gap: 10px; /* Adjust spacing between icon and name as needed */
+}
+
+.icon {
+    width: 50px; /* Set the size for the icon */
+    height: 50px;
+    border-radius: 50%; /* Makes the icon circular if it's a square */
+}
+.user-info img{
+    width: 50px; /* Set the size for the icon */
+    height: 50px;
+    border-radius: 50%; /* Makes the icon circular if it's a square */
+}
     </style>
 </head>
 <body>
@@ -353,8 +327,7 @@
         
         <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
         <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
-        <a href="#placement"><i class="fas fa-laptop-code"></i>Placements</a>
-        <a href="#company"><i class="fa fa-building"></i> Company</a>
+        <a href="#placement"><i class="fas fa-laptop-code"></i>Placements</a>        <a href="#company"><i class="fa fa-building"></i> Company</a>
         <a href="#profile"><i class="fa fa-user"></i> Profile</a>
         <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
         <div class="logout">
@@ -364,21 +337,26 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <div class="feedback-response">
-            <div class="user-info">
-                <img src="../profile.png" alt="User Profile">
-                <span class="name">Jesine Maria Wilson</span>
+        <div class="feedback-container">
+            <?php
+            if ($result->num_rows > 0) {
+                // Output data of each row
+                while($row = $result->fetch_assoc()) {
+                    echo '<div class="feedback-item">';
+                    echo '<div class="user-info">';
+                    echo '<img src="../profile.png" alt="User Profile">'; // Replace with actual user profile image if available
+                    echo '<h5>' . htmlspecialchars($row["name"]) . '</h5>';
+                    echo '</div>';
+                    echo '<p>' . htmlspecialchars($row["feedback"]) . '</p>';
+                    echo '<button onclick="window.location.href=\'feedback_response.php?user_id=' . urlencode($row["user_id"]) . '&feedback_id=' . urlencode($row["feedback_id"]) . '\'">RESPONSE</button>';
+                    echo '</div>';
+                }
+            } else {
+                echo '<p>No feedback available.</p>';
+            }
+            ?>
             </div>
-            <p>I could upload my resume, update my profile, and see all the important dates and deadlines in one place. It saved me a lot of time and effort.</p>
         </div>
-
-        <!-- Response Input Area -->
-        <div class="response-container">
-            <textarea placeholder="Enter Your Response Here....."></textarea>
-            <button>SUBMIT</button>
-        </div>
-    </div>
-
         
        
         
@@ -479,6 +457,10 @@
           
         });
     </script>
-    
+<?php
+// Close the database connection
+$conn->close();
+?>    
 </body>
 </html>
+

@@ -155,11 +155,11 @@ if (isset($_SESSION['user_id'])) {
 <div class="sidebar">
     <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
     <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
-    <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
-    <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
     <a href="company.html"><i class="fas fa-building"></i> Company</a>
     <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-    <a href="feedback_list.html"><i class="fas fa-comment"></i> Feedback</a>
+    <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
     <div class="logout">
         <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
     </div>

@@ -441,7 +441,7 @@ img {
             <table>
                 <tr>
                     <td>Phone Number<span style="color:red;">*</span> </td><td><input type="text" id="number" name="number"onblur="validatePhone()"></td>
-                    <div id="phone-error" class="error-message"></div> 
+                    <div id="phone-error" class="error-message"></div> <!-
                 </tr>
                 <tr>
                     <td>Email<span style="color:red;">*</span></td><td><input type="text" id="email" name="email"onblur="validateEmail()"></td>
@@ -661,10 +661,19 @@ function validateCGPA() {
     // Clear previous error message
     errorContainer.textContent = ""; 
 
+    // Check if CGPA is a numeric value
     if (!isNumeric(cgpa.value)) {
         errorContainer.textContent = "CGPA must be a numeric value.";
         return false; // Validation failed
     }
+
+    // Check if CGPA is within the range of 0 to 10
+    const cgpaValue = parseFloat(cgpa.value);
+    if (cgpaValue < 0 || cgpaValue > 10) {
+        errorContainer.textContent = "CGPA must be between 0 and 10.";
+        return false; // Validation failed
+    }
+
     return true; // Validation passed
 }
 

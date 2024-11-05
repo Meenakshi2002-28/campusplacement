@@ -1,3 +1,65 @@
+<?php
+// Include database connection file
+$servername = "localhost"; // Server name
+$db_username = "root"; // MySQL username
+$db_password = ""; // MySQL password
+$dbname = "campus_placement"; // Database name
+
+// Create connection
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (isset($_GET['user_id']) && isset($_GET['feedback_id'])) {
+    $user_id = $_GET['user_id'];
+    $feedback_id = $_GET['feedback_id'];
+
+    // Query to fetch the feedback and existing response
+    $sql = "SELECT f.feedback, f.response, s.name 
+            FROM feedback f 
+            JOIN student s ON f.user_id = s.user_id 
+            WHERE f.user_id = ? AND f.feedback_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("si", $user_id, $feedback_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if the feedback record exists
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $feedback_text = htmlspecialchars($row['feedback']);
+        $response_text = htmlspecialchars($row['response']);
+        $user_name = htmlspecialchars($row['name']);
+    } else {
+        echo "Feedback not found.";
+        exit();
+    }
+    $stmt->close();
+}
+$success = false;
+// Handle form submission to update response
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['response'])) {
+    $response = $_POST['response'];
+   
+
+    // Update the response in the feedback table
+    $update_sql = "UPDATE feedback SET response = ? WHERE user_id = ? AND feedback_id = ?";
+    $stmt = $conn->prepare($update_sql);
+    $stmt->bind_param("ssi", $response, $user_id, $feedback_id);
+
+    if ($stmt->execute()) {
+        $success = true;
+    } else {
+        echo "Error updating response: " . $conn->error;
+    }
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +68,8 @@
     <title>Lavoro - Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -366,22 +430,35 @@
     <div class="main-content">
         <div class="feedback-response">
             <div class="user-info">
-                <img src="../profile.png" alt="User Profile">
-                <span class="name">Jesine Maria Wilson</span>
+                <img src="../images/profile.png" alt="User Profile">
+                <span class="name"><?php echo $user_name; ?></span>
             </div>
-            <p>I could upload my resume, update my profile, and see all the important dates and deadlines in one place. It saved me a lot of time and effort.</p>
+            <p><?php echo $feedback_text; ?></p>
         </div>
-
-        <!-- Response Input Area -->
+    
         <div class="response-container">
-            <textarea placeholder="Enter Your Response Here....."></textarea>
-            <button>SUBMIT</button>
-        </div>
-    </div>
+            <form method="POST" action="">
+                <label for="response">Your Response:</label>
+                <textarea name="response" id="response" required><?php echo $response_text; ?></textarea>
+                <button type="submit">SUBMIT</button>
+            </form>
+            </div>
+<?php if ($success): ?>
+    <script>
+        Swal.fire({
+            title: 'Success!',
+            text: 'Response Saved!',
+            icon: 'success',
+            iconColor: '#022a52fd',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'feedbacklist.php'; // Redirect to your desired page
+            }
+        });
+    </script>
+<?php endif; ?>
 
-        
-       
-        
     </div>
 
     <!-- JavaScript -->

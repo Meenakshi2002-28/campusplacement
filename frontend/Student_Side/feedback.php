@@ -1,3 +1,42 @@
+<?php
+session_start();
+$servername = "localhost";
+$db_username = "root"; // MySQL username
+$db_password = ""; // MySQL password
+$dbname = "campus_placement"; // Replace with your database name
+
+// Create connection
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} // Make sure this file contains your DB connection code
+// Include your database connection
+$success = false;
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve user_id from session (assuming user is logged in and user_id is stored in session)
+    $user_id = $_SESSION['user_id'];
+   
+    $feedback = $_POST['feedback'];
+    $submission_date = date('Y-m-d'); // Current date
+
+    // Database insertion
+    $sql = "INSERT INTO FEEDBACK (user_id, feedback, submission_date, response) VALUES (?, ?, ?, '')";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $user_id, $feedback, $submission_date);
+
+    if ($stmt->execute()) {
+        $success = true;
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +45,8 @@
     <title>Lavoro - Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -150,10 +191,14 @@
         }
 
         .icon {
-            margin-left: 15px;
+            margin-left:-5px;
             cursor: pointer;
             transition: transform 0.3s;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
         }
+        
 
         .icon:hover {
             transform: scale(1.1);
@@ -201,136 +246,100 @@
     color: white;
     text-align: center;
 }
-.feedback-response{
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 20px;
-    background:linear-gradient(130deg, #f5f7fa,rgb(181, 181, 255));
 
+.feedback-container { /* Space from the top */
+    
+    margin-top: -100px;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center aligns the text */
+    width: 80%; /* Relative width to adapt better to screen size */
+    margin-left: auto; /* Centers the container */
+    margin-right: auto; /* Centers the container */
 }
 
 
-        .feedback-response .user-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
+.feedback-container h2 {
+    color: #333; /* Dark grey color for the text */
+    margin-bottom: 20px; /* Space below the header */
+    margin-top: 120px;
+}
+.card {
+  width: 70%;
+  height: 311px;
+  border-radius: 20px;
+  padding: 10px;
+  margin-left: 160px;
+  margin-top: 30px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  background-image: linear-gradient(144deg,#1e3d7a,  50%,#00DDEB);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
         }
-
-        .feedback-response .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .feedback-response .user-info .name {
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .feedback-response p {
-            color: #333;
-            font-size: 16px;
-        }
-
-        .response-container {
-            margin-top: 20px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 10px;
-            border-radius: 10px;
-            border:1px solid #9ba2fd;
-            font-size: 16px;
-            margin-top: 10px;
-            resize: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-            @keyframes gradientAnimation {
+@keyframes gradientAnimation {
          0% { background-position: 0% 50%; }
         100% { background-position: 100% 50%; }
-    }
-        textarea:hover {
-         transform: scale(1.03);
-         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
         }
-            
-            
         
-        button { 
-            margin-top: 20px;
-            padding: 15px 40px;
-            border-radius: 50px;
-            cursor: pointer;
-            border-width: 3px;
-            border:0;
-            box-shadow: rgba(255, 255, 255, 0.05) 0 0 8px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-size: 15px;
-            transition: all 0.5s ease;
-            margin-left:400px;
+.feedback-container textarea {
+    height:300px;
+    width: 127%; /* Percentage width to maintain responsiveness */
+    padding: 10px;
+    margin-top: -83px;
+
+     /* Ensures it starts on a new line */
+    margin-left:-87px;  /* Centers the textarea */
+    margin-right:403px; /* Centers the textarea */
+    resize: none; /* Prevents resizing the textarea */
+    background:white;
+    border-radius: 17px;
+   
 }
 
- button:hover {
-  letter-spacing: 3px;
+.feedback-container button { 
+  margin-top: 20px;
+  padding: 15px 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  border-width: 3px;
+  border:0;
+  font-size: 15px;
+  transition: all 0.5s ease;
+  box-shadow: rgba(255, 255, 255, 0.05) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background-color:#d4e5f7;
+  color:#1e3d7a;
+  
+}
+
+.feedback-container button:hover {
+    letter-spacing: 3px;
   background-color:#1e3d7a;
   color: hsl(0, 0%, 100%);
   box-shadow: rgb(44, 11, 105) 0px 7px 29px 0px;
 }
 
-        /* Top-right profile and dropdown */
-        .container {
-            padding: 5px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            cursor: pointer;
+b.feedback-container:active {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+.feedback-image img{
+   margin-left:500px;
+   margin-top:-280px;
+   width:80%;
+   height:auto;
+   transition: transform 0.2s ease;
         }
+ 
 
-        .container img {
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #2F5597;
-            min-width: 150px;
-            z-index: 1;
-            top: 55px;
-            right: 0;
-            border-radius: 3px;
-        }
-
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #1e165f;
-            color: white;
-            border-radius: 3px;
-        }
-        .logo-container {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        }
-        .logo {
-        height: 50px;
-        width: auto;
-        }
-    </style>
+</style>
 </head>
 <body>
     <!-- Profile Container -->
@@ -353,7 +362,7 @@
         
         <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
         <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
-        <a href="#placement"><i class="fas fa-laptop-code"></i>Placements</a>
+        <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
         <a href="#company"><i class="fa fa-building"></i> Company</a>
         <a href="#profile"><i class="fa fa-user"></i> Profile</a>
         <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
@@ -364,22 +373,27 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <div class="feedback-response">
-            <div class="user-info">
-                <img src="../profile.png" alt="User Profile">
-                <span class="name">Jesine Maria Wilson</span>
-            </div>
-            <p>I could upload my resume, update my profile, and see all the important dates and deadlines in one place. It saved me a lot of time and effort.</p>
+    <div class="card">
+        <div class="feedback-container">
+            <h2>Share your thoughts</h2>
+            <form action="feedback.php" method="POST">
+            <textarea id="feedbackText" name="feedback" placeholder="Enter here..." rows="10" cols="50"></textarea>
+            <button onclick="submitFeedback()">SUBMIT</button>
+            </form>
+            <div class="feedback-image">
+            <img src="feedback.png" class="feedback-image" ></div>
         </div>
-
-        <!-- Response Input Area -->
-        <div class="response-container">
-            <textarea placeholder="Enter Your Response Here....."></textarea>
-            <button>SUBMIT</button>
-        </div>
-    </div>
-
-        
+        <?php if ($success): ?>
+        <script>
+            Swal.fire({
+                title: 'Success!',
+                text: 'Feedback Delivered!',
+                icon: 'success',
+                iconColor: '#022a52fd',
+                confirmButtonText: 'OK'
+            })
+        </script>
+    <?php endif; ?>
        
         
     </div>

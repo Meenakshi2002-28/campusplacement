@@ -1,6 +1,9 @@
 <?php
-// Start the session to use session variables
+// Start session to get the logged-in user's ID
 session_start();
+
+// Assuming you have stored the user's ID in session
+$user_id = $_SESSION['user_id']; // Replace with the actual session key if different
 
 // Database connection
 $servername = "localhost";
@@ -8,40 +11,31 @@ $username = "root";
 $password = "";
 $dbname = "campus_placement";
 
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$sql = "
+SELECT j.company_name, j.job_title, p.user_id, s.name
+    FROM placement p
+    JOIN job j ON p.job_id = j.job_id
+    JOIN student s ON p.user_id = s.user_id
+    ORDER BY s.name ASC
+";
 
-// Fetch applications for a specific job
-if (isset($_GET['job_id'])) {
-    $job_id = $_GET['job_id'];
+// Execute the query
+$result = $conn->query($sql);
 
-    // Prepare and execute query
-    $query = "SELECT sa.name, ja.user_id, ca.course_name ,ja.status
-              FROM job_application ja
-              JOIN student sa ON ja.user_id = sa.user_id
-              JOIN course ca ON sa.course_id = ca.course_id
-              WHERE ja.job_id = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $job_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Store applications in an array
-    $applications = [];
-    while ($row = $result->fetch_assoc()) {
-        $applications[] = $row;
-    }
-
-    $stmt->close();
-}
+// Fetch all results into an array
+$placed_students = $result->fetch_all(MYSQLI_ASSOC);
 
 // Close the connection
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -232,26 +226,26 @@ $conn->close();
             <table>
                 <thead>
                     <tr>
-                        <th>Roll No</th>
-                        <th>Name</th>
-                        <th>Course</th>
-                        <th>Status</th>
+                        <th>Company</th>
+                        <th>Position</th>
+                        <th>Student</th>
+                        <th>Roll no</th>
                         
                     </tr>
                 </thead>
                 <tbody>
-                <?php if (!empty($applications)): ?>
-            <?php foreach ($applications as $application): ?>
+                <?php if (!empty($placed_students)): ?>
+            <?php foreach ($placed_students as $student): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($application['user_id']); ?></td>
-                    <td><?php echo htmlspecialchars($application['name']); ?></td>
-                    <td><?php echo htmlspecialchars($application['course_name']); ?></td>
-                    <td><?php echo htmlspecialchars($application['status']); ?></td>
+                    <td><?php echo htmlspecialchars($student['company_name']); ?></td>
+                    <td><?php echo htmlspecialchars($student['job_title']); ?></td>
+                    <td><?php echo htmlspecialchars($student['name']); ?></td>
+                    <td><?php echo htmlspecialchars($student['user_id']); ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="3">No applications found for this job.</td>
+                <td colspan="4">No placed students found.</td>
             </tr>
         <?php endif; ?>
                 </tbody>
@@ -259,46 +253,7 @@ $conn->close();
         </div>
 
         <!-- Filter Section -->
-         <form id="exportForm" method="POST" action="export.php">
-         <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
-    <div class="filters">
-        <label><input type="checkbox" name="fields[]" value="name" checked> Name</label><br>
-        <label><input type="checkbox" name="fields[]" value="user_id" checked> Roll Number</label><br>
-        <label><input type="checkbox" name="fields[]" value="course_name" checked> Course</label><br>
-        <label><input type="checkbox" name="fields[]" value="course_branch" checked> Branch</label><br>
-        <label><input type="checkbox" name="fields[]" value="cgpa" checked> CGPA</label><br>
-        <label><input type="checkbox" name="fields[]" value="email"> E-Mail ID</label><br>
-        <label><input type="checkbox" name="fields[]" value="current_arrears" checked> Current Arrears</label><br>
-        <label><input type="checkbox" name="fields[]" value="graduation_year" checked> Pass out Year</label><br>
-        <label><input type="checkbox" name="fields[]" value="percentage_tenth"> Tenth Percentage</label><br>
-        <label><input type="checkbox" name="fields[]" value="percentage_twelfth"> Twelfth Percentage</label><br>
-        <label><input type="checkbox" name="fields[]" value="resume" checked> Resume</label><br>
-    </div>
-    <button type="submit">Export</button>
-</form>
-<!-- HTML Form to upload Excel file -->
-<form action="status.php" method="post" enctype="multipart/form-data">
-<input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
-    <input type="file" name="excel_file" required>
-    <input type="submit" value="Upload Excel">
-
-</form>
-<?php
-    if (isset($_GET['status']) && $_GET['status'] == 'success') {
-        echo "<script>
-        Swal.fire({
-            title: 'Good job!',
-            text: 'Status Updation Successful!',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = 'joblist_admin.php'; // Replace with your desired URL
-            }
-        });
-    </script>";
-    }
-    ?>
+        
     </div>
 
     <script>
