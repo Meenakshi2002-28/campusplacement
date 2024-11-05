@@ -1,3 +1,21 @@
+<?php
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "campus_placement";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Query to get all job postings
+$sql = "SELECT job_id, company_name, job_title, work_environment, salary, job_status FROM job";
+$result = $conn->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,17 +114,10 @@
             text-align: center;
         }
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
+    background-color: #1e3d7a; /* Background color for active link */
     border-left: 4px solid #ffffff;
     padding-left: 30px;
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
 }
 
         /* Main content styling */
@@ -160,17 +171,14 @@
         .icon:hover {
             transform: scale(1.1);
         }
-        img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
+
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
-            top: 70px;
-            right: 25px;
+            top: 55px;
+            right: 20px;
             background: linear-gradient(135deg, #2F5597, #1e3d7a);
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
@@ -263,7 +271,6 @@
     border-radius: 5px; /* Rounded corners for button */
     cursor: pointer; 
     margin-bottom: 25px;
-    padding: 3px 8px;
    
     /* Pointer on hover */
 }
@@ -293,7 +300,6 @@
     border-radius: 3px;
     font-size: 0.8rem;
     margin-left: 130px;
-    font-weight: 500;
 }
 
 .company-logo {
@@ -324,14 +330,14 @@
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
         
-        <a href="dashboard_std.php" ><i class="fa fa-home"></i> Home</a>
-        <a href="jobs.php" class="active"><i class="fa fa-search"></i> Jobs</a>
+        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
         <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
-        <a href="company.html"><i class="fa fa-building"></i> Company</a>
-        <a href="../profile_redirect.php"><i class="fa fa-user"></i> Profile</a>
-        <a href="feedback.html"><i class="fa fa-comment"></i> Feedback</a>
+        <a href="#company"><i class="fa fa-building"></i> Company</a>
+        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 
@@ -357,7 +363,7 @@
                 <div class="job-info">
                     <div class="salary">Salary: <?php echo htmlspecialchars($row['salary']); ?></div>
                    
-                    <button class="apply-now">view details</button>
+                    <button class="apply-now">Apply Now</button>
                 </div>
             </div>
             <?php

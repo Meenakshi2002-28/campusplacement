@@ -15,11 +15,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Retrieve user_id from session
-if (!isset($_SESSION['user_id'])) {
-    die("User not logged in.");
+
+
+// Get the user_id from the URL
+$user_id = $_GET['user_id'] ?? null; // Use null coalescing to handle missing user_id
+
+// Check if user_id is set
+if (!$user_id) {
+    die("No user ID provided.");
 }
-$user_id = $_SESSION['user_id'];
 
 // Check if current_year and phone_number exist for the user_id in the STUDENT table
 $sql = "SELECT current_year, phone_number FROM STUDENT WHERE user_id = ?";
@@ -32,11 +36,11 @@ $stmt->fetch();
 
 // If current_year and phone_number exist, redirect to view.php
 if ($stmt->num_rows > 0 && !empty($current_year) && !empty($phone_number)) {
-    header("Location:Student_Side/personalview.php"); // Redirect to view details
+    header("Location: adminpersonalview.php?user_id=" . urlencode($user_id)); // Redirect to view details
     exit();
 } else {
     // If no records found, redirect to storepr_std.php
-    header("Location:Student_Side/personal.php"); // Redirect to store details
+    header("Location: Student_Side/personal.php?user_id=" . urlencode($user_id)); // Redirect to store details
     exit();
 }
 

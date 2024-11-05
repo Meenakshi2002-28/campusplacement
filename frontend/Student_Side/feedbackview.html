@@ -17,20 +17,20 @@
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    height: 97vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-    transition: width 0.4s ease-in-out;
-    padding-top: 80px; /* Added padding for space at the top */
+        width: 220px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+         border-radius: 10px;
+         height: 97vh;
+         position: fixed;
+         left: 0;
+        top: 0;
+        background: linear-gradient(135deg, #022a52fd, #063dc9);
+        color: white;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+        transition: width 0.4s ease-in-out;
+        padding-top: 80px; /* Added padding for space at the top */
 }
 
 
@@ -96,17 +96,10 @@
             text-align: center;
         }
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
+        background-color: #1e3d7a; /* Background color for active link */
+        border-left: 4px solid #ffffff;
+        padding-left: 30px;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
         /* Main content styling */
@@ -122,8 +115,6 @@
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-            overflow-y: auto;
-            overflow-x: hidden; 
             
         }
 
@@ -160,17 +151,14 @@
         .icon:hover {
             transform: scale(1.1);
         }
-        img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
+
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
-            top: 70px;
-            right: 25px;
+            top: 55px;
+            right: 20px;
             background: linear-gradient(135deg, #2F5597, #1e3d7a);
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
@@ -197,118 +185,134 @@
 
         
         .sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-.job-card {
-    width: 130vh;
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space out items */
-    align-items: center; /* Align items vertically */
-    margin-bottom: 20px;
-    /* Set the width of the card */
-    height: 110px; /* Adjust height based on content */
-    padding: 20px; /* Add padding inside the card */
-    border: 1px solid #ddd; /* Optional: border for visual separation */
-    border-radius: 5px; /* Optional: rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow for depth */
-    transition: transform 0.3s, box-shadow 0.3s;
-     /* Smooth transition for transform and box-shadow */
-     margin-left:50px;
-     background-color: white;
-     position:relative;
-}
+        position: absolute;
+        top:20px; /* Keep the same positioning */
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 36px; /* Increase the font size here */
+        font-weight: bold;
+        color: white;
+        text-align: center;
+    }
+    .feedback-section {
+            padding: 10px;
+        }
 
-.job-card:hover {
-    transform: translateY(-5px); /* Lift the card up on hover */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
-    border-color: #063dc9;
-}
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top:-30px;
+        }
 
-.job-details {
-    flex: 1; /* Take up available space */
-}
+        .feedback-header button {
+            background-color: #1e165f;
+            color: white;
+            padding: 2px 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-.job-info {
-    text-align: right; /* Align text to the right */
-}
+        .feedback-card {
+            border: 1px solid inherit;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            padding: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(12deg, #f5f7fa,rgb(181, 181, 255));
+        }
+        @keyframes gradientAnimation {
+         0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+        }
+       
 
-.company-name {
-    font-size: 1.5rem; /* Increase company name font size */
-    font-weight: bold;
-}
+        .feedback-card .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
 
-.position {
-    font-size: 1.2rem; /* Position font size */
-}
+        }
 
-.salary {
-    font-size: 1.2rem; /* Salary font size */
-    font-weight: bold; /* Make salary bold */
-    margin-right: 175px;
-    margin-top: 25px;
-}
+        .feedback-card .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
 
-.apply-now {
-    background-color: #0056b3; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    height: 45px;
-    border-radius: 5px; /* Rounded corners for button */
-    cursor: pointer; 
-    margin-bottom: 25px;
-    padding: 3px 8px;
-   
-    /* Pointer on hover */
-}
+        .feedback-card .user-info .name {
+            font-weight: bold;
+            font-size: 16px;
+        }
 
-.apply-now:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-.remote {
-    background-color:white; /* Green background for remote label */
-    color: black; /* White text color */
-    padding: 3px 8px; /* Padding around the label */
-     /* Rounded corners */
-    font-size: 0.8rem; /* Smaller font size */
-    /* Increased space between company name and remote label */
-    vertical-align: middle; /* Align vertically with text */
-    font-weight: bold;
-    font-size: 16px;
-    margin-left: 230px;
-}
-.open {
-    position: absolute;
-    top: 50px; /* Adjust as needed */
-    left: 250px; /* Adjust as needed */
-    background-color: #075138;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    margin-left: 130px;
-    font-weight: 500;
-}
+        .feedback-card .feedback-text {
+            font-size: 17px;
+            color: #555;
+        }
 
-.company-logo {
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
-    margin-right: 20px; /* Space between logo and job details */
-    border-radius: 5px; /* Optional: rounded edges */
-}
+        .feedback-card .view-response-btn {
+            margin-top: 10px;
+            text-align: right;
+           
+        }
 
+        .feedback-card .view-response-btn button {
+            background-color:#FFC107;
+            color: white;
+            padding: 2px 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+        .feedback-card:hover {
+         transform: scale(1.02);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .feedback-card .view-response-btn button:hover {
+            background-color: #1e165f;
+        }
+
+        .admin-response {
+            display: none; /* Initially hide the admin response */
+            padding: 10px;
+            background-color: #e0f7fa;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #000000;
+        }
+        .feedback-header button{
+            font-size: 18px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .feedback-header button:hover{
+            transform: scale(1.03);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+
+        }
+        @keyframes gradientAnimation {
+         0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+        }
+        .feedback-card .view-response-btn button:hover {
+            background-color:#FFC107;
+
+        }
+
+
+    </style>
+</head>
+<body>
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         
@@ -324,62 +328,62 @@
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
         
-        <a href="dashboard_std.php" ><i class="fa fa-home"></i> Home</a>
-        <a href="jobs.php" class="active"><i class="fa fa-search"></i> Jobs</a>
+        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
         <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
-        <a href="company.html"><i class="fa fa-building"></i> Company</a>
-        <a href="../profile_redirect.php"><i class="fa fa-user"></i> Profile</a>
-        <a href="feedback.html"><i class="fa fa-comment"></i> Feedback</a>
+        <a href="#company"><i class="fa fa-building"></i> Company</a>
+        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div class="main-content">
-        <?php
-    if ($result->num_rows > 0) {
-        // Output data of each job row
-        while ($row = $result->fetch_assoc()) {
-            ?>
-              <div class="job-card" onclick="window.location.href='job_description.php?job_id=<?php echo $row['job_id']; ?>'">
-               
-                <div class="job-details">
-                    <div class="company-name"><?php echo htmlspecialchars($row['company_name']); ?></div>
-                    <div class="position"><?php echo htmlspecialchars($row['job_title']); ?></div>
-                    <div class="remote"><?php echo htmlspecialchars($row['work_environment']); ?></div>
-                    <?php if ($row['job_status'] == 'Open') { ?>
-                        <span class="open">Open for Applicants</span>
-                    <?php } else { ?>
-                        <span class="open">Closed for Applicants</span>
-                    <?php } ?>
-                </div>
-                <div class="job-info">
-                    <div class="salary">Salary: <?php echo htmlspecialchars($row['salary']); ?></div>
-                   
-                    <button class="apply-now">view details</button>
-                </div>
-            </div>
-            <?php
-        }
-    } else {
-        echo "<p>No job postings available at the moment.</p>";
-    }
-
-    // Close the database connection
-    $conn->close();
-    ?>
-
-  </div>
-  
-  
     
+        <div class="main-content">
+            <div class="feedback-section">
+                <div class="feedback-header">
+                    <h2>Feedback</h2>
+                    <a href="feedback.php">
+                        <button>+ Add new</button>
+                    </a>
+                    
+                </div>
+    
+                <!-- Feedback Card 1 -->
+                <div class="feedback-card">
+                    <div class="user-info">
+                        <img src="profile.png" alt="User Profile">
+                        <span class="name">Meenakshi B</span>
+                    </div>
+                    <div class="feedback-text">
+                        I could upload my resume, update my profile, and see all the important dates and deadlines in one place. It saved me a lot of time and effort.
+                    </div>
+                    <div class="view-response-btn">
+                        <button onclick="toggleResponse('response1')">VIEW RESPONSE</button>
+                    </div>
+                    <div id="response1" class="admin-response">
+                        Thank you for the feedback! We're glad the platform is helping you manage your tasks more efficiently.
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    
+
+           
+    </div>
 
     <!-- JavaScript -->
     <script>
         // Change Profile Picture
         function triggerFileInput() {
             document.getElementById('fileInput').click();
+        }
+        function toggleFeedback(element) {
+            const fullText = element.querySelector('.feedback-full');
+            fullText.style.display = fullText.style.display === 'none' ? 'block' : 'none';
         }
     
         function changeProfilePicture(event) {
@@ -392,6 +396,38 @@
                 reader.readAsDataURL(file);
             }
         }
+        // Change profile image
+            function triggerFileInput() {
+                document.getElementById('fileInput').click();
+            }
+    
+            function changeProfilePicture(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('profileIcon').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+    
+            let dropdownOpen = false;
+            function toggleDropdown() {
+                const dropdown = document.getElementById("dropdownMenu");
+                dropdownOpen = !dropdownOpen;
+                dropdown.style.display = dropdownOpen ? "block" : "none";
+            }
+    
+            // Toggle response visibility
+            function toggleResponse(responseId) {
+                const response = document.getElementById(responseId);
+                if (response.style.display === "none" || response.style.display === "") {
+                    response.style.display = "block";  // Show the response
+                } else {
+                    response.style.display = "none";  // Hide the response
+                }
+            }
     
         // Dropdown toggle with smooth opening
         function toggleDropdown() {

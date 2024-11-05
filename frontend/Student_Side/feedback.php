@@ -1,3 +1,42 @@
+<?php
+session_start();
+$servername = "localhost";
+$db_username = "root"; // MySQL username
+$db_password = ""; // MySQL password
+$dbname = "campus_placement"; // Replace with your database name
+
+// Create connection
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} // Make sure this file contains your DB connection code
+// Include your database connection
+$success = false;
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve user_id from session (assuming user is logged in and user_id is stored in session)
+    $user_id = $_SESSION['user_id'];
+   
+    $feedback = $_POST['feedback'];
+    $submission_date = date('Y-m-d'); // Current date
+
+    // Database insertion
+    $sql = "INSERT INTO FEEDBACK (user_id, feedback, submission_date, response) VALUES (?, ?, ?, '')";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $user_id, $feedback, $submission_date);
+
+    if ($stmt->execute()) {
+        $success = true;
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +45,8 @@
     <title>Lavoro - Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,9 +55,8 @@
             overflow: hidden;
 
         }
-
-        /* Sidebar styling */
-        .sidebar {
+    /* Sidebar styling */
+    .sidebar {
     width: 220px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -26,11 +66,12 @@
     position: fixed;
     left: 0;
     top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
+    background: #2a2185;
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
     padding-top: 80px; /* Added padding for space at the top */
+    overflow: hidden;
 }
 
 
@@ -122,8 +163,6 @@
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-            overflow-y: auto;
-            overflow-x: hidden; 
             
         }
 
@@ -152,25 +191,26 @@
         }
 
         .icon {
-            margin-left: 15px;
+            margin-left:-5px;
             cursor: pointer;
             transition: transform 0.3s;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
         }
+        
 
         .icon:hover {
             transform: scale(1.1);
         }
-        img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
+
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
-            top: 70px;
-            right: 25px;
+            top: 55px;
+            right: 20px;
             background: linear-gradient(135deg, #2F5597, #1e3d7a);
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
@@ -206,109 +246,105 @@
     color: white;
     text-align: center;
 }
-.job-card {
-    width: 130vh;
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space out items */
-    align-items: center; /* Align items vertically */
-    margin-bottom: 20px;
-    /* Set the width of the card */
-    height: 110px; /* Adjust height based on content */
-    padding: 20px; /* Add padding inside the card */
-    border: 1px solid #ddd; /* Optional: border for visual separation */
-    border-radius: 5px; /* Optional: rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow for depth */
-    transition: transform 0.3s, box-shadow 0.3s;
-     /* Smooth transition for transform and box-shadow */
-     margin-left:50px;
-     background-color: white;
-     position:relative;
+
+.feedback-container { /* Space from the top */
+    
+    margin-top: -100px;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center aligns the text */
+    width: 80%; /* Relative width to adapt better to screen size */
+    margin-left: auto; /* Centers the container */
+    margin-right: auto; /* Centers the container */
 }
 
-.job-card:hover {
-    transform: translateY(-5px); /* Lift the card up on hover */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
-    border-color: #063dc9;
-}
 
-.job-details {
-    flex: 1; /* Take up available space */
+.feedback-container h2 {
+    color: #333; /* Dark grey color for the text */
+    margin-bottom: 20px; /* Space below the header */
+    margin-top: 120px;
 }
-
-.job-info {
-    text-align: right; /* Align text to the right */
+.card {
+  width: 70%;
+  height: 311px;
+  border-radius: 20px;
+  padding: 10px;
+  margin-left: 160px;
+  margin-top: 30px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  background-image: linear-gradient(144deg,#1e3d7a,  50%,#00DDEB);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+@keyframes gradientAnimation {
+         0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+        }
+        
+.feedback-container textarea {
+    height:300px;
+    width: 127%; /* Percentage width to maintain responsiveness */
+    padding: 10px;
+    margin-top: -83px;
 
-.company-name {
-    font-size: 1.5rem; /* Increase company name font size */
-    font-weight: bold;
-}
-
-.position {
-    font-size: 1.2rem; /* Position font size */
-}
-
-.salary {
-    font-size: 1.2rem; /* Salary font size */
-    font-weight: bold; /* Make salary bold */
-    margin-right: 175px;
-    margin-top: 25px;
-}
-
-.apply-now {
-    background-color: #0056b3; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    height: 45px;
-    border-radius: 5px; /* Rounded corners for button */
-    cursor: pointer; 
-    margin-bottom: 25px;
-    padding: 3px 8px;
+     /* Ensures it starts on a new line */
+    margin-left:-87px;  /* Centers the textarea */
+    margin-right:403px; /* Centers the textarea */
+    resize: none; /* Prevents resizing the textarea */
+    background:white;
+    border-radius: 17px;
    
-    /* Pointer on hover */
 }
 
-.apply-now:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-.remote {
-    background-color:white; /* Green background for remote label */
-    color: black; /* White text color */
-    padding: 3px 8px; /* Padding around the label */
-     /* Rounded corners */
-    font-size: 0.8rem; /* Smaller font size */
-    /* Increased space between company name and remote label */
-    vertical-align: middle; /* Align vertically with text */
-    font-weight: bold;
-    font-size: 16px;
-    margin-left: 230px;
-}
-.open {
-    position: absolute;
-    top: 50px; /* Adjust as needed */
-    left: 250px; /* Adjust as needed */
-    background-color: #075138;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    margin-left: 130px;
-    font-weight: 500;
+.feedback-container button { 
+  margin-top: 20px;
+  padding: 15px 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  border-width: 3px;
+  border:0;
+  font-size: 15px;
+  transition: all 0.5s ease;
+  box-shadow: rgba(255, 255, 255, 0.05) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background-color:#d4e5f7;
+  color:#1e3d7a;
+  
 }
 
-.company-logo {
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
-    margin-right: 20px; /* Space between logo and job details */
-    border-radius: 5px; /* Optional: rounded edges */
+.feedback-container button:hover {
+    letter-spacing: 3px;
+  background-color:#1e3d7a;
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(44, 11, 105) 0px 7px 29px 0px;
 }
 
-    </style>
+b.feedback-container:active {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+.feedback-image img{
+   margin-left:500px;
+   margin-top:-280px;
+   width:80%;
+   height:auto;
+   transition: transform 0.2s ease;
+        }
+ 
+
+</style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         
@@ -324,56 +360,43 @@
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
         
-        <a href="dashboard_std.php" ><i class="fa fa-home"></i> Home</a>
-        <a href="jobs.php" class="active"><i class="fa fa-search"></i> Jobs</a>
+        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
         <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
-        <a href="company.html"><i class="fa fa-building"></i> Company</a>
-        <a href="../profile_redirect.php"><i class="fa fa-user"></i> Profile</a>
-        <a href="feedback.html"><i class="fa fa-comment"></i> Feedback</a>
+        <a href="#company"><i class="fa fa-building"></i> Company</a>
+        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <?php
-    if ($result->num_rows > 0) {
-        // Output data of each job row
-        while ($row = $result->fetch_assoc()) {
-            ?>
-              <div class="job-card" onclick="window.location.href='job_description.php?job_id=<?php echo $row['job_id']; ?>'">
-               
-                <div class="job-details">
-                    <div class="company-name"><?php echo htmlspecialchars($row['company_name']); ?></div>
-                    <div class="position"><?php echo htmlspecialchars($row['job_title']); ?></div>
-                    <div class="remote"><?php echo htmlspecialchars($row['work_environment']); ?></div>
-                    <?php if ($row['job_status'] == 'Open') { ?>
-                        <span class="open">Open for Applicants</span>
-                    <?php } else { ?>
-                        <span class="open">Closed for Applicants</span>
-                    <?php } ?>
-                </div>
-                <div class="job-info">
-                    <div class="salary">Salary: <?php echo htmlspecialchars($row['salary']); ?></div>
-                   
-                    <button class="apply-now">view details</button>
-                </div>
-            </div>
-            <?php
-        }
-    } else {
-        echo "<p>No job postings available at the moment.</p>";
-    }
-
-    // Close the database connection
-    $conn->close();
-    ?>
-
-  </div>
-  
-  
-    
+    <div class="card">
+        <div class="feedback-container">
+            <h2>Share your thoughts</h2>
+            <form action="feedback.php" method="POST">
+            <textarea id="feedbackText" name="feedback" placeholder="Enter here..." rows="10" cols="50"></textarea>
+            <button onclick="submitFeedback()">SUBMIT</button>
+            </form>
+            <div class="feedback-image">
+            <img src="feedback.png" class="feedback-image" ></div>
+        </div>
+        <?php if ($success): ?>
+        <script>
+            Swal.fire({
+                title: 'Success!',
+                text: 'Feedback Delivered!',
+                icon: 'success',
+                iconColor: '#022a52fd',
+                confirmButtonText: 'OK'
+            })
+        </script>
+    <?php endif; ?>
+       
+        
+    </div>
 
     <!-- JavaScript -->
     <script>

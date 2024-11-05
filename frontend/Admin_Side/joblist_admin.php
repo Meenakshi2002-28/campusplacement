@@ -19,37 +19,25 @@ if (isset($_POST['delete_job_id'])) {
     $conn->begin_transaction();
 
     try {
-         // Delete from the job_application table first
-    $deleteJobApplicationSql = "DELETE FROM job_application WHERE job_id = ?";
-    $stmt = $conn->prepare($deleteJobApplicationSql);
-    $stmt->bind_param("i", $job_id);
-    $stmt->execute();
-    
-        // Delete from job_course table first
-        $deleteJobCourseSql = "DELETE FROM job_course WHERE job_id = ?";
-        $stmt = $conn->prepare($deleteJobCourseSql);
-        $stmt->bind_param("i", $job_id);
-        $stmt->execute();
-
-        // Delete from job table
-        $deleteJobSql = "DELETE FROM job WHERE job_id = ?";
-        $stmt = $conn->prepare($deleteJobSql);
+        // Update the job to set is_active to 0
+        $softDeleteSql = "UPDATE job SET is_active = 0 WHERE job_id = ?";
+        $stmt = $conn->prepare($softDeleteSql);
         $stmt->bind_param("i", $job_id);
         $stmt->execute();
 
         // Commit transaction
         $conn->commit();
         $show_success_message = true;
-        
+
     } catch (Exception $e) {
         // Rollback transaction if there's an error
         $conn->rollback();
-        echo "Error deleting job: " . $e->getMessage();
+        echo "Error removing job: " . $e->getMessage();
     }
 }
 
 // Fetch jobs from the database
-$sql = "SELECT job_id, job_title, company_name, location,  salary, application_deadline FROM job";
+$sql = "SELECT job_id, job_title, company_name, location,  salary, application_deadline FROM job WHERE is_active = 1";
 $result = $conn->query($sql);
 
 ?>
@@ -187,6 +175,9 @@ img {
     height: 86.5vh;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
     overflow-y: auto;
+}
+.sidebar:hover + .main-content {
+    margin-left: 270px; /* Adjust this value to match the expanded sidebar width */
 }
 
 .main-content h1 {
@@ -496,6 +487,7 @@ img {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <a href="../profile_admin.php"><i class="fa fa-fw fa-user"></i> Profile</a>
 =======
             <a href="../Admin_Side/"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -504,6 +496,8 @@ img {
             <a href="../Admin_Side/profile_admin.php"><i class="fa fa-fw fa-user"></i> Profile</a>
 >>>>>>> 7a7f448 (change)
 =======
+=======
+>>>>>>> 25737cb (...)
             <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
@@ -522,7 +516,10 @@ img {
         <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
         <a href="feedback_list.html"><i class="fas fa-comment"></i> Feedback</a>
         <div class="logout">
+<<<<<<< HEAD
 >>>>>>> a2b6d47 (changes)
+=======
+>>>>>>> 25737cb (...)
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
@@ -581,6 +578,7 @@ img {
 
     <!-- JavaScript -->
     <script>
+<<<<<<< HEAD
         // Change Profile Picture
         function triggerFileInput() {
             document.getElementById('fileInput').click();
@@ -638,6 +636,86 @@ img {
     
             // Dashboard stats extraction
             
+=======
+    function showSuccessMessage() {
+            var successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            
+            // Auto-hide the message after 5 seconds
+            setTimeout(function() {
+                successMessage.classList.remove('show');
+            }, 5000);
+        }
+
+        // Function to hide the success message manually
+        function hideSuccessMessage() {
+            var successMessage = document.getElementById('successMessage');
+            successMessage.classList.remove('show');
+        }
+
+        // Display success message if PHP flag is true
+        <?php if ($show_success_message): ?>
+            showSuccessMessage();
+        <?php endif; ?>
+
+        // Change Profile Picture
+        function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+    
+        function changeProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profileIcon').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    
+        // Dropdown toggle with smooth opening
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdown.classList.toggle("show");
+        }
+    
+        // Hide dropdown on click outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.icon')) {
+                const dropdown = document.getElementById("dropdownMenu");
+                dropdown.classList.remove("show");
+            }
+        };
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            // Sidebar tab click effect
+            const tabs = document.querySelectorAll('.sidebar a');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+    
+            // Set default active link on page load
+            const defaultLink = document.querySelector('.sidebar a.active');
+            if (defaultLink) {
+                defaultLink.classList.add('active');
+            }
+    
+            // Mobile nav handling (optional)
+            const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
+            mobileTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    mobileTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+    
+            // Dashboard stats extraction
+            
+>>>>>>> 25737cb (...)
             // Animate counter values
             function animateCounter(element, endValue) {
                 let startValue = 0;

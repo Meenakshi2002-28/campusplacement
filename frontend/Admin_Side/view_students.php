@@ -1,9 +1,55 @@
+<?php
+// Database connection
+$servername = "localhost";
+$username = "root"; // Update with your database username
+$password = "";     // Update with your database password
+$dbname = "campus_placement"; // Update with your database name
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// SQL query to fetch user_id, name, graduation_year, and course_name for 10 students
+$sql = "
+    SELECT s.user_id, s.name, s.graduation_year, c.course_name
+    FROM student s
+    JOIN course c ON s.course_id = c.course_id
+    LIMIT 11
+";
+
+$result = $conn->query($sql);
+
+// Check if there are results and output them
+if ($result->num_rows > 0) {
+    // Store results in an array
+    $students = [];
+    while ($row = $result->fetch_assoc()) {
+        $students[] = $row; // Add each row to the students array
+    }
+} else {
+    $students = []; // No students found
+}
+
+// Close connection
+$conn->close();
+
+// Return the results as JSON only if the request is an AJAX call
+if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
+    header('Content-Type: application/json');
+    echo json_encode($students);
+    exit; // Terminate the script to prevent HTML output
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavoro - Campus Recruitment System</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
@@ -76,6 +122,9 @@
         .sidebar a:nth-child(5) { animation-delay: 0.4s; }
         .sidebar a:nth-child(6) { animation-delay: 0.5s; }
         .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
+        
+
 
         .sidebar a i {
             margin-right: 15px;
@@ -109,6 +158,7 @@
     
 }
 
+
         /* Main content styling */
         .main-content {
             margin-left: 245px;
@@ -122,8 +172,6 @@
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-            overflow-y: auto;
-            overflow-x: hidden; 
             
         }
 
@@ -164,6 +212,7 @@
         height: 40px; /* Adjust size as needed */
         width: auto;
     }
+
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
@@ -194,8 +243,35 @@
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
+        .students {
+            margin-top: 20px;
+        }
+        /* Card styling with hover effects */
+        .card {
+            background: linear-gradient(135deg, #a2c4fb, #9babcd); /* Gradient background */
+        color: #000000; /* White text for better contrast */
+        transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Soft shadow effect */
+        }
+        .card-text i {
+        margin-right: 10px;
+        font-size: 1.8rem;
+        color: #082765; /* Icon color */
+    }
+        .card:hover {
+            transform: scale(1.05); /* Scale effect on hover */
+            background-color: #e0e0ee; /* Light blue background on hover */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        }
 
-        
+        /* Counter animation */
+        .counter {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #04070b;
+            transition: transform 0.3s ease-in-out;
+        }
         .sidebar .logo {
     position: absolute;
     top: 20px; /* Keep the same positioning */
@@ -206,108 +282,62 @@
     color: white;
     text-align: center;
 }
-.job-card {
-    width: 130vh;
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space out items */
-    align-items: center; /* Align items vertically */
-    margin-bottom: 20px;
-    /* Set the width of the card */
-    height: 110px; /* Adjust height based on content */
-    padding: 20px; /* Add padding inside the card */
-    border: 1px solid #ddd; /* Optional: border for visual separation */
-    border-radius: 5px; /* Optional: rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow for depth */
-    transition: transform 0.3s, box-shadow 0.3s;
-     /* Smooth transition for transform and box-shadow */
-     margin-left:50px;
-     background-color: white;
-     position:relative;
+.container h3{
+    margin-right: 450px;
+    font-weight: 700;
+}
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    th {
+        padding: 10px 20px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th, td {
+    padding: 10px 20px;
 }
 
-.job-card:hover {
-    transform: translateY(-5px); /* Lift the card up on hover */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
-    border-color: #063dc9;
+/* Style the top bar container */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    position: relative;
 }
 
-.job-details {
-    flex: 1; /* Take up available space */
+/* Style the search bar container */
+.search-bar-container {
+    margin-right: 20px;
 }
 
-.job-info {
-    text-align: right; /* Align text to the right */
-}
-
-.company-name {
-    font-size: 1.5rem; /* Increase company name font size */
-    font-weight: bold;
-}
-
-.position {
-    font-size: 1.2rem; /* Position font size */
-}
-
-.salary {
-    font-size: 1.2rem; /* Salary font size */
-    font-weight: bold; /* Make salary bold */
-    margin-right: 175px;
-    margin-top: 25px;
-}
-
-.apply-now {
-    background-color: #0056b3; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    height: 45px;
-    border-radius: 5px; /* Rounded corners for button */
-    cursor: pointer; 
-    margin-bottom: 25px;
-    padding: 3px 8px;
-   
-    /* Pointer on hover */
-}
-
-.apply-now:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-.remote {
-    background-color:white; /* Green background for remote label */
-    color: black; /* White text color */
-    padding: 3px 8px; /* Padding around the label */
-     /* Rounded corners */
-    font-size: 0.8rem; /* Smaller font size */
-    /* Increased space between company name and remote label */
-    vertical-align: middle; /* Align vertically with text */
-    font-weight: bold;
+/* Style the search bar */
+.search-bar {
+    padding: 8px 12px;
     font-size: 16px;
-    margin-left: 230px;
-}
-.open {
-    position: absolute;
-    top: 50px; /* Adjust as needed */
-    left: 250px; /* Adjust as needed */
-    background-color: #075138;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    margin-left: 130px;
-    font-weight: 500;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
 }
 
-.company-logo {
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
-    margin-right: 20px; /* Space between logo and job details */
-    border-radius: 5px; /* Optional: rounded edges */
+.search-bar:focus {
+    outline: none;
+    border-color: #363636;
 }
-
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
+    <div class="search-bar-container">
+        <input type="text" id="search-input" class="search-bar" placeholder="Search by User ID or Name...">
+        <button onclick="performSearch()">Search</button>
+    </div>
+    <div id="results-container"></div> <!-- Container to display search results -->
+        
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
@@ -324,77 +354,98 @@
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
         
-        <a href="dashboard_std.php" ><i class="fa fa-home"></i> Home</a>
-        <a href="jobs.php" class="active"><i class="fa fa-search"></i> Jobs</a>
-        <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
-        <a href="company.html"><i class="fa fa-building"></i> Company</a>
-        <a href="../profile_redirect.php"><i class="fa fa-user"></i> Profile</a>
-        <a href="feedback.html"><i class="fa fa-comment"></i> Feedback</a>
+        <a href="dashboard_admin.php" class="active"><i class="fas fa-home"></i> Home</a>
+        <a href="joblist_admin.php" ><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
+        <a href="company.html"><i class="fas fa-building"></i> Company</a>
+        <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+        <a href="feedback_list.html"><i class="fas fa-comment"></i> Feedback</a>
         <div class="logout">
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
+<div class="main-content">
+<div class="students">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Roll no</th>
+                        <th>Name</th>
+                        <th>Graduation Year</th>
+                        <th>Course Name</th>
+                    </tr>
+                </thead>
+                <tbody id="studentData">
+                    <!-- Student data will be populated here using JavaScript -->
+                    <?php if (!empty($students)): ?>
+                    <?php foreach ($students as $student): ?>
+                        <tr onclick="window.location.href='profileredirect.php?user_id=<?php echo $student['user_id']; ?>'">
+                            <td><?php echo $student['user_id']; ?></td>
+                            <td><?php echo $student['name']; ?></td>
+                            <td><?php echo $student['graduation_year']; ?></td>
+                            <td><?php echo $student['course_name']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4">No students found.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <?php
-    if ($result->num_rows > 0) {
-        // Output data of each job row
-        while ($row = $result->fetch_assoc()) {
-            ?>
-              <div class="job-card" onclick="window.location.href='job_description.php?job_id=<?php echo $row['job_id']; ?>'">
-               
-                <div class="job-details">
-                    <div class="company-name"><?php echo htmlspecialchars($row['company_name']); ?></div>
-                    <div class="position"><?php echo htmlspecialchars($row['job_title']); ?></div>
-                    <div class="remote"><?php echo htmlspecialchars($row['work_environment']); ?></div>
-                    <?php if ($row['job_status'] == 'Open') { ?>
-                        <span class="open">Open for Applicants</span>
-                    <?php } else { ?>
-                        <span class="open">Closed for Applicants</span>
-                    <?php } ?>
-                </div>
-                <div class="job-info">
-                    <div class="salary">Salary: <?php echo htmlspecialchars($row['salary']); ?></div>
-                   
-                    <button class="apply-now">view details</button>
-                </div>
-            </div>
-            <?php
+    <script>
+        function performSearch() {
+    const query = document.getElementById('search-input').value;
+
+    // Use AJAX to send the search request
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'search_students.php?q=' + encodeURIComponent(query), true);
+    xhr.onload = function() {
+        if (this.status === 200) {
+            // Update results container with the response
+            document.getElementById('studentData').innerHTML = this.responseText;
+            
         }
-    } else {
-        echo "<p>No job postings available at the moment.</p>";
-    }
-
-    // Close the database connection
-    $conn->close();
-    ?>
-
-  </div>
-  
-  
+    };
+    xhr.send();
+}
+        // Fetch student data
+        fetch(window.location.href, { headers: { 'Accept': 'application/json' } })
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('studentData');
+                data.forEach(student => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${student.user_id}</td><td>${student.name}</td><td>${student.graduation_year}</td><td>${student.course_name}</td>`;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching student data:', error));
     
 
-    <!-- JavaScript -->
-    <script>
-        // Change Profile Picture
-        function triggerFileInput() {
+
+
+    // Change profile image
+    function triggerFileInput() {
             document.getElementById('fileInput').click();
         }
-    
-        function changeProfilePicture(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('profileIcon').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
+
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+            };
+            reader.readAsDataURL(file); // Read the image file
         }
-    
-        // Dropdown toggle with smooth opening
-        function toggleDropdown() {
+    }
+    // Dropdown toggle with smooth opening
+    function toggleDropdown() {
             const dropdown = document.getElementById("dropdownMenu");
             dropdown.classList.toggle("show");
         }
@@ -432,25 +483,7 @@
                 });
             });
     
-            // Dashboard stats extraction
-            
-            // Animate counter values
-            function animateCounter(element, endValue) {
-                let startValue = 0;
-                const duration = 2000; // Animation duration in milliseconds
-                const incrementTime = Math.floor(duration / endValue);
-                
-                const counterInterval = setInterval(() => {
-                    if (startValue < endValue) {
-                        startValue++;
-                        element.textContent = startValue;
-                    } else {
-                        clearInterval(counterInterval);
-                    }
-                }, incrementTime);
-            }
-    
-          
+        
     
             // Adjust main content and container margin based on sidebar width
             const sidebar = document.querySelector('.sidebar');
@@ -466,10 +499,7 @@
                 mainContent.style.marginLeft = '245px'; // Normal sidebar width
                 container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
             });
-    
-          
         });
-    </script>
-    
+</script>
 </body>
 </html>

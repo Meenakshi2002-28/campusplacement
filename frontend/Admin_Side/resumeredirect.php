@@ -16,31 +16,32 @@ if ($conn->connect_error) {
 }
 
 // Retrieve user_id from session
-if (!isset($_SESSION['user_id'])) {
-    die("User not logged in.");
+$user_id = $_GET['user_id'] ?? null; // Use null coalescing to handle missing user_id
+
+// Check if user_id is set
+if (!$user_id) {
+    die("No user ID provided.");
 }
-$user_id = $_SESSION['user_id'];
 
 // Check if current_year and phone_number exist for the user_id in the STUDENT table
-$sql = "SELECT current_year, phone_number FROM STUDENT WHERE user_id = ?";
+$sql = "SELECT resume FROM student WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $user_id);
 $stmt->execute();
 $stmt->store_result();
-$stmt->bind_result($current_year, $phone_number);
+$stmt->bind_result($resume);
 $stmt->fetch();
 
 // If current_year and phone_number exist, redirect to view.php
-if ($stmt->num_rows > 0 && !empty($current_year) && !empty($phone_number)) {
-    header("Location:Student_Side/personalview.php"); // Redirect to view details
+if ($stmt->num_rows > 0 && !empty($resume) ) {
+    $stmt->close();
+    $conn->close();
+    header("Location: adminresumeview.php?user_id=" . urlencode($user_id)); // Redirect to view details
     exit();
 } else {
-    // If no records found, redirect to storepr_std.php
-    header("Location:Student_Side/personal.php"); // Redirect to store details
+    $stmt->close();
+    $conn->close();
+    header("Location: resume.php?user_id=" . urlencode($user_id)); // Redirect to store details
     exit();
 }
-
-// Close connection
-$stmt->close();
-$conn->close();
 ?>

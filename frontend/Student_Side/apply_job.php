@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         // Check if the user has already applied for this job
         $checkApplicationStmt = $conn->prepare("SELECT COUNT(*) FROM job_application WHERE user_id = ? AND job_id = ?");
-        $checkApplicationStmt->bind_param("ii", $user_id, $job_id);
+        $checkApplicationStmt->bind_param("si", $user_id, $job_id);
         $checkApplicationStmt->execute();
         $checkApplicationStmt->bind_result($applicationExists);
         $checkApplicationStmt->fetch();
