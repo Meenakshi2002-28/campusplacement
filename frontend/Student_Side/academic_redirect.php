@@ -22,21 +22,21 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Check if current_year and phone_number exist for the user_id in the STUDENT table
-$sql = "SELECT current_year, phone_number FROM STUDENT WHERE user_id = ?";
+$sql = "SELECT school_twelfth, school_tenth FROM academic_details WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $user_id);
 $stmt->execute();
 $stmt->store_result();
-$stmt->bind_result($current_year, $phone_number);
+$stmt->bind_result($school_tenth,  $school_twelfth);
 $stmt->fetch();
 
 // If current_year and phone_number exist, redirect to view.php
-if ($stmt->num_rows > 0 && !empty($current_year) && !empty($phone_number)) {
-    header("Location:Student_Side/personalview.php"); // Redirect to view details
+if ($stmt->num_rows > 0 && !empty($school_tenth) && !empty($school_twelfth)) {
+    header("Location:academicview.php"); // Redirect to view details
     exit();
 } else {
     // If no records found, redirect to storepr_std.php
-    header("Location:Student_Side/personal.php"); // Redirect to store details
+    header("Location:academic.php"); // Redirect to store details
     exit();
 }
 

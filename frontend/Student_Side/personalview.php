@@ -1,3 +1,68 @@
+<?php
+session_start(); // Start the session
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    die("User not logged in.");
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Database connection
+$servername = "localhost";
+$username = "root"; // Update with your database username
+$password = "";     // Update with your database password
+$dbname = "campus_placement"; // Update with your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Prepare statement to fetch student details
+$sql = "SELECT name,gender, email, phone_number, graduation_year, current_year, dob, 
+        course.course_name, course.course_branch 
+        FROM STUDENT 
+        JOIN course ON STUDENT.course_id = course.course_id
+        WHERE user_id = ?";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$stmt->bind_result($name, $gender, $email, $phone_number, $graduation_year, $current_year, $dob, $course_name, $course_branch);
+$stmt->fetch();
+
+// If no records are found
+if (empty($gender) && empty($email) && empty($phone_number)) {
+    die("No student details found for this user.");
+}
+
+$stmt->close();
+// Retrieve CGPA and current arrears from the STUDENT table
+$sql_student = "SELECT cgpa, current_arrears FROM STUDENT WHERE user_id = ?";
+$stmt = $conn->prepare($sql_student);
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$stmt->bind_result($cgpa, $current_arrears);
+$stmt->fetch();
+$stmt->close();
+
+// Retrieve academic details (tenth and twelfth grades) from the ACADEMIC_DETAILS table
+$sql_academic = "SELECT school_tenth, board_tenth, percentage_tenth, year_tenth, 
+                        school_twelfth, board_twelfth, percentage_twelfth, year_twelfth 
+                 FROM ACADEMIC_DETAILS WHERE user_id = ?";
+$stmt = $conn->prepare($sql_academic);
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$stmt->bind_result($school_tenth, $board_tenth, $percentage_tenth, $year_tenth, 
+                   $school_twelfth, $board_twelfth, $percentage_twelfth, $year_twelfth);
+$stmt->fetch();
+$stmt->close();
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +79,9 @@
             overflow: hidden;
 
         }
-    /* Sidebar styling */
-    .sidebar {
+
+        /* Sidebar styling */
+        .sidebar {
     width: 220px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -25,12 +91,11 @@
     position: fixed;
     left: 0;
     top: 0;
-    background: #2a2185;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
     padding-top: 80px; /* Added padding for space at the top */
-    overflow: hidden;
 }
 
 
@@ -96,17 +161,10 @@
             text-align: center;
         }
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
+    background-color: #1e3d7a; /* Background color for active link */
     border-left: 4px solid #ffffff;
     padding-left: 30px;
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
 }
 
         /* Main content styling */
@@ -137,6 +195,7 @@
         .container {
             padding: 18px 20px;
             width: 1268px;
+            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -146,8 +205,8 @@
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+        }
 
         .icon {
             margin-left: 15px;
@@ -201,143 +260,214 @@
     color: white;
     text-align: center;
 }
-.feedback-response{
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 20px;
-    background:linear-gradient(130deg, #f5f7fa,rgb(181, 181, 255));
-
+.tabs {
+    display: flex;
+    flex-direction: column; /* Arrange tabs vertically */
+    margin-bottom: 20px; /* Space between tabs and content */
+    width: 200px;
 }
 
-
-        .feedback-response .user-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .feedback-response .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .feedback-response .user-info .name {
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .feedback-response p {
-            color: #333;
-            font-size: 16px;
-        }
-
-        .response-container {
-            margin-top: 20px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 200px;
-            padding: 10px;
-            border-radius: 10px;
-            border:1px solid #9ba2fd;
-            font-size: 16px;
-            margin-top: 10px;
-            resize: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-            @keyframes gradientAnimation {
-         0% { background-position: 0% 50%; }
-        100% { background-position: 100% 50%; }
-    }
-        textarea:hover {
-         transform: scale(1.03);
-         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-        }
-            
-            
-        
-        button { 
-            margin-top: 20px;
-            padding: 15px 40px;
-            border-radius: 50px;
-            cursor: pointer;
-            border-width: 3px;
-            border:0;
-            box-shadow: rgba(255, 255, 255, 0.05) 0 0 8px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-size: 15px;
-            transition: all 0.5s ease;
-            margin-left:400px;
+.tab {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
 }
 
- button:hover {
-  letter-spacing: 3px;
-  background-color:#1e3d7a;
-  color: hsl(0, 0%, 100%);
-  box-shadow: rgb(44, 11, 105) 0px 7px 29px 0px;
+.tab.active {
+    background-color: #1e3d7a; /* Active tab color */
+    color: white;
 }
 
-        /* Top-right profile and dropdown */
-        .container {
-            padding: 5px;
+.tab:hover {
+    font-weight: bold;
+}
+
+.content-area {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Tab content */
+.tab-content {
+    display: none; /* Hide all tab content by default */
+}
+
+.tab-content.active {
+    display: block; /* Show active tab content */
+}
+  /* Profile section styling */
+  .container {
+            padding: 18px 20px;
+            width: 1268px;
+            margin-left: 245px; /* Default margin for container */
+            margin-top: 12px;
+            margin-right: 20px;
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
         }
 
-        .container img {
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
+        .profile-picture {
+            width: 200px; /* Adjust width as needed */
+            height: 200px; /* Ensure height equals width for a square */
+            border-radius: 10px;/* Make it circular; use 0% for square */
+            overflow: hidden; /* Hide overflow for perfect circle */
+            border: 3px solid #1e3d7a; /* Optional border for profile picture */
+            margin-bottom: 20px; /* Space below profile picture */
+            
         }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #2F5597;
-            min-width: 150px;
-            z-index: 1;
-            top: 55px;
-            right: 0;
-            border-radius: 3px;
+        .profile-picture img {
+            width: 100%; /* Ensure image fits the container */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .text {
+    padding-top: 1px;
+}
+
+.text h4, p {
+    margin: 2px;
+    font-size: 18px;
+    color: #000000;
+}
+
+/* Adjust sub-sidebar to float left */
+.sub-sidebar {
+    float: left;
+    width: 250px; /* Adjust width if needed */
+    padding: 10px;
+    margin-right: 20px; /* Spacing between sub-sidebar and form */
+}
+
+/* Adjust details container */
+.details {
+            flex: 1;
+            background-color: white;
+            padding: 0;
+            height: 80vh;
+            overflow-y: auto;
         }
 
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
 
-        .dropdown-content a:hover {
-            background-color: #1e165f;
-            color: white;
-            border-radius: 3px;
-        }
-        .logo-container {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        }
-        .logo {
-        height: 50px;
-        width: auto;
-        }
+.details.active {
+    background-color: #ffffff;
+    padding-left: 50px;
+    display: block;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse; /* Ensure table layout doesn't break */
+}
+
+table td {
+    padding: 6px;
+    font-size: 18px;
+    white-space: nowrap;
+    vertical-align: middle;
+    text-align: left;
+    border: none;
+}
+
+table td:first-child {
+    width: 30%;
+    text-align: left;
+    padding-right: 20px; /* Adjust for alignment between label and input */
+}
+
+input[type="radio"] {
+    margin-right: 2px; /* Adds space between radio button and label */
+}
+
+.gender-options {
+    display: flex; /* Ensures horizontal layout */
+    gap: 5px; /* Adds space between radio button groups */
+    align-items: center; /* Aligns radio buttons with labels */
+}
+
+.gender-options label {
+    display: flex;
+    align-items: center;
+    gap: 1px; /* Adds space between radio button and its label */
+}
+
+input, select {
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    width: 100%;
+}
+
+input, select {
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    
+}
+
+button {
+    padding: 7px 25px;
+    background-color: #1e3d7e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: #AFC8F3;
+    color: black;
+}
+.profile-picture1 {
+    width: 100px; /* Adjust width */
+    height: 100px; /* Adjust height */
+    overflow: hidden; /* Ensures the image fits within the div */
+    border-radius: 50%; /* Makes the image circular */
+}
+
+.profile-picture1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image scales properly within the div */
+}
+.small-icon {
+    width: 50px; /* Set desired width */
+    height: 50px; /* Set desired height */
+    object-fit: cover; /* Ensures the image scales properly */
+    border-radius: 50%;
+     /* Makes the image circular */
+}
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+    <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon" onclick="triggerFileInput()">
+<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
@@ -353,7 +483,7 @@
         
         <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
         <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
-        <a href="#placement"><i class="fas fa-laptop-code"></i>Placements</a>
+        <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
         <a href="#company"><i class="fa fa-building"></i> Company</a>
         <a href="#profile"><i class="fa fa-user"></i> Profile</a>
         <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
@@ -364,26 +494,63 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <div class="feedback-response">
-            <div class="user-info">
-                <img src="../profile.png" alt="User Profile">
-                <span class="name">Jesine Maria Wilson</span>
+        <div class="sub-sidebar">
+            <div class="profile-picture">
+                <img src="profile-pic.jpg" alt="Profile Picture"> <!-- Add your profile picture source here -->
             </div>
-            <p>I could upload my resume, update my profile, and see all the important dates and deadlines in one place. It saved me a lot of time and effort.</p>
+         <!-- Profile Picture Section -->
+            <div class="tabs">
+                <div class="tab active" onclick="showSection('personal')">Personal Details</div>
+                <div class="tab" onclick="window.location.href='academic_redirect.php'">Academic Details</div>
+                <div class="tab" onclick="window.location.href='resume_redirect.php'">Resume</div>
+            </div>
         </div>
-
-        <!-- Response Input Area -->
-        <div class="response-container">
-            <textarea placeholder="Enter Your Response Here....."></textarea>
-            <button>SUBMIT</button>
-        </div>
-    </div>
-
-        
-       
-        
-    </div>
-
+        <!-- Personal Details Section -->
+        <div id="personal" class="details active">
+            <form action="editpersonal.php" method="post"> <!-- Change action to point to the view details script -->
+                <table>
+                        
+                <tr>
+                    <td>Branch:</td>
+                    <td><input type="text" name="course_branch" value="<?php echo htmlspecialchars($course_branch); ?>" readonly/></td>
+                </tr>
+                
+                <tr>
+                    <td>Course </td>
+                    <td><input type="text" name="course_name" value="<?php echo htmlspecialchars($course_name); ?>"readonly /></td>
+                </tr>
+                <tr>
+                    <td>Current Year </td>
+                    <td><input type="text" name="current_year" value="<?php echo htmlspecialchars($current_year); ?>"readonly /></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year </td>
+                    <td><input type="text" name="graduation_year" value="<?php echo htmlspecialchars($graduation_year); ?>" readonly/></td>
+                </tr>
+                <tr>
+                    <td>Gender </td>
+                    <td><input type="text" name="gender" value="<?php echo htmlspecialchars($gender); ?>" readonly/></td>
+                </tr>
+                <tr>
+                    <td>Date of Birth:</td>
+                    <td><input type="date" name="dob" value="<?php echo htmlspecialchars($dob); ?>" readonly/></td>
+                </tr>
+                </table>
+                    <h4>Contact Information</h4>
+                    <table>
+                        <tr>
+                            <td>Phone Number </td><td><input type="text" id="number" name="phone_number" value="<?php echo htmlspecialchars($phone_number); ?>" readonly/></td>
+                        </tr>
+                        <tr>
+                            <td>Email </td> <td><input type="email" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly/></td>
+                        </tr>
+                    </table>
+           
+                <div class="button-container">
+                    <a href="editpersonal.php"><button>Edit Profile</button></a>
+                </div>
+                </form>
+            </div>
     <!-- JavaScript -->
     <script>
         // Change Profile Picture

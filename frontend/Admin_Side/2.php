@@ -18,10 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Retrieve user_id from session
-    if (!isset($_SESSION['user_id'])) {
-        die("User not logged in.");
-    }
-    $user_id = $_SESSION['user_id'];
+    $user_id = $_POST['user_id'];
 
     // Retrieve form data
     $cgpa = $_POST['cgpa'];
@@ -30,6 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $course_name=$_POST['course_name'];
     $current_year=$_POST['current_year'];
     $graduation_year=$_POST['graduation_year'];
+    $cgpa=$_POST['cgpa'];
+    $percentage_tenth=$_POST['$percentage_tenth'];
+    $percentage_twelfth=$_POST['$percentage_twelfth'];
     $sql = "SELECT course_id FROM course WHERE course_name = ? AND course_branch = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $course_name, $course_branch);
@@ -103,7 +103,7 @@ if (!$stmt->execute()) {
 
     // Execute the statement and handle any errors
     if ($stmt->execute()) {
-        header("Location: academicview.php"); // Redirect to the desired page
+        header("Location: adminacademicview.php?user_id=" . urlencode($user_id));// Redirect to the desired page
         exit();
     } else {
         echo "Error updating/inserting academic details: " . $stmt->error;

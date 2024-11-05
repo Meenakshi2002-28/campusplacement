@@ -51,7 +51,13 @@ $conn->close();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+            *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
 
 <style>
@@ -434,63 +440,63 @@ input[type="file"]{
                 </thead>
                 <tbody>
                 <?php if (!empty($applications)): ?>
-                    <?php foreach ($applications as $application): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($application['user_id']); ?></td>
-                            <td><?php echo htmlspecialchars($application['name']); ?></td>
-                            <td><?php echo htmlspecialchars($application['course_name']); ?></td>
-                            <td><?php echo htmlspecialchars($application['status']); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="3">No applications found for this job.</td>
-                    </tr>
-                <?php endif; ?>
+            <?php foreach ($applications as $application): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($application['user_id']); ?></td>
+                    <td><?php echo htmlspecialchars($application['name']); ?></td>
+                    <td><?php echo htmlspecialchars($application['course_name']); ?></td>
+                    <td><?php echo htmlspecialchars($application['status']); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="3">No applications found for this job.</td>
+            </tr>
+        <?php endif; ?>
                 </tbody>
             </table>
         </div>
 
         <!-- Filter Section -->
-        <form id="exportForm" method="POST" action="export.php">
-            <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
-            <div class="filters">
-                <label><input type="checkbox" name="fields[]" value="name" checked> Name</label>
-                <label><input type="checkbox" name="fields[]" value="user_id" checked> Roll Number</label>
-                <label><input type="checkbox" name="fields[]" value="course_name" checked> Course</label>
-                <label><input type="checkbox" name="fields[]" value="course_branch" checked> Branch</label>
-                <label><input type="checkbox" name="fields[]" value="cgpa" checked> CGPA</label>
-                <label><input type="checkbox" name="fields[]" value="email"> E-Mail ID</label>
-                <label><input type="checkbox" name="fields[]" value="current_arrears" checked> Current Arrears</label>
-                <label><input type="checkbox" name="fields[]" value="graduation_year" checked> Pass out Year</label>
-                <label><input type="checkbox" name="fields[]" value="percentage_tenth"> Tenth Percentage</label>
-                <label><input type="checkbox" name="fields[]" value="percentage_twelfth"> Twelfth Percentage</label>
-                <label><input type="checkbox" name="fields[]" value="resume" checked> Resume</label>
-                <button type="submit" class="button">
-                    <span class="button-content">Export</span>
-                </button>
+         <form id="exportForm" method="POST" action="export.php">
+         <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
+    <div class="filters">
+        <label><input type="checkbox" name="fields[]" value="name" checked> Name</label><br>
+        <label><input type="checkbox" name="fields[]" value="user_id" checked> Roll Number</label><br>
+        <label><input type="checkbox" name="fields[]" value="course_name" checked> Course</label><br>
+        <label><input type="checkbox" name="fields[]" value="course_branch" checked> Branch</label><br>
+        <label><input type="checkbox" name="fields[]" value="cgpa" checked> CGPA</label><br>
+        <label><input type="checkbox" name="fields[]" value="email"> E-Mail ID</label><br>
+        <label><input type="checkbox" name="fields[]" value="current_arrears" checked> Current Arrears</label><br>
+        <label><input type="checkbox" name="fields[]" value="graduation_year" checked> Pass out Year</label><br>
+        <label><input type="checkbox" name="fields[]" value="percentage_tenth"> Tenth Percentage</label><br>
+        <label><input type="checkbox" name="fields[]" value="percentage_twelfth"> Twelfth Percentage</label><br>
+        <label><input type="checkbox" name="fields[]" value="resume" checked> Resume</label><br>
+    </div>
+    <button type="submit">Export</button>
+</form>
+<!-- HTML Form to upload Excel file -->
+<form action="status.php" method="post" enctype="multipart/form-data">
+<input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
+    <input type="file" name="excel_file" required>
+    <input type="submit" value="Upload Excel">
 
-            </div>
-    
-        </form>
-
-        
-        
-        <?php
-            if (isset($_GET['status']) && $_GET['status'] == 'success') {
-                echo "<script>
-                Swal.fire({
-                title: 'Good job!',
-                text: 'Status Updation Successful!',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then((result) => {
+</form>
+<?php
+    if (isset($_GET['status']) && $_GET['status'] == 'success') {
+        echo "<script>
+        Swal.fire({
+            title: 'Good job!',
+            text: 'Status Updation Successful!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
             if (result.isConfirmed) {
                 window.location.href = 'joblist_admin.php'; // Replace with your desired URL
             }
-            });
-        </script>";
-            }
+        });
+    </script>";
+    }
     ?>
     </div>
 

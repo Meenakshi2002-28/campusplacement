@@ -19,31 +19,25 @@ if (isset($_POST['delete_job_id'])) {
     $conn->begin_transaction();
 
     try {
-        // Delete from job_course table first
-        $deleteJobCourseSql = "DELETE FROM job_course WHERE job_id = ?";
-        $stmt = $conn->prepare($deleteJobCourseSql);
-        $stmt->bind_param("i", $job_id);
-        $stmt->execute();
-
-        // Delete from job table
-        $deleteJobSql = "DELETE FROM job WHERE job_id = ?";
-        $stmt = $conn->prepare($deleteJobSql);
+        // Update the job to set is_active to 0
+        $softDeleteSql = "UPDATE job SET is_active = 0 WHERE job_id = ?";
+        $stmt = $conn->prepare($softDeleteSql);
         $stmt->bind_param("i", $job_id);
         $stmt->execute();
 
         // Commit transaction
         $conn->commit();
         $show_success_message = true;
-        
+
     } catch (Exception $e) {
         // Rollback transaction if there's an error
         $conn->rollback();
-        echo "Error deleting job: " . $e->getMessage();
+        echo "Error removing job: " . $e->getMessage();
     }
 }
 
 // Fetch jobs from the database
-$sql = "SELECT job_id, job_title, company_name, location,  salary, application_deadline FROM job";
+$sql = "SELECT job_id, job_title, company_name, location,  salary, application_deadline FROM job WHERE is_active = 1";
 $result = $conn->query($sql);
 
 ?>
@@ -181,6 +175,9 @@ img {
     height: 86.5vh;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
     overflow-y: auto;
+}
+.sidebar:hover + .main-content {
+    margin-left: 270px; /* Adjust this value to match the expanded sidebar width */
 }
 
 .main-content h1 {
@@ -563,6 +560,27 @@ img {
 
     <!-- JavaScript -->
     <script>
+    function showSuccessMessage() {
+            var successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            
+            // Auto-hide the message after 5 seconds
+            setTimeout(function() {
+                successMessage.classList.remove('show');
+            }, 5000);
+        }
+
+        // Function to hide the success message manually
+        function hideSuccessMessage() {
+            var successMessage = document.getElementById('successMessage');
+            successMessage.classList.remove('show');
+        }
+
+        // Display success message if PHP flag is true
+        <?php if ($show_success_message): ?>
+            showSuccessMessage();
+        <?php endif; ?>
+
         // Change Profile Picture
         function triggerFileInput() {
             document.getElementById('fileInput').click();

@@ -1,3 +1,25 @@
+<?php
+$servername = "localhost"; // Server name
+$db_username = "root"; // MySQL username
+$db_password = ""; // MySQL password
+$dbname = "campus_placement"; // Database name
+
+// Create connection
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch feedback from the database
+$sql = "SELECT feedback.user_id,feedback.feedback_id, feedback.feedback,  feedback.submission_date,student.name 
+        FROM feedback 
+        JOIN student ON feedback.user_id = student.user_id
+         ORDER BY feedback.submission_date DESC";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,9 +36,8 @@
             overflow: hidden;
 
         }
-
-        /* Sidebar styling */
-        .sidebar {
+    /* Sidebar styling */
+    .sidebar {
     width: 220px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -26,11 +47,12 @@
     position: fixed;
     left: 0;
     top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
+    background: #2a2185;
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
     padding-top: 80px; /* Added padding for space at the top */
+    overflow: hidden;
 }
 
 
@@ -122,9 +144,8 @@
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            overflow-x: auto;
             overflow-y: auto;
-            overflow-x: hidden; 
-            
         }
 
         .main-content h1 {
@@ -160,17 +181,14 @@
         .icon:hover {
             transform: scale(1.1);
         }
-        img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
+
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
-            top: 70px;
-            right: 25px;
+            top: 55px;
+            right: 20px;
             background: linear-gradient(135deg, #2F5597, #1e3d7a);
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
@@ -206,109 +224,92 @@
     color: white;
     text-align: center;
 }
-.job-card {
-    width: 130vh;
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space out items */
-    align-items: center; /* Align items vertically */
-    margin-bottom: 20px;
-    /* Set the width of the card */
-    height: 110px; /* Adjust height based on content */
-    padding: 20px; /* Add padding inside the card */
-    border: 1px solid #ddd; /* Optional: border for visual separation */
-    border-radius: 5px; /* Optional: rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow for depth */
-    transition: transform 0.3s, box-shadow 0.3s;
-     /* Smooth transition for transform and box-shadow */
-     margin-left:50px;
-     background-color: white;
-     position:relative;
+.feedback-container {
+    margin-top: -30px;
+    padding: 5px;
 }
 
-.job-card:hover {
-    transform: translateY(-5px); /* Lift the card up on hover */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
-    border-color: #063dc9;
+.feedback-item {
+    background-color: #ffffff;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border-style:linear-gradient(130deg, #f5f7fa,rgb(181, 181, 255));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.feedback-item:hover {
+        transform: scale(1.01);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+@keyframes gradientAnimation {
+         0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+        }
+        
+
+        .feedback-item:hover {
+    background: linear-gradient(130deg, #f5f7fa, rgb(181, 181, 255));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.job-details {
-    flex: 1; /* Take up available space */
+    
+
+.feedback-item h3 {
+    color: #000000;
 }
 
-.job-info {
-    text-align: right; /* Align text to the right */
-}
-
-.company-name {
-    font-size: 1.5rem; /* Increase company name font size */
-    font-weight: bold;
-}
-
-.position {
-    font-size: 1.2rem; /* Position font size */
-}
-
-.salary {
-    font-size: 1.2rem; /* Salary font size */
-    font-weight: bold; /* Make salary bold */
-    margin-right: 175px;
-    margin-top: 25px;
-}
-
-.apply-now {
-    background-color: #0056b3; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    height: 45px;
-    border-radius: 5px; /* Rounded corners for button */
-    cursor: pointer; 
-    margin-bottom: 25px;
-    padding: 3px 8px;
-   
-    /* Pointer on hover */
-}
-
-.apply-now:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-.remote {
-    background-color:white; /* Green background for remote label */
-    color: black; /* White text color */
-    padding: 3px 8px; /* Padding around the label */
-     /* Rounded corners */
-    font-size: 0.8rem; /* Smaller font size */
-    /* Increased space between company name and remote label */
-    vertical-align: middle; /* Align vertically with text */
-    font-weight: bold;
+.feedback-item p {
+    color: #000000;
     font-size: 16px;
-    margin-left: 230px;
-}
-.open {
-    position: absolute;
-    top: 50px; /* Adjust as needed */
-    left: 250px; /* Adjust as needed */
-    background-color: #075138;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    margin-left: 130px;
-    font-weight: 500;
 }
 
-.company-logo {
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
-    margin-right: 20px; /* Space between logo and job details */
-    border-radius: 5px; /* Optional: rounded edges */
+button {
+    background-color:#ffc107; 
+    border: none;
+    color: white ;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-top:-70px;
+    margin-left:5px;
+}
+.logo-container {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        }
+        .logo {
+        height: 50px;
+        width: auto;
+        }
+        .user-info {
+    display: flex;
+    align-items:center ; /* Vertically centers the icon and name */
+    gap: 10px; /* Adjust spacing between icon and name as needed */
 }
 
+.icon {
+    width: 50px; /* Set the size for the icon */
+    height: 50px;
+    border-radius: 50%; /* Makes the icon circular if it's a square */
+}
+.user-info img{
+    width: 50px; /* Set the size for the icon */
+    height: 50px;
+    border-radius: 50%; /* Makes the icon circular if it's a square */
+}
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         
@@ -324,56 +325,42 @@
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
         
-        <a href="dashboard_std.php" ><i class="fa fa-home"></i> Home</a>
-        <a href="jobs.php" class="active"><i class="fa fa-search"></i> Jobs</a>
-        <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
-        <a href="company.html"><i class="fa fa-building"></i> Company</a>
-        <a href="../profile_redirect.php"><i class="fa fa-user"></i> Profile</a>
-        <a href="feedback.html"><i class="fa fa-comment"></i> Feedback</a>
+        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
+        <a href="#placement"><i class="fas fa-laptop-code"></i>Placements</a>        <a href="#company"><i class="fa fa-building"></i> Company</a>
+        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <?php
-    if ($result->num_rows > 0) {
-        // Output data of each job row
-        while ($row = $result->fetch_assoc()) {
-            ?>
-              <div class="job-card" onclick="window.location.href='job_description.php?job_id=<?php echo $row['job_id']; ?>'">
-               
-                <div class="job-details">
-                    <div class="company-name"><?php echo htmlspecialchars($row['company_name']); ?></div>
-                    <div class="position"><?php echo htmlspecialchars($row['job_title']); ?></div>
-                    <div class="remote"><?php echo htmlspecialchars($row['work_environment']); ?></div>
-                    <?php if ($row['job_status'] == 'Open') { ?>
-                        <span class="open">Open for Applicants</span>
-                    <?php } else { ?>
-                        <span class="open">Closed for Applicants</span>
-                    <?php } ?>
-                </div>
-                <div class="job-info">
-                    <div class="salary">Salary: <?php echo htmlspecialchars($row['salary']); ?></div>
-                   
-                    <button class="apply-now">view details</button>
-                </div>
-            </div>
+        <div class="feedback-container">
             <?php
-        }
-    } else {
-        echo "<p>No job postings available at the moment.</p>";
-    }
-
-    // Close the database connection
-    $conn->close();
-    ?>
-
-  </div>
-  
-  
-    
+            if ($result->num_rows > 0) {
+                // Output data of each row
+                while($row = $result->fetch_assoc()) {
+                    echo '<div class="feedback-item">';
+                    echo '<div class="user-info">';
+                    echo '<img src="../profile.png" alt="User Profile">'; // Replace with actual user profile image if available
+                    echo '<h5>' . htmlspecialchars($row["name"]) . '</h5>';
+                    echo '</div>';
+                    echo '<p>' . htmlspecialchars($row["feedback"]) . '</p>';
+                    echo '<button onclick="window.location.href=\'feedback_response.php?user_id=' . urlencode($row["user_id"]) . '&feedback_id=' . urlencode($row["feedback_id"]) . '\'">RESPONSE</button>';
+                    echo '</div>';
+                }
+            } else {
+                echo '<p>No feedback available.</p>';
+            }
+            ?>
+            </div>
+        </div>
+        
+       
+        
+    </div>
 
     <!-- JavaScript -->
     <script>
@@ -470,6 +457,10 @@
           
         });
     </script>
-    
+<?php
+// Close the database connection
+$conn->close();
+?>    
 </body>
 </html>
+

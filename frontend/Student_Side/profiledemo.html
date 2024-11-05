@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lavoro - Campus Recruitment System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #d9e6f4;
+            color: #333;
+            overflow: hidden;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px;
+        }
+
+        .sidebar .logo {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        .sidebar:hover {
+            width: 250px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Fade-in effect for sidebar links */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Delayed animation for each link */
+        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
+        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
+        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
+        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
+        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
+        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+
+        .sidebar a i {
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #1e3d7a;
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+
+        .sidebar .logout {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .sidebar a.active {
+            background-color: #1e3d7a;
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Main content styling */
+        .main-content {
+            margin-left: 245px;
+            margin-top: 13px; 
+            margin-right: 20px;
+            padding: 40px;
+            font-size: 18px;
+            color: #333;
+            border-radius: 10px;
+            transition: margin-left 0.4s ease-in-out;
+            background-color: #ffffff;
+            height: 86.5vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            display: flex; /* Use flexbox to align items */
+        }
+
+        /* Sub-sidebar styling */
+        .sub-sidebar {
+            width: 205px; /* Adjust width as needed */
+            background-color: white;
+            color: rgb(0, 0, 0);
+            padding-top: 20px; /* Adjust padding for spacing */
+            margin-right: 20px; /* Space between sub-sidebar and content */
+            border: 1px solid #ccc; /* Optional: border for better visual separation */
+            border-radius: 10px; /* Round corners */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Optional: shadow for depth */
+        }
+
+        .menu a {
+            text-align: center;
+            text-decoration: none;
+            color: black;
+            display: block;
+            padding: 15px;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+
+        .menu a.active {
+            border-left: 3px solid #000;
+            background: #1e165f;
+            color: white;
+        }
+
+        .profile img {
+            height: 160px;
+            width: 140px;
+            padding-top: 40px;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        /* Additional styles as needed */
+    </style>
+</head>
+<body>
+    <!-- Profile Container -->
+    <div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+        
+        <!-- Dropdown Menu -->
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>    
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Logo or Website Name -->
+        <div class="logo">Lavoro</div>
+        
+        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
+        <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
+        <a href="#company"><i class="fa fa-building"></i> Company</a>
+        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="sub-sidebar">
+            <div class="profile">
+                <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()">
+                <div class="text">
+                    <h4>Meenakshi B</h4>
+                    <p>KH.EN.U3CDS22035</p>
+                </div>
+            </div>
+            <div class="menu">
+                <a href="#" onclick="showSection('personal')" class="active">Personal Details</a>
+                <a href="#" onclick="showSection('academic')">Academic Details</a>
+                <a href="#" onclick="showSection('resume')">Resume</a>
+            </div>
+        </div>
+        <div class="content-area">
+            <!-- Your related content goes here -->
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Change Profile Picture
+        function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+    
+        function changeProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('sidebarProfilePicture').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Dropdown Menu
+        function toggleDropdown() {
+            document.getElementById("dropdownMenu").classList.toggle("show");
+        }
+
+        // Show Section Functionality
+        function showSection(section) {
+            const sections = document.querySelectorAll('.content-area > div');
+            sections.forEach(s => s.style.display = 'none');
+            document.getElementById(section).style.display = 'block';
+        }
+
+        // Show the default section
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('personal');
+        });
+    </script>
+</body>
+</html>

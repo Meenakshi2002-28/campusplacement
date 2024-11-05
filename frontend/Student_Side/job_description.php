@@ -13,11 +13,11 @@ if ($conn->connect_error) {
 if (!isset($_SESSION['user_id'])) {
     die("You must be logged in to apply for a job.");
 }
-$user_id = $_SESSION['user_id']; 
+$user_id = $_SESSION['user_id'];
 
 if (isset($_GET['job_id'])) {
     $job_id = $_GET['job_id'];
-   
+
 } else {
     die('Job ID not set.');
 }
@@ -55,19 +55,22 @@ $stmt->close();
 // Fetch job's CGPA requirement
 $jobCgpaRequirement = $jobDetails[0]['cgpa_requirement'];
 
+
 // Close the database connection
 $conn->close();
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Details</title>
+    <title>Lavoro - Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -79,26 +82,29 @@ $conn->close();
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    height: 97vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-    transition: width 0.4s ease-in-out;
-    padding-top: 80px; /* Added padding for space at the top */
-}
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            /* Transparent glow effect */
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px;
+            /* Added padding for space at the top */
+        }
 
 
         .sidebar .logo {
             position: absolute;
-            top: 20px; /* Positions logo/title closer to the top */
+            top: 20px;
+            /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
             font-size: 24px;
@@ -108,7 +114,8 @@ $conn->close();
         }
 
         .sidebar:hover {
-            width: 250px; /* Expands sidebar on hover */
+            width: 250px;
+            /* Expands sidebar on hover */
         }
 
         .sidebar a {
@@ -127,17 +134,41 @@ $conn->close();
 
         /* Fade-in effect for sidebar links */
         @keyframes fadeIn {
-            0% { opacity: 0; transform: translateX(-20px); }
-            100% { opacity: 1; transform: translateX(0); }
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* Delayed animation for each link */
-        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
-        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
-        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
-        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
-        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
-        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .sidebar a:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .sidebar a:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .sidebar a:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .sidebar a:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .sidebar a:nth-child(7) {
+            animation-delay: 0.6s;
+        }
 
         .sidebar a i {
             margin-right: 15px;
@@ -148,7 +179,8 @@ $conn->close();
             background-color: #1e3d7a;
             border-left: 4px solid #ffffff;
             padding-left: 30px;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            /* Glow effect */
         }
 
         .sidebar .logout {
@@ -157,51 +189,25 @@ $conn->close();
             width: 100%;
             text-align: center;
         }
-        .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
-}
 
+        .sidebar a.active {
+            background-color: #1e3d7a;
+            /* Background color for active link */
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
 
         /* Main content styling */
-        .main-content {
-            margin-left: 245px;
-            margin-top: 13px; 
-            margin-right: 20px;/* Default margin for sidebar */
-            padding: 40px;
-            font-size: 18px;
-            color: #333;
-            border-radius: 10px;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-            background-color: #ffffff;
-            height: 86.5vh;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-            overflow-y: auto;
-            
-        }
 
-        .main-content h1 {
-            color: #050505;
-            font-size: 2.5rem; /* Increased font size */
-            font-weight: bold;
-            padding-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
 
         /* Profile section styling */
         .container {
             padding: 18px 20px;
             width: 1268px;
-            margin-left: 245px; /* Default margin for container */
+            height: 55px;
+            margin-left: 245px;
+            /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
             display: flex;
@@ -210,8 +216,10 @@ $conn->close();
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            transition: margin-left 0.4s ease-in-out;
+            /* Smooth transition for margin */
         }
+
         .icon {
             margin-left: 15px;
             cursor: pointer;
@@ -221,210 +229,14 @@ $conn->close();
         .icon:hover {
             transform: scale(1.1);
         }
-        img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
-    .job-details {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid #cccccc;
-        margin-bottom: 30px;
-    }
 
-    .job-details h2 {
-        margin-top: 0;
-        color:black;
-        margin-left: 20px;
-    }
-
-    .job-details p{
-        margin-left: 120px;
-    }
-
-
-    /* Eligibility section */
-    .eligibility-section {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid #cccccc;
-    }
-
-    .eligibility-section h3 {
-        margin-top: 0;
-        color: #333;
-    }
-    .eligibility-1{
-        display:grid;
-        grid-template-columns:repeat(3,50px); /* Three equal-width columns */
-        gap: 30px; /* Spacing between columns */
-        padding-left: 50px;
-        margin-left:70px;
-        column-gap: 280px;
-        row-gap: 10px;
-    }
-    .eligibility-1 label{
-        padding-left:2px;
-        padding-right:0px;
-        font-size: 18px;   
-    }
-    .form-group {
-        display: inline-block;
-        margin-bottom: 10px; /* Adds space between each row */   
-    }
-
-    .form-group label {
-        display:inline-block;
-        width: 80px; /* Set a fixed width for label */
-        text-align:left;
-        margin-right: 20px; /* Space between label and input */
-        padding-top: 20px;
-        padding-left: 20px;
-    }
-
-    .form-group input {
-        display: inline-block;
-        width: 150px; 
-    }
-    form label {
-        font-weight: bold;
-        margin-bottom: 10px;
-        text-wrap:nowrap;
-        padding-right: 40px;
-        margin-left: 20px;
-    }
-
-    form input {
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background-color:white;
-        font-size: 16px;
-        width:100%;
-        padding-left: 10px;
-        padding-right: 10px;
-        padding:5px;
-        display:inline-block;
-        margin-left: 20px;
-        }
-
-        .form-group input{
-            margin-left: 100px;
-        }
-    .jobstatus input {
-        background-color:#075138;
-        border-radius: 10px;
-        border: 1px solid rgb(197, 197, 197) ;
-        width: 270px; 
-        height: 25px; 
-        font-size: 16px;
-        margin-top: 20px;
-        margin-left: 370px;
-        text-align: center; 
-        line-height: 40px; 
-        padding: 0px; 
-        box-sizing:content-box;
-        font-weight: 600;
-        color: white;
-    }
-    .jobimg a {
-        display:inline-flexbox;
-        text-decoration: none;
-        color:black;
-        padding: 60px;
-        border-left: 3px solid transparent;  
-    }
-    .job-description {
-        background-color: white;
-        padding-left: 40px;
-    }
-    .job-description h4{
-        color: black;
-    }
-    .job-description p{
-        border-radius: 10px;
-        border: 1px solid #ddd;
-        padding: 7px;
-    }
-
-    /* Hiring workflow section */
-    .workflow-section {
-        background-color:white;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        margin-left: 20px;    
-    }
-    .workflow-section h3 {
-        margin-top: 0;
-        color:black;
-    }
-    .workflow-rounds {
-        margin-top: 30px;
-    }
-    .workflow-rounds label {
-        font-weight: bold;
-        padding: 10px;
-    }
-    .workflow-rounds input {
-        margin-bottom: 10px;
-        background-color: white;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        width: 100%;
-        margin-top: 5px;
-    }
-
-    /* Apply button */
-   
-
-
-.apply-btn {
-  padding: 7px 35px;
-  border-radius: 50px;
-  cursor: pointer;
-  border: 2px solid #aeaeae;
-  background-color: white;
-  color: black;
-  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
-  letter-spacing: 1.5px;
-  font-size: 18px;
-  transition: all 0.5s ease;
-  text-align: center;
-  display: block;
-  margin-left: 450px;
-  margin-top: 15px;
-  font-weight: 650;
-  text-transform: uppercase;
-  box-shadow: rgb(93 24 220) 0px 7px 10px 0px;
-}
-
-.apply-btn:hover {
-  letter-spacing: 3px;
-  background-color: linear-gradient(135deg, #022a52fd, #063dc9);
-  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
-}
-
-.apply-btn:active {
-  letter-spacing: 2px;
-  background-color: hsl(261deg 80% 48%);
-  color: hsl(0, 0%, 100%);
-  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
-  transform: translateY(10px);
-  transition: 100ms;
-}
-
-    
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
-            top: 70px;
-            right: 25px;
+            top: 55px;
+            right: 20px;
             background: linear-gradient(135deg, #2F5597, #1e3d7a);
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
@@ -448,27 +260,250 @@ $conn->close();
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
+
+
         .sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
+            position: absolute;
+            top: 20px;
+            /* Keep the same positioning */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            /* Increase the font size here */
+            font-weight: bold;
+            color: white;
 
+            text-align: center;
+        }
 
+        .main-content {
+            margin-left: 245px;
+            margin-top: 13px;
+            margin-right: 20px;
+            /* Default margin for sidebar */
+            padding: 40px;
+
+            color: #333;
+            border-radius: 10px;
+            transition: margin-left 0.4s ease-in-out;
+            /* Smooth transition for margin */
+            background-color: #ffffff;
+            height: 86.5vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            /* Add shadow effect */
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .job-details {
+            background-color: whitesmoke;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .job-details h2 {
+            margin-top: 0;
+            color: black;
+            margin-left: 20px;
+        }
+
+        .job-details p {
+            margin-left: 120px;
+        }
+
+        .apply-btn {
+            background-color: #AFC8F3;
+            color: black;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            margin-left: 420px;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .apply-btn:hover {
+            background-color: #1E165F;
+            color: white;
+        }
+
+        .eligibility-section {
+            background-color: whitesmoke;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            box-shadow: 0 4px 10px rgba(0, 0, 139, 0.3);
+            /* Dark blue shadow */
+
+        }
+
+        .eligibility-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .eligibility-1 {
+            display: grid;
+            grid-template-columns: repeat(3, 50px);
+            /* Three equal-width columns */
+            gap: 30px;
+            /* Spacing between columns */
+            padding-left: 50px;
+            margin-left: 70px;
+            column-gap: 280px;
+            row-gap: 10px;
+        }
+
+        .eligibility-1 label {
+            padding-left: 2px;
+            padding-right: 0px;
+            font-size: 18px;
+        }
+
+        .form-group {
+            display: inline-block;
+            margin-bottom: 10px;
+            /* Adds space between each row */
+        }
+
+        .form-group label {
+            display: inline-block;
+            width: 80px;
+            /* Set a fixed width for label */
+            text-align: left;
+            margin-right: 66px;
+            /* Space between label and input */
+            padding-top: 20px;
+            padding-left: 20px;
+        }
+
+        .form-group input {
+            display: inline-block;
+            width: 150px;
+        }
+
+        form label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-wrap: nowrap;
+            padding-right: 40px;
+            margin-left: 20px;
+        }
+
+        form input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            font-size: 16px;
+            width: 100%;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding: 5px;
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        .jobstatus input {
+            background-color: #e2e2e2;
+            border-radius: 10px;
+            border: 1px solid rgb(197, 197, 197);
+            width: 270px;
+            height: 25px;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-left: 370px;
+            text-align: center;
+            line-height: 40px;
+            padding: 0px;
+            box-sizing: content-box;
+            font-weight: 600;
+        }
+
+        .jobimg a {
+            display: inline-flexbox;
+            text-decoration: none;
+            color: black;
+            padding: 60px;
+            border-left: 3px solid transparent;
+        }
+
+        .job-description {
+            background-color: whitesmoke;
+            padding-left: 40px;
+        }
+
+        .job-description h4 {
+            color: black;
+        }
+
+        .job-description p {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            padding: 7px;
+        }
+
+        /* Hiring workflow section */
+        .workflow-section {
+            background-color: whitesmoke;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+        }
+
+        .workflow-section h3 {
+            margin-top: 0;
+            color: black;
+        }
+
+        .workflow-rounds {
+            margin-top: 30px;
+        }
+
+        .workflow-rounds label {
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .workflow-rounds input {
+            margin-bottom: 10px;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .small-icon {
+            width: 50px;
+            /* Set desired width */
+            height: 50px;
+            /* Set desired height */
+            object-fit: cover;
+            /* Ensures the image scales properly */
+            border-radius: 50%;
+            /* Makes the image circular */
+        }
     </style>
 </head>
+
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon"
+            onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*"
+            onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
+
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
@@ -480,140 +515,171 @@ $conn->close();
     <div class="sidebar">
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
-        
-        <a href="dashboard_std.php" ><i class="fa fa-home"></i> Home</a>
-        <a href="jobs.php" class="active"><i class="fa fa-search"></i> Jobs</a>
+
+        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
         <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
-        <a href="company.html"><i class="fa fa-building"></i> Company</a>
-        <a href="../profile_redirect.php"><i class="fa fa-user"></i> Profile</a>
-        <a href="feedback.html"><i class="fa fa-comment"></i> Feedback</a>
+        <a href="#company"><i class="fa fa-building"></i> Company</a>
+        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="../logout,php"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
-</div>
-<div class="main-content">
-    <div class="job-details">
-        <h2><?php echo htmlspecialchars($jobDetails[0]['job_title']); ?></h2>
-        <p><?php echo htmlspecialchars($jobDetails[0]['company_name']); ?></p>
-    <div class="jobimg">
-        <a href="#location-dot"><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($jobDetails[0]['location']); ?></a>
-        <a href="#briefacse"><i class="fa fa -fw fa-solid fa-briefcase"></i> Full Time</a>
-        <a href="#indian-rupee-sign"><i class="fas fa-rupee-sign"></i><?php echo htmlspecialchars($jobDetails[0]['salary']); ?></a>
-        <a href="#calendar-days"><i class="fa fa-fw  fa-solid fa-calendar"></i> Apply By <?php echo htmlspecialchars($jobDetails[0]['application_deadline']); ?></a>
-    </div>
-        <div class="jobstatus">
-           <input type="text"id="jobstatus" value="Job Status: <?php echo htmlspecialchars($jobDetails[0]['job_status']); ?> for Applications" readonly>
+
+    <div class="main-content">
+        <div class="job-details">
+            <h2><?php echo htmlspecialchars($jobDetails[0]['job_title']); ?></h2>
+            <p><?php echo htmlspecialchars($jobDetails[0]['company_name']); ?></p>
+            <div class="jobimg">
+                <a href="#location-dot"><i class="fas fa-map-marker-alt"></i>
+                    <?php echo htmlspecialchars($jobDetails[0]['location']); ?></a>
+                <a href="#briefacse"><i class="fa fa -fw fa-solid fa-briefcase"></i> Full Time</a>
+                <a href="#indian-rupee-sign"><i
+                        class="fas fa-rupee-sign"></i><?php echo htmlspecialchars($jobDetails[0]['salary']); ?></a>
+                <a href="#calendar-days"><i class="fa fa-fw  fa-solid fa-calendar"></i> Apply By
+                    <?php echo htmlspecialchars($jobDetails[0]['application_deadline']); ?></a>
+            </div>
+            <div class="jobstatus">
+                <input type="text" id="jobstatus"
+                    value="Job Status: <?php echo htmlspecialchars($jobDetails[0]['job_status']); ?> for Applications"
+                    readonly>
+            </div>
         </div>
-    </div>
-<!-- Eligibility Section -->
-<div class="eligibility-section">
-        
-        <form>
-            <div class="eligibility-1">
-            <label for="10th">10th</label>
-            <label for="12th">12th</label>
-            <label for="arrears">Max Current Arrears</label>
-            
-            <input type="text" id="12th" name="10th"value="<?php echo htmlspecialchars($jobDetails[0]['tenth_requirement']); ?>" readonly>
-            <input type="text" id="10th" name="12th"value="<?php echo htmlspecialchars($jobDetails[0]['tweflth_requirement']); ?>" readonly>
-            <input type="text" id="arrears" name="arrears" value="<?php echo htmlspecialchars($jobDetails[0]['max_arrears']); ?>" readonly>
-            
+        <!-- Eligibility Section -->
+        <div class="eligibility-section">
+
+            <form>
+                <div class="eligibility-1">
+                    <label for="10th">10th</label>
+                    <label for="12th">12th</label>
+                    <label for="arrears">Max Current Arrears</label>
+
+                    <input type="text" id="12th" name="10th"
+                        value="<?php echo htmlspecialchars($jobDetails[0]['tenth_requirement']); ?>" readonly>
+                    <input type="text" id="10th" name="12th"
+                        value="<?php echo htmlspecialchars($jobDetails[0]['tweflth_requirement']); ?>" readonly>
+                    <input type="text" id="arrears" name="arrears"
+                        value="<?php echo htmlspecialchars($jobDetails[0]['max_arrears']); ?>" readonly>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender </label>
+                    <input type="text" id="gender" name="gender"
+                        value="<?php echo htmlspecialchars($jobDetails[0]['gender']); ?>" readonly>
+                    <br>
+
+                    <label for="cgpa">Cgpa Requirement </label>
+                    <input type="text" id="cgpa" name="cgpa"
+                        value="<?php echo htmlspecialchars($jobDetails[0]['cgpa_requirement']); ?>" readonly>
+                    <br>
+
+                    <label for="passout-year">Pass Out Year </label>
+                    <input type="text" id="passout-year" name="passout-year"
+                        value="<?php echo htmlspecialchars($jobDetails[0]['passout_year']); ?>" readonly>
+                    <br>
+
+
+                    <label for="course">Course </label>
+                    <?php foreach ($jobDetails as $index => $detail): ?>
+                        <input type="text" id="course_<?php echo $index; ?>" name="course_<?php echo $index; ?>"
+                            value="<?php echo htmlspecialchars($detail['course_name']); ?>" readonly>
+                    <?php endforeach; ?>
+                </div>
+            </form>
+
+            <div class="job-description">
+                <h4>Description </h4>
+                <p>
+                    <?php
+                    // Fetch the description
+                    $description = $jobDetails[0]['description'];
+
+                    // Debugging: Print raw description for inspection
+                    // Uncomment the line below for debugging purposes
+                    // echo "Raw Description: " . htmlspecialchars($description);
+                    
+                    // Step 1: Unescape the double backslashes
+                    $description = str_replace('\\\\', '', $description); // Removes the escaped backslashes
+                    $description = str_replace('\r\n', "\n", $description); // Convert \r\n to newlines
+                    
+                    // Step 2: Replace occurrences of 'rn' with actual newlines
+                    $description = str_replace('rn', "\n", $description); // Convert 'rn' to newlines
+                    
+                    // Step 3: Convert to HTML format for line breaks
+                    echo nl2br(htmlspecialchars($description));
+                    ?>
+                </p>
+
+
+
             </div>
-        
-            <div class="form-group">
-            <label for="gender">Gender </label>
-            <input type="text" id="gender" name="gender" value="<?php echo htmlspecialchars($jobDetails[0]['gender']); ?>" readonly>
-            <br>
 
-            <label for="cgpa">Cgpa Requirement </label>
-            <input type="text" id="cgpa" name="cgpa" value="<?php echo htmlspecialchars($jobDetails[0]['cgpa_requirement']); ?>" readonly>
-            <br>
-            
-            <label for="passout-year">Pass Out Year </label>
-            <input type="text" id="passout-year" name="passout-year"value="<?php echo htmlspecialchars($jobDetails[0]['passout_year']); ?>" readonly>
-            <br>
-
-            
-            <label for="course">Course </label>
-            <?php foreach ($jobDetails as $index => $detail) : ?>
-                    <input type="text" id="course_<?php echo $index; ?>" name="course_<?php echo $index; ?>"
-                           value="<?php echo htmlspecialchars($detail['course_name']); ?>" readonly>
-                <?php endforeach; ?>
-            </div>
-        </form>
-        
-        <div class="job-description">
-            <h4>Description </h4>
-            <p>
-    <?php 
-    // Fetch the description
-    $description = $jobDetails[0]['description'];
-
-    // Debugging: Print raw description for inspection
-    // Uncomment the line below for debugging purposes
-    // echo "Raw Description: " . htmlspecialchars($description);
-
-    // Step 1: Unescape the double backslashes
-    $description = str_replace('\\\\', '', $description); // Removes the escaped backslashes
-    $description = str_replace('\r\n', "\n", $description); // Convert \r\n to newlines
-
-    // Step 2: Replace occurrences of 'rn' with actual newlines
-    $description = str_replace('rn', "\n", $description); // Convert 'rn' to newlines
-
-    // Step 3: Convert to HTML format for line breaks
-    echo nl2br(htmlspecialchars($description)); 
-    ?>
-</p>
-
-
-
-            </div>
-            
             <!-- Hiring Workflow Section -->
             <div class="workflow-section">
-                
+
                 <h3>Hiring Workflow Rounds</h3>
-    
-                    <div class="workflow-rounds">
+
+                <div class="workflow-rounds">
                     <label for="round1">Round 1</label>
-                    <input type="text" id="round1" name="round1" value="<?php echo htmlspecialchars($jobDetails[0]['round_1']); ?>" readonly>
+                    <input type="text" id="round1" name="round1"
+                        value="<?php echo htmlspecialchars($jobDetails[0]['round_1']); ?>" readonly>
 
                     <label for="round2">Round 2</label>
-                    <input type="text" id="round2" name="round2" value="<?php echo htmlspecialchars($jobDetails[0]['round_2']); ?>" readonly>
-                    
+                    <input type="text" id="round2" name="round2"
+                        value="<?php echo htmlspecialchars($jobDetails[0]['round_2']); ?>" readonly>
+
                     <label for="round3">Round 3</label>
-                    <input type="text" id="round3" name="round3"value="<?php echo htmlspecialchars($jobDetails[0]['round_3']); ?>" readonly>
-                    </div>
-    
-<div class="jobstatus">
-<form id="jobApplicationForm" action="apply_job.php" method="POST">
-        <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($jobDetails[0]['job_id']); ?>">
-        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>"> <!-- Assuming you have the user ID -->
-        <button type="submit" class="apply-btn" id="applyButton">Apply</button>
-    </form>
-</div>
-                
+                    <input type="text" id="round3" name="round3"
+                        value="<?php echo htmlspecialchars($jobDetails[0]['round_3']); ?>" readonly>
+                </div>
+
+                <div class="jobstatus">
+                    <form id="jobApplicationForm" action="apply_job.php" method="POST"
+                        onsubmit="return confirmApplication();">
+                        <input type="hidden" name="job_id"
+                            value="<?php echo htmlspecialchars($jobDetails[0]['job_id']); ?>">
+                        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
+                        <!-- Assuming you have the user ID -->
+                        <button type="submit" class="apply-btn" id="applyButton">Apply</button>
+                    </form>
+                </div>
+
             </div>
         </div>
-    
     </div>
+    <!-- JavaScript -->
     <script>
+        function confirmApplication() {
+    const userCgpa = <?php echo json_encode($user_cgpa); ?>; // Get user's CGPA from PHP
+    const jobCgpaRequirement = <?php echo json_encode($jobCgpaRequirement); ?>; // Get job's CGPA requirement from PHP
 
-        // Change profile image
+    if (userCgpa < jobCgpaRequirement) {
+        // Use SweetAlert for a nicer alert
+        Swal.fire({
+            icon: 'error',
+            title: 'Application Denied',
+            text: 'You cannot apply for this job because your CGPA is below the requirement.',
+            confirmButtonText: 'OK'
+        });
+        return false; // Prevent form submission
+    }
+}
+
+        // Change Profile Picture
         function triggerFileInput() {
-                document.getElementById('fileInput').click();
-            }
-    
+            document.getElementById('fileInput').click();
+        }
+
         function changeProfilePicture(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
-                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+                reader.onload = function (e) {
+                    document.getElementById('profileIcon').src = e.target.result;
                 };
-                reader.readAsDataURL(file); // Read the image file
+                reader.readAsDataURL(file);
             }
         }
         // Dropdown toggle with smooth opening
@@ -621,15 +687,15 @@ $conn->close();
             const dropdown = document.getElementById("dropdownMenu");
             dropdown.classList.toggle("show");
         }
-    
+
         // Hide dropdown on click outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (!event.target.matches('.icon')) {
                 const dropdown = document.getElementById("dropdownMenu");
                 dropdown.classList.remove("show");
             }
         };
-    
+
         document.addEventListener("DOMContentLoaded", function () {
             // Sidebar tab click effect
             const tabs = document.querySelectorAll('.sidebar a');
@@ -639,13 +705,13 @@ $conn->close();
                     tab.classList.add('active');
                 });
             });
-    
+
             // Set default active link on page load
             const defaultLink = document.querySelector('.sidebar a.active');
             if (defaultLink) {
                 defaultLink.classList.add('active');
             }
-    
+
             // Mobile nav handling (optional)
             const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
             mobileTabs.forEach(tab => {
@@ -654,57 +720,45 @@ $conn->close();
                     tab.classList.add('active');
                 });
             });
-    
-    
-        function goToProfile() {
-            showSection('personal'); // Redirect to profile section
-            toggleDropdown(); // Close the dropdown after redirection
-        }
-        function confirmApplication() {
-            const userCgpa = <?php echo json_encode($user_cgpa); ?>; // Get user's CGPA from PHP
-            const jobCgpaRequirement = <?php echo json_encode($jobCgpaRequirement); ?>; // Get job's CGPA requirement from PHP
 
-            if (userCgpa >= jobCgpaRequirement) {
-                alert("You cannot apply for this job because your CGPA is below the requirement.");
-                return false; // Prevent form submission
+            // Dashboard stats extraction
+
+            // Animate counter values
+            function animateCounter(element, endValue) {
+                let startValue = 0;
+                const duration = 2000; // Animation duration in milliseconds
+                const incrementTime = Math.floor(duration / endValue);
+
+                const counterInterval = setInterval(() => {
+                    if (startValue < endValue) {
+                        startValue++;
+                        element.textContent = startValue;
+                    } else {
+                        clearInterval(counterInterval);
+                    }
+                }, incrementTime);
             }
-            return true; // Allow form submission
-        }
-        
-    document.getElementById("jobApplicationForm").onsubmit = function(event) {
-        const applyButton = document.getElementById("applyButton");
 
-        // Check the application confirmation before submission
-        if (!confirmApplication()) {
-            return false; // Prevent submission if CGPA requirement not met
-        }
 
-        // Change button text and disable it after validation
-        applyButton.innerHTML = "Applied"; // Change button text
-        applyButton.disabled = true; // Disable button to prevent further submissions
-        
-        // Allow form submission to proceed
-        return true; // Make sure to return true to submit the form
-    }
-    const sidebar = document.querySelector('.sidebar');
+
+            // Adjust main content and container margin based on sidebar width
+            const sidebar = document.querySelector('.sidebar');
             const mainContent = document.querySelector('.main-content');
             const container = document.querySelector('.container');
-    
+
             sidebar.addEventListener('mouseenter', () => {
                 mainContent.style.marginLeft = '270px'; // Expanded sidebar width
                 container.style.marginLeft = '270px'; // Adjust container margin
             });
-    
             sidebar.addEventListener('mouseleave', () => {
                 mainContent.style.marginLeft = '245px'; // Normal sidebar width
                 container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
             });
-    
-            // Example of how to log these values
-            console.log("Total Applications:", dashboardStats.totalApplications);
-            console.log("Active Jobs:", dashboardStats.activeJobs);
-            console.log("Profile Completion:", dashboardStats.profileCompletion);
+
+
         });
     </script>
+
 </body>
+
 </html>
