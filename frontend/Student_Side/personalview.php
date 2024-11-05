@@ -503,7 +503,8 @@ button:hover {
     <div class="main-content">
         <div class="sub-sidebar">
             <div class="profile-picture">
-                 <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()"> <!-- Add your profile picture source here -->
+                 <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()"> 
+                 <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="ProfilePicture(event)"><!-- Add your profile picture source here -->
             </div>
          <!-- Profile Picture Section -->
             <div class="tabs">
@@ -571,6 +572,17 @@ button:hover {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('profileIcon').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function ProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('sidebarProfilePicture').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
