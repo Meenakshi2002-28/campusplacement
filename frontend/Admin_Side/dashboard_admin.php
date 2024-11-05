@@ -128,11 +128,7 @@ if (isset($_SESSION['user_id'])) {
     position: absolute;
     top: 10px;
     left: 10px;
-    }
-    .logo {
-    height: 55px;
-    width: auto;
-    }
+}
 
 
 </style>
