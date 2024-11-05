@@ -132,7 +132,7 @@ if (isset($_SESSION['user_id'])) {
   background: #fff;
   border-radius: 10px;
   margin-left: 10px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
 }
 .wrapper header{
   display: flex;
@@ -417,7 +417,7 @@ header .current-date{
         color: #000000; /* White text for better contrast */
         transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
         border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Soft shadow effect */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);/* Soft shadow effect */
         }
         .card-text i {
         margin-right: 10px;
