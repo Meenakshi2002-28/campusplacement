@@ -206,11 +206,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-size: 14px; /* Adjust the font size */
             margin-left: 5px;
         }
+        .logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    }
+    .logo {
+    height: 55px;
+    width: auto;
+    }
 
     </style>
 </head>
 <body>
-
+    <div class="logo-container">
+        <img src="../frontend/images/logo1.png" alt="Logo" class="logo">
+    </div>
     <div class="login-container">
         <!-- Login Box -->
         <div class="login-box">

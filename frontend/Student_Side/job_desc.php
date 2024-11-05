@@ -44,6 +44,7 @@ if ($result->num_rows > 0) {
     exit;
 }
 
+
 // Close the database connection
 $conn->close();
 ?>
@@ -325,10 +326,38 @@ $conn->close();
         font-size: 20px;
         margin-top: 210px;
     }
+    .logo-container {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        }
+        .logo {
+        height: 50px;
+        width: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="../images/logo1.png" alt="Logo" class="logo">
+    </div>
+    <div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        
+        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <div id="dropdownMenu" class="dropdown-content">
+            <a href="../Student_Side/profile_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
+    </div>
 
 </style>
 </head>
 <body>
+<div class="logo-container">
+        <img src="../images/logo1.png" alt="Logo" class="logo">
+    </div>
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
@@ -341,14 +370,14 @@ $conn->close();
     </div> 
 
 <div class="sidebar">
-    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
-    <a href="#jobs"><i class="fa fa-fw fa-search"></i> Jobs</a>
+    <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a href="jobs.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
     <a href="#applications"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-    <a href="#company"><i class="fa fa-fw fa-building"></i> Company</a>
-    <a href="storepr_std.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-    <a href="#feedback"><i class="fa fa-fw fa-comment"></i> Feedback</a>
+    <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
+    <a href="profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+    <a href="feedback.html"><i class="fa fa-fw fa-comment"></i> Feedback</a>
     <div class="logout">
-        <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
     </div>
 </div>
 <div class="main-content">

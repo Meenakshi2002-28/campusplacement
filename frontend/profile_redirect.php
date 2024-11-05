@@ -32,11 +32,11 @@ $stmt->fetch();
 
 // If current_year and phone_number exist, redirect to view.php
 if ($stmt->num_rows > 0 && !empty($current_year) && !empty($phone_number)) {
-    header("Location:Student_Side/view.php"); // Redirect to view details
+    header("Location:Student_Side/personalview.php"); // Redirect to view details
     exit();
 } else {
     // If no records found, redirect to storepr_std.php
-    header("Location:Student_Side/storepr_std.php"); // Redirect to store details
+    header("Location:Student_Side/personal.php"); // Redirect to store details
     exit();
 }
 
