@@ -292,14 +292,16 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
+        <!-- Logo or Website Name -->
+        <div class="logo">Lavoro</div>
+        <a href="dashboard_std.php" class="active"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
-        <a href="picture.php"><i class="fa fa-fw fa-building"></i> Company</a>
+        <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
         <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
         <a href="feedbackview.php"><i class="fa fa-fw fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="../logout,php"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 <div class="main-content">
