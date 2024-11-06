@@ -498,7 +498,7 @@ header .current-date{
 <body>
 <div class="container">
         <h3>Welcome to Lavaro</h3>
-        <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
