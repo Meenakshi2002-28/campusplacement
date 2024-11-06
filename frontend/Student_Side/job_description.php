@@ -227,7 +227,7 @@ $conn->close();
         }
 
         .icon {
-            margin-left: 15px;
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -235,7 +235,10 @@ $conn->close();
         .icon:hover {
             transform: scale(1.1);
         }
-
+        img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
@@ -248,6 +251,8 @@ $conn->close();
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -267,7 +272,6 @@ $conn->close();
             background-color: #1e3d7a;
         }
 
-
         .sidebar .logo {
             position: absolute;
             top: 20px;
@@ -281,27 +285,20 @@ $conn->close();
 
             text-align: center;
         }
-        img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
+
         .main-content {
             margin-left: 245px;
-            margin-top: 13px;
-            margin-right: 20px;
-            /* Default margin for sidebar */
+            margin-top: 13px; 
+            margin-right: 20px;/* Default margin for sidebar */
             padding: 40px;
-
+            font-size: 18px;
             color: #333;
             border-radius: 10px;
-            transition: margin-left 0.4s ease-in-out;
-            /* Smooth transition for margin */
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
             background-color: #ffffff;
             height: 86.5vh;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            /* Add shadow effect */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
             overflow-y: auto;
-            overflow-x: hidden;
         }
 
         .job-details {
@@ -412,6 +409,7 @@ $conn->close();
         .form-group input {
             display: inline-block;
             width: 150px;
+            margin-left: 50px;
         }
 
         form label {
@@ -447,10 +445,10 @@ $conn->close();
             margin-left: 370px;
             text-align: center;
             line-height: 40px;
-            padding: 0px;
             box-sizing: content-box;
             font-weight: 600;
             color:white;
+            padding: 3px 7px;
         }
 
         .jobimg a {
@@ -525,7 +523,7 @@ $conn->close();
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon"
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon"
             onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*"
             onchange="changeProfilePicture(event)">
