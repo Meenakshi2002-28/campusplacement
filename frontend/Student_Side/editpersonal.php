@@ -453,6 +453,11 @@ button:hover {
     height: 100%;
     object-fit: cover; /* Ensures the image scales properly within the div */
 }
+.error-message {
+            color: red;
+            font-size: 12px; /* Make the error message text smaller */
+            margin-top: 5px; /* Add space between input and error message */
+        }
 
     </style>
 </head>
@@ -610,6 +615,157 @@ button:hover {
             </div>
     <!-- JavaScript -->
     <script>
+          function validateDOB() {
+            const dob = document.getElementById('dob').value;
+            const dobError = document.getElementById('dob-error');
+            const minDate = new Date('1990-01-01');
+            const maxDate = new Date('2009-01-01');
+            const selectedDate = new Date(dob);
+
+            if (selectedDate < minDate || selectedDate > maxDate) {
+                dobError.textContent = "Date of birth must be between 1st Jan 1990 and 1st Jan 2009.";
+                return false;
+            } else {
+                dobError.textContent = ""; // Clear error
+                return true;
+            }
+        }
+
+        // Validate Phone Number
+        function validatePhone() {
+            const phone = document.getElementById('number').value;
+            const phoneError = document.getElementById('phone-error');
+            const phoneRegex = /^[0-9]{10}$/; // Regex for 10 digits
+
+            if (!phoneRegex.test(phone)) {
+                phoneError.textContent = "Phone number must be a 10-digit number.";
+                return false;
+            } else {
+                phoneError.textContent = ""; 
+                return true;// Clear error
+            }
+        }
+
+        // Validate Email
+        function validateEmail() {
+            const email = document.getElementById('email').value;
+            const emailError = document.getElementById('email-error');
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/; // Simple email regex
+
+            if (!emailRegex.test(email)) {
+                emailError.textContent = "Please enter a valid email address.";
+                return false;
+            } else {
+                emailError.textContent = "";
+                return true; // Clear error
+            }
+        }
+        function isNumeric(value) {
+    return !isNaN(value) && value.trim() !== ""; // Check if the value is a number and not empty
+}
+
+function validateCGPA() {
+    const cgpa = document.getElementById('cgpa');
+    const errorContainer = document.getElementById('cgpa-error');
+    
+    // Clear previous error message
+    errorContainer.textContent = ""; 
+
+    // Check if CGPA is a numeric value
+    if (!isNumeric(cgpa.value)) {
+        errorContainer.textContent = "CGPA must be a numeric value.";
+        return false; // Validation failed
+    }
+
+    // Check if CGPA is within the range of 0 to 10
+    const cgpaValue = parseFloat(cgpa.value);
+    if (cgpaValue < 0 || cgpaValue > 10) {
+        errorContainer.textContent = "CGPA must be between 0 and 10.";
+        return false; // Validation failed
+    }
+
+    return true; // Validation passed
+}
+
+function validatePercentage12th() {
+    const percentage12th = document.getElementById('percentage_twelfth');
+    const errorContainer = document.getElementById('percentage12th-error');
+    
+    // Clear previous error message
+    errorContainer.textContent = ""; 
+
+    if (!isNumeric(percentage12th.value)) {
+        errorContainer.textContent = "Percentage in 12th must be a numeric value.";
+        return false; // Validation failed
+    }
+    return true; // Validation passed
+}
+
+function validatePercentage10th() {
+    const percentage10th = document.getElementById('percentage_tenth');
+    const errorContainer = document.getElementById('percentage10th-error');
+    
+    // Clear previous error message
+    errorContainer.textContent = ""; 
+
+    if (!isNumeric(percentage10th.value)) {
+        errorContainer.textContent = "Percentage in 10th must be a numeric value.";
+        return false; // Validation failed
+    }
+    return true; // Validation passed
+}
+window.onload = function() {
+    document.getElementById('cgpa').onblur = validateCGPA;
+    document.getElementById('percentage_twelfth').onblur = validatePercentage12th;
+    document.getElementById('percentage_tenth').onblur = validatePercentage10th;
+};
+function validateForm() {
+    let isValid = true;
+    const errorContainer = document.getElementById('form-error');
+    errorContainer.textContent = ""; // Clear previous error message
+
+    // Call individual validations
+    if (!validateDOB()) isValid = false;
+    if (!validatePhone()) isValid = false;
+    if (!validateEmail()) isValid = false;
+
+    // Check if branch is selected
+    const branch = document.getElementById('branch').value;
+    if (branch === "") {
+        isValid = false;
+    }
+
+    // Check if course is selected
+    const course = document.getElementById('course').value;
+    if (course === "") {
+        isValid = false;
+    }
+
+    // Check if current year is selected
+    const currentYear = document.getElementById('current_year').value;
+    if (currentYear === "") {
+        isValid = false;
+    }
+
+    // Check if pass-out year is selected
+    const passOutYear = document.getElementById('pass_out_year').value;
+    if (passOutYear === "") {
+        isValid = false;
+    }
+
+    // Check if gender is selected
+    const gender = document.querySelector('input[name="gender"]:checked');
+    if (!gender) {
+        isValid = false;
+    }
+
+    // If any required field is missing, show a unified error message
+    if (!isValid) {
+        errorContainer.textContent = "All fields are required and must be valid.";
+    }
+
+    return isValid; // Form submits only if all validations pass
+}
         // Change Profile Picture
         function triggerFileInput() {
             document.getElementById('fileInput').click();
