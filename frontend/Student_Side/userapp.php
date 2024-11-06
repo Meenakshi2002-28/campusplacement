@@ -52,7 +52,7 @@ $conn->close();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-    body {
+body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
             color: #333;
@@ -121,6 +121,7 @@ $conn->close();
         .sidebar a:nth-child(5) { animation-delay: 0.4s; }
         .sidebar a:nth-child(6) { animation-delay: 0.5s; }
         .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
 
         .sidebar a i {
             margin-right: 15px;
@@ -153,16 +154,6 @@ $conn->close();
     height: 45px;
     
 }
-.sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
 
 
         /* Main content styling */
@@ -179,7 +170,6 @@ $conn->close();
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
             overflow-y: auto;
-            overflow-x: hidden; 
             
         }
 
@@ -195,6 +185,7 @@ $conn->close();
         .container {
             padding: 18px 20px;
             width: 1268px;
+            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -204,9 +195,54 @@ $conn->close();
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+}
+.icon {
+            margin-left: 1px;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
 
+        .icon:hover {
+            transform: scale(1.1);
+        }
+        img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
+
+/* Dropdown menu styling */
+.dropdown-content {
+            display: none;
+            opacity: 0;
+            position: absolute;
+            top: 70px;
+            right: 25px;
+            background: linear-gradient(135deg, #2F5597, #1e3d7a);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+        .dropdown-content.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1e3d7a;
+        }
         /* Table Styling */
         .applicants {
             margin-top: 20px;
@@ -262,82 +298,17 @@ $conn->close();
         .filters input[type="checkbox"] {
             margin-right: 10px;
         }
-        .small-icon {
-    width: 50px; /* Set desired width */
-    height: 50px; /* Set desired height */
-    object-fit: cover; /* Ensures the image scales properly */
-    border-radius: 50%;
-     /* Makes the image circular */
-}
-        .icon {
-            margin-left: 15px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .icon:hover {
-            transform: scale(1.1);
-        }
-
-        /* Dropdown menu styling */
-        .dropdown-content {
-            display: none;
-            opacity: 0;
-            position: absolute;
-            top: 70px;
-            right: 25px;
-            background: linear-gradient(135deg, #2F5597, #1e3d7a);
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-            z-index: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .dropdown-content.show {
-            display: block;
-            opacity: 1;
-        }
-
-        .dropdown-content a {
-            color: white;
-            padding: 12px;
-            text-decoration: none;
-            display: block;
-            transition: background-color 0.2s;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #1e3d7a;
-        }
-
-
-        .logout{
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-        }
-
-        .logout a {
-            font-size: 20px;
-            margin-top: 210px;
-        }
-        img {
-            height: 40px;
-            width: auto;
-        }
-
         
     </style>
 </head>
 <body>
 <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
@@ -393,23 +364,22 @@ $conn->close();
     </div>
 
     <script>
-
-        // Change profile image
-        function triggerFileInput() {
-                document.getElementById('fileInput').click();
-            }
+// Change Profile Picture
+function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
     
         function changeProfilePicture(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
-                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+                    document.getElementById('profileIcon').src = e.target.result;
                 };
-                reader.readAsDataURL(file); // Read the image file
+                reader.readAsDataURL(file);
             }
         }
+    
         // Dropdown toggle with smooth opening
         function toggleDropdown() {
             const dropdown = document.getElementById("dropdownMenu");
@@ -449,9 +419,25 @@ $conn->close();
                 });
             });
     
+            // Dashboard stats extraction
             
+            // Animate counter values
+            function animateCounter(element, endValue) {
+                let startValue = 0;
+                const duration = 2000; // Animation duration in milliseconds
+                const incrementTime = Math.floor(duration / endValue);
+                
+                const counterInterval = setInterval(() => {
+                    if (startValue < endValue) {
+                        startValue++;
+                        element.textContent = startValue;
+                    } else {
+                        clearInterval(counterInterval);
+                    }
+                }, incrementTime);
+            }
     
-            
+          
     
             // Adjust main content and container margin based on sidebar width
             const sidebar = document.querySelector('.sidebar');
@@ -468,7 +454,7 @@ $conn->close();
                 container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
             });
     
-            
+          
         });
     </script>
 </body>

@@ -94,6 +94,7 @@ $result = $conn->query($sql);
         .sidebar a:nth-child(5) { animation-delay: 0.4s; }
         .sidebar a:nth-child(6) { animation-delay: 0.5s; }
         .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
 
         .sidebar a i {
             margin-right: 15px;
@@ -126,10 +127,7 @@ $result = $conn->query($sql);
     height: 45px;
     
 }
-img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
+
 
         /* Main content styling */
         .main-content {
@@ -145,8 +143,6 @@ img {
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
             overflow-y: auto;
-            overflow-x: hidden; 
-            
         }
 
         .main-content h1 {
@@ -161,6 +157,7 @@ img {
         .container {
             padding: 18px 20px;
             width: 1268px;
+            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -170,11 +167,10 @@ img {
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
-
-        .icon {
-            margin-left: 15px;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+}
+.icon {
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -182,7 +178,10 @@ img {
         .icon:hover {
             transform: scale(1.1);
         }
-
+        img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
@@ -195,6 +194,8 @@ img {
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -213,7 +214,6 @@ img {
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
-
         
         .sidebar .logo {
     position: absolute;
