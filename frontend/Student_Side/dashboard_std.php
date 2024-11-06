@@ -126,8 +126,9 @@ if (isset($_SESSION['user_id'])) {
 }
 
 .wrapper{
-  width: 450px;
-  height: 380px;
+    margin-top: 20px;
+  width: 300px;
+  height: 300px;
   overflow: hidden;
   background: #fff;
   border-radius: 10px;
@@ -162,7 +163,7 @@ header .icons span:hover{
   background: #f2f2f2;
 }
 header .current-date{
-  font-size: 1.45rem;
+  font-size: .5rem;
   font-weight: 500;
 }
 .calendar{
@@ -180,9 +181,10 @@ header .current-date{
 .calendar li{
   color: #333;
   width: calc(100% / 7);
-  font-size: 1.07rem;
+  font-size: .5rem;
 }
 .calendar .weeks li{
+
   font-weight: 500;
   cursor: default;
 }
@@ -452,18 +454,56 @@ header .current-date{
     margin-right: 450px;
     font-weight: 700;
 }
+/* Scrolling Section Styling */
+.scrolling-section {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #ffffff; Background color matching main content */
+    padding: 10px 0;
+    /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+    border-radius: 10px;
+    /* margin-top: 20px; */
+    margin-top: 60px;
+}
+
+.scrolling-logos {
+    display: inline-block;
+    animation: slide 30s linear infinite;
+    white-space: nowrap;
+}
+
+.scrolling-logos .logo {
+    height: 30px; /* Adjust logo height */
+    margin: 0 15px; /* Spacing between logos */
+    object-fit: contain;
+    transition: transform 0.3s;
+}
+
+.scrolling-logos .logo:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Scrolling Animation */
+@keyframes slide {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
     </style>
 </head>
 <body>
-    <!-- Profile Container -->
-    <div class="container">
+<div class="container">
         <h3>Welcome to Lavaro</h3>
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href=" ../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>    
@@ -482,7 +522,9 @@ header .current-date{
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
-<div class="main-content">
+
+    <!-- Main Content -->
+    <div class="main-content">
         <h1>Welcome, <?php echo htmlspecialchars($name); ?></h1>
 
         <!-- Dashboard Statistics Cards -->
@@ -515,32 +557,50 @@ header .current-date{
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Profile Completion</h5>
-                        <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter" id="profile-completion"> <?php echo $profile_completion; ?>%</span><b> %</b>Complete</p>
+                        <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter" id="profile-completion"> <?php echo $profile_completion; ?>%</span> Complete</p>
                     </div>
                 </div>
             </div>
-            <div class="wrapper">
-      <header>
-        <p class="current-date"></p>
-        <div class="icons">
-          <span id="prev" class="material-symbols-rounded">chevron_left</span>
-          <span id="next" class="material-symbols-rounded">chevron_right</span>
         </div>
-      </header>
-      <div class="calendar">
-        <ul class="weeks">
-          <li>Sun</li>
-          <li>Mon</li>
-          <li>Tue</li>
-          <li>Wed</li>
-          <li>Thu</li>
-          <li>Fri</li>
-          <li>Sat</li>
-        </ul>
-        <ul class="days"></ul>
-      </div>
+
+        <!-- Calendar Section -->
+        <div class="wrapper">
+            <header>
+                <p class="current-date"></p>
+                <div class="icons">
+                    <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                    <span id="next" class="material-symbols-rounded">chevron_right</span>
+                </div>
+            </header>
+            <div class="calendar">
+                <ul class="weeks">
+                    <li>Sun</li>
+                    <li>Mon</li>
+                    <li>Tue</li>
+                    <li>Wed</li>
+                    <li>Thu</li>
+                    <li>Fri</li>
+                    <li>Sat</li>
+                </ul>
+                <ul class="days"></ul>
+            </div>
+        </div>
+
+        <!-- Scrolling Marquee Section for Company Logos -->
+        <div class="scrolling-section">
+    <div class="scrolling-logos">
+        <img src="../images/company_logo/infosys.png" alt="Company 1" class="logo">
+        <img src="../images/company_logo/tcs.png" alt="Company 2" class="logo">
+        <img src="https://framerusercontent.com/images/bNcmzTEX4AQx6bHzeTNLOAvPhM.png" alt="Company 3" class="logo">
+        <img src="https://framerusercontent.com/images/BP0vuq7mtsXsInJhngcYqwUFk4.png" alt="Company 4" class="logo">
+        <img src="../images/company_logo/infosys.png" alt="Company 1" class="logo">
+        <img src="../images/company_logo/tcs.png" alt="Company 2" class="logo">
+        <img src="https://framerusercontent.com/images/bNcmzTEX4AQx6bHzeTNLOAvPhM.png" alt="Company 3" class="logo">
+        <img src="https://framerusercontent.com/images/BP0vuq7mtsXsInJhngcYqwUFk4.png" alt="Company 4" class="logo">
+     
     </div>
-        </div>
+</div>
+
     </div>
     <script>
         const daysTag = document.querySelector(".days"),
