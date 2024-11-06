@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['response'])) {
     position: fixed;
     left: 0;
     top: 0;
-    background: #2a2185;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
@@ -214,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['response'])) {
         }
 
         .icon {
-            margin-left: 15px;
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -222,19 +222,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['response'])) {
         .icon:hover {
             transform: scale(1.1);
         }
+        img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
+
 
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
-            top: 55px;
-            right: 20px;
+            top: 70px;
+            right: 25px;
             background: linear-gradient(135deg, #2F5597, #1e3d7a);
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -253,7 +260,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['response'])) {
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
-
         
         .sidebar .logo {
     position: absolute;
@@ -281,21 +287,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['response'])) {
             margin-bottom: 10px;
         }
 
-        .feedback-response .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
+        .user-info img{
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 35px; /* Set the size for the icon */
+    height: 35px;
+    border-radius: 50%; /* Makes the icon circular if it's a square */
+}
         .feedback-response .user-info .name {
             font-weight: bold;
             font-size: 18px;
+            padding-top: 7px;
+            padding-left: 5px;
         }
 
         .feedback-response p {
             color: #333;
             font-size: 16px;
+            margin-left: 42px;
         }
 
         .response-container {
@@ -318,7 +327,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['response'])) {
         100% { background-position: 100% 50%; }
     }
         textarea:hover {
-         transform: scale(1.03);
+         transform: scale(1.01);
          box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
         }
             
@@ -336,7 +345,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['response'])) {
             text-transform: uppercase;
             font-size: 15px;
             transition: all 0.5s ease;
-            margin-left:400px;
+            margin-left:550px;
+            font-weight: 700;
 }
 
  button:hover {
@@ -362,29 +372,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['response'])) {
             margin-right: 10px;
         }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #2F5597;
-            min-width: 150px;
-            z-index: 1;
-            top: 55px;
-            right: 0;
-            border-radius: 3px;
-        }
-
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #1e165f;
-            color: white;
-            border-radius: 3px;
-        }
+        
         .logo-container {
         position: absolute;
         top: 10px;
@@ -397,34 +385,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['response'])) {
     </style>
 </head>
 <body>
-    <!-- Profile Container -->
-    <div class="container">
-        <img src="../profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
+<div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div>    
+    </div>
+   
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
-        
-        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
-        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
-        <a href="#placement"><i class="fas fa-laptop-code"></i>Placements</a>
-        <a href="#company"><i class="fa fa-building"></i> Company</a>
-        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
-        <div class="logout">
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
-        </div>
+    <!-- Logo or Website Name -->
+    <div class="logo">Lavoro</div>
+    <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
+    <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="company.html"><i class="fas fa-building"></i> Company</a>
+    <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+    <a href="feedbacklist.php" class="active"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
     </div>
+</div>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -438,8 +425,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['response'])) {
     
         <div class="response-container">
             <form method="POST" action="">
-                <label for="response">Your Response:</label>
-                <textarea name="response" id="response" required><?php echo $response_text; ?></textarea>
+               
+                <textarea name="response" id="response" required placeholder="enter your response here..."><?php echo $response_text; ?></textarea>
                 <button type="submit">SUBMIT</button>
             </form>
             </div>

@@ -36,8 +36,9 @@ $result = $conn->query($sql);
             overflow: hidden;
 
         }
-    /* Sidebar styling */
-    .sidebar {
+
+        /* Sidebar styling */
+        .sidebar {
     width: 220px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -47,12 +48,11 @@ $result = $conn->query($sql);
     position: fixed;
     left: 0;
     top: 0;
-    background: #2a2185;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
     padding-top: 80px; /* Added padding for space at the top */
-    overflow: hidden;
 }
 
 
@@ -98,6 +98,7 @@ $result = $conn->query($sql);
         .sidebar a:nth-child(5) { animation-delay: 0.4s; }
         .sidebar a:nth-child(6) { animation-delay: 0.5s; }
         .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
 
         .sidebar a i {
             margin-right: 15px;
@@ -131,6 +132,7 @@ $result = $conn->query($sql);
     
 }
 
+
         /* Main content styling */
         .main-content {
             margin-left: 245px;
@@ -144,8 +146,8 @@ $result = $conn->query($sql);
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-            overflow-x: auto;
             overflow-y: auto;
+            
         }
 
         .main-content h1 {
@@ -160,6 +162,7 @@ $result = $conn->query($sql);
         .container {
             padding: 18px 20px;
             width: 1268px;
+            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -169,11 +172,11 @@ $result = $conn->query($sql);
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
         }
 
         .icon {
-            margin-left: 15px;
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -181,19 +184,25 @@ $result = $conn->query($sql);
         .icon:hover {
             transform: scale(1.1);
         }
+        img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
 
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
-            top: 55px;
-            right: 20px;
+            top: 70px;
+            right: 25px;
             background: linear-gradient(135deg, #2F5597, #1e3d7a);
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -225,7 +234,7 @@ $result = $conn->query($sql);
     text-align: center;
 }
 .feedback-container {
-    margin-top: -30px;
+    margin-top: -10px;
     padding: 5px;
 }
 
@@ -233,7 +242,7 @@ $result = $conn->query($sql);
     background-color: #ffffff;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     padding: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border-radius: 20px;
     border-style:linear-gradient(130deg, #f5f7fa,rgb(181, 181, 255));
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -262,6 +271,7 @@ $result = $conn->query($sql);
 .feedback-item p {
     color: #000000;
     font-size: 16px;
+    margin-left: 50px;
 }
 
 button {
@@ -277,7 +287,8 @@ button {
     cursor: pointer;
     border-radius: 10px;
     margin-top:-70px;
-    margin-left:5px;
+    margin-left:1000px;
+    font-weight: 600;
 }
 .logo-container {
         position: absolute;
@@ -294,46 +305,48 @@ button {
     gap: 10px; /* Adjust spacing between icon and name as needed */
 }
 
-.icon {
-    width: 50px; /* Set the size for the icon */
-    height: 50px;
+.user-info img{
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 35px; /* Set the size for the icon */
+    height: 35px;
     border-radius: 50%; /* Makes the icon circular if it's a square */
 }
-.user-info img{
-    width: 50px; /* Set the size for the icon */
-    height: 50px;
-    border-radius: 50%; /* Makes the icon circular if it's a square */
+.user-info h5{
+    padding-top: 7px;
 }
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
-        </div>
-    </div>    
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
-        
-        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
-        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
-        <a href="#placement"><i class="fas fa-laptop-code"></i>Placements</a>        <a href="#company"><i class="fa fa-building"></i> Company</a>
-        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
-        <div class="logout">
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
+   
+
+    <!-- Sidebar -->
+        <!-- Sidebar -->
+        <div class="sidebar">
+    <!-- Logo or Website Name -->
+    <div class="logo">Lavoro</div>
+    <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
+    <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="company.html"><i class="fas fa-building"></i> Company</a>
+    <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+    <a href="feedbacklist.php"  class="active"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
+</div>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -344,7 +357,7 @@ button {
                 while($row = $result->fetch_assoc()) {
                     echo '<div class="feedback-item">';
                     echo '<div class="user-info">';
-                    echo '<img src="../profile.png" alt="User Profile">'; // Replace with actual user profile image if available
+                    echo '<img src="../images/profile.png" alt="User Profile">'; // Replace with actual user profile image if available
                     echo '<h5>' . htmlspecialchars($row["name"]) . '</h5>';
                     echo '</div>';
                     echo '<p>' . htmlspecialchars($row["feedback"]) . '</p>';

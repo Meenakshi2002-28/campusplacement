@@ -41,7 +41,7 @@ $conn->close();
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <style>
+    <style> 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
@@ -113,7 +113,6 @@ $conn->close();
         .sidebar a:nth-child(7) { animation-delay: 0.6s; }
         .sidebar a:nth-child(8) { animation-delay: 0.7s; }
 
-
         .sidebar a i {
             margin-right: 15px;
             transition: transform 0.3s;
@@ -145,16 +144,6 @@ $conn->close();
     height: 45px;
     
 }
-.sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
 
 
         /* Main content styling */
@@ -170,6 +159,7 @@ $conn->close();
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            overflow-y: auto;
             
         }
 
@@ -185,6 +175,7 @@ $conn->close();
         .container {
             padding: 18px 20px;
             width: 1268px;
+            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -194,11 +185,10 @@ $conn->close();
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
-
-        .icon {
-            margin-left: 15px;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+}
+.icon {
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -210,6 +200,7 @@ $conn->close();
         height: 40px; /* Adjust size as needed */
         width: auto;
     }
+
 
         /* Dropdown menu styling */
         .dropdown-content {
@@ -223,6 +214,8 @@ $conn->close();
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -250,6 +243,10 @@ $conn->close();
     margin: 0;
     cursor: pointer;
 }
+.profile{
+    margin-top: 0px;
+    margin-left: 5px;
+}
 
 .text {
     padding-top: 1px;
@@ -263,7 +260,7 @@ $conn->close();
 
 .details {
     background-color: white;
-    padding-left: 200px;
+    
 
     max-width: 700px;
     margin: auto;
@@ -272,7 +269,7 @@ $conn->close();
 
 .details.active {
     background-color: #ffffff;
-    padding-left: 150px;
+    
     display: block;
 }
 
@@ -334,66 +331,64 @@ button:hover {
 <body>
     <!-- Profile Container -->
     <div class="container">
-       
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
+<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
-        </div>
-    </div>    
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
-        
-        <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php" ><i class="fas fa-briefcase"></i> Jobs</a>
-        <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
-        <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
-        <a href="company.html"><i class="fas fa-building"></i> Company</a>
-        <a href="profile_admin.php" class="active"><i class="fas fa-user"></i> Profile</a>
-        <a href="feedback_list.html"><i class="fas fa-comment"></i> Feedback</a>
-        <div class="logout">
+            <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
-<div class="main-content">
+    
 
-<div class="profile">
+    <!-- Sidebar -->
+        <!-- Sidebar -->
+        <div class="sidebar">
+    <!-- Logo or Website Name -->
+    <div class="logo">Lavoro</div>
+    <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
+    <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="company.html"><i class="fas fa-building"></i> Company</a>
+    <a href="profile_admin.php"  class="active"><i class="fas fa-user"></i> Profile</a>
+    <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
+</div>
+<div class="main-content">
+    <div class="profile">
         <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()">
         <div class="text">
-        <h4><?php echo htmlspecialchars($adminDetails['name']); ?></h4> <!-- Admin's name -->
-        <p>Admin</p> 
+            <h4><?php echo htmlspecialchars($adminDetails['name']); ?></h4> <!-- Admin's name -->
+            <p>Admin</p> 
         </div>
-</div>
+    </div>
 
-<div id="personal" class="details active">
-    <h2>Personal Details</h2>
-    <form>
-        <table>
-            <tr>
-                <td>Name </td>
-                <td><input type="text" id="name" name="name" value="<?php echo htmlspecialchars($adminDetails['name']); ?>" readonly></td>
-            </tr>
-            <tr>
-                <td>Email </td>
-                <td><input type="text" id="email" name="email" value="<?php echo htmlspecialchars($adminDetails['email']); ?>" readonly></td>
-            </tr>
-            <tr>
-                <td>Phone No </td>
-                <td><input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($adminDetails['phone_number']); ?>" readonly></td>
-            </tr>
-        </table>
+    <div id="personal" class="details active">
+        <h2>Personal Details</h2>
+        <form>
+            <table>
+                <tr>
+                    <td>Name </td>
+                    <td><input type="text" id="name" name="name" value="<?php echo htmlspecialchars($adminDetails['name']); ?>" readonly></td>
+                </tr>
+                <tr>
+                    <td>Email </td>
+                    <td><input type="text" id="email" name="email" value="<?php echo htmlspecialchars($adminDetails['email']); ?>" readonly></td>
+                </tr>
+                <tr>
+                    <td>Phone No </td>
+                    <td><input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($adminDetails['phone_number']); ?>" readonly></td>
+                </tr>
+            </table>
         <div class="button-container">
             <button type="button" onclick="enableEdit()">EDIT</button> <!-- Add an edit button -->
         </div>
-    </form>
-</div>
+        </form>
+    </div>
 </div>
     
     <script>

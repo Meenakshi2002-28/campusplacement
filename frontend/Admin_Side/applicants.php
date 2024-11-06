@@ -58,20 +58,17 @@ $conn->close();
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
-
-
-
     
-    body {
-         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #d9e6f4;
-        color: #333;
-        overflow: hidden;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #d9e6f4;
+            color: #333;
+            overflow: hidden;
 
-    }
+        }
 
-/* Sidebar styling */
-.sidebar {
+        /* Sidebar styling */
+        .sidebar {
     width: 220px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -81,99 +78,77 @@ $conn->close();
     position: fixed;
     left: 0;
     top: 0;
-    background: #2a2185;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
     padding-top: 80px; /* Added padding for space at the top */
-    overflow: hidden;
 }
 
-.sidebar .logo {
-    position: absolute;
-    top: 20px; /* Positions logo/title closer to the top */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
 
-.sidebar:hover {
-    width: 250px; /* Expands sidebar on hover */
-}
+        .sidebar .logo {
+            position: absolute;
+            top: 20px; /* Positions logo/title closer to the top */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
 
-.sidebar a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 15px 25px;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
-    position: relative;
-    opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
-}
+        .sidebar:hover {
+            width: 250px; /* Expands sidebar on hover */
+        }
 
-/* Fade-in effect for sidebar links */
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateX(-20px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
 
-/* Delayed animation for each link */
-.sidebar a:nth-child(2) { animation-delay: 0.1s; }
-.sidebar a:nth-child(3) { animation-delay: 0.2s; }
-.sidebar a:nth-child(4) { animation-delay: 0.3s; }
-.sidebar a:nth-child(5) { animation-delay: 0.4s; }
-.sidebar a:nth-child(6) { animation-delay: 0.5s; }
-.sidebar a:nth-child(7) { animation-delay: 0.6s; }
-.sidebar a:nth-child(8) { animation-delay: 0.7s; }
+        /* Fade-in effect for sidebar links */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
 
-.sidebar a i {
-    margin-right: 15px;
-    transition: transform 0.3s;
-}
+        /* Delayed animation for each link */
+        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
+        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
+        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
+        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
+        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
+        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
 
-.sidebar a:hover {
-    background-color: #1e3d7a;
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
-}
+        .sidebar a i {
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
 
-.sidebar .logout {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-    text-align: center;
-}
+        .sidebar a:hover {
+            background-color: #1e3d7a;
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
+        }
 
-.sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-.logout{
-        position: absolute;
-        bottom: 20px;
-        width: 100%;
-}
-
-.logout a {
-    font-size: 20px;
-    margin-top: 210px;
-}
-
-.sidebar a.active {
+        .sidebar .logout {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+        }
+        .sidebar a.active {
     background-color: #d9e6f4; /* Background color for active link */
     border-left: 4px solid #ffffff;
     padding-left: 30px;
@@ -186,48 +161,49 @@ $conn->close();
     height: 45px;
     
 }
-    img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
-    /* Main content styling */
-.main-content {
-    margin-left: 245px;
-    margin-top: 13px; 
-    margin-right: 20px;/* Default margin for sidebar */
-    padding: 40px;
-    font-size: 18px;
-    color: #333;
-    border-radius: 10px;
-    transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-    background-color: #ffffff;
-    height: 86.5vh;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-    overflow-y: auto;
-}
 
-.main-content h1 {
-    color: #050505;
-    font-size: 2.5rem; /* Increased font size */
-    font-weight: bold;
-    padding-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-    .container {
-    padding: 18px 20px;
-    width: 1268px;
-    margin-left: 245px; /* Default margin for container */
-    margin-top: 12px;
-    margin-right: 20px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff;
-    transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-}
 
+        /* Main content styling */
+        .main-content {
+            margin-left: 245px;
+            margin-top: 13px; 
+            margin-right: 20px;/* Default margin for sidebar */
+            padding: 40px;
+            font-size: 18px;
+            color: #333;
+            border-radius: 10px;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            background-color: #ffffff;
+            height: 86.5vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            overflow-y: auto;
+            
+        }
+
+        .main-content h1 {
+            color: #050505;
+            font-size: 2.5rem; /* Increased font size */
+            font-weight: bold;
+            padding-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Profile section styling */
+        .container {
+            padding: 18px 20px;
+            width: 1268px;
+            height: 55px;
+            margin-left: 245px; /* Default margin for container */
+            margin-top: 12px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+        }
 .icon {
             margin-left: 15px;
             cursor: pointer;
@@ -236,19 +212,25 @@ $conn->close();
         .icon:hover {
             transform: scale(1.1);
         }
+        img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
 /* Dropdown menu styling */
 .dropdown-content {
-    display: none;
-    opacity: 0;
-    position: absolute;
-    top: 55px;
-    right: 20px;
-    background: linear-gradient(135deg, #2F5597, #1e3d7a);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    z-index: 1;
-    transition: opacity 0.3s ease;
-}
+            display: none;
+            opacity: 0;
+            position: absolute;
+            top: 70px;
+            right: 25px;
+            background: linear-gradient(135deg, #2F5597, #1e3d7a);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
 
 .dropdown-content.show {
     display: block;
@@ -305,7 +287,7 @@ $conn->close();
         /* Filter Section */
         .filters {
             position: absolute;
-            top: 150px;
+            top: 100px;
             right: 30px;
             background-color: white;
             padding: 5px;
@@ -317,7 +299,7 @@ $conn->close();
 
         .filters label {
             display: block;
-            padding: 2px;
+            padding: 1px;
             font-size: 14px;
             
         }
@@ -340,6 +322,15 @@ $conn->close();
             height: 40px;
             width: auto;
         }
+        .icon {
+            margin-left: 1px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
 
        
 .filters button {
@@ -355,10 +346,10 @@ $conn->close();
     border: none;
     cursor: pointer;
     display: block;
-    margin-top: 10px;
+    margin-top: 0;
     margin-left: auto;
     margin-right: auto;
-    font-size: 13px;
+    font-size: 14px;
     transition: all 0.475s;
 }
 
@@ -393,30 +384,32 @@ input[type="file"]{
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-
-        <i class="fas fa-caret-down fa-2x" aria-hidden="true" onclick="toggleDropdown()"></i>
+<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Admin_Side/profile_admin.php"><i class="fa fa-fw fa-user"></i> Profile</a>
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
-        </div>
-    </div> 
-
-    <div class="sidebar">
-        <div class="logo">Lavoro</div>
-        <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
-        <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
-        <a href="placedstd_admin.php"><i class="fas fa-laptop-code"></i>Placements</a>
-        <a href="company.html"><i class="fas fa-building"></i> Company</a>
-        <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-        <a href="#feedback"><i class="fas fa-comment"></i> Feedback</a>
-        <div class="logout">
+            <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+    <!-- Logo or Website Name -->
+    <div class="logo">Lavoro</div>
+    <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
+    <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="company.html"><i class="fas fa-building"></i> Company</a>
+    <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+    <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
+</div>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -472,8 +465,11 @@ input[type="file"]{
         <label><input type="checkbox" name="fields[]" value="percentage_tenth"> Tenth Percentage</label><br>
         <label><input type="checkbox" name="fields[]" value="percentage_twelfth"> Twelfth Percentage</label><br>
         <label><input type="checkbox" name="fields[]" value="resume" checked> Resume</label><br>
+ 
+    <button type="submit" class="button">
+        <span class="button-content">Export</span>
+    </button>
     </div>
-    <button type="submit">Export</button>
 </form>
 <!-- HTML Form to upload Excel file -->
 <form action="status.php" method="post" enctype="multipart/form-data">

@@ -53,6 +53,7 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
@@ -123,8 +124,6 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
         .sidebar a:nth-child(6) { animation-delay: 0.5s; }
         .sidebar a:nth-child(7) { animation-delay: 0.6s; }
         .sidebar a:nth-child(8) { animation-delay: 0.7s; }
-        
-
 
         .sidebar a i {
             margin-right: 15px;
@@ -172,6 +171,7 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            overflow-y: auto;
             
         }
 
@@ -187,6 +187,7 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
         .container {
             padding: 18px 20px;
             width: 1268px;
+            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -196,11 +197,10 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
-
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+        }
         .icon {
-            margin-left: 15px;
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -225,6 +225,8 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -311,61 +313,66 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
 
 /* Style the search bar container */
 .search-bar-container {
-    margin-right: 20px;
+    margin-left: 350px;
 }
 
 /* Style the search bar */
 .search-bar {
-    padding: 8px 12px;
+    padding: 5px 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 200px;
+    width: 250px;
 }
 
 .search-bar:focus {
     outline: none;
     border-color: #363636;
 }
+.search-bar-container button{
+    padding: 5px 15px;
+    background-color:  #1e165f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-    <div class="search-bar-container">
-        <input type="text" id="search-input" class="search-bar" placeholder="Search by User ID or Name...">
-        <button onclick="performSearch()">Search</button>
-    </div>
-    <div id="results-container"></div> <!-- Container to display search results -->
-        
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
+<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
-        </div>
-    </div>    
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
-        
-        <a href="dashboard_admin.php" class="active"><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php" ><i class="fas fa-briefcase"></i> Jobs</a>
-        <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
-        <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
-        <a href="company.html"><i class="fas fa-building"></i> Company</a>
-        <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-        <a href="feedback_list.html"><i class="fas fa-comment"></i> Feedback</a>
-        <div class="logout">
+            <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+    <!-- Logo or Website Name -->
+    <div class="logo">Lavoro</div>
+    <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
+    <a href="joblist_admin.php" ><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="view_students.php"class="active" ><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="company.html"><i class="fas fa-building"></i> Company</a>
+    <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+    <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
+</div>
 <div class="main-content">
+<div class="search-bar-container">
+        <input type="text" id="search-input" class="search-bar" placeholder="Search by Roll No or Name...">
+        <button onclick="performSearch()">Search</button>
+</div>
 <div class="students">
             <table>
                 <thead>
