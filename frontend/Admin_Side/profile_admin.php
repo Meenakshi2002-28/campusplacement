@@ -238,40 +238,49 @@ $conn->close();
 
 
 .profile img {
-    height: 160px;
+    height: 200px;
     width: auto;
     margin: 0;
-    padding-left:350px;
+    padding-left:150px;
     cursor: pointer;
+    border-radius: 50%;
+    object-fit: cover;
 }
 .profile{
-    margin-top: 0px;
+    margin-top: 50px;
     margin-left: 5px;
 }
 
 .text {
     padding-top: 1px;
-    padding-left:350px;
+    padding-left:150px;
+}
+.text p{
+    padding-left: 35px;
+    font-size: 22px;
+}
+.text h4{
+    font-size:23px;
+    padding-left:16px;
 }
 
 .text h4, p {
     margin: 2px;
-    font-size: 18px;
+    
     color: #000000;
 }
 
 .details {
     background-color: white;
-    
-
+    padding-left:260px;
     max-width: 700px;
     margin: auto;
+    margin-top:-200px;
     display: none;
 }
 
 .details.active {
     background-color: #ffffff;
-    
     display: block;
 }
 
