@@ -476,10 +476,10 @@ button:hover {
 <body>
     <!-- Profile Container -->
 <div class="container">
-    <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-    <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+    <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+   
     <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
+
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href=" ../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -506,8 +506,13 @@ button:hover {
         <div class="sub-sidebar">
             <div class="profile-picture">
                  <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()"> 
-                 <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="ProfilePicture(event)"><!-- Add your profile picture source here -->
+             <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="ProfilePicture(event)"><!-- Add your profile picture source here -->
+            
             </div>
+            <div class="text"style="padding-left: 35px;">
+            <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->
+             
+        </div>
          <!-- Profile Picture Section -->
             <div class="tabs">
                 <div class="tab active" onclick="showSection('personal')">Personal Details</div>
