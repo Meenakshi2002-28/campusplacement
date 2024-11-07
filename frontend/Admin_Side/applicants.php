@@ -203,8 +203,8 @@ $conn->close();
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
             transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
-.icon {
+        }
+        .icon {
             margin-left: 15px;
             cursor: pointer;
             transition: transform 0.3s;
