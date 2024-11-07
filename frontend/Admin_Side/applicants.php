@@ -381,6 +381,45 @@ input[type="file"]{
     padding-left: 550px;
 }
 
+/* Styling for the file upload section */
+form[action="status.php"] {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+form[action="status.php"] input[type="file"] {
+    width: auto;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form[action="status.php"] input[type="file"]:hover {
+    background-color: #e0e0e0;
+}
+
+form[action="status.php"] input[type="submit"] {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1e3d7a;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form[action="status.php"] input[type="submit"]:hover {
+    background-color: #3c6bb6;
+}
+
     </style>
 </head>
 <body>
@@ -415,12 +454,6 @@ input[type="file"]{
     <div class="main-content">
         <!-- Applicants Table -->
         <div class="applicants">
-            <!-- HTML Form to upload Excel file -->
-        <form action="status.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
-            <input type="file" name="excel_file" required>
-            <input type="submit" value="Upload Excel">
-        </form>
             <table>
                 <thead>
                     <tr>
