@@ -248,11 +248,13 @@ $conn->close();
     height: 160px;
     width: auto;
     margin: 0;
+    padding-left:350px;
     cursor: pointer;
 }
 
 .text {
     padding-top: 1px;
+    padding-left:350px;
 }
 
 .text h4, p {
