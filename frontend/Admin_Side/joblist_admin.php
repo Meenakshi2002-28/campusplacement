@@ -11,7 +11,18 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-// Handle delete request
+
+// Automatically disable jobs whose application deadline has passed
+$currentDate = date('Y-m-d'); // Get current date
+
+// Update the jobs with expired deadlines
+$updateExpiredJobsSql = "UPDATE job SET is_active = 0 WHERE application_deadline < ?";
+$stmt = $conn->prepare($updateExpiredJobsSql);
+$stmt->bind_param("s", $currentDate);
+$stmt->execute();
+$stmt->close();
+
+// Handle delete request for job manually (if needed)
 if (isset($_POST['delete_job_id'])) {
     $job_id = $_POST['delete_job_id'];
 
@@ -36,11 +47,11 @@ if (isset($_POST['delete_job_id'])) {
     }
 }
 
-// Fetch jobs from the database
-$sql = "SELECT job_id, job_title, company_name, location,  salary, application_deadline FROM job WHERE is_active = 1";
+// Fetch jobs from the database (active jobs)
+$sql = "SELECT job_id, job_title, company_name, location, salary, application_deadline FROM job WHERE is_active = 1";
 $result = $conn->query($sql);
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,16 +62,17 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
 <style>
-body {
-         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #d9e6f4;
-        color: #333;
-        overflow: hidden;
+    
+    body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #d9e6f4;
+            color: #333;
+        
 
-    }
+        }
 
-/* Sidebar styling */
-.sidebar {
+        /* Sidebar styling */
+        .sidebar {
     width: 220px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -70,79 +82,77 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    background: #2a2185;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
     padding-top: 80px; /* Added padding for space at the top */
-    overflow: hidden;
 }
 
-.sidebar .logo {
-    position: absolute;
-    top: 20px; /* Positions logo/title closer to the top */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
 
-.sidebar:hover {
-    width: 250px; /* Expands sidebar on hover */
-}
+        .sidebar .logo {
+            position: absolute;
+            top: 20px; /* Positions logo/title closer to the top */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
 
-.sidebar a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 15px 25px;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
-    position: relative;
-    opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
-}
+        .sidebar:hover {
+            width: 250px; /* Expands sidebar on hover */
+        }
 
-/* Fade-in effect for sidebar links */
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateX(-20px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
 
-/* Delayed animation for each link */
-.sidebar a:nth-child(2) { animation-delay: 0.1s; }
-.sidebar a:nth-child(3) { animation-delay: 0.2s; }
-.sidebar a:nth-child(4) { animation-delay: 0.3s; }
-.sidebar a:nth-child(5) { animation-delay: 0.4s; }
-.sidebar a:nth-child(6) { animation-delay: 0.5s; }
-.sidebar a:nth-child(7) { animation-delay: 0.6s; }
-.sidebar a:nth-child(8) { animation-delay: 0.7s; }
+        /* Fade-in effect for sidebar links */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
 
+        /* Delayed animation for each link */
+        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
+        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
+        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
+        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
+        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
+        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
 
-.sidebar a i {
-    margin-right: 15px;
-    transition: transform 0.3s;
-}
+        .sidebar a i {
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
 
-.sidebar a:hover {
-    background-color: #1e3d7a;
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
-}
+        .sidebar a:hover {
+            background-color: #1e3d7a;
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
+        }
 
-.sidebar .logout {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-    text-align: center;
-}
-
-.sidebar a.active {
+        .sidebar .logout {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+        }
+        .sidebar a.active {
     background-color: #d9e6f4; /* Background color for active link */
     border-left: 4px solid #ffffff;
     padding-left: 30px;
@@ -156,54 +166,65 @@ body {
     
 }
 
-img {
-    height: 40px;
-    width: auto;
+
+        /* Main content styling */
+        .main-content {
+            margin-left: 245px;
+            margin-top: 13px; 
+            margin-right: 20px;/* Default margin for sidebar */
+            padding: 40px;
+            font-size: 18px;
+            color: #333;
+            border-radius: 10px;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            background-color: #ffffff;
+            height: 86.5vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            overflow-y: auto;
+        }
+
+        .main-content h1 {
+            color: #050505;
+            font-size: 2.5rem; /* Increased font size */
+            font-weight: bold;
+            padding-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Profile section styling */
+        .container {
+            padding: 18px 20px;
+            width: 1268px;
+            height: 55px;
+            margin-left: 245px; /* Default margin for container */
+            margin-top: 12px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
 }
 
-/* Main content styling */
-.main-content {
-    margin-left: 245px;
-    margin-top: 13px; 
-    margin-right: 20px;/* Default margin for sidebar */
-    padding: 40px;
-    font-size: 18px;
-    color: #333;
-    border-radius: 10px;
-    transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-    background-color: #ffffff;
-    height: 86.5vh;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-    overflow-y: auto;
-}
-.sidebar:hover + .main-content {
-    margin-left: 270px; /* Adjust this value to match the expanded sidebar width */
-}
 
-.main-content h1 {
-    color: #050505;
-    font-size: 2.5rem; /* Increased font size */
-    font-weight: bold;
-    padding-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+.small-icon {
+    width: 50px; /* Set desired width */
+    height: 50px; /* Set desired height */
+    object-fit: cover; /* Ensures the image scales properly */
+    border-radius: 50%;
+     /* Makes the image circular */
 }
+.icon {
+            margin-left: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
 
-/* Profile section styling */
-.container {
-    padding: 18px 20px;
-    width: 1268px;
-    margin-left: 245px; /* Default margin for container */
-    margin-top: 12px;
-    margin-right: 20px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff;
-    transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-}
-
+        .icon:hover {
+            transform: scale(1.1);
+        }
 
 
 .text {
@@ -235,6 +256,7 @@ img {
 
 .job-table {
     border-collapse: collapse;
+    
 }
 
 .job-table th, .job-table td {
@@ -351,6 +373,7 @@ img {
  text-transform: uppercase;
   font-size: 17px;
   transition: all 0.5s ease;
+  
 }
 
 .create-button:hover {
@@ -379,7 +402,7 @@ img {
 }
 
 .icon {
-    margin-left: 15px;
+    margin-left: 1px;
     cursor: pointer;
     transition: transform 0.3s;
     
@@ -388,20 +411,26 @@ img {
 .icon:hover {
     transform: scale(1.1);
 }
+img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
 
 /* Dropdown menu styling */
 .dropdown-content {
-    display: none;
-    opacity: 0;
-    position: absolute;
-    top: 55px;
-    right: 20px;
-    background: linear-gradient(135deg, #2F5597, #1e3d7a);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    z-index: 1;
-    transition: opacity 0.3s ease;
-}
+            display: none;
+            opacity: 0;
+            position: absolute;
+            top: 70px;
+            right: 25px;
+            background: linear-gradient(135deg, #2F5597, #1e3d7a);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
 
 .dropdown-content.show {
     display: block;
@@ -479,32 +508,30 @@ img {
     <!-- Profile Container -->
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
+<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
-        </div>
-    </div>    
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
-        
-        <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
-        <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
-        <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
-        <a href="company.html"><i class="fas fa-building"></i> Company</a>
-        <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-        <a href="feedback_list.html"><i class="fas fa-comment"></i> Feedback</a>
-        <div class="logout">
+            <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+    <!-- Logo or Website Name -->
+    <div class="logo">Lavoro</div>
+    <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
+    <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="company.html"><i class="fas fa-building"></i> Company</a>
+    <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+    <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
+    <div class="logout">
+        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+    </div>
+</div>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -581,24 +608,23 @@ img {
             showSuccessMessage();
         <?php endif; ?>
 
-        // Change Profile Picture
         function triggerFileInput() {
             document.getElementById('fileInput').click();
         }
-    
-        function changeProfilePicture(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('profileIcon').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
+
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+            };
+            reader.readAsDataURL(file); // Read the image file
         }
-    
-        // Dropdown toggle with smooth opening
-        function toggleDropdown() {
+    }
+    // Dropdown toggle with smooth opening
+    function toggleDropdown() {
             const dropdown = document.getElementById("dropdownMenu");
             dropdown.classList.toggle("show");
         }
@@ -636,25 +662,7 @@ img {
                 });
             });
     
-            // Dashboard stats extraction
-            
-            // Animate counter values
-            function animateCounter(element, endValue) {
-                let startValue = 0;
-                const duration = 2000; // Animation duration in milliseconds
-                const incrementTime = Math.floor(duration / endValue);
-                
-                const counterInterval = setInterval(() => {
-                    if (startValue < endValue) {
-                        startValue++;
-                        element.textContent = startValue;
-                    } else {
-                        clearInterval(counterInterval);
-                    }
-                }, incrementTime);
-            }
-    
-          
+        
     
             // Adjust main content and container margin based on sidebar width
             const sidebar = document.querySelector('.sidebar');
@@ -670,8 +678,6 @@ img {
                 mainContent.style.marginLeft = '245px'; // Normal sidebar width
                 container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
             });
-    
-          
         });
     </script>
     

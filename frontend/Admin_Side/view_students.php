@@ -36,16 +36,18 @@ if ($result->num_rows > 0) {
 // Close connection
 $conn->close();
 
-// Return the results as JSON only if the request is an AJAX call
-if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
+// Only return JSON if the request is an AJAX call
+if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
     header('Content-Type: application/json');
     echo json_encode($students);
     exit; // Terminate the script to prevent HTML output
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,26 +65,29 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    height: 97vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-    transition: width 0.4s ease-in-out;
-    padding-top: 80px; /* Added padding for space at the top */
-}
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            /* Transparent glow effect */
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px;
+            /* Added padding for space at the top */
+        }
 
 
         .sidebar .logo {
             position: absolute;
-            top: 20px; /* Positions logo/title closer to the top */
+            top: 20px;
+            /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
             font-size: 24px;
@@ -92,7 +97,8 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
         }
 
         .sidebar:hover {
-            width: 250px; /* Expands sidebar on hover */
+            width: 250px;
+            /* Expands sidebar on hover */
         }
 
         .sidebar a {
@@ -111,20 +117,45 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
 
         /* Fade-in effect for sidebar links */
         @keyframes fadeIn {
-            0% { opacity: 0; transform: translateX(-20px); }
-            100% { opacity: 1; transform: translateX(0); }
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* Delayed animation for each link */
-        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
-        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
-        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
-        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
-        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
-        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
-        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
-        
+        .sidebar a:nth-child(2) {
+            animation-delay: 0.1s;
+        }
 
+        .sidebar a:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .sidebar a:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .sidebar a:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .sidebar a:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .sidebar a:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+
+        .sidebar a:nth-child(8) {
+            animation-delay: 0.7s;
+        }
 
         .sidebar a i {
             margin-right: 15px;
@@ -135,7 +166,8 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
             background-color: #1e3d7a;
             border-left: 4px solid #ffffff;
             padding-left: 30px;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            /* Glow effect */
         }
 
         .sidebar .logout {
@@ -144,40 +176,47 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
             width: 100%;
             text-align: center;
         }
+
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
-}
+            background-color: #d9e6f4;
+            /* Background color for active link */
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            color: #000000;
+            position: relative;
+            z-index: 1;
+            height: 45px;
+
+        }
 
 
         /* Main content styling */
         .main-content {
             margin-left: 245px;
-            margin-top: 13px; 
-            margin-right: 20px;/* Default margin for sidebar */
+            margin-top: 13px;
+            margin-right: 20px;
+            /* Default margin for sidebar */
             padding: 40px;
             font-size: 18px;
             color: #333;
             border-radius: 10px;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            transition: margin-left 0.4s ease-in-out;
+            /* Smooth transition for margin */
             background-color: #ffffff;
             height: 86.5vh;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-            
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            /* Add shadow effect */
+            overflow-y: auto;
+
         }
 
         .main-content h1 {
             color: #050505;
-            font-size: 2.5rem; /* Increased font size */
+            font-size: 2.5rem;
+            /* Increased font size */
             font-weight: bold;
             padding-bottom: 10px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -187,7 +226,9 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
         .container {
             padding: 18px 20px;
             width: 1268px;
-            margin-left: 245px; /* Default margin for container */
+            height: 55px;
+            margin-left: 245px;
+            /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
             display: flex;
@@ -196,11 +237,12 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            transition: margin-left 0.4s ease-in-out;
+            /* Smooth transition for margin */
         }
 
         .icon {
-            margin-left: 15px;
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -208,10 +250,12 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
         .icon:hover {
             transform: scale(1.1);
         }
+
         img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
+            height: 40px;
+            /* Adjust size as needed */
+            width: auto;
+        }
 
         /* Dropdown menu styling */
         .dropdown-content {
@@ -225,6 +269,8 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -243,26 +289,37 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
+
         .students {
             margin-top: 20px;
         }
+
         /* Card styling with hover effects */
         .card {
-            background: linear-gradient(135deg, #a2c4fb, #9babcd); /* Gradient background */
-        color: #000000; /* White text for better contrast */
-        transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Soft shadow effect */
+            background: linear-gradient(135deg, #a2c4fb, #9babcd);
+            /* Gradient background */
+            color: #000000;
+            /* White text for better contrast */
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            /* Soft shadow effect */
         }
+
         .card-text i {
-        margin-right: 10px;
-        font-size: 1.8rem;
-        color: #082765; /* Icon color */
-    }
+            margin-right: 10px;
+            font-size: 1.8rem;
+            color: #082765;
+            /* Icon color */
+        }
+
         .card:hover {
-            transform: scale(1.05); /* Scale effect on hover */
-            background-color: #e0e0ee; /* Light blue background on hover */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            transform: scale(1.05);
+            /* Scale effect on hover */
+            background-color: #e0e0ee;
+            /* Light blue background on hover */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            /* Shadow effect */
         }
 
         /* Counter animation */
@@ -272,101 +329,116 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
             color: #04070b;
             transition: transform 0.3s ease-in-out;
         }
+
         .sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-.container h3{
-    margin-right: 450px;
-    font-weight: 700;
-}
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    
-    th {
-        padding: 10px 20px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-    th, td {
-    padding: 10px 20px;
-}
+            position: absolute;
+            top: 20px;
+            /* Keep the same positioning */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            /* Increase the font size here */
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
 
-/* Style the top bar container */
-.top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 10px 20px;
-    position: relative;
-}
+        .container h3 {
+            margin-right: 450px;
+            font-weight: 700;
+        }
 
-/* Style the search bar container */
-.search-bar-container {
-    margin-right: 20px;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-/* Style the search bar */
-.search-bar {
-    padding: 8px 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 200px;
-}
+        th {
+            padding: 10px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-.search-bar:focus {
-    outline: none;
-    border-color: #363636;
-}
+        th,
+        td {
+            padding: 10px 20px;
+        }
+
+        /* Style the top bar container */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 10px 20px;
+            position: relative;
+        }
+
+        /* Style the search bar container */
+        .search-bar-container {
+            margin-left: 350px;
+        }
+
+        /* Style the search bar */
+        .search-bar {
+            padding: 5px 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 250px;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #363636;
+        }
+
+        .search-bar-container button {
+            padding: 5px 15px;
+            background-color: #1e165f;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
     </style>
 </head>
+
 <body>
     <!-- Profile Container -->
     <div class="container">
-    <div class="search-bar-container">
-        <input type="text" id="search-input" class="search-bar" placeholder="Search by User ID or Name...">
-        <button onclick="performSearch()">Search</button>
-    </div>
-    <div id="results-container"></div> <!-- Container to display search results -->
-        
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*"
+            onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div>    
+    </div>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
-        
-        <a href="dashboard_admin.php" class="active"><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php" ><i class="fas fa-briefcase"></i> Jobs</a>
-        <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
-        <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
+        <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
+        <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="view_students.php" class="active"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
         <a href="company.html"><i class="fas fa-building"></i> Company</a>
         <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-        <a href="feedback_list.html"><i class="fas fa-comment"></i> Feedback</a>
+        <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
         <div class="logout">
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
-<div class="main-content">
-<div class="students">
+    <div class="main-content">
+        <div class="search-bar-container">
+            <input type="text" id="search-input" class="search-bar" placeholder="Search by Roll No or Name...">
+            <button onclick="performSearch()">Search</button>
+        </div>
+        <div class="students">
             <table>
                 <thead>
                     <tr>
@@ -379,127 +451,126 @@ if ($_SERVER['HTTP_ACCEPT'] == 'application/json') {
                 <tbody id="studentData">
                     <!-- Student data will be populated here using JavaScript -->
                     <?php if (!empty($students)): ?>
-                    <?php foreach ($students as $student): ?>
-                        <tr onclick="window.location.href='profileredirect.php?user_id=<?php echo $student['user_id']; ?>'">
-                            <td><?php echo $student['user_id']; ?></td>
-                            <td><?php echo $student['name']; ?></td>
-                            <td><?php echo $student['graduation_year']; ?></td>
-                            <td><?php echo $student['course_name']; ?></td>
+                        <?php foreach ($students as $student): ?>
+                            <tr onclick="window.location.href='profileredirect.php?user_id=<?php echo $student['user_id']; ?>'">
+                                <td><?php echo $student['user_id']; ?></td>
+                                <td><?php echo $student['name']; ?></td>
+                                <td><?php echo $student['graduation_year']; ?></td>
+                                <td><?php echo $student['course_name']; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4">No students found.</td>
                         </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="4">No students found.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
 
-    <script>
-        function performSearch() {
-    const query = document.getElementById('search-input').value;
+        <script>
+            function performSearch() {
+                const query = document.getElementById('search-input').value;
 
-    // Use AJAX to send the search request
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'search_students.php?q=' + encodeURIComponent(query), true);
-    xhr.onload = function() {
-        if (this.status === 200) {
-            // Update results container with the response
-            document.getElementById('studentData').innerHTML = this.responseText;
-            
-        }
-    };
-    xhr.send();
-}
-        // Fetch student data
-        fetch(window.location.href, { headers: { 'Accept': 'application/json' } })
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.getElementById('studentData');
-                data.forEach(student => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `<td>${student.user_id}</td><td>${student.name}</td><td>${student.graduation_year}</td><td>${student.course_name}</td>`;
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error fetching student data:', error));
-    
+                // Use AJAX to send the search request
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'search_students.php?q=' + encodeURIComponent(query), true);
+                xhr.onload = function () {
+                    if (this.status === 200) {
+                        // Update results container with the response
+                        document.getElementById('studentData').innerHTML = this.responseText;
+                    }
+                };
+                xhr.send();
+            }        // Fetch student data
+            fetch(window.location.href, { headers: { 'Accept': 'application/json' } })
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('studentData');
+                    data.forEach(student => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `<td>${student.user_id}</td><td>${student.name}</td><td>${student.graduation_year}</td><td>${student.course_name}</td>`;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching student data:', error));
 
 
 
-    // Change profile image
-    function triggerFileInput() {
-            document.getElementById('fileInput').click();
-        }
 
-    function changeProfilePicture(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
-                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
-            };
-            reader.readAsDataURL(file); // Read the image file
-        }
-    }
-    // Dropdown toggle with smooth opening
-    function toggleDropdown() {
-            const dropdown = document.getElementById("dropdownMenu");
-            dropdown.classList.toggle("show");
-        }
-    
-        // Hide dropdown on click outside
-        window.onclick = function(event) {
-            if (!event.target.matches('.icon')) {
+            // Change profile image
+            function triggerFileInput() {
+                document.getElementById('fileInput').click();
+            }
+
+            function changeProfilePicture(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                        document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+                    };
+                    reader.readAsDataURL(file); // Read the image file
+                }
+            }
+            // Dropdown toggle with smooth opening
+            function toggleDropdown() {
                 const dropdown = document.getElementById("dropdownMenu");
-                dropdown.classList.remove("show");
+                dropdown.classList.toggle("show");
             }
-        };
-    
-        document.addEventListener("DOMContentLoaded", function () {
-            // Sidebar tab click effect
-            const tabs = document.querySelectorAll('.sidebar a');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
+
+            // Hide dropdown on click outside
+            window.onclick = function (event) {
+                if (!event.target.matches('.icon')) {
+                    const dropdown = document.getElementById("dropdownMenu");
+                    dropdown.classList.remove("show");
+                }
+            };
+
+            document.addEventListener("DOMContentLoaded", function () {
+                // Sidebar tab click effect
+                const tabs = document.querySelectorAll('.sidebar a');
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        tabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                    });
+                });
+
+                // Set default active link on page load
+                const defaultLink = document.querySelector('.sidebar a.active');
+                if (defaultLink) {
+                    defaultLink.classList.add('active');
+                }
+
+                // Mobile nav handling (optional)
+                const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
+                mobileTabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        mobileTabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                    });
+                });
+
+
+
+                // Adjust main content and container margin based on sidebar width
+                const sidebar = document.querySelector('.sidebar');
+                const mainContent = document.querySelector('.main-content');
+                const container = document.querySelector('.container');
+
+                sidebar.addEventListener('mouseenter', () => {
+                    mainContent.style.marginLeft = '270px'; // Expanded sidebar width
+                    container.style.marginLeft = '270px'; // Adjust container margin
+                });
+
+                sidebar.addEventListener('mouseleave', () => {
+                    mainContent.style.marginLeft = '245px'; // Normal sidebar width
+                    container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
                 });
             });
-    
-            // Set default active link on page load
-            const defaultLink = document.querySelector('.sidebar a.active');
-            if (defaultLink) {
-                defaultLink.classList.add('active');
-            }
-    
-            // Mobile nav handling (optional)
-            const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
-            mobileTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    mobileTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                });
-            });
-    
-        
-    
-            // Adjust main content and container margin based on sidebar width
-            const sidebar = document.querySelector('.sidebar');
-            const mainContent = document.querySelector('.main-content');
-            const container = document.querySelector('.container');
-    
-            sidebar.addEventListener('mouseenter', () => {
-                mainContent.style.marginLeft = '270px'; // Expanded sidebar width
-                container.style.marginLeft = '270px'; // Adjust container margin
-            });
-    
-            sidebar.addEventListener('mouseleave', () => {
-                mainContent.style.marginLeft = '245px'; // Normal sidebar width
-                container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
-            });
-        });
-</script>
+        </script>
 </body>
+
 </html>

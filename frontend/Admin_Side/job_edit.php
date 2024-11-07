@@ -139,15 +139,17 @@ $conn->close();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
             color: #333;
-            overflow: hidden;
+            
 
         }
-    /* Sidebar styling */
-    .sidebar {
+
+        /* Sidebar styling */
+        .sidebar {
     width: 220px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -157,12 +159,11 @@ $conn->close();
     position: fixed;
     left: 0;
     top: 0;
-    background: #2a2185;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
     color: white;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
     padding-top: 80px; /* Added padding for space at the top */
-    overflow: hidden;
 }
 
 
@@ -241,11 +242,10 @@ $conn->close();
     height: 45px;
     
 }
-    .logout a{
-        font-size: 20px;
-        margin-top: 160px;
-    }
-    .main-content {
+
+
+        /* Main content styling */
+        .main-content {
             margin-left: 245px;
             margin-top: 13px; 
             margin-right: 20px;/* Default margin for sidebar */
@@ -258,7 +258,6 @@ $conn->close();
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
             overflow-y: auto;
-            
         }
 
         .main-content h1 {
@@ -268,9 +267,12 @@ $conn->close();
             padding-bottom: 10px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
+
+        /* Profile section styling */
         .container {
             padding: 18px 20px;
             width: 1268px;
+            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -280,10 +282,10 @@ $conn->close();
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+        }
         .icon {
-            margin-left: 15px;
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -295,13 +297,15 @@ $conn->close();
             display: none;
             opacity: 0;
             position: absolute;
-            top: 55px;
-            right: 20px;
+            top: 70px;
+            right: 25px;
             background: linear-gradient(135deg, #2F5597, #1e3d7a);
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -412,6 +416,7 @@ $conn->close();
             margin-left: 400px;
             font-size: 18px;
             margin-top: 20px;
+            font-weight: 600;
         }
 
     .job-form input[type="submit"]:hover {
@@ -425,10 +430,7 @@ $conn->close();
         display:flex;
     }
     
-    .icon {
-        margin-left: 1px; 
-    }
-   
+    
     .success-message {
     display: none; /* Hidden by default */
     position: fixed;
@@ -461,35 +463,32 @@ $conn->close();
 </head>
 <body>
      <!-- Profile Container -->
-<div class="container">
+     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-        
+<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
-            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-</div>    
+    </div>
 
-<!-- Sidebar -->
-<div class="sidebar">
-        <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
-        
-    <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+    <!-- Logo or Website Name -->
+    <div class="logo">Lavoro</div>
+    <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
     <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
-    <a href="#students"><i class="fas fa-user-graduate"></i> Students</a>
-    <a href="#placements"><i class="fas fa-laptop-code"></i> Placements</a>
+    <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
     <a href="company.html"><i class="fas fa-building"></i> Company</a>
     <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-    <a href="feedback_list.html"><i class="fas fa-comment"></i> Feedback</a>
+    <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
     <div class="logout">
         <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
     </div>
 </div>
-
     
 <div class="main-content">
         <div class="job-form-container">
