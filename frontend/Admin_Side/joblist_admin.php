@@ -11,7 +11,18 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-// Handle delete request
+
+// Automatically disable jobs whose application deadline has passed
+$currentDate = date('Y-m-d'); // Get current date
+
+// Update the jobs with expired deadlines
+$updateExpiredJobsSql = "UPDATE job SET is_active = 0 WHERE application_deadline < ?";
+$stmt = $conn->prepare($updateExpiredJobsSql);
+$stmt->bind_param("s", $currentDate);
+$stmt->execute();
+$stmt->close();
+
+// Handle delete request for job manually (if needed)
 if (isset($_POST['delete_job_id'])) {
     $job_id = $_POST['delete_job_id'];
 
@@ -36,11 +47,11 @@ if (isset($_POST['delete_job_id'])) {
     }
 }
 
-// Fetch jobs from the database
-$sql = "SELECT job_id, job_title, company_name, location,  salary, application_deadline FROM job WHERE is_active = 1";
+// Fetch jobs from the database (active jobs)
+$sql = "SELECT job_id, job_title, company_name, location, salary, application_deadline FROM job WHERE is_active = 1";
 $result = $conn->query($sql);
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
