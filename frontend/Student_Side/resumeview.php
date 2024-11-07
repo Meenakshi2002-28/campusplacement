@@ -43,6 +43,7 @@ $conn->close();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
@@ -112,6 +113,7 @@ $conn->close();
         .sidebar a:nth-child(5) { animation-delay: 0.4s; }
         .sidebar a:nth-child(6) { animation-delay: 0.5s; }
         .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
 
         .sidebar a i {
             margin-right: 15px;
@@ -145,6 +147,7 @@ $conn->close();
     
 }
 
+
         /* Main content styling */
         .main-content {
             margin-left: 245px;
@@ -158,6 +161,7 @@ $conn->close();
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            overflow-y: auto;
             
         }
 
@@ -173,6 +177,7 @@ $conn->close();
         .container {
             padding: 18px 20px;
             width: 1268px;
+            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -182,11 +187,10 @@ $conn->close();
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
-
-        .icon {
-            margin-left: 15px;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+}
+.icon {
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -194,7 +198,165 @@ $conn->close();
         .icon:hover {
             transform: scale(1.1);
         }
+        img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
 
+/* Dropdown menu styling */
+.dropdown-content {
+            display: none;
+            opacity: 0;
+            position: absolute;
+            top: 70px;
+            right: 25px;
+            background: linear-gradient(135deg, #2F5597, #1e3d7a);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+        .dropdown-content.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1e3d7a;
+        }
+.company-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 10px;
+}
+/* New styles for animations and effects */
+
+/* Fade-in effect on load for company cards */
+@keyframes fadeInCards {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scale-up hover effect with shadow */
+.company-card {
+    background-color: #ffffff;
+    border: 1px solid #aaaaaa;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    animation: fadeInCards 0.6s ease forwards;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #000000;
+}
+
+.company-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #f5feff, #ffffff);
+}
+
+/* Add a delay to each card to create a staggered animation effect */
+.company-card:nth-child(1) { animation-delay: 0.1s; }
+.company-card:nth-child(2) { animation-delay: 0.2s; }
+.company-card:nth-child(3) { animation-delay: 0.3s; }
+.company-card:nth-child(4) { animation-delay: 0.4s; }
+.company-card:nth-child(5) { animation-delay: 0.5s; }
+.company-card:nth-child(6) { animation-delay: 0.6s; }
+.company-card:nth-child(7) { animation-delay: 0.7s; }
+.company-card:nth-child(8) { animation-delay: 0.8s; }
+.company-card:nth-child(9) { animation-delay: 0.9s; }
+.company-card:nth-child(10) { animation-delay: 0.10s; }
+.company-card:nth-child(11) { animation-delay: 0.11s; }
+/* Subtle hover animation for the View Website link */
+.company-card a {
+    display: inline-block;
+    padding: 8px 12px;
+    color: #000000;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.company-card a:hover {
+    color: #1e3d7a;
+    transform: translateY(-3px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+}
+
+/* Subtle image zoom-in on hover */
+.company-card img {
+    align-items: center;
+}
+
+.company-card h3 {
+    padding-top: 5px;
+    font-size: 15px /* Adjust the size as needed */
+}
+
+
+.search {
+    padding-top: 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search h2 {
+    margin: 0; /* Removes default margin */
+    text-align: center; /* Center-aligns the text */
+    width: 100%; /* Ensures the heading takes up full width */
+    margin-top: 0;
+}
+
+.search-bar {
+    margin: 0;
+}
+
+#companySearch {
+    width: 350px; /* Fixed width or adjust as needed */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+        .icon {
+            margin-left: 1px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
+        img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
@@ -207,6 +369,8 @@ $conn->close();
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -280,20 +444,6 @@ $conn->close();
     display: block; /* Show active tab content */
 }
   /* Profile section styling */
-  .container {
-            padding: 18px 20px;
-            width: 1268px;
-            margin-left: 245px; /* Default margin for container */
-            margin-top: 12px;
-            margin-right: 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            border-radius: 10px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
 
         .profile-picture {
             width: 200px; /* Adjust width as needed */
@@ -431,7 +581,7 @@ button:hover {
 <body>
   <!-- Profile Container -->
   <div class="container">
-    <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon" onclick="triggerFileInput()">
+    <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
     <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
     <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         

@@ -127,7 +127,7 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet"
@@ -326,8 +326,8 @@ if (isset($_SESSION['user_id'])) {
             /* Makes the image circular */
         }
 
-        .icon {
-            margin-left: 15px;
+.icon {
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -354,6 +354,8 @@ if (isset($_SESSION['user_id'])) {
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -372,7 +374,6 @@ if (isset($_SESSION['user_id'])) {
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
-
         /* Card styling with hover effects */
         .card {
             background: linear-gradient(135deg, #a2c4fb, #9babcd);
@@ -479,7 +480,7 @@ if (isset($_SESSION['user_id'])) {
 <body>
     <div class="container">
         <h3>Welcome to Lavaro</h3>
-        <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon"
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon"
             onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*"
             onchange="changeProfilePicture(event)">

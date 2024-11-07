@@ -9,17 +9,17 @@
 
 
 <style>
-    
-    body {
-         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #d9e6f4;
-        color: #333;
-        overflow: hidden;
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #d9e6f4;
+            color: #333;
+            overflow: hidden;
 
-    }
+        }
 
-/* Sidebar styling */
-.sidebar {
+        /* Sidebar styling */
+        .sidebar {
     width: 220px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -34,94 +34,72 @@
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
     transition: width 0.4s ease-in-out;
     padding-top: 80px; /* Added padding for space at the top */
-    overflow: hidden;
 }
 
-.sidebar .logo {
-    position: absolute;
-    top: 20px; /* Positions logo/title closer to the top */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
 
-.sidebar:hover {
-    width: 250px; /* Expands sidebar on hover */
-}
+        .sidebar .logo {
+            position: absolute;
+            top: 20px; /* Positions logo/title closer to the top */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
 
-.sidebar a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 15px 25px;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
-    position: relative;
-    opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
-}
+        .sidebar:hover {
+            width: 250px; /* Expands sidebar on hover */
+        }
 
-/* Fade-in effect for sidebar links */
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateX(-20px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
 
-/* Delayed animation for each link */
-.sidebar a:nth-child(2) { animation-delay: 0.1s; }
-.sidebar a:nth-child(3) { animation-delay: 0.2s; }
-.sidebar a:nth-child(4) { animation-delay: 0.3s; }
-.sidebar a:nth-child(5) { animation-delay: 0.4s; }
-.sidebar a:nth-child(6) { animation-delay: 0.5s; }
-.sidebar a:nth-child(7) { animation-delay: 0.6s; }
-.sidebar a:nth-child(8) { animation-delay: 0.7s; }
+        /* Fade-in effect for sidebar links */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
 
-.sidebar a i {
-    margin-right: 15px;
-    transition: transform 0.3s;
-}
+        /* Delayed animation for each link */
+        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
+        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
+        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
+        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
+        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
+        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
 
-.sidebar a:hover {
-    background-color: #1e3d7a;
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
-}
+        .sidebar a i {
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
 
-.sidebar .logout {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-    text-align: center;
-}
+        .sidebar a:hover {
+            background-color: #1e3d7a;
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
+        }
 
-.sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-.logout{
-        position: absolute;
-        bottom: 20px;
-        width: 100%;
-}
-
-.logout a {
-    font-size: 20px;
-    margin-top: 210px;
-}
-
-.sidebar a.active {
+        .sidebar .logout {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+        }
+        .sidebar a.active {
     background-color: #d9e6f4; /* Background color for active link */
     border-left: 4px solid #ffffff;
     padding-left: 30px;
@@ -134,59 +112,65 @@
     height: 45px;
     
 }
-    img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
-    /* Main content styling */
-.main-content {
-    margin-left: 245px;
-    margin-top: 13px; 
-    margin-right: 20px;/* Default margin for sidebar */
-    padding: 40px;
-    font-size: 18px;
-    color: #333;
-    border-radius: 10px;
-    transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-    background-color: #ffffff;
-    height: 86.5vh;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
 
-}
 
-.main-content h1 {
-    color: #050505;
-    font-size: 2.5rem; /* Increased font size */
-    font-weight: bold;
-    padding-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-    .container {
-    padding: 18px 20px;
-    width: 1268px;
-    margin-left: 245px; /* Default margin for container */
-    margin-top: 12px;
-    margin-right: 20px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff;
-    transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-}
+        /* Main content styling */
+        .main-content {
+            margin-left: 245px;
+            margin-top: 13px; 
+            margin-right: 20px;/* Default margin for sidebar */
+            padding: 40px;
+            font-size: 18px;
+            color: #333;
+            border-radius: 10px;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            background-color: #ffffff;
+            height: 86.5vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            overflow-y: auto;
+            
+        }
 
+        .main-content h1 {
+            color: #050505;
+            font-size: 2.5rem; /* Increased font size */
+            font-weight: bold;
+            padding-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Profile section styling */
+        .container {
+            padding: 18px 20px;
+            width: 1268px;
+            height: 55px;
+            margin-left: 245px; /* Default margin for container */
+            margin-top: 12px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+}
 .icon {
-            margin-left: 15px;
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
+
         .icon:hover {
             transform: scale(1.1);
         }
+        img {
+        height: 40px; /* Adjust size as needed */
+        width: auto;
+    }
 
-        /* Dropdown menu styling */
-        .dropdown-content {
+/* Dropdown menu styling */
+.dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
@@ -197,6 +181,8 @@
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -216,14 +202,10 @@
             background-color: #1e3d7a;
         }
 .company-info {
-    flex: 1;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 30px;
     padding: 10px;
-    overflow-y: auto;
-    height: 70vh;
-    
 }
 /* New styles for animations and effects */
 
@@ -251,7 +233,6 @@
     animation: fadeInCards 0.6s ease forwards;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: #000000;
-    height: 100%;
 }
 
 .company-card:hover {
@@ -270,12 +251,10 @@
 .company-card:nth-child(7) { animation-delay: 0.7s; }
 .company-card:nth-child(8) { animation-delay: 0.8s; }
 .company-card:nth-child(9) { animation-delay: 0.9s; }
-
+.company-card:nth-child(10) { animation-delay: 1.0s; }
+.company-card:nth-child(11) { animation-delay: 1.1s; }
 /* Subtle hover animation for the View Website link */
-
-
 .company-card a {
-    margin-bottom: 0;
     display: inline-block;
     padding: 8px 12px;
     color: #000000;
@@ -284,7 +263,6 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
     font-weight: 500;
     font-size: 14px;
-    
 }
 
 .company-card a:hover {
@@ -305,9 +283,8 @@
 }
 
 
-
 .search {
-    padding-top: 5px;
+    padding-top: 1px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -326,7 +303,7 @@
 }
 
 #companySearch {
-    width: 250px; /* Fixed width or adjust as needed */
+    width: 350px; /* Fixed width or adjust as needed */
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -424,9 +401,20 @@
             <p>Cognizant Technology Solutions Corporation is an American multinational information technology services and consulting company.</p>
             <a href="https://www.cognizant.com" target="_blank">View Website</a>
         </div>
-    
-    
-</div>
+        <div class="company-card">
+            <img src="../images/company_logo/tech mahindra.png" alt="Tech Mahindra">
+            <h3>Tech Mahindra</h3>
+            <p>Mahindra Group is a multinational federation that holds strong positions in farm equipment, utility vehicles, IT and financial services and is the world’s largest tractor manufacturer by volume.</p>
+            <a href="https://www.techmahindra.com" target="_blank">View Website</a>
+        </div>
+        <div class="company-card">
+            <img src="../images/company_logo/federal bank.png" m alt="Federal Bank">
+            <h3>Federal Bank</h3>
+            <p>Federal Bank is a leading choice for personal, NRI, and business banking across India, committed to “Digital at the Fore, Human at the Core.” Known for innovative, customer-focused services, the Bank aims to be India’s top banking choice.</p>
+            <a href="https://www.federalbank.co.in" target="_blank">View Website</a>
+        </div>
+        
+    </div>
 </div>
 <script>
 
