@@ -407,13 +407,13 @@ $conn->close();
 
     .job-form input[type="submit"] {
             grid-column:span 1;
-            padding: 5px 5px;
-            background-color: #0056b3;
+            padding: 5px 10px;
+            background-color: #27428f;
             color: white;
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            margin-left: 400px;
+            margin-left: 500px;
             font-size: 18px;
             margin-top: 20px;
             font-weight: 600;
@@ -421,7 +421,6 @@ $conn->close();
 
     .job-form input[type="submit"]:hover {
             background-color: #1e165f;
-            letter-spacing: 2px;
         }
 
     img {

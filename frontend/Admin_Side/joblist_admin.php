@@ -698,6 +698,8 @@ img {
         function triggerFileInput() {
             document.getElementById('fileInput').click();
         }
+        </script>
+        <script>
 
     function changeProfilePicture(event) {
         const file = event.target.files[0];
