@@ -13,7 +13,10 @@ if ($conn->connect_error) {
 }
 
 // Query to get all job postings
-$sql = "SELECT job_id, company_name, job_title, work_environment, salary, job_status FROM job";
+$sql = "SELECT job_id, company_name, job_title, work_environment, salary, job_status 
+        FROM job 
+        WHERE application_deadline >= CURDATE()"; // Ensure the job's deadline is not passed
+
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
