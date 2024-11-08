@@ -504,11 +504,13 @@ button:hover {
     <!-- Main Content -->
     <div class="main-content">
         <div class="sub-sidebar">
-            <div class="profile-picture">
-                 <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()"> 
-             <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="ProfilePicture(event)"><!-- Add your profile picture source here -->
-            
+        <div class="profile-picture">
+                <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()"> 
+                <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="ProfilePicture(event)">
+                <!-- UPLOAD button initially hidden -->
+              
             </div>
+            <button id="uploadButton" style="display: none;" onclick="uploadProfilePicture()">UPLOAD</button>
             <div class="text"style="padding-left: 35px;">
             <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->
              
@@ -592,6 +594,9 @@ button:hover {
                     document.getElementById('sidebarProfilePicture').src = e.target.result;
                 };
                 reader.readAsDataURL(file);
+
+                // Display the UPLOAD button after selecting the file
+                document.getElementById('uploadButton').style.display = 'inline-block';
             }
         }
     
