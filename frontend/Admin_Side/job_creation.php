@@ -359,12 +359,12 @@ img {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin-left: -60px;
+            margin-left: -177px;
      }
 
     .job-form input[type="radio"] {
-            margin-right: 3px;
-            margin-left:1px;
+            margin-right: 70px;
+            margin-left:-50px;
     }
 
     .job-form textarea {
@@ -376,7 +376,7 @@ img {
             resize: none;
             height: 100px;
             font-family: Arial, Helvetica, sans-serif;
-            margin-left: -60px;
+            margin-left: -175px;
         }
 
     .job-form input[type="submit"] {
@@ -474,13 +474,7 @@ img {
             </div>
             
 
-            <label for="type">Type </label>
-            <div>
-                <input type="radio" id="job" name="type" value="job" checked>
-                <label for="job">Job</label>
-                <input type="radio" id="internship" name="type" value="internship">
-                <label for="internship">Internship </label>
-            </div>
+            
 
             <label for="cgpa">Required CGPA </label>
             <input type="number" id="cgpa" name="cgpa" step="0.01" placeholder="Enter Required CGPA">
