@@ -395,7 +395,7 @@ $result = $stmt->get_result();
         text-align: center;
     }
     .feedback-section {
-            padding: 10px;
+            padding: 5px;
         }
 
         .feedback-header {
@@ -417,7 +417,7 @@ $result = $stmt->get_result();
         .feedback-card {
             border: 1px solid inherit;
             border-radius: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             padding: 5px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             background: linear-gradient(12deg, #f5f7fa,rgb(181, 181, 255));
@@ -431,41 +431,45 @@ $result = $stmt->get_result();
         .feedback-card .user-info {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
 
         }
 
         .feedback-card .user-info img {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-left: 5px;
+            margin-top: 5px;
         }
 
         .feedback-card .user-info .name {
-            font-weight: bold;
-            font-size: 16px;
+            font-weight: 500;
+            font-size: 20px;
+            margin-left: 7px;
         }
 
         .feedback-card .feedback-text {
             font-size: 17px;
-            color: #555;
+            color: black;
+            margin-left: 45px;
+            margin-bottom: 5px;
         }
 
         .feedback-card .view-response-btn {
-            margin-top: 10px;
+            margin-top: 0px;
             text-align: right;
-           
+            margin-bottom: 5px;
+           margin-right: 5px;
         }
 
         .feedback-card .view-response-btn button {
             background-color:#FFC107;
             color: white;
-            padding: 2px 5px;
+            padding: 5px 10px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 17px;
+            font-size: 16px;
         }
         .feedback-card:hover {
          transform: scale(1.02);
@@ -478,16 +482,24 @@ $result = $stmt->get_result();
 
         .admin-response {
             display: none; /* Initially hide the admin response */
-            padding: 10px;
-            background-color: #e0f7fa;
+            padding: 15px;
+            background-color: white;
             margin-top: 10px;
-            border-radius: 5px;
+            border-radius: 20px;
             font-size: 16px;
-            color: #000000;
+            color: black;
+            margin-bottom: 5px;
+            margin-left: 2.5px;
+            margin-right: 2.5px;
+
         }
         .feedback-header button{
             font-size: 18px;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 600;
+            border-radius: 10px;
+            margin-bottom: 5px;
+
         }
         .feedback-header button:hover{
             transform: scale(1.03);
@@ -554,7 +566,7 @@ $result = $stmt->get_result();
         <div class="main-content">
             <div class="feedback-section">
                 <div class="feedback-header">
-                    <h2>Feedback</h2>
+                    <h2>Feedbacks</h2>
                     <a href="feedback.php">
                         <button>+ Add new</button>
                     </a>
@@ -566,7 +578,7 @@ $result = $stmt->get_result();
                 <?php $responseId = 'response' . $row['feedback_id']; // Unique response ID ?>
                 <div class="feedback-card">
                     <div class="user-info">
-                        <img src="../profile.png" alt="User Profile">
+                        <img src="../images/profile.png" alt="User Profile">
                         <span class="name"><?php echo htmlspecialchars($row['name']); ?></span>
                     </div>
                     <div class="feedback-text">

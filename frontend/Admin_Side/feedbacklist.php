@@ -266,6 +266,7 @@ $result = $conn->query($sql);
 
 .feedback-item h3 {
     color: #000000;
+    margin-top: 3px;
 }
 
 .feedback-item p {
