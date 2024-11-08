@@ -480,7 +480,7 @@ if (isset($_SESSION['user_id'])) {
 <body>
     <div class="container">
         <h3>Welcome to Lavaro</h3>
-        <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
@@ -559,16 +559,14 @@ if (isset($_SESSION['user_id'])) {
             <div class="scrolling-logos">
                 <img src="../images/company_logo/infosys.png" alt="Company 1" class="logo">
                 <img src="../images/company_logo/tcs.png" alt="Company 2" class="logo">
-                <img src="https://framerusercontent.com/images/bNcmzTEX4AQx6bHzeTNLOAvPhM.png" alt="Company 3"
-                    class="logo">
-                <img src="https://framerusercontent.com/images/BP0vuq7mtsXsInJhngcYqwUFk4.png" alt="Company 4"
-                    class="logo">
-                <img src="../images/company_logo/infosys.png" alt="Company 1" class="logo">
-                <img src="../images/company_logo/tcs.png" alt="Company 2" class="logo">
-                <img src="https://framerusercontent.com/images/bNcmzTEX4AQx6bHzeTNLOAvPhM.png" alt="Company 3"
-                    class="logo">
-                <img src="https://framerusercontent.com/images/BP0vuq7mtsXsInJhngcYqwUFk4.png" alt="Company 4"
-                    class="logo">
+                <img src="../images/company_logo/accenture.png" alt="Company 3" class="logo">
+                <img src="../images/company_logo/cisco.png" alt="Company 4" class="logo">
+                <img src="../images/company_logo/cognizant.jpg" alt="Company 4" class="logo">
+                <img src="../images/company_logo/Deloitte.png" alt="Company 5" class="logo">
+                <img src="../images/company_logo/federal bank.png" alt="Company 6" class="logo">
+                <img src="../images/company_logo/intel.png" alt="Company 7" class="logo">
+                <img src="../images/company_logo/LTImindtree.png" alt="Company 8" class="logo">
+                <img src="../images/company_logo/wipro.png" alt="Company 9" class="logo">
 
             </div>
         </div>
