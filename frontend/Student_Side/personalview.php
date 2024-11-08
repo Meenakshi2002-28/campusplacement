@@ -438,8 +438,8 @@ input, select {
 
 button {
     padding: 7px 25px;
-    background-color: #1e3d7e;
-    color: white;
+    background-color: #AFC8F3;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -448,8 +448,8 @@ button {
 }
 
 button:hover {
-    background-color: #AFC8F3;
-    color: black;
+    background-color: #1e3d7e;
+    color: white;
     font-weight: 600;
 }
 .profile-picture1 {
@@ -564,7 +564,7 @@ button:hover {
                     </table>
            
                 <div class="button-container">
-                    <a href="editpersonal.php"><button>EDIT PROFILE</button></a>
+                    <a href="editpersonal.php"><button>EDIT </button></a>
                 </div>
                 </form>
             </div>

@@ -643,7 +643,7 @@ $conn->close();
             <!-- Hiring Workflow Section -->
             <div class="workflow-section">
 
-                <h3>Hiring Workflow Rounds</h3>
+                <h4>Hiring Workflow Rounds</h4>
 
                 <div class="workflow-rounds">
                     <label for="round1">Round 1</label>
