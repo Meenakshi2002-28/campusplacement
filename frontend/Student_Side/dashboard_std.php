@@ -289,7 +289,7 @@ if (isset($_SESSION['user_id'])) {
         padding-bottom: 10px;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
-
+    
     /* Profile section styling */
     .container {
         padding: 18px 20px;
@@ -307,7 +307,6 @@ if (isset($_SESSION['user_id'])) {
         transition: margin-left 0.4s ease-in-out;
     }
 
- 
     .icon {
         margin-left: 1px;
         cursor: pointer;
@@ -687,6 +686,7 @@ if (isset($_SESSION['user_id'])) {
         console.log("Active Jobs:", dashboardStats.activeJobs);
         console.log("Profile Completion:", dashboardStats.profileCompletion);
     });
+    
 </script>
 </body>
 </html>
