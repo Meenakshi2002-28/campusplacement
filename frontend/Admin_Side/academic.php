@@ -96,21 +96,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    height: 97vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-    transition: width 0.4s ease-in-out;
-    padding-top: 80px; /* Added padding for space at the top */
-}
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px; /* Added padding for space at the top */
+        }
 
 
         .sidebar .logo {
@@ -175,11 +175,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             text-align: center;
         }
         .sidebar a.active {
-    background-color: #1e3d7a; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-}
+            background-color: #1e3d7a; /* Background color for active link */
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
 
         /* Main content styling */
         .main-content {
@@ -264,59 +264,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         
         .sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-.tabs {
-    display: flex;
-    flex-direction: column; /* Arrange tabs vertically */
-    margin-bottom: 20px; /* Space between tabs and content */
-    width: 200px;
-}
+            position: absolute;
+            top: 20px; /* Keep the same positioning */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px; /* Increase the font size here */
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+        .tabs {
+            display: flex;
+            flex-direction: column; /* Arrange tabs vertically */
+            margin-bottom: 20px; /* Space between tabs and content */
+            width: 200px;
+        }
 
-.tab {
-    padding: 10px;
-    margin-bottom: 5px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s;
-}
+        .tab {
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
 
-.tab.active {
-    background-color: #1e3d7a; /* Active tab color */
-    color: white;
-}
+        .tab.active {
+            background-color: #1e3d7a; /* Active tab color */
+            color: white;
+        }
 
-.tab:hover {
-    font-weight: bold;
-}
+        .tab:hover {
+            font-weight: bold;
+        }
 
-.content-area {
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+        .content-area {
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
-/* Tab content */
-.tab-content {
-    display: none; /* Hide all tab content by default */
-}
+        /* Tab content */
+        .tab-content {
+            display: none; /* Hide all tab content by default */
+        }
 
-.tab-content.active {
-    display: block; /* Show active tab content */
-}
-  /* Profile section styling */
-  .container {
+        .tab-content.active {
+            display: block; /* Show active tab content */
+        }
+
+        /* Profile section styling */
+        .container {
             padding: 18px 20px;
             width: 1268px;
             margin-left: 245px; /* Default margin for container */
@@ -345,26 +346,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             width: 100%; /* Ensure image fits the container */
             height: auto; /* Maintain aspect ratio */
         }
+        
         .text {
-    padding-top: 1px;
-}
+            padding-top: 1px;
+        }
 
-.text h4, p {
-    margin: 2px;
-    font-size: 18px;
-    color: #000000;
-}
+        .text h4, p {
+            margin: 2px;
+            font-size: 18px;
+            color: #000000;
+        }
 
-/* Adjust sub-sidebar to float left */
-.sub-sidebar {
-    float: left;
-    width: 250px; /* Adjust width if needed */
-    padding: 10px;
-    margin-right: 20px; /* Spacing between sub-sidebar and form */
-}
+        /* Adjust sub-sidebar to float left */
+        .sub-sidebar {
+            float: left;
+            width: 250px; /* Adjust width if needed */
+            padding: 10px;
+            margin-right: 20px; /* Spacing between sub-sidebar and form */
+        }
 
-/* Adjust details container */
-.details {
+        /* Adjust details container */
+        .details {
             flex: 1;
             background-color: white;
             padding: 0px;
@@ -373,85 +375,85 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
 
-.details.active {
-    background-color: #ffffff;
-    padding-left: 50px;
-    display: block;
-}
+        .details.active {
+            background-color: #ffffff;
+            padding-left: 50px;
+            display: block;
+        }
 
-table {
-    width: 100%;
-    margin-bottom: 20px;
-    border-collapse: collapse; /* Ensure table layout doesn't break */
-}
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse; /* Ensure table layout doesn't break */
+        }
 
-table td {
-    padding: 6px;
-    font-size: 18px;
-    white-space: nowrap;
-    vertical-align: middle;
-    text-align: left;
-    border: none;
-}
+        table td {
+            padding: 6px;
+            font-size: 18px;
+            white-space: nowrap;
+            vertical-align: middle;
+            text-align: left;
+            border: none;
+        }
 
-table td:first-child {
-    width: 30%;
-    text-align: left;
-    padding-right: 20px; /* Adjust for alignment between label and input */
-}
+        table td:first-child {
+            width: 30%;
+            text-align: left;
+            padding-right: 20px; /* Adjust for alignment between label and input */
+        }
 
-input[type="radio"] {
-    margin-right: 2px; /* Adds space between radio button and label */
-}
+        input[type="radio"] {
+            margin-right: 2px; /* Adds space between radio button and label */
+        }
 
-.gender-options {
-    display: flex; /* Ensures horizontal layout */
-    gap: 5px; /* Adds space between radio button groups */
-    align-items: center; /* Aligns radio buttons with labels */
-}
+        .gender-options {
+            display: flex; /* Ensures horizontal layout */
+            gap: 5px; /* Adds space between radio button groups */
+            align-items: center; /* Aligns radio buttons with labels */
+        }
 
-.gender-options label {
-    display: flex;
-    align-items: center;
-    gap: 1px; /* Adds space between radio button and its label */
-}
+        .gender-options label {
+            display: flex;
+            align-items: center;
+            gap: 1px; /* Adds space between radio button and its label */
+        }
 
-input, select {
-    padding: 8px;
-    border-radius: 3px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    width: 100%;
-}
+        input, select {
+            padding: 8px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            width: 100%;
+        }
 
-input, select {
-    padding: 8px;
-    border-radius: 3px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    width: 100%;
-}
+        input, select {
+            padding: 8px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            width: 100%;
+        }
 
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-}
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
 
-button {
-    padding: 7px 25px;
-    background-color: #AFC8F3;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-}
+        button {
+            padding: 7px 25px;
+            background-color: #AFC8F3;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
 
-button:hover {
-    background-color: #1e3d7e;
-    color: white;
-}
+        button:hover {
+            background-color: #1e3d7e;
+            color: white;
+        }
 
     </style>
 </head>
@@ -504,20 +506,20 @@ button:hover {
             <table>
                 <th>UG Details</th>
                 <tr>
-    <td>Branch<span style="color:red;">*</span></td>
-    <td><select name="branch" id="branch">
+                    <td>Branch<span style="color:red;">*</span></td>
+                    <td><select name="branch" id="branch">
                             <option value="CS">Computer Science</option>
                             <option value="COMMERCE">Commerce</option>
                             <option value="ENGLISH">English</option>
                             <option value="PHYSICAL SCIENCES">Physical Sciences</option>
                             <option value="PHYSICS">Physics</option>
                             <option value="VM">Visual Media</option>
-                        </select></td>
-</tr>
-
+                        </select>
+                    </td>
+                </tr>
                 <tr>
-    <td>Course<span style="color:red;">*</span></td>
-    <td><select name="course" id="course">
+                    <td>Course<span style="color:red;">*</span></td>
+                    <td><select name="course" id="course">
                         <option value="BCA">BCA</option>
                         <option value="BCA DataScience">BCA Data Science</option>
                         <option value="Int MCA">INT MCA</option>
@@ -535,28 +537,28 @@ button:hover {
                         <option value="BBA(Hons./Hons. with Research)">BBA(Hons./Hons. with Research)</option>
                         <option value="B.Sc(Hons.) in Visual Media">B.Sc(Hons.) in Visual Media</option>
                     </select></td>
-</tr>
+                </tr>
 
                 <tr>
                     <td>Current Year<span style="color:red;">*</span></td>
                     <td><select name="current_year" id="current_year">
-                    <option value="">Select year</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </td>
+                        <option value="">Select year</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </td>
                 </tr>
                 <tr>
                     <td>Pass Out Year<span style="color:red;">*</span></td>
-                    <td> <select name="pass_out_year" id="pass_out_year">
-            <option value="">Select Year</option> <!-- Empty option for prompt -->
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-            <option value="2026">2026</option>
-            <option value="2027">2027</option>
-        </select></td>
+                    <td><select name="pass_out_year" id="pass_out_year">
+                        <option value="">Select Year</option> <!-- Empty option for prompt -->
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                    </select></td>
                 </tr>
                 <tr>
                     <td>Current Arrears<span style="color:red;">*</span></td><td><input type="text" id="current_arrears" name="current_arrears"></td>
@@ -564,9 +566,9 @@ button:hover {
                 <tr>
                     <td>CGPA<span style="color:red;">*</span></td>
                     <td>
-                    <input type="number" id="cgpa" name="cgpa" step="0.01">
-                    <div id="cgpa-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
-                </td>
+                        <input type="number" id="cgpa" name="cgpa" step="0.01">
+                        <div id="cgpa-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
+                    </td>
                 </tr>
             </table>
             <br>
@@ -584,10 +586,10 @@ button:hover {
                 <tr>
                     <td>Percentage<span style="color:red;">*</span></td>
                     <td>
-                    <input type="text" id="percentage_twelfth" name="percentage_twelfth"step="0.01">
-                    <div id="percentage12th-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
-                </td>
-            </tr>
+                        <input type="text" id="percentage_twelfth" name="percentage_twelfth"step="0.01">
+                        <div id="percentage12th-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
+                    </td>
+                </tr>
             </table>
             <br>
             <table>
@@ -604,12 +606,11 @@ button:hover {
                 <tr>
                     <td>Percentage<span style="color:red;">*</span></td>
                     <td>
-                    <input type="text" id="percentage_tenth" name="percentage_tenth"step="0.01">
-                    <div id="percentage10th-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
-                </td>
+                        <input type="text" id="percentage_tenth" name="percentage_tenth"step="0.01">
+                        <div id="percentage10th-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
+                    </td>
             </table>
             <div class="button-container">
-              
               <button type="submit">SAVE</button>
           </div>
         </form>
@@ -617,7 +618,7 @@ button:hover {
 
     <!-- JavaScript -->
     <script>
-    function validateDOB() {
+        function validateDOB() {
             const dob = document.getElementById('dob').value;
             const dobError = document.getElementById('dob-error');
             const minDate = new Date('1990-01-01');
@@ -663,114 +664,112 @@ button:hover {
             }
         }
         function isNumeric(value) {
-    return !isNaN(value) && value.trim() !== ""; // Check if the value is a number and not empty
-}
+            return !isNaN(value) && value.trim() !== ""; // Check if the value is a number and not empty
+        }
 
-function validateCGPA() {
-    const cgpa = document.getElementById('cgpa');
-    const errorContainer = document.getElementById('cgpa-error');
+        function validateCGPA() {
+            const cgpa = document.getElementById('cgpa');
+            const errorContainer = document.getElementById('cgpa-error');
     
-    // Clear previous error message
-    errorContainer.textContent = ""; 
+            // Clear previous error message
+            errorContainer.textContent = ""; 
 
-    // Check if CGPA is a numeric value
-    if (!isNumeric(cgpa.value)) {
-        errorContainer.textContent = "CGPA must be a numeric value.";
-        return false; // Validation failed
-    }
+            // Check if CGPA is a numeric value
+            if (!isNumeric(cgpa.value)) {
+                errorContainer.textContent = "CGPA must be a numeric value.";
+                return false; // Validation failed
+            }
 
-    // Check if CGPA is within the range of 0 to 10
-    const cgpaValue = parseFloat(cgpa.value);
-    if (cgpaValue < 0 || cgpaValue > 10) {
-        errorContainer.textContent = "CGPA must be between 0 and 10.";
-        return false; // Validation failed
-    }
+            // Check if CGPA is within the range of 0 to 10
+            const cgpaValue = parseFloat(cgpa.value);
+            if (cgpaValue < 0 || cgpaValue > 10) {
+                errorContainer.textContent = "CGPA must be between 0 and 10.";
+                return false; // Validation failed
+            }
 
-    return true; // Validation passed
-}
+            return true; // Validation passed
+        }
 
-function validatePercentage12th() {
-    const percentage12th = document.getElementById('percentage_twelfth');
-    const errorContainer = document.getElementById('percentage12th-error');
+        function validatePercentage12th() {
+            const percentage12th = document.getElementById('percentage_twelfth');
+            const errorContainer = document.getElementById('percentage12th-error');
     
-    // Clear previous error message
-    errorContainer.textContent = ""; 
+            // Clear previous error message
+            errorContainer.textContent = ""; 
 
-    if (!isNumeric(percentage12th.value)) {
-        errorContainer.textContent = "Percentage in 12th must be a numeric value.";
-        return false; // Validation failed
-    }
-    return true; // Validation passed
-}
+            if (!isNumeric(percentage12th.value)) {
+                errorContainer.textContent = "Percentage in 12th must be a numeric value.";
+                return false; // Validation failed
+            }
+            return true; // Validation passed
+        }
 
-function validatePercentage10th() {
-    const percentage10th = document.getElementById('percentage_tenth');
-    const errorContainer = document.getElementById('percentage10th-error');
+        function validatePercentage10th() {
+            const percentage10th = document.getElementById('percentage_tenth');
+            const errorContainer = document.getElementById('percentage10th-error');
     
-    // Clear previous error message
-    errorContainer.textContent = ""; 
+            // Clear previous error message
+            errorContainer.textContent = ""; 
 
-    if (!isNumeric(percentage10th.value)) {
-        errorContainer.textContent = "Percentage in 10th must be a numeric value.";
-        return false; // Validation failed
-    }
-    return true; // Validation passed
-}
-window.onload = function() {
-    document.getElementById('cgpa').onblur = validateCGPA;
-    document.getElementById('percentage_twelfth').onblur = validatePercentage12th;
-    document.getElementById('percentage_tenth').onblur = validatePercentage10th;
-};
+            if (!isNumeric(percentage10th.value)) {
+                errorContainer.textContent = "Percentage in 10th must be a numeric value.";
+                return false; // Validation failed
+            }
+            return true; // Validation passed
+        }
+        window.onload = function() {
+            document.getElementById('cgpa').onblur = validateCGPA;
+            document.getElementById('percentage_twelfth').onblur = validatePercentage12th;
+            document.getElementById('percentage_tenth').onblur = validatePercentage10th;
+        };
 
+        function validateForm2() {
+            let isValid = true;
+            const errorMessage = "All fields are required.";
 
-function validateForm2() {
-    let isValid = true;
-    const errorMessage = "All fields are required.";
+            // Clear previous error messages
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach(function (element) {
+                element.textContent = ""; // Clear any previous error message
+            });
 
-    // Clear previous error messages
-    const errorElements = document.querySelectorAll('.error-message');
-    errorElements.forEach(function (element) {
-        element.textContent = ""; // Clear any previous error message
-    });
-
-    // Get all required fields and validate them
-    const branch = document.getElementById('branch').value.trim();
-    const course = document.getElementById('course').value.trim();
+            // Get all required fields and validate them
+            const branch = document.getElementById('branch').value.trim();
+            const course = document.getElementById('course').value.trim();
     
-    
-    const currentArrears = document.getElementById('current_arrears').value.trim();
-    const cgpa = document.getElementById('cgpa').value.trim();
+            const currentArrears = document.getElementById('current_arrears').value.trim();
+            const cgpa = document.getElementById('cgpa').value.trim();
 
-    const schoolName12 = document.getElementById('school_name_twelfth').value.trim();
-    const board12 = document.getElementById('board_twelfth').value.trim();
-    const passOutYear12 = document.getElementById('pass_out_year_twelfth').value.trim();
-    const percentage12 = document.getElementById('percentage_twelfth').value.trim();
+            const schoolName12 = document.getElementById('school_name_twelfth').value.trim();
+            const board12 = document.getElementById('board_twelfth').value.trim();
+            const passOutYear12 = document.getElementById('pass_out_year_twelfth').value.trim();
+            const percentage12 = document.getElementById('percentage_twelfth').value.trim();
 
-    const schoolName10 = document.getElementById('school_name_tenth').value.trim();
-    const board10 = document.getElementById('board_tenth').value.trim();
-    const passOutYear10 = document.getElementById('pass_out_year_tenth').value.trim();
-    const percentage10 = document.getElementById('percentage_tenth').value.trim();
+            const schoolName10 = document.getElementById('school_name_tenth').value.trim();
+            const board10 = document.getElementById('board_tenth').value.trim();
+            const passOutYear10 = document.getElementById('pass_out_year_tenth').value.trim();
+            const percentage10 = document.getElementById('percentage_tenth').value.trim();
 
-    // Validate UG fields
-    if ( !currentArrears || !cgpa) {
-    document.getElementById('cgpa-error').textContent = errorMessage;
-    isValid = false;
-}
+            // Validate UG fields
+            if ( !currentArrears || !cgpa) {
+                document.getElementById('cgpa-error').textContent = errorMessage;
+                isValid = false;
+            }
 
-    // Validate 12th fields
-    if (!schoolName12 || !board12 || !passOutYear12 || !percentage12) {
-        document.getElementById('percentage12th-error').textContent = errorMessage;
-        isValid = false;
-    }
+            // Validate 12th fields
+            if (!schoolName12 || !board12 || !passOutYear12 || !percentage12) {
+                document.getElementById('percentage12th-error').textContent = errorMessage;
+                isValid = false;
+            }
 
-    // Validate 10th fields
-    if (!schoolName10 || !board10 || !passOutYear10 || !percentage10) {
-        document.getElementById('percentage10th-error').textContent = errorMessage;
-        isValid = false;
-    }
+            // Validate 10th fields
+            if (!schoolName10 || !board10 || !passOutYear10 || !percentage10) {
+                document.getElementById('percentage10th-error').textContent = errorMessage;
+                isValid = false;
+            }
 
-    return isValid; // Form submission will only proceed if true
-}
+            return isValid; // Form submission will only proceed if true
+        }
 
 
 
@@ -832,22 +831,20 @@ function validateForm2() {
             // Dashboard stats extraction
             
             // Animate counter values
-            function animateCounter(element, endValue) {
-                let startValue = 0;
-                const duration = 2000; // Animation duration in milliseconds
-                const incrementTime = Math.floor(duration / endValue);
+        function animateCounter(element, endValue) {
+            let startValue = 0;
+            const duration = 2000; // Animation duration in milliseconds
+            const incrementTime = Math.floor(duration / endValue);
                 
-                const counterInterval = setInterval(() => {
-                    if (startValue < endValue) {
-                        startValue++;
-                        element.textContent = startValue;
-                    } else {
-                        clearInterval(counterInterval);
-                    }
-                }, incrementTime);
-            }
-    
-          
+            const counterInterval = setInterval(() => {
+                if (startValue < endValue) {
+                    startValue++;
+                    element.textContent = startValue;
+                } else {
+                    clearInterval(counterInterval);
+                }
+            }, incrementTime);
+        }
     
             // Adjust main content and container margin based on sidebar width
             const sidebar = document.querySelector('.sidebar');
@@ -867,6 +864,5 @@ function validateForm2() {
           
         });
     </script>
-    
 </body>
 </html>
