@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Recipients
             $mail->setFrom('no-reply@yourwebsite.com', 'Your Website');
             $mail->addAddress($email); // Add recipient
-gi
+
             // Content
             $mail->isHTML(true); // Set email format to HTML
             $mail->Subject = 'Password Reset Request';
