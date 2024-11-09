@@ -204,7 +204,12 @@ $conn->close();
         .applicants {
             margin-top: 5px;
         }
-
+        .applicants h2{
+            color: black;
+            font-weight: 600;
+            margin-left: 400px;
+            margin-bottom: 30px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -337,6 +342,7 @@ $conn->close();
     <div class="main-content">
         <!-- Applicants Table -->
         <div class="applicants">
+            <h2>Placed Students</h2>
             <table>
                 <thead>
                     <tr>

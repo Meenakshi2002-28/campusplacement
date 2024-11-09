@@ -42,17 +42,17 @@ $stmt->close();
 $conn->close();
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Applicants</title>
+    <title>Lavoro - Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
-body {
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
             color: #333;
@@ -170,7 +170,6 @@ body {
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
             overflow-y: auto;
-            
         }
 
         .main-content h1 {
@@ -210,9 +209,8 @@ body {
         height: 40px; /* Adjust size as needed */
         width: auto;
     }
-
-/* Dropdown menu styling */
-.dropdown-content {
+        /* Dropdown menu styling */
+        .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
@@ -243,12 +241,19 @@ body {
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
-        /* Table Styling */
-        .applicants {
-            margin-top: 20px;
-        }
+        
+        .sidebar .logo {
+    position: absolute;
+    top: 20px; /* Keep the same positioning */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 36px; /* Increase the font size here */
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
 
-        table {
+table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
@@ -278,9 +283,8 @@ body {
         th:nth-child(3), td:nth-child(3) {
             width: 25%; /* Course Column */
         }
-
-        /* Filter Section */
-        .filters {
+/* Filter Section */
+.filters {
             position: absolute;
             top: 80px;
             right: 20px;
@@ -298,26 +302,32 @@ body {
         .filters input[type="checkbox"] {
             margin-right: 10px;
         }
-        
-    </style>
+</style>
 </head>
+
 <body>
-<div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+    <!-- Profile Container -->
+    <div class="container">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon"
+            onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*"
+            onchange="changeProfilePicture(event)">
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href=" ../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div>
+    </div>    
+
+    <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
         <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
-        <a href="userapp.php" class="active"><i class="fa fa-fw fa-envelope"></i> Applications</a>
+        <a href="userapp.php"class="active"><i class="fa fa-fw fa-envelope"></i> Applications</a>
         <a href="company.html"><i class="fa fa-fw fa-building"></i> Company</a>
         <a href="../profile_redirect.php"><i class="fa fa-fw fa-user"></i> Profile</a>
         <a href="feedbackview.php"><i class="fa fa-fw fa-comment"></i> Feedback</a>
@@ -326,7 +336,6 @@ body {
         </div>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content">
         <!-- Applicants Table -->
         <div class="applicants">
@@ -361,6 +370,8 @@ body {
 
         <!-- Filter Section -->
         
+    </div>
+
     </div>
 
     <script>
