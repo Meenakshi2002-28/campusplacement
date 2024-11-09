@@ -123,358 +123,317 @@ if (isset($_SESSION['user_id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #d9e6f4;
-            color: #333;
-            overflow: hidden;
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #d9e6f4;
+        color: #333;
+        overflow: hidden;
+    }
 
+    /* Sidebar styling */
+    .sidebar {
+        width: 220px;     
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        border-radius: 10px;
+        height: 97vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: linear-gradient(135deg, #022a52fd, #063dc9);
+        color: white;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        transition: width 0.4s ease-in-out;
+        padding-top: 80px;
+    }
+
+    .sidebar .logo {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+    }
+
+    .sidebar:hover {
+        width: 250px;
+    }
+
+    .sidebar a {
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        padding: 15px 25px;
+        font-size: 18px;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+        position: relative;
+        opacity: 0;
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    /* Fade-in effect for sidebar links */
+    @keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        }
+    }
+
+    /* Delayed animation for each link */
+    .sidebar a:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .sidebar a:nth-child(3) {
+        animation-delay: 0.2s;
+    }
+
+    .sidebar a:nth-child(4) {
+        animation-delay: 0.3s;
+    }
+
+    .sidebar a:nth-child(5) {
+        animation-delay: 0.4s;
+    }
+
+    .sidebar a:nth-child(6) {
+        animation-delay: 0.5s;
+    }
+
+    .sidebar a:nth-child(7) {
+        animation-delay: 0.6s;
+    }
+
+    .sidebar a i {
+        margin-right: 15px;
+        transition: transform 0.3s;
+    }
+
+    .sidebar a:hover {
+        background-color: #1e3d7a;
+        border-left: 4px solid #ffffff;
+        padding-left: 30px;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    }
+
+    .sidebar .logout {
+        position: absolute;
+        bottom: 30px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .sidebar a.active {
+        background-color: #d9e6f4;
+        border-left: 4px solid #ffffff;
+        padding-left: 30px;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+        color: #000000;
+        position: relative;
+        z-index: 1;
+        height: 45px;
+    }
+
+    .sidebar .logo {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 36px;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+    }
+
+    /* Main content styling */
+    .main-content {
+        margin-left: 245px;
+        margin-top: 13px;
+        margin-right: 20px;
+        padding: 40px;
+        font-size: 18px;
+        color: #333;
+        border-radius: 10px;
+        transition: margin-left 0.4s ease-in-out;
+        background-color: #ffffff;
+        height: 86.5vh;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .main-content h1 {
+        color: #050505;
+        font-size: 2.5rem;
+        font-weight: bold;
+        padding-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Profile section styling */
+    .container {
+        padding: 18px 20px;
+        width: 1268px;
+        height: 55px;
+        margin-left: 245px;
+        margin-top: 12px;
+        margin-right: 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        background-color: #ffffff;
+        transition: margin-left 0.4s ease-in-out;
+    }
+
+ 
+    .icon {
+        margin-left: 1px;
+        cursor: pointer;
+        transition: transform 0.3s;
         }
 
-        /* Sidebar styling */
-        .sidebar {
-            width: 220px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            margin-left: 10px;
-            border-radius: 10px;
-            height: 97vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background: linear-gradient(135deg, #022a52fd, #063dc9);
-            color: white;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            /* Transparent glow effect */
-            transition: width 0.4s ease-in-out;
-            padding-top: 80px;
-            /* Added padding for space at the top */
+    .icon:hover {
+        transform: scale(1.1);
+    }
+
+    img {
+        height: 40px;
+        width: auto;
+    }
+
+    /* Dropdown menu styling */
+    .dropdown-content {
+        display: none;
+        opacity: 0;
+        position: absolute;
+        top: 70px;
+        right: 25px;
+        background: linear-gradient(135deg, #2F5597, #1e3d7a);
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        z-index: 1;
+        transition: opacity 0.3s ease;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .dropdown-content.show {
+        display: block;
+        opacity: 1;
+    }
+
+    .dropdown-content a {
+        color: white;
+        padding: 12px;
+        text-decoration: none;
+        display: block;
+        transition: background-color 0.2s;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #1e3d7a;
+    }
+
+    /* Card styling with hover effects */
+    .card {
+        background: linear-gradient(135deg, #a2c4fb, #9babcd);
+        color: #000000;
+        transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-text i {
+        margin-right: 10px;
+        font-size: 1.8rem;
+        color: #082765;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        background-color: #e0e0ee;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Counter animation */
+    .counter {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #04070b;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .container h3 {
+        margin-right: 450px;
+        font-weight: 700;
+    }
+
+    /* Scrolling Section Styling */
+    .scrolling-section {
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* background-color: #ffffff; Background color matching main content */
+        padding: 10px 0;
+        /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+        border-radius: 10px;
+        /* margin-top: 20px; */
+        margin-top: 60px;
+    }
+
+    .scrolling-logos {
+        display: inline-block;
+        animation: slide 30s linear infinite;
+        white-space: nowrap;
+    }
+
+    .scrolling-logos .logo {
+        height: 30px;
+        margin: 0 15px;
+        object-fit: contain;
+        transition: transform 0.3s;
+    }
+
+    .scrolling-logos .logo:hover {
+        transform: scale(1.1);
+    }
+
+    /* Scrolling Animation */
+    @keyframes slide {
+        0% {
+            transform: translateX(100%);
         }
 
-
-        .sidebar .logo {
-            position: absolute;
-            top: 20px;
-            /* Positions logo/title closer to the top */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            text-align: center;
+        100%{
+            transform: translateX(-100%);
         }
-
-        .sidebar:hover {
-            width: 250px;
-            /* Expands sidebar on hover */
-        }
-
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            padding: 15px 25px;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            border-left: 3px solid transparent;
-            position: relative;
-            opacity: 0;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        /* Fade-in effect for sidebar links */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Delayed animation for each link */
-        .sidebar a:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .sidebar a:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-
-        .sidebar a:nth-child(4) {
-            animation-delay: 0.3s;
-        }
-
-        .sidebar a:nth-child(5) {
-            animation-delay: 0.4s;
-        }
-
-        .sidebar a:nth-child(6) {
-            animation-delay: 0.5s;
-        }
-
-        .sidebar a:nth-child(7) {
-            animation-delay: 0.6s;
-        }
-
-        .sidebar a i {
-            margin-right: 15px;
-            transition: transform 0.3s;
-        }
-
-        .sidebar a:hover {
-            background-color: #1e3d7a;
-            border-left: 4px solid #ffffff;
-            padding-left: 30px;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-            /* Glow effect */
-        }
-
-        .sidebar .logout {
-            position: absolute;
-            bottom: 30px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .sidebar a.active {
-            background-color: #d9e6f4;
-            /* Background color for active link */
-            border-left: 4px solid #ffffff;
-            padding-left: 30px;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-            border-top-left-radius: 30px;
-            border-bottom-left-radius: 30px;
-            color: #000000;
-            position: relative;
-            z-index: 1;
-            height: 45px;
-
-        }
-
-
-        /* Main content styling */
-        .main-content {
-            margin-left: 245px;
-            margin-top: 13px;
-            margin-right: 20px;
-            /* Default margin for sidebar */
-            padding: 40px;
-            font-size: 18px;
-            color: #333;
-            border-radius: 10px;
-            transition: margin-left 0.4s ease-in-out;
-            /* Smooth transition for margin */
-            background-color: #ffffff;
-            height: 86.5vh;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            /* Add shadow effect */
-
-        }
-
-        .main-content h1 {
-            color: #050505;
-            font-size: 2.5rem;
-            /* Increased font size */
-            font-weight: bold;
-            padding-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Profile section styling */
-        .container {
-            padding: 18px 20px;
-            width: 1268px;
-            height: 55px;
-            margin-left: 245px;
-            /* Default margin for container */
-            margin-top: 12px;
-            margin-right: 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            border-radius: 10px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out;
-            /* Smooth transition for margin */
-        }
-
-        .small-icon {
-            width: 50px;
-            /* Set desired width */
-            height: 50px;
-            /* Set desired height */
-            object-fit: cover;
-            /* Ensures the image scales properly */
-            border-radius: 50%;
-            /* Makes the image circular */
-        }
-
-.icon {
-            margin-left: 1px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .icon:hover {
-            transform: scale(1.1);
-        }
-
-        img {
-            height: 40px;
-            /* Adjust size as needed */
-            width: auto;
-        }
-
-        /* Dropdown menu styling */
-        .dropdown-content {
-            display: none;
-            opacity: 0;
-            position: absolute;
-            top: 70px;
-            right: 25px;
-            background: linear-gradient(135deg, #2F5597, #1e3d7a);
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-            z-index: 1;
-            transition: opacity 0.3s ease;
-            padding-left: 2px;
-            padding-right: 2px;
-        }
-
-        .dropdown-content.show {
-            display: block;
-            opacity: 1;
-        }
-
-        .dropdown-content a {
-            color: white;
-            padding: 12px;
-            text-decoration: none;
-            display: block;
-            transition: background-color 0.2s;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #1e3d7a;
-        }
-        /* Card styling with hover effects */
-        .card {
-            background: linear-gradient(135deg, #a2c4fb, #9babcd);
-            /* Gradient background */
-            color: #000000;
-            /* White text for better contrast */
-            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-            /* Soft shadow effect */
-        }
-
-        .card-text i {
-            margin-right: 10px;
-            font-size: 1.8rem;
-            color: #082765;
-            /* Icon color */
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-            /* Scale effect on hover */
-            background-color: #e0e0ee;
-            /* Light blue background on hover */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            /* Shadow effect */
-        }
-
-        /* Counter animation */
-        .counter {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #04070b;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .sidebar .logo {
-            position: absolute;
-            top: 20px;
-            /* Keep the same positioning */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px;
-            /* Increase the font size here */
-            font-weight: bold;
-            color: white;
-            text-align: center;
-        }
-
-        .container h3 {
-            margin-right: 450px;
-            font-weight: 700;
-        }
-
-        /* Scrolling Section Styling */
-        .scrolling-section {
-            overflow: hidden;
-            white-space: nowrap;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* background-color: #ffffff; Background color matching main content */
-            padding: 10px 0;
-            /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
-            border-radius: 10px;
-            /* margin-top: 20px; */
-            margin-top: 60px;
-        }
-
-        .scrolling-logos {
-            display: inline-block;
-            animation: slide 30s linear infinite;
-            white-space: nowrap;
-        }
-
-        .scrolling-logos .logo {
-            height: 30px;
-            /* Adjust logo height */
-            margin: 0 15px;
-            /* Spacing between logos */
-            object-fit: contain;
-            transition: transform 0.3s;
-        }
-
-        .scrolling-logos .logo:hover {
-            transform: scale(1.1);
-            /* Slight zoom on hover */
-        }
-
-        /* Scrolling Animation */
-        @keyframes slide {
-            0% {
-                transform: translateX(100%);
-            }
-
-            100% {
-                transform: translateX(-100%);
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body>
@@ -483,6 +442,7 @@ if (isset($_SESSION['user_id'])) {
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -515,35 +475,38 @@ if (isset($_SESSION['user_id'])) {
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Total Applications</h5>
-                        <p class="card-text"><i class="fas fa-file-alt"></i> <span class="counter"
-                                id="total-applications"> <?php echo $application_count; ?></span> Applications</p>
+                        <p class="card-text"><i class="fas fa-file-alt"></i> <span class="counter" id="total-applications"> 
+                            <?php echo $application_count; ?></span> Applications</p>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Active Jobs</h5>
                         <p class="card-text"><i class="fas fa-briefcase"></i> <span class="counter" id="active-jobs">
-                                <?php echo $active_job_count; ?></span> Open Positions</p>
+                            <?php echo $active_job_count; ?></span> Open Positions</p>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Eligible Jobs</h5>
-                        <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter"
-                                id="eligible-jobs"><?php echo $eligible_job_count; ?></span> Eligible Positions</p>
+                        <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter" id="eligible-jobs">
+                            <?php echo $eligible_job_count; ?></span> Eligible Positions</p>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Profile Completion</h5>
-                        <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter"
-                                id="profile-completion"> <?php echo $profile_completion; ?>%</span><b> %</b>Complete</p>
+                        <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter" id="profile-completion"> 
+                            <?php echo $profile_completion; ?>%</span><b> %</b>Complete</p>
                     </div>
                 </div>
             </div>
@@ -567,167 +530,163 @@ if (isset($_SESSION['user_id'])) {
                 <img src="../images/company_logo/intel.png" alt="Company 7" class="logo">
                 <img src="../images/company_logo/LTImindtree.png" alt="Company 8" class="logo">
                 <img src="../images/company_logo/wipro.png" alt="Company 9" class="logo">
-
             </div>
         </div>
 
     </div>
-    <script>
-        const companies = <?php echo json_encode($companies); ?>;
-        const studentsPlaced = <?php echo json_encode($students_placed); ?>;
+<script>
+    const companies = <?php echo json_encode($companies); ?>;
+    const studentsPlaced = <?php echo json_encode($students_placed); ?>;
 
-        const colors = [
-            'rgba(0, 51, 102, 0.8)', // Dark Blue
-            'rgba(0, 76, 153, 0.8)', // Medium Dark Blue
-            'rgba(51, 102, 204, 0.8)', // Standard Blue
-            'rgba(102, 153, 255, 0.8)', // Light Blue
-            'rgba(153, 204, 255, 0.8)', // Lighter Blue
-            'rgba(204, 229, 255, 0.8)' // Very Light Blue
-        ];
+    const colors = [
+        'rgba(0, 51, 102, 0.8)', // Dark Blue
+        'rgba(0, 76, 153, 0.8)', // Medium Dark Blue
+        'rgba(51, 102, 204, 0.8)', // Standard Blue
+        'rgba(102, 153, 255, 0.8)', // Light Blue
+        'rgba(153, 204, 255, 0.8)', // Lighter Blue
+        'rgba(204, 229, 255, 0.8)' // Very Light Blue
+    ];
 
-        const datasets = companies.map((company, index) => ({
-            label: company,
-            data: [studentsPlaced[index]], // Single data point for each company
-            backgroundColor: colors[index % colors.length], // Cycle through colors
-            borderColor: colors[index % colors.length].replace('0.8', '1'), // Fully opaque border
-            borderWidth: 1
-        }));
+    const datasets = companies.map((company, index) => ({
+        label: company,
+        data: [studentsPlaced[index]], // Single data point for each company
+        backgroundColor: colors[index % colors.length], // Cycle through colors
+        borderColor: colors[index % colors.length].replace('0.8', '1'), // Fully opaque border
+        borderWidth: 1
+    }));
 
-        const ctx = document.getElementById('placementChart').getContext('2d');
-        const placementChart = new Chart(ctx, {
-            type: 'bar', // Bar chart type
-            data: {
-                labels: ['Number of Students Placed'], // Generic label for x-axis
-                datasets: datasets // Array of datasets, one for each company
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        grid: {
-                            display: false // Hide vertical grid lines
-                        }
-                    },
-
-                    y: {
-                        grid: {
-                            display: false // Hide horizontal grid lines
-                        },
-                        beginAtZero: true
+    const ctx = document.getElementById('placementChart').getContext('2d');
+    const placementChart = new Chart(ctx, {
+        type: 'bar', // Bar chart type
+        data: {
+            labels: ['Number of Students Placed'], // Generic label for x-axis
+            datasets: datasets // Array of datasets, one for each company
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    grid: {
+                        display: false // Hide vertical grid lines
                     }
                 },
-            }
+
+                y: {
+                    grid: {
+                        display: false // Hide horizontal grid lines
+                    },
+                    beginAtZero: true
+                }
+            },
+        }
+    });
+
+    // Change profile image
+    function triggerFileInput() {
+        document.getElementById('fileInput').click();
+    }
+
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+            };
+            reader.readAsDataURL(file); // Read the image file
+        }
+    }
+
+    // Dropdown toggle with smooth opening
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.classList.toggle("show");
+    }
+
+    // Hide dropdown on click outside
+    window.onclick = function (event) {
+        if (!event.target.matches('.icon')) {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdown.classList.remove("show");
+        }
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+    // Sidebar tab click effect
+        const tabs = document.querySelectorAll('.sidebar a');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+            });
         });
 
-        // Change profile image
-        function triggerFileInput() {
-            document.getElementById('fileInput').click();
+        // Set default active link on page load
+        const defaultLink = document.querySelector('.sidebar a.active');
+        if (defaultLink) {
+            defaultLink.classList.add('active');
         }
 
-        function changeProfilePicture(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
-                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
-                };
-                reader.readAsDataURL(file); // Read the image file
-            }
-        }
+        // Mobile nav handling (optional)
+        const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
+        mobileTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                mobileTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
 
-
-        // Dropdown toggle with smooth opening
-        function toggleDropdown() {
-            const dropdown = document.getElementById("dropdownMenu");
-            dropdown.classList.toggle("show");
-        }
-
-        // Hide dropdown on click outside
-        window.onclick = function (event) {
-            if (!event.target.matches('.icon')) {
-                const dropdown = document.getElementById("dropdownMenu");
-                dropdown.classList.remove("show");
-            }
+        // Dashboard stats extraction
+        const dashboardStats = {
+            totalApplications: <?php echo $application_count; ?>,     // Total Applications
+            activeJobs: <?php echo $active_job_count; ?>,
+            eligibleJobs: <?php echo $eligible_job_count; ?>,            // Active Jobs
+            profileCompletion: " <?php echo $profile_completion; ?>%",    // Profile Completion
         };
 
-        document.addEventListener("DOMContentLoaded", function () {
-            // Sidebar tab click effect
-            const tabs = document.querySelectorAll('.sidebar a');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                });
-            });
+        // Animate counter values
+        function animateCounter(element, endValue) {
+            let startValue = 0;
+            const duration = 800; // Animation duration in milliseconds
+            const incrementTime = Math.floor(duration / endValue);
 
-            // Set default active link on page load
-            const defaultLink = document.querySelector('.sidebar a.active');
-            if (defaultLink) {
-                defaultLink.classList.add('active');
-            }
+            const counterInterval = setInterval(() => {
+                if (startValue < endValue) {
+                    startValue++;
+                    element.textContent = startValue;
+                } else {
+                    clearInterval(counterInterval);
+                }
+            }, incrementTime);
+        }
 
-            // Mobile nav handling (optional)
-            const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
-            mobileTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    mobileTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                });
-            });
+        // Call animateCounter for each stat
+        animateCounter(document.getElementById('total-applications'), dashboardStats.totalApplications);
+        animateCounter(document.getElementById('active-jobs'), dashboardStats.activeJobs);
+        animateCounter(document.getElementById('eligible-jobs'), dashboardStats.eligibleJobs);
+        animateCounter(document.getElementById('profile-completion'), parseInt(dashboardStats.profileCompletion));
 
-            // Dashboard stats extraction
-            const dashboardStats = {
-                totalApplications: <?php echo $application_count; ?>,     // Total Applications
-                activeJobs: <?php echo $active_job_count; ?>,
-                eligibleJobs: <?php echo $eligible_job_count; ?>,            // Active Jobs
-                profileCompletion: " <?php echo $profile_completion; ?>%",    // Profile Completion
-            };
+        // Adjust main content and container margin based on sidebar width
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        const container = document.querySelector('.container');
 
-            // Animate counter values
-            function animateCounter(element, endValue) {
-                let startValue = 0;
-                const duration = 800; // Animation duration in milliseconds
-                const incrementTime = Math.floor(duration / endValue);
-
-                const counterInterval = setInterval(() => {
-                    if (startValue < endValue) {
-                        startValue++;
-                        element.textContent = startValue;
-                    } else {
-                        clearInterval(counterInterval);
-                    }
-                }, incrementTime);
-            }
-
-            // Call animateCounter for each stat
-            animateCounter(document.getElementById('total-applications'), dashboardStats.totalApplications);
-            animateCounter(document.getElementById('active-jobs'), dashboardStats.activeJobs);
-            animateCounter(document.getElementById('eligible-jobs'), dashboardStats.eligibleJobs);
-            animateCounter(document.getElementById('profile-completion'), parseInt(dashboardStats.profileCompletion));
-
-            // Adjust main content and container margin based on sidebar width
-            const sidebar = document.querySelector('.sidebar');
-            const mainContent = document.querySelector('.main-content');
-            const container = document.querySelector('.container');
-
-            sidebar.addEventListener('mouseenter', () => {
-                mainContent.style.marginLeft = '270px'; // Expanded sidebar width
-                container.style.marginLeft = '270px'; // Adjust container margin
-            });
-
-            sidebar.addEventListener('mouseleave', () => {
-                mainContent.style.marginLeft = '245px'; // Normal sidebar width
-                container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
-            });
-
-            // Example of how to log these values
-            console.log("Total Applications:", dashboardStats.totalApplications);
-            console.log("Active Jobs:", dashboardStats.activeJobs);
-            console.log("Profile Completion:", dashboardStats.profileCompletion);
+        sidebar.addEventListener('mouseenter', () => {
+            mainContent.style.marginLeft = '270px'; // Expanded sidebar width
+            container.style.marginLeft = '270px'; // Adjust container margin
         });
-    </script>
 
+        sidebar.addEventListener('mouseleave', () => {
+            mainContent.style.marginLeft = '245px'; // Normal sidebar width
+            container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
+        });
+
+        // Example of how to log these values
+        console.log("Total Applications:", dashboardStats.totalApplications);
+        console.log("Active Jobs:", dashboardStats.activeJobs);
+        console.log("Profile Completion:", dashboardStats.profileCompletion);
+    });
+</script>
 </body>
-
 </html>
