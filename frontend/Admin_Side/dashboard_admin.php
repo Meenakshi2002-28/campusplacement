@@ -267,12 +267,58 @@ img {
     background-color: #e0e0ee; /* Light blue background on hover */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
 }
+ /* Scrolling Section Styling */
+ .scrolling-section {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background-color: #ffffff; Background color matching main content */
+            padding: 10px 0;
+            /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+            border-radius: 10px;
+            /* margin-top: 20px; */
+            margin-top: 60px;
+        }
+
+        .scrolling-logos {
+            display: inline-block;
+            animation: slide 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .scrolling-logos .logo {
+            height: 30px;
+            /* Adjust logo height */
+            margin: 0 15px;
+            /* Spacing between logos */
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+
+        .scrolling-logos .logo:hover {
+            transform: scale(1.1);
+            /* Slight zoom on hover */
+        }
+
+        /* Scrolling Animation */
+        @keyframes slide {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
 </style>
 </head>
 <body>
 <!-- Profile Container -->
 <div class="container">
-    <h3>Welcome to Lavaro</h3>
+    <h3>Welcome to Lavoro</h3>
     <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
     <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
     <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
@@ -330,6 +376,21 @@ img {
             </div>
         </div>
     </div>
+    <div class="scrolling-section">
+            <div class="scrolling-logos">
+                <img src="../images/company_logo/infosys.png" alt="Company 1" class="logo">
+                <img src="../images/company_logo/tcs.png" alt="Company 2" class="logo">
+                <img src="../images/company_logo/accenture.png" alt="Company 3" class="logo">
+                <img src="../images/company_logo/cisco.png" alt="Company 4" class="logo">
+                <img src="../images/company_logo/cognizant.jpg" alt="Company 4" class="logo">
+                <img src="../images/company_logo/Deloitte.png" alt="Company 5" class="logo">
+                <img src="../images/company_logo/federal bank.png" alt="Company 6" class="logo">
+                <img src="../images/company_logo/intel.png" alt="Company 7" class="logo">
+                <img src="../images/company_logo/LTImindtree.png" alt="Company 8" class="logo">
+                <img src="../images/company_logo/wipro.png" alt="Company 9" class="logo">
+
+            </div>
+        </div>
 </div>
 
 <script>
