@@ -238,6 +238,8 @@ $conn->close();
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -331,12 +333,6 @@ $conn->close();
             padding-top: 1px;
         }
 
-        .text h4, p {
-            margin: 2px;
-            font-size: 18px;
-            color: #000000;
-        }
-
         /* Adjust sub-sidebar to float left */
         .sub-sidebar {
             float: left;
@@ -405,14 +401,6 @@ $conn->close();
             width: 100%;
         }
 
-        input, select {
-            padding: 8px;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            width: 100%;
-        }
-
         .button-container {
             display: flex;
             justify-content: center;
@@ -454,14 +442,6 @@ $conn->close();
             width: 100%;
             height: 100%;
             object-fit: cover; /* Ensures the image scales properly within the div */
-        }
-
-        .small-icon {
-            width: 50px; /* Set desired width */
-            height: 50px; /* Set desired height */
-            object-fit: cover; /* Ensures the image scales properly */
-            border-radius: 50%;
-            /* Makes the image circular */
         }
 
         #editImageButton {
@@ -516,6 +496,8 @@ $conn->close();
             padding-left: 35px; 
             margin-bottom:15px; 
             margin-top :-12.5px;
+            font-size: 18px;
+            color: black;
         }
     </style>
 </head>

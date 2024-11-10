@@ -360,10 +360,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             padding-top: 1px;
         }
 
-        .text h4, p {
-            margin: 2px;
+        .text h4{
+            padding-left: 35px; 
+            margin-bottom:15px; 
+            margin-top :-12.5px;
             font-size: 18px;
-            color: #000000;
+            color: black;
         }
 
         /* Adjust sub-sidebar to float left */
