@@ -523,11 +523,8 @@ $conn->close();
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon"
-            onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*"
-            onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+    <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+    <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
 
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
@@ -675,6 +672,19 @@ $conn->close();
     </div>
     <!-- JavaScript -->
     <script>
+              function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_profilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+          window.onload = loadProfilePicture;
         function confirmApplication() {
     const userCgpa = <?php echo json_encode($user_cgpa); ?>; // Get user's CGPA from PHP
     const jobCgpaRequirement = <?php echo json_encode($jobCgpaRequirement); ?>; // Get job's CGPA requirement from PHP
