@@ -77,7 +77,6 @@ $conn->close();
             background-color: #d9e6f4;
             color: #333;
             overflow: hidden;
-
         }
 
         /* Sidebar styling */
@@ -210,6 +209,7 @@ $conn->close();
             background-color: #ffffff;
             transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
         }
+        
         .icon {
             margin-left: 1px;
             cursor: pointer;
