@@ -82,22 +82,21 @@ $conn->close();
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    height: 97vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-    transition: width 0.4s ease-in-out;
-    padding-top: 80px; /* Added padding for space at the top */
-}
-
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px; /* Added padding for space at the top */
+        }
 
         .sidebar .logo {
             position: absolute;
@@ -161,18 +160,18 @@ $conn->close();
             text-align: center;
         }
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
-}
+            background-color: #d9e6f4; /* Background color for active link */
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            color:#000000;
+            position: relative;
+            z-index: 1;
+            height: 45px;   
+        }
+
         /* Main content styling */
         .main-content {
             margin-left: 245px;
@@ -185,8 +184,7 @@ $conn->close();
             transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
             background-color: #ffffff;
             height: 86.5vh;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-            
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */  
         }
 
         .main-content h1 {
@@ -221,10 +219,12 @@ $conn->close();
         .icon:hover {
             transform: scale(1.1);
         }
+
         img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
+            height: 40px; /* Adjust size as needed */
+            width: auto;
+        }
+
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
@@ -256,61 +256,62 @@ $conn->close();
             background-color: #1e3d7a;
         }
 
-        
         .sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-.tabs {
-    display: flex;
-    flex-direction: column; /* Arrange tabs vertically */
-    margin-bottom: 20px; /* Space between tabs and content */
-    width: 200px;
-}
+            position: absolute;
+            top: 20px; /* Keep the same positioning */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px; /* Increase the font size here */
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
 
-.tab {
-    padding: 10px;
-    margin-bottom: 5px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s;
-}
+        .tabs {
+            display: flex;
+            flex-direction: column; /* Arrange tabs vertically */
+            margin-bottom: 20px; /* Space between tabs and content */
+            width: 200px;
+        }
 
-.tab.active {
-    background-color: #1e3d7a; /* Active tab color */
-    color: white;
-}
+        .tab {
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
 
-.tab:hover {
-    font-weight: bold;
-}
+        .tab.active {
+            background-color: #1e3d7a; /* Active tab color */
+            color: white;
+        }
 
-.content-area {
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+        .tab:hover {
+            font-weight: bold;
+        }
 
-/* Tab content */
-.tab-content {
-    display: none; /* Hide all tab content by default */
-}
+        .content-area {
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
-.tab-content.active {
-    display: block; /* Show active tab content */
-}
-  /* Profile section styling */
-  .container {
+        /* Tab content */
+        .tab-content {
+            display: none; /* Hide all tab content by default */
+        }
+
+        .tab-content.active {
+            display: block; /* Show active tab content */
+        }
+
+        /* Profile section styling */
+        .container {
             padding: 18px 20px;
             width: 1268px;
             height: 55px;
@@ -340,18 +341,19 @@ $conn->close();
             width: 100%; /* Ensure image fits the container */
             height: auto; /* Maintain aspect ratio */
         }
+
         .text {
-    padding-top: 1px;
-}
+            padding-top: 1px;
+        }
 
-.text h4, p {
-    margin: 2px;
-    font-size: 18px;
-    color: #000000;
-}
+        .text h4, p {
+            margin: 2px;
+            font-size: 18px;
+            color: #000000;
+        }
 
-/* Adjust sub-sidebar to float left */
-.sub-sidebar {
+        /* Adjust sub-sidebar to float left */
+        .sub-sidebar {
     float: left;
     width: 250px; /* Adjust width if needed */
     padding: 10px;
@@ -455,7 +457,11 @@ button:hover {
     border-radius: 50%;
      /* Makes the image circular */
 }
-
+.text h4{
+            padding-left: 35px; 
+            margin-bottom:15px; 
+            margin-top :-12.5px;
+        }
     </style>
 </head>
 <body>
@@ -493,6 +499,11 @@ button:hover {
             <div class="profile-picture">
                 <img src="../images/Customer.png" alt="Profile Picture"> <!-- Add your profile picture source here -->
             </div>
+
+            <div class="text">
+                <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Student's name -->
+            </div>
+
          <!-- Profile Picture Section -->
             <div class="tabs">
                 <div class="tab" onclick="window.location.href=' ../profile_redirect.php'">Personal Details</div>
