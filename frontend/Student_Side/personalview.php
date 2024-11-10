@@ -158,6 +158,7 @@ $conn->close();
             width: 100%;
             text-align: center;
         }
+
         .sidebar a.active {
             background-color: #d9e6f4; /* Background color for active link */
             border-left: 4px solid #ffffff;
@@ -219,6 +220,7 @@ $conn->close();
         .icon:hover {
             transform: scale(1.1);
         }
+
         img {
             height: 40px; /* Adjust size as needed */
             width: auto;
@@ -310,21 +312,6 @@ $conn->close();
         }
 
         /* Profile section styling */
-        .container {
-            padding: 18px 20px;
-            width: 1268px;
-            margin-left: 245px; /* Default margin for container */
-            margin-top: 12px;
-            margin-right: 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            border-radius: 10px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
-
         .profile-picture {
             width: 200px; /* Adjust width as needed */
             height: 200px; /* Ensure height equals width for a square */
