@@ -519,6 +519,11 @@ $conn->close();
     cursor: pointer;
     color: #000;
 }
+.text h4{
+            padding-left: 35px; 
+            margin-bottom:15px; 
+            margin-top :-12.5px;
+        }
     </style>
 </head>
 <body>
@@ -553,6 +558,7 @@ $conn->close();
     <div class="main-content">
         <div class="sub-sidebar">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div class="profile-picture">
                 <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture" onclick="triggerFileInput()"> 
                 <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="ProfilePicture(event)">
@@ -569,6 +575,12 @@ $conn->close();
     <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture">
     <button id="editImageButton" style="display: none;" onclick="openModal()">Edit</button>
 </div>
+=======
+            <div class="profile-picture" onmouseover="showEditButton()" onmouseout="hideEditButton()">
+                <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture">
+                <button id="editImageButton" style="display: none;" onclick="openModal()">Edit</button>
+            </div>
+>>>>>>> 88861f1 (change)
 
 <!-- Modal Structure -->
 <!-- Modal Structure -->
@@ -587,7 +599,7 @@ $conn->close();
 </div>
 
          
-            <div class="text"style="padding-left: 35px;">
+            <div class="text">
             <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->
              
         </div>
