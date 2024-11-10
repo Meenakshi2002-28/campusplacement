@@ -628,6 +628,7 @@ button:hover {
                 </div>
                 </form>
             </div>
+            </div>
     <!-- JavaScript -->
     <script>
                 function loadProfilePicture() {
