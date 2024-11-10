@@ -131,7 +131,7 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
+    <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #d9e6f4;
@@ -289,7 +289,7 @@ if (isset($_SESSION['user_id'])) {
         padding-bottom: 10px;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
-    
+
     /* Profile section styling */
     .container {
         padding: 18px 20px;

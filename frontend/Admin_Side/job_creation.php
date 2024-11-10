@@ -123,12 +123,12 @@ $conn->close();
     overflow: hidden;
 }
 
-/* Sidebar styling */
-.sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
+    /* Sidebar styling */
+    .sidebar {
+        width: 220px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 10px;
     border-radius: 10px;
     height: 97vh;
     position: fixed;
