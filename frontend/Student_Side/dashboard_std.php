@@ -131,7 +131,7 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
+    <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #d9e6f4;
@@ -289,7 +289,7 @@ if (isset($_SESSION['user_id'])) {
         padding-bottom: 10px;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
-    
+
     /* Profile section styling */
     .container {
         padding: 18px 20px;
@@ -438,10 +438,8 @@ if (isset($_SESSION['user_id'])) {
 <body>
     <div class="container">
         <h3>Welcome to Lavoro</h3>
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -534,6 +532,19 @@ if (isset($_SESSION['user_id'])) {
 
     </div>
 <script>
+     function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_profilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+    window.onload = loadProfilePicture;
     const companies = <?php echo json_encode($companies); ?>;
     const studentsPlaced = <?php echo json_encode($students_placed); ?>;
 

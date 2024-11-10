@@ -512,12 +512,8 @@ b.feedback-container:active {
 <body>
    <!-- Profile Container -->
    <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon"
-            onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*"
-            onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-
+   <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+   <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href=" ../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -569,6 +565,19 @@ b.feedback-container:active {
 
     <!-- JavaScript -->
     <script>
+              function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_profilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+          window.onload = loadProfilePicture;
         // Change Profile Picture
         function triggerFileInput() {
             document.getElementById('fileInput').click();
