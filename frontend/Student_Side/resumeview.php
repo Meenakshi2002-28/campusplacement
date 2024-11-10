@@ -312,6 +312,11 @@ $conn->close();
             padding: 10px;
             margin-right: 20px; /* Spacing between sub-sidebar and form */
         }
+        .text h4, p {
+            margin: 2px;
+            font-size: 18px;
+            color: #000000;
+        }
 
         /* Adjust details container */
         .details {
@@ -398,6 +403,11 @@ $conn->close();
             font-size: 24px;
             cursor: pointer;
             color: #000;
+        }
+        .text h4{
+            padding-left: 35px; 
+            margin-bottom:15px; 
+            margin-top :-12.5px;
         }
     </style>
 </head>
