@@ -438,10 +438,8 @@ if (isset($_SESSION['user_id'])) {
 <body>
     <div class="container">
         <h3>Welcome to Lavoro</h3>
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -534,6 +532,19 @@ if (isset($_SESSION['user_id'])) {
 
     </div>
 <script>
+     function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_profilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+    window.onload = loadProfilePicture;
     const companies = <?php echo json_encode($companies); ?>;
     const studentsPlaced = <?php echo json_encode($students_placed); ?>;
 
