@@ -68,7 +68,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavoro - Campus Recruitment System</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
@@ -463,63 +463,66 @@ $conn->close();
             object-fit: cover; /* Ensures the image scales properly within the div */
         }
 
-.profile-picture1 img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image scales properly within the div */
-}
-.small-icon {
-    width: 50px; /* Set desired width */
-    height: 50px; /* Set desired height */
-    object-fit: cover; /* Ensures the image scales properly */
-    border-radius: 50%;
-     /* Makes the image circular */
-}
-#editImageButton {
-    position: absolute;
-    top: 90%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-    background-color: grey;
-    color: black;
-    font-size: 15px;
-    border: none;
-    margin-bottom: 5px;
-    width: 60px;
-    height: 25px;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
+        .profile-picture1 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image scales properly within the div */
+        }
 
-.profile-picture:hover #editImageButton {
-    display: block;
-}
+        .small-icon {
+            width: 50px; /* Set desired width */
+            height: 50px; /* Set desired height */
+            object-fit: cover; /* Ensures the image scales properly */
+            border-radius: 50%;
+            /* Makes the image circular */
+        }
 
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 400px;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
+        #editImageButton {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            background-color: #AFC8F3;
+            color: black;
+            font-size: 15px;
+            border: none;
+            margin-bottom: 2px;
+            width: 60px;
+            height: 30px;
+            padding: 0px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #000;
-}
-.text h4{
+        .profile-picture:hover #editImageButton {
+            display: block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #000;
+        }
+
+        .text h4{
             padding-left: 35px; 
             margin-bottom:15px; 
             margin-top :-12.5px;
@@ -529,7 +532,7 @@ $conn->close();
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
 
         <!-- Dropdown Menu -->
@@ -578,32 +581,34 @@ $conn->close();
 =======
             <div class="profile-picture" onmouseover="showEditButton()" onmouseout="hideEditButton()">
                 <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture">
-                <button id="editImageButton" style="display: none;" onclick="openModal()">Edit</button>
+                <button id="editImageButton" style="display: none;" onclick="openModal()">EDIT</button>
             </div>
 >>>>>>> 88861f1 (change)
 
-<!-- Modal Structure -->
-<!-- Modal Structure -->
-<div id="profileModal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" onclick="closeModal()">&times;</span>
-        <h4>Profile Pic</h4>
-        <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
-           Use 300 X 300 px image for profile pic.</p>
-        <!-- Form for file upload -->
-        <form id="uploadForm" action="picture.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
-            <button type="submit" name="submit">Submit</button>
-        </form>
-    </div>
-</div>
+        <!-- Modal Structure -->
+        <div id="profileModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal()">&times;</span>
+                <h4>Profile Pic</h4>
+                <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
+                    Use 300 X 300 px image for profile pic.</p>
 
-         
-            <div class="text">
-            <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->
-             
+                <!-- Form for file upload -->
+                <form id="uploadForm" action="picture.php" method="post" enctype="multipart/form-data">
+                    <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
+                    <button type="submit" name="submit">Submit</button>
+                </form>
+            </div>
         </div>
+<<<<<<< HEAD
 >>>>>>> def5bba (...)
+=======
+
+        <div class="text">
+            <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->  
+        </div>
+
+>>>>>>> e055d5f (done)
          <!-- Profile Picture Section -->
             <div class="tabs">
                 <div class="tab active" onclick="showSection('personal')">Personal Details</div>
@@ -655,132 +660,139 @@ $conn->close();
                 <a href="editpersonal.php"><button>EDIT </button></a>
             </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
             </form>
         </div>
     </div>
 =======
             </div>
 >>>>>>> 4171639 (..)
+=======
+        </div>
+    </div>    
+>>>>>>> e055d5f (done)
     <!-- JavaScript -->
     <script>
-                function loadProfilePicture() {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'fetch_profilepicture.php', true);
-            xhr.onload = function () {
-                if (xhr.status === 200) {
+    function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_profilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
                 var profilePath = xhr.responseText.trim();
                 document.getElementById('sidebarProfilePicture').src = profilePath;
                 document.getElementById('profileIcon').src = profilePath;
             }
-            };
-            xhr.send();
-        }
-        window.onload = loadProfilePicture;
- function showEditButton() {
-    document.getElementById('editImageButton').style.display = 'block';
-}
-
-function hideEditButton() {
-    document.getElementById('editImageButton').style.display = 'none';
-}
-
-function openModal() {
-    document.getElementById('profileModal').style.display = 'block';
-}
-
-function closeModal() {
-    document.getElementById('profileModal').style.display = 'none';
-}
-
-function uploadProfilePicture() {
-    // Implement file upload logic here
-    alert('Upload functionality goes here');
-}
-        // Change Profile Picture
-        function triggerFileInput() {
-            document.getElementById('fileInput').click();
-        }
-    
-        function changeProfilePicture(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('profileIcon').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-        
-        function ProfilePicture(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('sidebarProfilePicture').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-
-                // Display the UPLOAD button after selecting the file
-                document.getElementById('uploadButton').style.display = 'inline-block';
-            }
-        }
-    
-        // Dropdown toggle with smooth opening
-        function toggleDropdown() {
-            const dropdown = document.getElementById("dropdownMenu");
-            dropdown.classList.toggle("show");
-        }
-    
-        // Hide dropdown on click outside
-        window.onclick = function(event) {
-            if (!event.target.matches('.icon')) {
-                const dropdown = document.getElementById("dropdownMenu");
-                dropdown.classList.remove("show");
-            }
         };
+        xhr.send();
+    }
+
+    window.onload = loadProfilePicture;
+    function showEditButton() {
+        document.getElementById('editImageButton').style.display = 'block';
+    }
+
+    function hideEditButton() {
+        document.getElementById('editImageButton').style.display = 'none';
+    }
+
+    function openModal() {
+        document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('profileModal').style.display = 'none';
+    }
+
+    function uploadProfilePicture() {
+    // Implement file upload logic here
+        alert('Upload functionality goes here');
+    }
+
+    // Change Profile Picture
+    function triggerFileInput() {
+        document.getElementById('fileInput').click();
+    }
     
-        document.addEventListener("DOMContentLoaded", function () {
-            // Sidebar tab click effect
-            const tabs = document.querySelectorAll('.sidebar a');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                });
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profileIcon').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+        
+    function ProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            // Display the UPLOAD button after selecting the file
+            document.getElementById('uploadButton').style.display = 'inline-block';
+        }
+    }
+    
+    // Dropdown toggle with smooth opening
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.classList.toggle("show");
+    }
+    
+    // Hide dropdown on click outside
+    window.onclick = function(event) {
+        if (!event.target.matches('.icon')) {
+            const dropdown = document.getElementById("dropdownMenu");
+            dropdown.classList.remove("show");
+        }
+    };
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        // Sidebar tab click effect
+        const tabs = document.querySelectorAll('.sidebar a');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
             });
-    
-            // Set default active link on page load
-            const defaultLink = document.querySelector('.sidebar a.active');
-            if (defaultLink) {
-                defaultLink.classList.add('active');
-            }
-    
-            // Mobile nav handling (optional)
-            const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
-            mobileTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    mobileTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                });
-            });
-    
-            // Adjust main content and container margin based on sidebar width
-            const sidebar = document.querySelector('.sidebar');
-            const mainContent = document.querySelector('.main-content');
-            const container = document.querySelector('.container');
-    
-            sidebar.addEventListener('mouseenter', () => {
-                mainContent.style.marginLeft = '270px'; // Expanded sidebar width
-                container.style.marginLeft = '270px'; // Adjust container margin
-            });
-    
-            sidebar.addEventListener('mouseleave', () => {
-                mainContent.style.marginLeft = '245px'; // Normal sidebar width
-                container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
-            });
-          
         });
-    </script>
+    
+        // Set default active link on page load
+        const defaultLink = document.querySelector('.sidebar a.active');
+        if (defaultLink) {
+            defaultLink.classList.add('active');
+        }
+    
+        // Mobile nav handling (optional)
+        const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
+        mobileTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                mobileTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+    
+        // Adjust main content and container margin based on sidebar width
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        const container = document.querySelector('.container');
+    
+        sidebar.addEventListener('mouseenter', () => {
+            mainContent.style.marginLeft = '270px'; // Expanded sidebar width
+            container.style.marginLeft = '270px'; // Adjust container margin
+        });
+    
+        sidebar.addEventListener('mouseleave', () => {
+             mainContent.style.marginLeft = '245px'; // Normal sidebar width
+            container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
+        });
+          
+    });
+</script>
 </body>
 </html>
