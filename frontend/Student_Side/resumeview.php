@@ -157,7 +157,7 @@ $conn->close();
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-            overflow-y: auto;
+            overflow-y: hidden;
         }
 
         .main-content h1 {
@@ -333,6 +333,14 @@ $conn->close();
             display: block;
         }
 
+        input {
+            padding: 8px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            width: 100%;
+        }
+
         .button-container {
             display: flex;
             justify-content: center;
@@ -404,6 +412,7 @@ $conn->close();
             cursor: pointer;
             color: #000;
         }
+
         .text h4{
             padding-left: 35px; 
             margin-bottom:15px; 

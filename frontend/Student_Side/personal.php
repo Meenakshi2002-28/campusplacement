@@ -265,6 +265,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -380,7 +382,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             height: 80vh;
             overflow-y: auto;
         }
-
 
         .details.active {
             background-color: #ffffff;
