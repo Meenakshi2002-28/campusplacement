@@ -18,12 +18,34 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+// Check if a filter has been set
+$whereClause = '';
+if (isset($_GET['filter'])) {
+    $filter = $_GET['filter'];
+    
+    switch ($filter) {
+        case '1_week':
+            $whereClause = "WHERE p.placement_date >= NOW() - INTERVAL 1 WEEK";
+            break;
+        case '2_weeks':
+            $whereClause = "WHERE p.placement_date >= NOW() - INTERVAL 2 WEEK";
+            break;
+        case 'no_filter':
+        default:
+            // No filter, show all records
+            $whereClause = '';
+            break;
+    }
+}
+// SQL query with the filter
 $sql = "
 SELECT j.company_name, j.job_title, p.user_id, s.name
-    FROM placement p
-    JOIN job j ON p.job_id = j.job_id
-    JOIN student s ON p.user_id = s.user_id
-    ORDER BY s.name ASC
+FROM placement p
+JOIN job j ON p.job_id = j.job_id
+JOIN student s ON p.user_id = s.user_id
+$whereClause
+ORDER BY s.name ASC
 ";
 
 // Execute the query
@@ -35,6 +57,7 @@ $placed_students = $result->fetch_all(MYSQLI_ASSOC);
 // Close the connection
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -340,6 +363,15 @@ $conn->close();
 </div>
     <!-- Main Content -->
     <div class="main-content">
+    <form method="GET" action="">
+            <label for="filter">Filter by Date:</label>
+            <select name="filter" id="filter">
+                <option value="no_filter">No Filter</option>
+                <option value="1_week" <?php echo (isset($_GET['filter']) && $_GET['filter'] == '1_week') ? 'selected' : ''; ?>>1 week ago</option>
+                <option value="2_weeks" <?php echo (isset($_GET['filter']) && $_GET['filter'] == '2_weeks') ? 'selected' : ''; ?>>2 weeks ago</option>
+            </select>
+            <button type="submit">Apply Filter</button>
+        </form>
         <!-- Applicants Table -->
         <div class="applicants">
             <h2>Placed Students</h2>

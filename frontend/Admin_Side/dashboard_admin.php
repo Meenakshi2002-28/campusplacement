@@ -14,22 +14,56 @@ if (isset($_SESSION['user_id'])) {
     // Check the connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-    } // Make sure this file contains your DB connection code
+    }
 
     // Retrieve the user ID from the session
     $user_id = $_SESSION['user_id'];
 
-    // Prepare and execute a SQL query to fetch the user's name
+    // Prepare and execute a SQL query to fetch the admin's name
     $query = "SELECT name FROM admin WHERE user_id = ?";
     
-    // Using prepared statements to prevent SQL injection
     if ($stmt = $conn->prepare($query)) {
-        $stmt->bind_param("s", $user_id); // Assuming user_id is an integer
+        $stmt->bind_param("s", $user_id); // Assuming user_id is a string
         $stmt->execute();
         $stmt->bind_result($name);
         $stmt->fetch();
         $stmt->close();
     }
+
+    // Query to count total students
+    $total_students_query = "SELECT COUNT(*) AS total_students FROM student";
+    $total_students_result = $conn->query($total_students_query);
+    $total_students = $total_students_result->fetch_assoc()['total_students'];
+
+    // Query to count active jobs
+    $active_jobs_query = "SELECT COUNT(*) AS active_jobs FROM job WHERE is_active = 1";
+    $active_jobs_result = $conn->query($active_jobs_query);
+    $active_jobs = $active_jobs_result->fetch_assoc()['active_jobs'];
+
+    // Query to count total placements
+    $total_placements_query = "SELECT COUNT(*) AS total_placements FROM placement";
+    $total_placements_result = $conn->query($total_placements_query);
+    $total_placements = $total_placements_result->fetch_assoc()['total_placements'];
+
+    // Query to get company names and number of students placed per job
+    $companies = [];
+    $students_placed = [];
+    $query = "
+        SELECT j.company_name, COUNT(p.user_id) AS students_placed
+        FROM placement p
+        JOIN job j ON p.job_id = j.job_id
+        GROUP BY p.job_id
+        ORDER BY students_placed DESC
+    ";
+    $result = $conn->query($query);
+
+    while ($row = $result->fetch_assoc()) {
+        $companies[] = $row['company_name'];
+        $students_placed[] = $row['students_placed'];
+    }
+
+    // Close the database connection
+    $conn->close();
 } else {
     // If no session is set, redirect to the login page
     header("Location: login.php");
@@ -44,6 +78,8 @@ if (isset($_SESSION['user_id'])) {
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <style>
 body {
@@ -355,7 +391,7 @@ img {
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title"> Students</h5>
-                    <p class="card-text"><i class="fas fa-file-alt"></i> <span class="counter" id="total-applications"></span> Total Students Registerd</p>
+                    <p class="card-text"><i class="fas fa-file-alt"></i> <span class="counter" id="total-students"></span> Total Students</p>
                 </div>
             </div>
         </div>
@@ -371,11 +407,13 @@ img {
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title"> Placements</h5>
-                    <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter" id="eligible-jobs"></span> Placed Students</p>
+                    <p class="card-text"><i class="fas fa-check-circle"></i> <span class="counter" id="placed-students"></span> Placed Students</p>
                 </div>
             </div>
         </div>
     </div>
+    <canvas id="placementChart"
+    style="width: 100%; max-width: 450px; height: 120px; float:left; margin-top: 50px;"></canvas>
     <div class="scrolling-section">
             <div class="scrolling-logos">
                 <img src="../images/company_logo/infosys.png" alt="Company 1" class="logo">
@@ -394,6 +432,51 @@ img {
 </div>
 
 <script>
+     const companies = <?php echo json_encode($companies); ?>;
+    const studentsPlaced = <?php echo json_encode($students_placed); ?>;
+
+    const colors = [
+        'rgba(0, 51, 102, 0.8)', // Dark Blue
+        'rgba(0, 76, 153, 0.8)', // Medium Dark Blue
+        'rgba(51, 102, 204, 0.8)', // Standard Blue
+        'rgba(102, 153, 255, 0.8)', // Light Blue
+        'rgba(153, 204, 255, 0.8)', // Lighter Blue
+        'rgba(204, 229, 255, 0.8)' // Very Light Blue
+    ];
+
+    const datasets = companies.map((company, index) => ({
+        label: company,
+        data: [studentsPlaced[index]], // Single data point for each company
+        backgroundColor: colors[index % colors.length], // Cycle through colors
+        borderColor: colors[index % colors.length].replace('0.8', '1'), // Fully opaque border
+        borderWidth: 1
+    }));
+
+    const ctx = document.getElementById('placementChart').getContext('2d');
+    const placementChart = new Chart(ctx, {
+        type: 'bar', // Bar chart type
+        data: {
+            labels: ['Number of Students Placed'], // Generic label for x-axis
+            datasets: datasets // Array of datasets, one for each company
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    grid: {
+                        display: false // Hide vertical grid lines
+                    }
+                },
+
+                y: {
+                    grid: {
+                        display: false // Hide horizontal grid lines
+                    },
+                    beginAtZero: true
+                }
+            },
+        }
+    });
 
 // Change profile image
 function triggerFileInput() {
@@ -411,6 +494,35 @@ function changeProfilePicture(event) {
         reader.readAsDataURL(file); // Read the image file
     }
 }
+ // Dashboard stats extraction
+ const dashboardStats = {
+            totalApplications: <?php echo $total_students; ?>,     // Total Applications
+            activeJobs: <?php echo $active_jobs; ?>,
+            eligibleJobs: <?php echo $total_placements; ?>,            // Active Jobs
+               
+        };
+
+        // Animate counter values
+        function animateCounter(element, endValue) {
+            let startValue = 0;
+            const duration = 800; // Animation duration in milliseconds
+            const incrementTime = Math.floor(duration / endValue);
+
+            const counterInterval = setInterval(() => {
+                if (startValue < endValue) {
+                    startValue++;
+                    element.textContent = startValue;
+                } else {
+                    clearInterval(counterInterval);
+                }
+            }, incrementTime);
+        }
+
+        // Call animateCounter for each stat
+        animateCounter(document.getElementById('total-students'), dashboardStats.totalApplications);
+        animateCounter(document.getElementById('active-jobs'), dashboardStats.activeJobs);
+        animateCounter(document.getElementById('placed-students'), dashboardStats.eligibleJobs);
+       
 
 // Dropdown toggle with smooth opening
 function toggleDropdown() {
