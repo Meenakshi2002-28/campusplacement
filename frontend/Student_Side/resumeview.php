@@ -414,7 +414,7 @@ $conn->close();
 <body>
   <!-- Profile Container -->
   <div class="container">
-    <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon">
+    <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
     <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
 
         <!-- Dropdown Menu -->
