@@ -506,13 +506,16 @@ $conn->close();
             left: 50%;
             transform: translate(-50%, -50%);
             width: 400px;
-            height: 400px;
+            height: 260px;
             background-color: white;
             padding: 20px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
-
+        .modal button{
+            margin-left: 120px;
+            margin-top: 5px;
+        }
         .close-button {
             position: absolute;
             top: 10px;
@@ -565,27 +568,27 @@ $conn->close();
                 <button id="editImageButton" style="display: none;" onclick="openModal()">EDIT</button>
             </div>
 
-        <!-- Modal Structure -->
-        <div id="profileModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal()">&times;</span>
-                <h4>Profile Pic</h4>
-                <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
-                    Use 300 X 300 px image for profile pic.</p>
+            <!-- Modal Structure -->
+            <div id="profileModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeModal()">&times;</span>
+                    <h4>Profile Pic</h4>
+                    <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
+                        Use 300 X 300 px image for profile pic.</p>
 
-                <!-- Form for file upload -->
-                <form id="uploadForm" action="picture.php" method="post" enctype="multipart/form-data">
-                    <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
-                    <button type="submit" name="submit">Submit</button>
-                </form>
+                    <!-- Form for file upload -->
+                    <form id="uploadForm" action="picture.php" method="post" enctype="multipart/form-data">
+                        <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
+                        <button type="submit" name="submit">Submit</button>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        <div class="text">
-            <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->  
-        </div>
+            <div class="text">
+                <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->  
+            </div>
 
-         <!-- Profile Picture Section -->
+            <!-- Profile Picture Section -->
             <div class="tabs">
                 <div class="tab active" onclick="showSection('personal')">Personal Details</div>
                 <div class="tab" onclick="window.location.href='academic_redirect.php'">Academic Details</div>
