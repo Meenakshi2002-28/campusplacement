@@ -68,7 +68,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavoro - Campus Recruitment System</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
@@ -355,14 +355,14 @@ $conn->close();
 
         /* Adjust sub-sidebar to float left */
         .sub-sidebar {
-    float: left;
-    width: 250px; /* Adjust width if needed */
-    padding: 10px;
-    margin-right: 20px; /* Spacing between sub-sidebar and form */
-}
+            float: left;
+            width: 250px; /* Adjust width if needed */
+            padding: 10px;
+            margin-right: 20px; /* Spacing between sub-sidebar and form */
+        }
 
-/* Adjust details container */
-.details {
+        /* Adjust details container */
+        .details {
             flex: 1;
             background-color: white;
             padding: 0px;
@@ -370,83 +370,106 @@ $conn->close();
             overflow-y: auto;
         }
 
+        .details.active {
+            background-color: #ffffff;
+            padding-left: 50px;
+            display: block;
+        }
 
-.details.active {
-    background-color: #ffffff;
-    padding-left: 50px;
-    display: block;
-}
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse; /* Ensure table layout doesn't break */
+        }
 
-table {
-    width: 100%;
-    margin-bottom: 20px;
-    border-collapse: collapse; /* Ensure table layout doesn't break */
-}
+        table td {
+            padding: 6px;
+            font-size: 18px;
+            white-space: nowrap;
+            vertical-align: middle;
+            text-align: left;
+            border: none;
+        }
 
-table td {
-    padding: 6px;
-    font-size: 18px;
-    white-space: nowrap;
-    vertical-align: middle;
-    text-align: left;
-    border: none;
-}
+        table td:first-child {
+            width: 30%;
+            text-align: left;
+            padding-right: 20px; /* Adjust for alignment between label and input */
+        }
 
-table td:first-child {
-    width: 30%;
-    text-align: left;
-    padding-right: 20px; /* Adjust for alignment between label and input */
-}
+        input[type="radio"] {
+            margin-right: 2px; /* Adds space between radio button and label */
+        }
 
-input[type="radio"] {
-    margin-right: 2px; /* Adds space between radio button and label */
-}
+        .gender-options {
+            display: flex; /* Ensures horizontal layout */
+            gap: 5px; /* Adds space between radio button groups */
+            align-items: center; /* Aligns radio buttons with labels */
+        }
 
-.gender-options {
-    display: flex; /* Ensures horizontal layout */
-    gap: 5px; /* Adds space between radio button groups */
-    align-items: center; /* Aligns radio buttons with labels */
-}
+        .gender-options label {
+            display: flex;
+            align-items: center;
+            gap: 1px; /* Adds space between radio button and its label */
+        }
 
-.gender-options label {
-    display: flex;
-    align-items: center;
-    gap: 1px; /* Adds space between radio button and its label */
-}
+        input, select {
+            padding: 8px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            width: 100%;
+        }
 
-input, select {
-    padding: 8px;
-    border-radius: 3px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    width: 100%;
-}
+        input, select {
+            padding: 8px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            width: 100%;
+        }
 
-input, select {
-    padding: 8px;
-    border-radius: 3px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    width: 100%;
-}
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
 
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-}
+        button {
+            padding: 7px 25px;
+            background-color: #AFC8F3;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+        }
 
-button {
-    padding: 7px 25px;
-    background-color: #AFC8F3;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 700;
-}
+        button:hover {
+            background-color: #1e3d7e;
+            color: white;
+        }
+        
+        #editImageButton {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            background-color: #AFC8F3;
+            color: black;
+            font-size: 15px;
+            border: none;
+            margin-bottom: 2px;
+            width: 60px;
+            height: 30px;
+            padding: 0px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
+<<<<<<< HEAD
 button:hover {
     background-color: #1e3d7e;
     color: white;
@@ -483,25 +506,32 @@ button:hover {
             margin-top :-12.5px;
         }
 =======
+=======
+        .profile-picture:hover #editImageButton {
+            display: block;
+        }
+>>>>>>> 72f94ac (done)
 
-.profile-picture:hover #editImageButton {
-    display: block;
-}
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 260px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
 
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 400px;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
+        .modal button{
+            margin-left: 120px;
+            margin-top: 5px;
+        }        
 
+<<<<<<< HEAD
 .close-button {
     position: absolute;
     top: 10px;
@@ -511,21 +541,35 @@ button:hover {
     color: #000;
 }
 >>>>>>> 4171639 (..)
+=======
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #000;
+        }
+        .text h4{
+            padding-left: 35px; 
+            margin-bottom:15px; 
+            margin-top :-12.5px;
+        }
+>>>>>>> 72f94ac (done)
     </style>
 </head>
 <body>
     <!-- Profile Container -->
-<div class="container">
-    <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
-   
-    <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+    <div class="container">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon">
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
 
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href=" ../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-</div>    
+    </div>    
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -541,9 +585,11 @@ button:hover {
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
+
     <!-- Main Content -->
     <div class="main-content">
         <div class="sub-sidebar">
+<<<<<<< HEAD
 <<<<<<< HEAD
             <div class="profile-picture">
                 <img src="../images/Customer.png" alt="Profile Picture"> <!-- Add your profile picture source here -->
@@ -576,27 +622,54 @@ button:hover {
 </div>
 >>>>>>> 4171639 (..)
          <!-- Profile Picture Section -->
+=======
+            <div class="profile-picture" onmouseover="showEditButton()" onmouseout="hideEditButton()">
+                <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture">
+                <button id="editImageButton" style="display: none;" onclick="openModal()">EDIT</button>
+            </div>
+
+            <!-- Modal Structure -->
+            <div id="profileModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeModal()">&times;</span>
+                    <h4>Profile Pic</h4>
+                    <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
+                        Use 300 X 300 px image for profile pic.</p>
+
+                    <!-- Form for file upload -->
+                    <form id="uploadForm" action="picture.php" method="post" enctype="multipart/form-data">
+                        <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
+                        <button type="submit" name="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text">
+                <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->  
+            </div>
+
+            <!-- Profile Picture Section -->
+>>>>>>> 72f94ac (done)
             <div class="tabs">
                 <div class="tab" onclick="window.location.href=' ../profile_redirect.php'">Personal Details</div>
                 <div class="tab active" onclick="showSection('academic')">Academic Details</div>
                 <div class="tab" onclick="window.location.href='resume_redirect.php'">Resume</div>
             </div>
         </div>
+
         <!-- Academic Details Section -->
-    <div id="academic" class="details ">
+        <div id="academic" class="details ">
         <form action="editacademic.php" method="post">
             <table>
                 <th>UG Details</th>
                 <tr>
-    <td>Branch</td>
-    <td><input type="text" name="course_branch" value="<?php echo htmlspecialchars($course_branch); ?>" readonly/></td>
-</tr>
-
+                    <td>Branch</td>
+                    <td><input type="text" name="course_branch" value="<?php echo htmlspecialchars($course_branch); ?>" readonly/></td>
+                </tr>
                 <tr>
-    <td>Course</td>
-    <td><input type="text" name="course_name" value="<?php echo htmlspecialchars($course_name); ?>" readonly/></td>
-</tr>
-
+                    <td>Course</td>
+                    <td><input type="text" name="course_name" value="<?php echo htmlspecialchars($course_name); ?>" readonly/></td>
+                </tr>
                 <tr>
                     <td>Current Year </td>
                     <td><input type="text" name="current_year" value="<?php echo htmlspecialchars($current_year); ?>"readonly /></td>
@@ -607,15 +680,12 @@ button:hover {
                 </tr>
                 <tr>
                     <td>Current Arrears </td>
-                    <td>
-            <input type="text" id="current_arrears" name="current_arrears" value="<?php echo htmlspecialchars($current_arrears); ?>"readonly>
-        </td>
+                    <td><input type="text" id="current_arrears" name="current_arrears" value="<?php echo htmlspecialchars($current_arrears); ?>"readonly>
+                </td>
                 </tr>
                 <tr>
                     <td>CGPA </td>
-                    <td>
-            <input type="number" id="cgpa" name="cgpa" value="<?php echo htmlspecialchars($cgpa); ?>"readonly>
-        </td>
+                    <td><input type="number" id="cgpa" name="cgpa" value="<?php echo htmlspecialchars($cgpa); ?>"readonly></td>
                 </tr>
             </table>
             <br>
@@ -623,64 +693,47 @@ button:hover {
                 <th>12th Details</th>
                 <tr>
                     <td>School Name </td>
-                    <td>
-            <input type="text" id="school_name_twelfth" name="school_name_twelfth" value="<?php echo htmlspecialchars($school_twelfth); ?>"readonly>
-        </td>
+                    <td><input type="text" id="school_name_twelfth" name="school_name_twelfth" value="<?php echo htmlspecialchars($school_twelfth); ?>"readonly></td>
                 </tr>
                 <tr>
                     <td>Board </td>
-                    <td>
-            <input type="text" id="board_twelfth" name="board_twelfth" value="<?php echo htmlspecialchars($board_twelfth); ?>"readonly>
-        </td>
-    </tr>
-    <tr>
-        <td>Pass Out Year </td>
-        <td>
-            <input type="text" id="pass_out_year_twelfth" name="pass_out_year_twelfth" value="<?php echo htmlspecialchars($year_twelfth); ?>"readonly>
-        </td>
-    </tr>
-    <tr>
-        <td>Percentage </td>
-        <td>
-            <input type="text" id="percentage_twelfth" name="percentage_twelfth" value="<?php echo htmlspecialchars($percentage_twelfth); ?>"readonly>
-        </td>
-    </tr>
-</table>
-<br>
-<table>
-    <th>10th Details</th>
-    <tr>
-        <td>School Name </td>
-        <td>
-            <input type="text" id="school_name_tenth" name="school_name_tenth" value="<?php echo htmlspecialchars($school_tenth); ?>"readonly>
-        </td>
-    </tr>
-    <tr>
-        <td>Board </td>
-        <td>
-            <input type="text" id="board_tenth" name="board_tenth" value="<?php echo htmlspecialchars($board_tenth); ?>"readonly>
-        </td>
-    </tr>
-    <tr>
-        <td>Pass Out Year </td>
-        <td>
-            <input type="text" id="pass_out_year_tenth" name="pass_out_year_tenth" value="<?php echo htmlspecialchars($year_tenth); ?>"readonly>
-        </td>
-    </tr>
-    <tr>
-        <td>Percentage </td>
-        <td>
-            <input type="text" id="percentage_tenth" name="percentage_tenth" value="<?php echo htmlspecialchars($percentage_tenth); ?>"readonly>
-        </td>
-    </tr>
-</table>
-            <div class="button-container">
-              
-              <button type="submit">EDIT</button>
-          </div>
-</form>
-</div>
-</div>
+                    <td><input type="text" id="board_twelfth" name="board_twelfth" value="<?php echo htmlspecialchars($board_twelfth); ?>"readonly></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year </td>
+                    <td><input type="text" id="pass_out_year_twelfth" name="pass_out_year_twelfth" value="<?php echo htmlspecialchars($year_twelfth); ?>"readonly></td>
+                </tr>
+                <tr>
+                    <td>Percentage </td>
+                    <td><input type="text" id="percentage_twelfth" name="percentage_twelfth" value="<?php echo htmlspecialchars($percentage_twelfth); ?>"readonly></td>
+                </tr>
+            </table>
+            <br>
+            <table>
+            <th>10th Details</th>
+            <tr>
+                <td>School Name </td>
+                <td><input type="text" id="school_name_tenth" name="school_name_tenth" value="<?php echo htmlspecialchars($school_tenth); ?>"readonly></td>
+            </tr>
+            <tr>
+                <td>Board </td>
+                <td><input type="text" id="board_tenth" name="board_tenth" value="<?php echo htmlspecialchars($board_tenth); ?>"readonly></td>
+            </tr>
+            <tr>
+                <td>Pass Out Year </td>
+                <td><input type="text" id="pass_out_year_tenth" name="pass_out_year_tenth" value="<?php echo htmlspecialchars($year_tenth); ?>"readonly></td>
+            </tr>
+            <tr>
+                <td>Percentage </td>
+                <td><input type="text" id="percentage_tenth" name="percentage_tenth" value="<?php echo htmlspecialchars($percentage_tenth); ?>"readonly></td>
+            </tr>
+        </table>
+        <div class="button-container">     
+            <button type="submit">EDIT</button>
+        </div>
+        </form>
+        </div>
+    </div>
 
     <!-- JavaScript -->
     <script>
