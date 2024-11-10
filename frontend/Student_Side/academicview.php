@@ -198,6 +198,7 @@ $conn->close();
         .container {
             padding: 18px 20px;
             width: 1268px;
+            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -207,7 +208,7 @@ $conn->close();
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
         }
         
         .icon {
@@ -311,22 +312,6 @@ $conn->close();
         }
 
         /* Profile section styling */
-        .container {
-            padding: 18px 20px;
-            width: 1268px;
-            height: 55px;
-            margin-left: 245px; /* Default margin for container */
-            margin-top: 12px;
-            margin-right: 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            border-radius: 10px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
-
         .profile-picture {
             width: 200px; /* Adjust width as needed */
             height: 200px; /* Ensure height equals width for a square */
@@ -347,10 +332,12 @@ $conn->close();
             padding-top: 1px;
         }
 
-        .text h4, p {
-            margin: 2px;
+        .text h4{
+            padding-left: 35px; 
+            margin-bottom:15px; 
+            margin-top :-12.5px;
             font-size: 18px;
-            color: #000000;
+            color: black;
         }
 
         /* Adjust sub-sidebar to float left */
@@ -411,14 +398,6 @@ $conn->close();
             display: flex;
             align-items: center;
             gap: 1px; /* Adds space between radio button and its label */
-        }
-
-        input, select {
-            padding: 8px;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            width: 100%;
         }
 
         input, select {
