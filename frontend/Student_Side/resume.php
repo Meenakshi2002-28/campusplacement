@@ -245,7 +245,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             background-color: #1e3d7a;
         }
 
-        
         .sidebar .logo {
             position: absolute;
             top: 20px; /* Keep the same positioning */
@@ -317,12 +316,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             height: auto; /* Maintain aspect ratio */
         }
 
-        .text h4, p {
-            margin: 2px;
-            font-size: 18px;
-            color: #000000;
+        .text {
+            padding-top: 1px;
         }
 
+        .text h4{
+            padding-left: 35px; 
+            margin-bottom:15px; 
+            margin-top :-12.5px;
+            font-size: 18px;
+            color: black;
+        }
         /* Adjust sub-sidebar to float left */
         .sub-sidebar {
             float: left;
@@ -375,13 +379,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             background-color: #1e3d7e;
             color: white;
         }
-
-        .text h4{
-            padding-left: 35px; 
-            margin-bottom:15px; 
-            margin-top :-12.5px;
-        }
-
     </style>
 </head>
 <body>

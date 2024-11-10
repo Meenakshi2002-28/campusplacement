@@ -143,7 +143,6 @@ $conn->close();
             height: 45px;
         }
 
-
         /* Main content styling */
         .main-content {
             margin-left: 245px;
@@ -194,7 +193,6 @@ $conn->close();
         .icon:hover {
             transform: scale(1.1);
         }
-
 
         img {
             height: 40px; /* Adjust size as needed */
@@ -312,10 +310,12 @@ $conn->close();
             padding: 10px;
             margin-right: 20px; /* Spacing between sub-sidebar and form */
         }
-        .text h4, p {
-            margin: 2px;
+        .text h4{
+            padding-left: 35px; 
+            margin-bottom:15px; 
+            margin-top :-12.5px;
             font-size: 18px;
-            color: #000000;
+            color: black;
         }
 
         /* Adjust details container */
@@ -411,12 +411,6 @@ $conn->close();
             font-size: 24px;
             cursor: pointer;
             color: #000;
-        }
-
-        .text h4{
-            padding-left: 35px; 
-            margin-bottom:15px; 
-            margin-top :-12.5px;
         }
     </style>
 </head>
