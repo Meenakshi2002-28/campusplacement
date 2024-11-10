@@ -642,9 +642,13 @@ $conn->close();
             <div class="button-container">
                 <a href="editpersonal.php"><button>EDIT </button></a>
             </div>
+<<<<<<< HEAD
             </form>
         </div>
     </div>
+=======
+            </div>
+>>>>>>> 4171639 (..)
     <!-- JavaScript -->
     <script>
                 function loadProfilePicture() {
