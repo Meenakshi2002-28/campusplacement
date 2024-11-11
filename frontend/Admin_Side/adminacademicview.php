@@ -76,25 +76,27 @@ $conn->close();
             background-color: #d9e6f4;
             color: #333;
             overflow: hidden;
+
         }
 
         /* Sidebar styling */
         .sidebar {
-            width: 220px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            margin-left: 10px;
-            border-radius: 10px;
-            height: 97vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background: linear-gradient(135deg, #022a52fd, #063dc9);
-            color: white;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-            transition: width 0.4s ease-in-out;
-            padding-top: 80px; /* Added padding for space at the top */
-        }
+    width: 220px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    height: 97vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: linear-gradient(135deg, #022a52fd, #063dc9);
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+    transition: width 0.4s ease-in-out;
+    padding-top: 80px; /* Added padding for space at the top */
+}
+
 
         .sidebar .logo {
             position: absolute;
@@ -138,7 +140,6 @@ $conn->close();
         .sidebar a:nth-child(5) { animation-delay: 0.4s; }
         .sidebar a:nth-child(6) { animation-delay: 0.5s; }
         .sidebar a:nth-child(7) { animation-delay: 0.6s; }
-        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
 
         .sidebar a i {
             margin-right: 15px;
@@ -158,19 +159,12 @@ $conn->close();
             width: 100%;
             text-align: center;
         }
-
         .sidebar a.active {
-            background-color: #d9e6f4; /* Background color for active link */
-            border-left: 4px solid #ffffff;
-            padding-left: 30px;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-            border-top-left-radius: 30px;
-            border-bottom-left-radius: 30px;
-            color:#000000;
-            position: relative;
-            z-index: 1;
-            height: 45px;
-        }
+    background-color: #1e3d7a; /* Background color for active link */
+    border-left: 4px solid #ffffff;
+    padding-left: 30px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
 
         /* Main content styling */
         .main-content {
@@ -184,8 +178,8 @@ $conn->close();
             transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
             background-color: #ffffff;
             height: 86.5vh;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */   
-            overflow-y: auto; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            
         }
 
         .main-content h1 {
@@ -200,7 +194,6 @@ $conn->close();
         .container {
             padding: 18px 20px;
             width: 1268px;
-            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -210,23 +203,11 @@ $conn->close();
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
-
-        .container h3{
-            margin-right: 450px;
-            font-weight: 700;
-        }
-
-        .small-icon {
-            width: 50px; /* Set desired width */
-            height: 50px; /* Set desired height */
-            object-fit: cover; /* Ensures the image scales properly */
-            border-radius: 50%;/* Makes the image circular */
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
         }
 
         .icon {
-            margin-left: 1px;
+            margin-left: 15px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -235,25 +216,18 @@ $conn->close();
             transform: scale(1.1);
         }
 
-        img {
-            height: 40px; /* Adjust size as needed */
-            width: auto;
-        }
-
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
-            top: 70px;
-            right: 25px;
+            top: 55px;
+            right: 20px;
             background: linear-gradient(135deg, #2F5597, #1e3d7a);
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
             z-index: 1;
             transition: opacity 0.3s ease;
-            padding-left: 2px;
-            padding-right: 2px;
         }
 
         .dropdown-content.show {
@@ -272,62 +246,77 @@ $conn->close();
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
+
         
         .sidebar .logo {
-            position: absolute;
-            top: 20px; /* Keep the same positioning */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px; /* Increase the font size here */
-            font-weight: bold;
-            color: white;
-            text-align: center;
-        }
+    position: absolute;
+    top: 20px; /* Keep the same positioning */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 36px; /* Increase the font size here */
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+.tabs {
+    display: flex;
+    flex-direction: column; /* Arrange tabs vertically */
+    margin-bottom: 20px; /* Space between tabs and content */
+    width: 200px;
+}
 
-        .tabs {
+.tab {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.tab.active {
+    background-color: #1e3d7a; /* Active tab color */
+    color: white;
+}
+
+.tab:hover {
+    font-weight: bold;
+}
+
+.content-area {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Tab content */
+.tab-content {
+    display: none; /* Hide all tab content by default */
+}
+
+.tab-content.active {
+    display: block; /* Show active tab content */
+}
+  /* Profile section styling */
+  .container {
+            padding: 18px 20px;
+            width: 1268px;
+            height: 55px;
+            margin-left: 245px; /* Default margin for container */
+            margin-top: 12px;
+            margin-right: 20px;
             display: flex;
-            flex-direction: column; /* Arrange tabs vertically */
-            margin-bottom: 20px; /* Space between tabs and content */
-            width: 200px;
-        }
-
-        .tab {
-            padding: 10px;
-            margin-bottom: 5px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.3s;
-        }
-
-        .tab.active {
-            background-color: #1e3d7a; /* Active tab color */
-            color: white;
-        }
-
-        .tab:hover {
-            font-weight: bold;
-        }
-
-        .content-area {
-            padding: 20px;
+            justify-content: flex-end;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
         }
 
-        /* Tab content */
-        .tab-content {
-            display: none; /* Hide all tab content by default */
-        }
-
-        .tab-content.active {
-            display: block; /* Show active tab content */
-        }
-
-        /* Profile section styling */
         .profile-picture {
             width: 200px; /* Adjust width as needed */
             height: 200px; /* Ensure height equals width for a square */
@@ -342,27 +331,26 @@ $conn->close();
             width: 100%; /* Ensure image fits the container */
             height: auto; /* Maintain aspect ratio */
         }
-
         .text {
-            padding-top: 1px;
-        }
+    padding-top: 1px;
+}
 
-        .text h4, p {
-            margin: 2px;
-            font-size: 18px;
-            color: #000000;
-        }
+.text h4, p {
+    margin: 2px;
+    font-size: 18px;
+    color: #000000;
+}
 
-        /* Adjust sub-sidebar to float left */
-        .sub-sidebar {
-            float: left;
-            width: 250px; /* Adjust width if needed */
-            padding: 10px;
-            margin-right: 20px; /* Spacing between sub-sidebar and form */
-        }
+/* Adjust sub-sidebar to float left */
+.sub-sidebar {
+    float: left;
+    width: 250px; /* Adjust width if needed */
+    padding: 10px;
+    margin-right: 20px; /* Spacing between sub-sidebar and form */
+}
 
-        /* Adjust details container */
-        .details {
+/* Adjust details container */
+.details {
             flex: 1;
             background-color: white;
             padding: 0px;
@@ -370,114 +358,123 @@ $conn->close();
             overflow-y: auto;
         }
 
-        .details.active {
-            background-color: #ffffff;
-            padding-left: 50px;
-            display: block;
-        }
 
-        table {
-            width: 100%;
-            margin-bottom: 20px;
-            border-collapse: collapse; /* Ensure table layout doesn't break */
-        }
+.details.active {
+    background-color: #ffffff;
+    padding-left: 50px;
+    display: block;
+}
 
-        table td {
-            padding: 6px;
-            font-size: 18px;
-            white-space: nowrap;
-            vertical-align: middle;
-            text-align: left;
-            border: none;
-        }
+table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse; /* Ensure table layout doesn't break */
+}
 
-        table td:first-child {
-            width: 30%;
-            text-align: left;
-            padding-right: 20px; /* Adjust for alignment between label and input */
-        }
+table td {
+    padding: 6px;
+    font-size: 18px;
+    white-space: nowrap;
+    vertical-align: middle;
+    text-align: left;
+    border: none;
+}
 
-        input[type="radio"] {
-            margin-right: 2px; /* Adds space between radio button and label */
-        }
+table td:first-child {
+    width: 30%;
+    text-align: left;
+    padding-right: 20px; /* Adjust for alignment between label and input */
+}
 
-        .gender-options {
-            display: flex; /* Ensures horizontal layout */
-            gap: 5px; /* Adds space between radio button groups */
-            align-items: center; /* Aligns radio buttons with labels */
-        }
+input[type="radio"] {
+    margin-right: 2px; /* Adds space between radio button and label */
+}
 
-        .gender-options label {
-            display: flex;
-            align-items: center;
-            gap: 1px; /* Adds space between radio button and its label */
-        }
+.gender-options {
+    display: flex; /* Ensures horizontal layout */
+    gap: 5px; /* Adds space between radio button groups */
+    align-items: center; /* Aligns radio buttons with labels */
+}
 
-        input, select {
-            padding: 8px;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            width: 100%;
-        }
+.gender-options label {
+    display: flex;
+    align-items: center;
+    gap: 1px; /* Adds space between radio button and its label */
+}
 
-        input, select {
-            padding: 8px;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            width: 100%;
-        }
+input, select {
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    width: 100%;
+}
 
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
+input, select {
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    width: 100%;
+}
 
-        button {
-            padding: 7px 25px;
-            background-color: #AFC8F3;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: 600;
-        }
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
 
-        button:hover {
-            background-color: #1e3d7e;
-            color: white;
-        }
+button {
+    padding: 7px 25px;
+    background-color: #AFC8F3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: #1e3d7e;
+    color: white;
+}
+.small-icon {
+    width: 50px; /* Set desired width */
+    height: 50px; /* Set desired height */
+    object-fit: cover; /* Ensures the image scales properly */
+    border-radius: 50%;
+     /* Makes the image circular */
+}
+
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></>
+    <img src="../images/profile.png" alt="Profile Icon" class="small-icon" id="profileIcon" onclick="triggerFileInput()">
+<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+        
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
-            <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="../Student_Side/profile_std.html"><i class="fa fa-user-circle"></i> Profile</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div>
+    </div>    
 
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
-        <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
-        <a href="view_students.php"  class="active"><i class="fas fa-user-graduate"></i> Students</a>
-        <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
-        <a href="company.html"><i class="fas fa-building"></i> Company</a>
-        <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-        <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
+        
+        <a href="#home" class="active"><i class="fa fa-home"></i> Home</a>
+        <a href="#jobs"><i class="fa fa-search"></i> Jobs</a>
+        <a href="#applications"><i class="fa fa-envelope"></i> Applications</a>
+        <a href="#company"><i class="fa fa-building"></i> Company</a>
+        <a href="#profile"><i class="fa fa-user"></i> Profile</a>
+        <a href="#feedback"><i class="fa fa-comment"></i> Feedback</a>
         <div class="logout">
-            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+            <a href="#logout"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
 
@@ -485,95 +482,115 @@ $conn->close();
     <div class="main-content">
         <div class="sub-sidebar">
             <div class="profile-picture">
-                <img src="../images/customer.png" alt="Profile Picture"> <!-- Add your profile picture source here -->
+                <img src="profile-pic.jpg" alt="Profile Picture"> <!-- Add your profile picture source here -->
             </div>
-
-            <!-- Profile Picture Section -->
+         <!-- Profile Picture Section -->
             <div class="tabs">
                 <div class="tab" onclick="window.location.href='profileredirect.php?user_id=<?php echo urlencode($user_id); ?>'">Personal Details</div>
                 <div class="tab active" onclick="showSection('academic')">Academic Details</div>
                 <div class="tab" onclick="window.location.href='resumeredirect.php?user_id=<?php echo urlencode($user_id); ?>'">Resume</div>
+
             </div>
         </div>
-    </div>
-
-    <!-- Academic Details Section -->
+        <!-- Academic Details Section -->
     <div id="academic" class="details ">
         <form action="admineditacademic.php" method="post">
-            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
+        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
             <table>
                 <th>UG Details</th>
-                    <tr>
-                        <td>Branch</td>
-                        <td><input type="text" name="course_branch" value="<?php echo htmlspecialchars($course_branch); ?>" readonly/></td>
-                    </tr>
-                    <tr>
-                        <td>Course</td>
-                        <td><input type="text" name="course_name" value="<?php echo htmlspecialchars($course_name); ?>" readonly/></td>
-                    </tr>
-                    <tr>
-                        <td>Current Year </td>
-                        <td><input type="text" name="current_year" value="<?php echo htmlspecialchars($current_year); ?>"readonly /></td>
-                    </tr>
-                    <tr>
-                        <td>Pass Out Year </td>
-                        <td><input type="text" name="graduation_year" value="<?php echo htmlspecialchars($graduation_year); ?>" readonly/></td>
-                    </tr>
-                    <tr>
-                        <td>Current Arrears </td>
-                        <td><input type="text" id="current_arrears" name="current_arrears" value="<?php echo htmlspecialchars($current_arrears); ?>"readonly></td>
-                    </tr>
-                    <tr>
-                        <td>CGPA </td>
-                        <td><input type="number" id="cgpa" name="cgpa" value="<?php echo htmlspecialchars($cgpa); ?>"readonly></td>
-                    </tr>
+                <tr>
+    <td>Branch</td>
+    <td><input type="text" name="course_branch" value="<?php echo htmlspecialchars($course_branch); ?>" readonly/></td>
+</tr>
+
+                <tr>
+    <td>Course</td>
+    <td><input type="text" name="course_name" value="<?php echo htmlspecialchars($course_name); ?>" readonly/></td>
+</tr>
+
+                <tr>
+                    <td>Current Year </td>
+                    <td><input type="text" name="current_year" value="<?php echo htmlspecialchars($current_year); ?>"readonly /></td>
+                </tr>
+                <tr>
+                    <td>Pass Out Year </td>
+                    <td><input type="text" name="graduation_year" value="<?php echo htmlspecialchars($graduation_year); ?>" readonly/></td>
+                </tr>
+                <tr>
+                    <td>Current Arrears </td>
+                    <td>
+            <input type="text" id="current_arrears" name="current_arrears" value="<?php echo htmlspecialchars($current_arrears); ?>"readonly>
+        </td>
+                </tr>
+                <tr>
+                    <td>CGPA </td>
+                    <td>
+            <input type="number" id="cgpa" name="cgpa" value="<?php echo htmlspecialchars($cgpa); ?>"readonly>
+        </td>
+                </tr>
             </table>
             <br>
             <table>
                 <th>12th Details</th>
-                    <tr>
-                        <td>School Name </td>
-                        <td><input type="text" id="school_name_twelfth" name="school_name_twelfth" value="<?php echo htmlspecialchars($school_twelfth); ?>"readonly></td>
-                    </tr>
-                    <tr>
-                        <td>Board </td>
-                        <td><input type="text" id="board_twelfth" name="board_twelfth" value="<?php echo htmlspecialchars($board_twelfth); ?>"readonly></td>
-                    </tr>
-                    <tr>
-                        <td>Pass Out Year </td>
-                        <td><input type="text" id="pass_out_year_twelfth" name="pass_out_year_twelfth" value="<?php echo htmlspecialchars($year_twelfth); ?>"readonly></td>
-                    </tr>
-                    <tr>
-                        <td>Percentage </td>
-                        <td><input type="text" id="percentage_twelfth" name="percentage_twelfth" value="<?php echo htmlspecialchars($percentage_twelfth); ?>"readonly></td>
-                    </tr>
-            </table>
-            <br>
-            <table>
-                <th>10th Details</th>
-                    <tr>
-                        <td>School Name </td>
-                        <td><input type="text" id="school_name_tenth" name="school_name_tenth" value="<?php echo htmlspecialchars($school_tenth); ?>"readonly></td>
-                    </tr>
-                    <tr>
-                        <td>Board </td>
-                        <td><input type="text" id="board_tenth" name="board_tenth" value="<?php echo htmlspecialchars($board_tenth); ?>"readonly></td>
-                    </tr>
-                    <tr>
-                        <td>Pass Out Year </td>
-                        <td><input type="text" id="pass_out_year_tenth" name="pass_out_year_tenth" value="<?php echo htmlspecialchars($year_tenth); ?>"readonly></td>
-                    </tr>
-                    <tr>
-                        <td>Percentage </td>
-                        <td><input type="text" id="percentage_tenth" name="percentage_tenth" value="<?php echo htmlspecialchars($percentage_tenth); ?>"readonly></td>
-                    </tr>
-            </table>
+                <tr>
+                    <td>School Name </td>
+                    <td>
+            <input type="text" id="school_name_twelfth" name="school_name_twelfth" value="<?php echo htmlspecialchars($school_twelfth); ?>"readonly>
+        </td>
+                </tr>
+                <tr>
+                    <td>Board </td>
+                    <td>
+            <input type="text" id="board_twelfth" name="board_twelfth" value="<?php echo htmlspecialchars($board_twelfth); ?>"readonly>
+        </td>
+    </tr>
+    <tr>
+        <td>Pass Out Year </td>
+        <td>
+            <input type="text" id="pass_out_year_twelfth" name="pass_out_year_twelfth" value="<?php echo htmlspecialchars($year_twelfth); ?>"readonly>
+        </td>
+    </tr>
+    <tr>
+        <td>Percentage </td>
+        <td>
+            <input type="text" id="percentage_twelfth" name="percentage_twelfth" value="<?php echo htmlspecialchars($percentage_twelfth); ?>"readonly>
+        </td>
+    </tr>
+</table>
+<br>
+<table>
+    <th>10th Details</th>
+    <tr>
+        <td>School Name </td>
+        <td>
+            <input type="text" id="school_name_tenth" name="school_name_tenth" value="<?php echo htmlspecialchars($school_tenth); ?>"readonly>
+        </td>
+    </tr>
+    <tr>
+        <td>Board </td>
+        <td>
+            <input type="text" id="board_tenth" name="board_tenth" value="<?php echo htmlspecialchars($board_tenth); ?>"readonly>
+        </td>
+    </tr>
+    <tr>
+        <td>Pass Out Year </td>
+        <td>
+            <input type="text" id="pass_out_year_tenth" name="pass_out_year_tenth" value="<?php echo htmlspecialchars($year_tenth); ?>"readonly>
+        </td>
+    </tr>
+    <tr>
+        <td>Percentage </td>
+        <td>
+            <input type="text" id="percentage_tenth" name="percentage_tenth" value="<?php echo htmlspecialchars($percentage_tenth); ?>"readonly>
+        </td>
+    </tr>
+</table>
             <div class="button-container">
               
               <button type="submit">EDIT</button>
           </div>
-        </form>
-    </div>
+</form>
+</div>
 
     <!-- JavaScript -->
     <script>
@@ -670,5 +687,6 @@ $conn->close();
           
         });
     </script>
+    
 </body>
 </html>
