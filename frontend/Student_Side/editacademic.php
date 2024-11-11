@@ -431,14 +431,64 @@ $conn->close();
             background-color: #1e3d7e;
             color: white;
         }
+        #editImageButton {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            background-color: #AFC8F3;
+            color: black;
+            font-size: 15px;
+            border: none;
+            margin-bottom: 2px;
+            width: 60px;
+            height: 30px;
+            padding: 0px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .profile-picture:hover #editImageButton {
+            display: block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 260px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .modal button{
+            margin-left: 120px;
+            margin-top: 5px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #000;
+        }
 
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon">
-        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+    <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+    <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+
 
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
@@ -465,8 +515,26 @@ $conn->close();
     <!-- Main Content -->
     <div class="main-content">
         <div class="sub-sidebar">
-            <div class="profile-picture">
-                <img src="profile-pic.jpg" alt="Profile Picture"> <!-- Add your profile picture source here -->
+        <div class="profile-picture" onmouseover="showEditButton()" onmouseout="hideEditButton()">
+                <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture">
+                <button id="editImageButton" style="display: none;" onclick="openModal()">EDIT</button>
+            </div>
+            <div id="profileModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeModal()">&times;</span>
+                    <h4>Profile Pic</h4>
+                    <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
+                        Use 300 X 300 px image for profile pic.</p>
+
+                    <!-- Form for file upload -->
+                    <form id="uploadForm" action="picture.php" method="post" enctype="multipart/form-data">
+                        <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
+                        <button type="submit" name="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="text">
+                <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->  
             </div>
          <!-- Profile Picture Section -->
             <div class="tabs">
@@ -477,7 +545,7 @@ $conn->close();
         </div>
         <!-- Academic Details Section -->
         <div id="academic" class="details ">
-            <form action="1.php" method="post">
+            <form action="1.php" method="post" onsubmit="return validateForm2()">
                 <table>
                     <th>UG Details</th>
                     <tr>
@@ -621,6 +689,86 @@ $conn->close();
 
     <!-- JavaScript -->
     <script>
+          function validateForm2() {
+        let isValid = true;
+        const errorMessage = "All fields are required.";
+
+        // Clear previous error messages
+        const errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(function (element) {
+            element.textContent = ""; // Clear any previous error message
+        });
+
+        // Get all required fields and validate them
+        const branch = document.getElementById('branch').value.trim();
+        const course = document.getElementById('course').value.trim();
+    
+        const currentArrears = document.getElementById('current_arrears').value.trim();
+        const cgpa = document.getElementById('cgpa').value.trim();
+
+        const schoolName12 = document.getElementById('school_name_twelfth').value.trim();
+        const board12 = document.getElementById('board_twelfth').value.trim();
+        const passOutYear12 = document.getElementById('pass_out_year_twelfth').value.trim();
+        const percentage12 = document.getElementById('percentage_twelfth').value.trim();
+
+        const schoolName10 = document.getElementById('school_name_tenth').value.trim();
+        const board10 = document.getElementById('board_tenth').value.trim();
+        const passOutYear10 = document.getElementById('pass_out_year_tenth').value.trim();
+        const percentage10 = document.getElementById('percentage_tenth').value.trim();
+
+        // Validate UG fields
+        if ( !currentArrears || !cgpa) {
+            document.getElementById('cgpa-error').textContent = errorMessage;
+            isValid = false;
+        }
+
+        // Validate 12th fields
+        if (!schoolName12 || !board12 || !passOutYear12 || !percentage12) {
+            document.getElementById('percentage12th-error').textContent = errorMessage;
+            isValid = false;
+        }
+
+        // Validate 10th fields
+        if (!schoolName10 || !board10 || !passOutYear10 || !percentage10) {
+            document.getElementById('percentage10th-error').textContent = errorMessage;
+            isValid = false;
+        }
+        return isValid; // Form submission will only proceed if true
+    }
+         function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_profilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                document.getElementById('sidebarProfilePicture').src = profilePath;
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+
+    window.onload = loadProfilePicture;
+    function showEditButton() {
+        document.getElementById('editImageButton').style.display = 'block';
+    }
+
+    function hideEditButton() {
+        document.getElementById('editImageButton').style.display = 'none';
+    }
+
+    function openModal() {
+        document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('profileModal').style.display = 'none';
+    }
+
+    function uploadProfilePicture() {
+        // Implement file upload logic here
+        alert('Upload functionality goes here');
+    }
     // Change Profile Picture
     function triggerFileInput() {
         document.getElementById('fileInput').click();
