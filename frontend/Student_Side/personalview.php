@@ -329,6 +329,7 @@ $conn->close();
             width: 100%; /* Ensure image fits the container */
             height: auto; /* Maintain aspect ratio */
         }
+        
         .text {
             padding-top: 1px;
         }
