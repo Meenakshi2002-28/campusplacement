@@ -556,9 +556,14 @@ b.feedback-container:active {
                 icon: 'success',
                 iconColor: '#022a52fd',
                 confirmButtonText: 'OK'
-            })
-        </script>
-    <?php endif; ?>
+            }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to another page after clicking OK
+                window.location.href = 'feedbackview.php'; // Replace with your target page URL
+            }
+        });
+    </script>
+<?php endif; ?>
        
         
     </div>
