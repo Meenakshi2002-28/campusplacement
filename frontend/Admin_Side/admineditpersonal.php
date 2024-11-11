@@ -1,10 +1,6 @@
 <?php
 session_start(); // Start the session
 
-// Check if the user is logged in
-
-
-
 // Database connection
 $servername = "localhost";
 $username = "root"; // Update with your database username
