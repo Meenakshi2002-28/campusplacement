@@ -48,7 +48,6 @@ $conn->close();
             background-color: #d9e6f4;
             color: #333;
             overflow: hidden;
-
         }
 
         /* Sidebar styling */
@@ -70,7 +69,6 @@ $conn->close();
             padding-top: 80px;
             /* Added padding for space at the top */
         }
-
 
         .sidebar .logo {
             position: absolute;
@@ -177,7 +175,6 @@ $conn->close();
             position: relative;
             z-index: 1;
             height: 45px;
-
         }
 
 
@@ -186,19 +183,15 @@ $conn->close();
             margin-left: 245px;
             margin-top: 13px;
             margin-right: 20px;
-            /* Default margin for sidebar */
             padding: 40px;
             font-size: 18px;
             color: #333;
             border-radius: 10px;
             transition: margin-left 0.4s ease-in-out;
-            /* Smooth transition for margin */
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            /* Add shadow effect */
             overflow-y: auto;
-
         }
 
         .main-content h1 {
@@ -216,7 +209,6 @@ $conn->close();
             width: 1268px;
             height: 55px;
             margin-left: 245px;
-            /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
             display: flex;
@@ -226,7 +218,6 @@ $conn->close();
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
             transition: margin-left 0.4s ease-in-out;
-            /* Smooth transition for margin */
         }
 
         .icon {
@@ -241,10 +232,8 @@ $conn->close();
 
         img {
             height: 40px;
-            /* Adjust size as needed */
             width: auto;
         }
-
 
         /* Dropdown menu styling */
         .dropdown-content {
@@ -279,8 +268,6 @@ $conn->close();
             background-color: #1e3d7a;
         }
 
-
-
         .profile img {
             height: 200px;
             width: auto;
@@ -292,8 +279,8 @@ $conn->close();
         }
 
         .profile {
-            margin-top: 50px;
-            margin-left: 5px;
+            margin-top: -10px;
+            margin-left: -110px;
         }
 
         .text {
@@ -311,19 +298,16 @@ $conn->close();
             padding-left: 16px;
         }
 
-        .text h4,
-        p {
+        .text h4,p {
             margin: 2px;
-
             color: #000000;
         }
 
         .details {
             background-color: white;
-            padding-left: 260px;
             max-width: 700px;
             margin: auto;
-            margin-top: -200px;
+            margin-top: -210px;
             display: none;
         }
 
@@ -348,17 +332,7 @@ $conn->close();
             border: none;
         }
 
-        input,
-        select {
-            padding: 8px;
-            border-radius: 3px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            width: 100%;
-        }
-
-        input,
-        select {
+        input,select {
             padding: 8px;
             border-radius: 3px;
             border: 1px solid #ddd;
@@ -374,12 +348,14 @@ $conn->close();
         }
 
         button {
-            padding: 10px 25px;
+            padding: 7px 25px;
             background-color: #AFC8F3;
+            color: black;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 18px;
+            font-weight: 600;
         }
 
         button:hover {
@@ -392,7 +368,7 @@ $conn->close();
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*"
             onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
@@ -436,18 +412,21 @@ $conn->close();
                 <table>
                     <tr>
                         <td>Name </td>
-                        <td><input type="text" id="name" name="name"
-                                value="<?php echo htmlspecialchars($adminDetails['name']); ?>" readonly></td>
+                        <td>
+                            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($adminDetails['name']); ?>" readonly>
+                        </td>
                     </tr>
                     <tr>
                         <td>Email </td>
-                        <td><input type="text" id="email" name="email"
-                                value="<?php echo htmlspecialchars($adminDetails['email']); ?>" readonly></td>
+                        <td>
+                            <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($adminDetails['email']); ?>" readonly>
+                        </td>
                     </tr>
                     <tr>
                         <td>Phone No </td>
-                        <td><input type="text" id="phone" name="phone"
-                                value="<?php echo htmlspecialchars($adminDetails['phone_number']); ?>" readonly></td>
+                        <td>
+                            <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($adminDetails['phone_number']); ?>" readonly>
+                        </td>
                     </tr>
                 </table>
                 <div class="button-container">
@@ -458,80 +437,78 @@ $conn->close();
     </div>
 
     <script>
+    // Change profile image
+    function triggerFileInput() {
+        document.getElementById('fileInput').click();
+    }
 
-        // Change profile image
-        function triggerFileInput() {
-            document.getElementById('fileInput').click();
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+            };
+            reader.readAsDataURL(file); // Read the image file
         }
+    }
 
-        function changeProfilePicture(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
-                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
-                };
-                reader.readAsDataURL(file); // Read the image file
-            }
-        }
-        // Dropdown toggle with smooth opening
-        function toggleDropdown() {
+    // Dropdown toggle with smooth opening
+    function toggleDropdown() {
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.classList.toggle("show");
+    }
+
+    // Hide dropdown on click outside
+    window.onclick = function (event) {
+        if (!event.target.matches('.icon')) {
             const dropdown = document.getElementById("dropdownMenu");
-            dropdown.classList.toggle("show");
+            dropdown.classList.remove("show");
         }
+    };
 
-        // Hide dropdown on click outside
-        window.onclick = function (event) {
-            if (!event.target.matches('.icon')) {
-                const dropdown = document.getElementById("dropdownMenu");
-                dropdown.classList.remove("show");
-            }
-        };
-
-        document.addEventListener("DOMContentLoaded", function () {
-            // Sidebar tab click effect
-            const tabs = document.querySelectorAll('.sidebar a');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                });
-            });
-
-            // Set default active link on page load
-            const defaultLink = document.querySelector('.sidebar a.active');
-            if (defaultLink) {
-                defaultLink.classList.add('active');
-            }
-
-            // Mobile nav handling (optional)
-            const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
-            mobileTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    mobileTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                });
-            });
-
-
-
-            // Adjust main content and container margin based on sidebar width
-            const sidebar = document.querySelector('.sidebar');
-            const mainContent = document.querySelector('.main-content');
-            const container = document.querySelector('.container');
-
-            sidebar.addEventListener('mouseenter', () => {
-                mainContent.style.marginLeft = '270px'; // Expanded sidebar width
-                container.style.marginLeft = '270px'; // Adjust container margin
-            });
-
-            sidebar.addEventListener('mouseleave', () => {
-                mainContent.style.marginLeft = '245px'; // Normal sidebar width
-                container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
+    document.addEventListener("DOMContentLoaded", function () {
+        // Sidebar tab click effect
+        const tabs = document.querySelectorAll('.sidebar a');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
             });
         });
-    </script>
+
+        // Set default active link on page load
+        const defaultLink = document.querySelector('.sidebar a.active');
+        if (defaultLink) {
+            defaultLink.classList.add('active');
+        }
+
+        // Mobile nav handling (optional)
+        const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
+        mobileTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                mobileTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Adjust main content and container margin based on sidebar width
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        const container = document.querySelector('.container');
+
+        sidebar.addEventListener('mouseenter', () => {
+            mainContent.style.marginLeft = '270px'; // Expanded sidebar width
+            container.style.marginLeft = '270px'; // Adjust container margin
+        });
+
+        sidebar.addEventListener('mouseleave', () => {
+            mainContent.style.marginLeft = '245px'; // Normal sidebar width
+            container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
+        });
+    });
+</script>
 </body>
 
 </html>

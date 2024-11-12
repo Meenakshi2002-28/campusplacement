@@ -132,314 +132,319 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #d9e6f4;
-        color: #333;
-        overflow: hidden;
-    }
-
-    /* Sidebar styling */
-    .sidebar {
-        width: 220px;     
-        margin-top: 10px;
-        margin-bottom: 10px;
-        margin-left: 10px;
-        border-radius: 10px;
-        height: 97vh;
-        position: fixed;
-        left: 0;
-        top: 0;
-        background: linear-gradient(135deg, #022a52fd, #063dc9);
-        color: white;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        transition: width 0.4s ease-in-out;
-        padding-top: 80px;
-    }
-
-    .sidebar .logo {
-        position: absolute;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 24px;
-        font-weight: bold;
-        color: white;
-        text-align: center;
-    }
-
-    .sidebar:hover {
-        width: 250px;
-    }
-
-    .sidebar a {
-        color: white;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        padding: 15px 25px;
-        font-size: 18px;
-        transition: all 0.3s ease;
-        border-left: 3px solid transparent;
-        position: relative;
-        opacity: 0;
-        animation: fadeIn 0.5s ease forwards;
-    }
-
-    /* Fade-in effect for sidebar links */
-    @keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-        }
-    }
-
-    /* Delayed animation for each link */
-    .sidebar a:nth-child(2) {
-        animation-delay: 0.1s;
-    }
-
-    .sidebar a:nth-child(3) {
-        animation-delay: 0.2s;
-    }
-
-    .sidebar a:nth-child(4) {
-        animation-delay: 0.3s;
-    }
-
-    .sidebar a:nth-child(5) {
-        animation-delay: 0.4s;
-    }
-
-    .sidebar a:nth-child(6) {
-        animation-delay: 0.5s;
-    }
-
-    .sidebar a:nth-child(7) {
-        animation-delay: 0.6s;
-    }
-
-    .sidebar a i {
-        margin-right: 15px;
-        transition: transform 0.3s;
-    }
-
-    .sidebar a:hover {
-        background-color: #1e3d7a;
-        border-left: 4px solid #ffffff;
-        padding-left: 30px;
-        box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    }
-
-    .sidebar .logout {
-        position: absolute;
-        bottom: 30px;
-        width: 100%;
-        text-align: center;
-    }
-
-    .sidebar a.active {
-        background-color: #d9e6f4;
-        border-left: 4px solid #ffffff;
-        padding-left: 30px;
-        box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-        border-top-left-radius: 30px;
-        border-bottom-left-radius: 30px;
-        color: #000000;
-        position: relative;
-        z-index: 1;
-        height: 45px;
-    }
-
-    .sidebar .logo {
-        position: absolute;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 36px;
-        font-weight: bold;
-        color: white;
-        text-align: center;
-    }
-
-    /* Main content styling */
-    .main-content {
-        margin-left: 245px;
-        margin-top: 13px;
-        margin-right: 20px;
-        padding: 40px;
-        font-size: 18px;
-        color: #333;
-        border-radius: 10px;
-        transition: margin-left 0.4s ease-in-out;
-        background-color: #ffffff;
-        height: 86.5vh;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .main-content h1 {
-        color: #050505;
-        font-size: 2.5rem;
-        font-weight: bold;
-        padding-bottom: 10px;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Profile section styling */
-    .container {
-        padding: 18px 20px;
-        width: 1268px;
-        height: 55px;
-        margin-left: 245px;
-        margin-top: 12px;
-        margin-right: 20px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        border-radius: 10px;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-        background-color: #ffffff;
-        transition: margin-left 0.4s ease-in-out;
-    }
-
-    .icon {
-        margin-left: 1px;
-        cursor: pointer;
-        transition: transform 0.3s;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #d9e6f4;
+            color: #333;
+            overflow: hidden;
         }
 
-    .icon:hover {
-        transform: scale(1.1);
-    }
-
-    img {
-        height: 40px;
-        width: auto;
-    }
-
-    /* Dropdown menu styling */
-    .dropdown-content {
-        display: none;
-        opacity: 0;
-        position: absolute;
-        top: 70px;
-        right: 25px;
-        background: linear-gradient(135deg, #2F5597, #1e3d7a);
-        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
-        z-index: 1;
-        transition: opacity 0.3s ease;
-        padding-left: 2px;
-        padding-right: 2px;
-    }
-
-    .dropdown-content.show {
-        display: block;
-        opacity: 1;
-    }
-
-    .dropdown-content a {
-        color: white;
-        padding: 12px;
-        text-decoration: none;
-        display: block;
-        transition: background-color 0.2s;
-    }
-
-    .dropdown-content a:hover {
-        background-color: #1e3d7a;
-    }
-
-    /* Card styling with hover effects */
-    .card {
-        background: linear-gradient(135deg, #a2c4fb, #9babcd);
-        color: #000000;
-        transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
-        border-radius: 10px;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .card-text i {
-        margin-right: 10px;
-        font-size: 1.8rem;
-        color: #082765;
-    }
-
-    .card:hover {
-        transform: scale(1.05);
-        background-color: #e0e0ee;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Counter animation */
-    .counter {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #04070b;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .container h3 {
-        margin-right: 450px;
-        font-weight: 700;
-    }
-
-    /* Scrolling Section Styling */
-    .scrolling-section {
-        overflow: hidden;
-        white-space: nowrap;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        /* background-color: #ffffff; Background color matching main content */
-        padding: 10px 0;
-        /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
-        border-radius: 10px;
-        /* margin-top: 20px; */
-        margin-top: 60px;
-    }
-
-    .scrolling-logos {
-        display: inline-block;
-        animation: slide 30s linear infinite;
-        white-space: nowrap;
-    }
-
-    .scrolling-logos .logo {
-        height: 30px;
-        margin: 0 15px;
-        object-fit: contain;
-        transition: transform 0.3s;
-    }
-
-    .scrolling-logos .logo:hover {
-        transform: scale(1.1);
-    }
-
-    /* Scrolling Animation */
-    @keyframes slide {
-        0% {
-            transform: translateX(100%);
+        /* Sidebar styling */
+        .sidebar {
+            width: 220px;     
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px;
         }
 
-        100%{
-            transform: translateX(-100%);
+        .sidebar .logo {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
         }
-    }
-</style>
+
+        .sidebar:hover {
+            width: 250px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Fade-in effect for sidebar links */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Delayed animation for each link */
+        .sidebar a:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .sidebar a:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .sidebar a:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .sidebar a:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .sidebar a:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .sidebar a:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+
+        .sidebar a i {
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #1e3d7a;
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+
+        .sidebar .logout {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .sidebar a.active {
+            background-color: #d9e6f4;
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            color: #000000;
+            position: relative;
+            z-index: 1;
+            height: 45px;
+        }
+
+        .sidebar .logo {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+
+        /* Main content styling */
+        .main-content {
+            margin-left: 245px;
+            margin-top: 13px;
+            margin-right: 20px;
+            padding: 40px;
+            font-size: 18px;
+            color: #333;
+            border-radius: 10px;
+            transition: margin-left 0.4s ease-in-out;
+            background-color: #ffffff;
+            height: 86.5vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-content h1 {
+            color: #050505;
+            font-size: 2.5rem;
+            font-weight: bold;
+            padding-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Profile section styling */
+        .container {
+            padding: 18px 20px;
+            width: 1268px;
+            height: 55px;
+            margin-left: 245px;
+            margin-top: 12px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            transition: margin-left 0.4s ease-in-out;
+        }
+
+        .icon {
+            margin-left: 1px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
+
+        img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo img{
+            height: 250px;
+            width: auto;
+            margin-top: -90px;
+        }
+
+        /* Dropdown menu styling */
+        .dropdown-content {
+            display: none;
+            opacity: 0;
+            position: absolute;
+            top: 70px;
+            right: 25px;
+            background: linear-gradient(135deg, #2F5597, #1e3d7a);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            z-index: 1;
+            transition: opacity 0.3s ease;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+        .dropdown-content.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #1e3d7a;
+        }
+
+        /* Card styling with hover effects */
+        .card {
+            background: linear-gradient(135deg, #a2c4fb, #9babcd);
+            color: #000000;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-text i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+            color: #082765;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            background-color: #e0e0ee;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Counter animation */
+        .counter {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #04070b;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container h3 {
+            margin-right: 450px;
+            font-weight: 700;
+        }
+
+        /* Scrolling Section Styling */
+        .scrolling-section {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background-color: #ffffff; Background color matching main content */
+            padding: 10px 0;
+            /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
+            border-radius: 10px;
+            /* margin-top: 20px; */
+            margin-top: 60px;
+        }
+
+        .scrolling-logos {
+            display: inline-block;
+            animation: slide 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .scrolling-logos .logo {
+            height: 30px;
+            margin: 0 15px;
+            object-fit: contain;
+            transition: transform 0.1s;
+        }
+
+        .scrolling-logos .logo:hover {
+            transform: scale(1.1);
+        }
+
+        /* Scrolling Animation */
+        @keyframes slide {
+            0% {
+                transform: translateX(100%);
+            }
+            100%{
+                transform: translateX(-100%);
+            }
+        }
+    </style>
 </head>
-
 <body>
     <div class="container">
         <h3>Welcome to Lavoro</h3>
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -450,7 +455,9 @@ if (isset($_SESSION['user_id'])) {
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
+        <div class="logo">
+            <img src="../images/logo_white.png">
+        </div>
         <a href="dashboard_std.php" class="active"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
@@ -472,8 +479,9 @@ if (isset($_SESSION['user_id'])) {
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Total Applications</h5>
-                        <p class="card-text"><i class="fas fa-file-alt"></i> <span class="counter" id="total-applications"> 
-                            <?php echo $application_count; ?></span> Applications</p>
+                        <p class="card-text"><i class="fas fa-file-alt"></i> 
+                            <span class="counter" id="total-applications"> <?php echo $application_count; ?></span> Applications
+                        </p>
                     </div>
                 </div>
             </div>
@@ -519,14 +527,19 @@ if (isset($_SESSION['user_id'])) {
             <div class="scrolling-logos">
                 <img src="../images/company_logo/infosys.png" alt="Company 1" class="logo">
                 <img src="../images/company_logo/tcs.png" alt="Company 2" class="logo">
-                <img src="../images/company_logo/accenture.png" alt="Company 3" class="logo">
-                <img src="../images/company_logo/cisco.png" alt="Company 4" class="logo">
-                <img src="../images/company_logo/cognizant.jpg" alt="Company 4" class="logo">
-                <img src="../images/company_logo/Deloitte.png" alt="Company 5" class="logo">
-                <img src="../images/company_logo/federal bank.png" alt="Company 6" class="logo">
-                <img src="../images/company_logo/intel.png" alt="Company 7" class="logo">
-                <img src="../images/company_logo/LTImindtree.png" alt="Company 8" class="logo">
-                <img src="../images/company_logo/wipro.png" alt="Company 9" class="logo">
+                <img src="../images/company_logo/microsoft.jpg" alt="Company 3" class="logo">
+                <img src="../images/company_logo/Accenture.svg.png" alt="Company 4" class="logo">
+                <img src="../images/company_logo/cisco.png" alt="Company 5" class="logo">
+                <img src="../images/company_logo/cognizant.jpg" alt="Company 6" class="logo">
+                <img src="../images/company_logo/meta.jpg" alt="Company 7" class="logo">
+                <img src="../images/company_logo/Deloitte.png" alt="Company 8" class="logo">
+                <img src="../images/company_logo/federal bank.png" alt="Company 9" class="logo">
+                <img src="../images/company_logo/intel.png" alt="Company 10" class="logo">
+                <img src="../images/company_logo/LTImindtree.png" alt="Company 11" class="logo">
+                <img src="../images/company_logo/wipro.png" alt="Company 12" class="logo">
+                <img src="../images/company_logo/teal.jpg" alt="Company 13" class="logo">
+                <img src="../images/company_logo/tech mahindra.png" alt="Company 14" class="logo">
+                <img src="../images/company_logo/youtube.jpg" alt="Company 15" class="logo">
             </div>
         </div>
 
@@ -590,7 +603,7 @@ if (isset($_SESSION['user_id'])) {
             },
         }
     });
-
+    
     // Change profile image
     function triggerFileInput() {
         document.getElementById('fileInput').click();
@@ -697,7 +710,6 @@ if (isset($_SESSION['user_id'])) {
         console.log("Active Jobs:", dashboardStats.activeJobs);
         console.log("Profile Completion:", dashboardStats.profileCompletion);
     });
-    
 </script>
 </body>
 </html>
