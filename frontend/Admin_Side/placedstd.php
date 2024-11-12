@@ -64,18 +64,17 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Applicants</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-            *{
+        *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-        }
-
+        }   
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -87,10 +86,10 @@ $conn->close();
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
     border-radius: 10px;
     height: 97vh;
     position: fixed;
@@ -264,25 +263,36 @@ $conn->close();
             width: 25%; /* Course Column */
         }
 
-        /* Filter Section */
-        .filters {
-            position: absolute;
-            top: 80px;
-            right: 20px;
-            background-color: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        .filter_std{
+            margin-left: 800px;
         }
 
-        .filters label {
-            display: block;
-            margin-bottom: 10px;
+        .filter_std label{
+            font-size: 18px;
+            color: black;
         }
 
-        .filters input[type="checkbox"] {
-            margin-right: 10px;
+        .filter_std select{
+            width: 100px;
+            height: 25px;
         }
+
+        .filter_std button{
+            padding: 5px 20px;
+    background-color: #AFC8F3;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+button:hover {
+    background-color: #1e3d7e;
+    color: white;
+}
+        
 
        /* Dropdown menu styling */
        .dropdown-content {
@@ -336,7 +346,7 @@ $conn->close();
 </head>
 <body>
 <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
 <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
 <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
@@ -364,6 +374,7 @@ $conn->close();
     <!-- Main Content -->
     <div class="main-content">
     <form method="GET" action="">
+        <div class="filter_std">
             <label for="filter">Filter by Date:</label>
             <select name="filter" id="filter">
                 <option value="no_filter">No Filter</option>
@@ -371,6 +382,7 @@ $conn->close();
                 <option value="2_weeks" <?php echo (isset($_GET['filter']) && $_GET['filter'] == '2_weeks') ? 'selected' : ''; ?>>2 weeks ago</option>
             </select>
             <button type="submit">Apply Filter</button>
+            </div>
         </form>
         <!-- Applicants Table -->
         <div class="applicants">
