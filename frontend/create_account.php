@@ -73,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .signup-box {
-            background-color:white;
+            background-color: white;
             border-radius: 20px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
             padding: 40px;
@@ -125,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             justify-content: center;
             background-color: white;
             color: #281969;
-            border:none;
+            border: none;
             font-size: 16px;
             border-radius: 10px;
             cursor: pointer;
@@ -135,23 +136,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .signup-box button:hover {
             background-color: #f0f0f0;
         }
+
         .error-message {
             color: red;
             font-size: 12px;
         }
+
         .logo-container {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    }
-    .logo {
-    height: 55px;
-    width: auto;
-    }
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .logo {
+            height: 55px;
+            width: auto;
+        }
     </style>
 
     <script>
-         function validateEmail() {
+        function validateEmail() {
             var email = document.getElementById('email').value;
             var emailError = document.getElementById('email-error');
             var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -164,15 +168,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         function validatePassword() {
-    var password = document.getElementById('password').value;
-    var passwordError = document.getElementById('password-error');
+            var password = document.getElementById('password').value;
+            var passwordError = document.getElementById('password-error');
 
-    if (password.length > 0 && password.length < 8) {
-        passwordError.textContent = "Password must be at least 8 characters long.";
-    } else {
-        passwordError.textContent = ""; // Clear error
-    }
-}
+            if (password.length > 0 && password.length < 8) {
+                passwordError.textContent = "Password must be at least 8 characters long.";
+            } else {
+                passwordError.textContent = ""; // Clear error
+            }
+        }
         function validateConfirmPassword() {
             var password = document.getElementById('password').value;
             var confirmPassword = document.getElementById('confirm-password').value;
@@ -205,32 +209,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </script>
 </head>
+
 <body>
-<div class="logo-container">
+    <div class="logo-container">
         <img src="../frontend/images/logo1.png" alt="Logo" class="logo">
     </div>
     <div class="container">
         <div class="signup-box">
             <center>
-            <h2>Create your account</h2>
+                <h2>Create your account</h2>
             </center>
             <form method="POST" action="" onsubmit="return validateForm()">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" placeholder="Full name" required>
-                
+
                 <label for="email">Email ID</label>
                 <input type="email" id="email" name="email" placeholder="Email ID" required onblur="validateEmail()">
                 <div id="email-error" class="error-message"></div>
-                
+
                 <label for="rollno">University Roll No</label>
                 <input type="text" id="rollno" name="rollno" placeholder="University Roll No" required>
-                
+
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Password" required onblur="validatePassword()">
+                <input type="password" id="password" name="password" placeholder="Password" required
+                    onblur="validatePassword()">
                 <div id="password-error" class="error-message"></div>
 
                 <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm Password" required onblur="validateConfirmPassword()">
+                <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm Password"
+                    required onblur="validateConfirmPassword()">
                 <div id="confirm-password-error" class="error-message"></div>
 
                 <button type="submit">SIGN UP</button>
@@ -238,4 +245,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </body>
+
 </html>
