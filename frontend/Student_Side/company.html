@@ -6,36 +6,31 @@
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-
-
 <style>
-        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
             color: #333;
             overflow: hidden;
-
         }
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    height: 97vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-    transition: width 0.4s ease-in-out;
-    padding-top: 80px; /* Added padding for space at the top */
-}
-
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px; /* Added padding for space at the top */
+        }
 
         .sidebar .logo {
             position: absolute;
@@ -100,19 +95,17 @@
             text-align: center;
         }
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
-}
-
+            background-color: #d9e6f4; /* Background color for active link */
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            color:#000000;
+            position: relative;
+            z-index: 1;
+            height: 45px; 
+        }
 
         /* Main content styling */
         .main-content {
@@ -127,8 +120,7 @@
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-            overflow-y: auto;
-            
+            overflow-y: auto;  
         }
 
         .main-content h1 {
@@ -154,8 +146,9 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
             transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-}
-.icon {
+        }
+
+        .icon {
             margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
@@ -164,13 +157,14 @@
         .icon:hover {
             transform: scale(1.1);
         }
-        img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
 
-/* Dropdown menu styling */
-.dropdown-content {
+        img {
+            height: 40px; /* Adjust size as needed */
+            width: auto;
+        }
+
+        /* Dropdown menu styling */
+        .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
@@ -201,120 +195,120 @@
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
-.company-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
-    padding: 10px;
-}
-/* New styles for animations and effects */
 
-/* Fade-in effect on load for company cards */
-@keyframes fadeInCards {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        .company-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 10px;
+        }
 
-/* Scale-up hover effect with shadow */
-.company-card {
-    background-color: #ffffff;
-    border: 1px solid #aaaaaa;
-    padding: 20px;
-    border-radius: 20px;
-    font-size: 16px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0;
-    animation: fadeInCards 0.6s ease forwards;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: #000000;
-}
+        /* Fade-in effect on load for company cards */
+        @keyframes fadeInCards {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.company-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(135deg, #f5feff, #ffffff);
-}
+        /* Scale-up hover effect with shadow */
+        .company-card {
+            background-color: #ffffff;
+            border: 1px solid #aaaaaa;
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: fadeInCards 0.6s ease forwards;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: #000000;
+        }
 
-/* Add a delay to each card to create a staggered animation effect */
-.company-card:nth-child(1) { animation-delay: 0.1s; }
-.company-card:nth-child(2) { animation-delay: 0.2s; }
-.company-card:nth-child(3) { animation-delay: 0.3s; }
-.company-card:nth-child(4) { animation-delay: 0.4s; }
-.company-card:nth-child(5) { animation-delay: 0.5s; }
-.company-card:nth-child(6) { animation-delay: 0.6s; }
-.company-card:nth-child(7) { animation-delay: 0.7s; }
-.company-card:nth-child(8) { animation-delay: 0.8s; }
-.company-card:nth-child(9) { animation-delay: 0.9s; }
-.company-card:nth-child(10) { animation-delay: 1.0s; }
-.company-card:nth-child(11) { animation-delay: 1.1s; }
-/* Subtle hover animation for the View Website link */
-.company-card a {
-    display: inline-block;
-    padding: 8px 12px;
-    color: #000000;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    font-weight: 500;
-    font-size: 14px;
-}
+        .company-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #f5feff, #ffffff);
+        }
 
-.company-card a:hover {
-    color: #1e3d7a;
-    transform: translateY(-3px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-}
+        /* Add a delay to each card to create a staggered animation effect */
+        .company-card:nth-child(1) { animation-delay: 0.1s; }
+        .company-card:nth-child(2) { animation-delay: 0.2s; }
+        .company-card:nth-child(3) { animation-delay: 0.3s; }
+        .company-card:nth-child(4) { animation-delay: 0.4s; }
+        .company-card:nth-child(5) { animation-delay: 0.5s; }
+        .company-card:nth-child(6) { animation-delay: 0.6s; }
+        .company-card:nth-child(7) { animation-delay: 0.7s; }
+        .company-card:nth-child(8) { animation-delay: 0.8s; }
+        .company-card:nth-child(9) { animation-delay: 0.9s; }
+        .company-card:nth-child(10) { animation-delay: 1.0s; }
+        .company-card:nth-child(11) { animation-delay: 1.1s; }
+        .company-card:nth-child(12) { animation-delay: 1.2s; }
 
-/* Subtle image zoom-in on hover */
-.company-card img {
-    align-items: center;
-}
+        /* Subtle hover animation for the View Website link */
+        .company-card a {
+            display: inline-block;
+            padding: 8px 12px;
+            color: #000000;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+        }
 
-.company-card h3 {
-    padding-top: 5px;
-    font-size: 15px /* Adjust the size as needed */
-}
+        .company-card a:hover {
+            color: #1e3d7a;
+            transform: translateY(-3px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
 
+        /* Subtle image zoom-in on hover */
+        .company-card img {
+            align-items: center;
+        }
 
-.search {
-    padding-top: 1px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
+        .company-card h3 {
+            padding-top: 5px;
+            font-size: 15px /* Adjust the size as needed */
+        }       
 
-.search h2 {
-    margin: 0; /* Removes default margin */
-    text-align: center; /* Center-aligns the text */
-    width: 100%; /* Ensures the heading takes up full width */
-    margin-top: 0;
-}
+        .search {
+            padding-top: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-.search-bar {
-    margin: 0;
-}
+        .search h2 {
+            margin: 0; /* Removes default margin */
+            text-align: center; /* Center-aligns the text */
+            width: 100%; /* Ensures the heading takes up full width */
+            margin-top: 0;
+        }
 
-#companySearch {
-    width: 350px; /* Fixed width or adjust as needed */
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-}
+        .search-bar {
+            margin: 0;
+        }
 
-</style>
+        #companySearch {
+            width: 350px; /* Fixed width or adjust as needed */
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         
         <!-- Dropdown Menu -->
@@ -345,95 +339,109 @@
         </div>
     </div>
     <div class="company-info">
-            
         <div class="company-card">
             <img src="../images/company_logo/infosys.png" alt="Infosys">
             <h3>Infosys</h3>
             <p>Infosys Limited is an Indian multinational information technology company that offers business consulting, information technology, and outsourcing services.</p>
             <a href="https://www.infosys.com" target="_blank">View Website</a>
         </div>
+
         <div class="company-card">
             <img src="../images/company_logo/tcs.png" alt="Tata Consultancy Services">
             <h3>Tata Consultancy Services (TCS)</h3>
             <p>Tata Consultancy Services is an Indian multinational corporation specializing in information technology services and consulting.</p>
             <a href="https://www.tcs.com" target="_blank">View Website</a>
         </div>
+
         <div class="company-card">
             <img src="../images/company_logo/cisco.png" alt="Cisco">
             <h3>Cisco</h3>
             <p>Cisco Systems, Inc. is an American multinational digital communications technology conglomerate corporation headquartered in San Jose, California.</p>
             <a href="https://www.cisco.com" target="_blank">View Website</a>
         </div>
+
         <div class="company-card">
             <img src="../images/company_logo/wipro.png" alt="Wipro">
             <h3>Wipro</h3>
             <p>Wipro Limited is an Indian multinational corporation that provides information technology, consulting and business process services.</p>
             <a href="https://www.wipro.com" target="_blank">View Website</a>
         </div>
+
         <div class="company-card">
             <img src="../images/company_logo/LTImindtree.png" alt="LTIMindtree">
             <h3>LTIMindtree</h3>
             <p>LTIMindtree Limited is an Indian multinational IT services and consulting company that helps enterprises innovate, grow and transform using digital technologies.</p>
             <a href="https://www.ltimindtree.com" target="_blank">View Website</a>
         </div>
+
         <div class="company-card">
             <img src="../images/company_logo/Deloitte.png" alt="Deloitte">
             <h3>Deloitte</h3>
             <p>Deloitte Touche Tohmatsu Limited known as Deloitte is a multinational professional services network offering top-tier audit, consulting, tax and advisory services to leading global brands.</p>
             <a href="https://www2.deloitte.com" target="_blank">View Website</a>
         </div>
+
         <div class="company-card">
-            <img src="../images/company_logo/accenture.png" alt="Accenture">
+            <img src="../images/company_logo/Accenture.svg.png" alt="Accenture">
             <h3>Accenture</h3>
             <p>Accenture plc is a global professional services company, headquartered in Dublin, specializing in IT services and consulting across industries like communications, financial services, health and consumer products.</p>
             <a href="https://www.accenture.com" target="_blank" >View Website</a>
         </div>
+
         <div class="company-card">
             <img src="../images/company_logo/intel.png" alt="Intel">
             <h3>Intel Corporation</h3>
             <p>Intel Corporation is an American multinational technology company, headquartered in Santa Clara, California, that designs, manufactures and sells computer components for business and consumer markets.</p>
             <a href="https://www.intel.com" target="_blank">View Website</a>
         </div>
+
         <div class="company-card">
             <img src="../images/company_logo/cognizant.jpg" alt="Cognizant">
             <h3>Cognizant</h3>
             <p>Cognizant Technology Solutions Corporation is an American multinational information technology services and consulting company.</p>
             <a href="https://www.cognizant.com" target="_blank">View Website</a>
         </div>
+
         <div class="company-card">
             <img src="../images/company_logo/tech mahindra.png" alt="Tech Mahindra">
             <h3>Tech Mahindra</h3>
             <p>Mahindra Group is a multinational federation that holds strong positions in farm equipment, utility vehicles, IT and financial services and is the world’s largest tractor manufacturer by volume.</p>
             <a href="https://www.techmahindra.com" target="_blank">View Website</a>
         </div>
+
         <div class="company-card">
-            <img src="../images/company_logo/federal bank.png" m alt="Federal Bank">
+            <img src="../images/company_logo/federal bank.png"  alt="Federal Bank">
             <h3>Federal Bank</h3>
             <p>Federal Bank is a leading choice for personal, NRI, and business banking across India, committed to “Digital at the Fore, Human at the Core.” Known for innovative, customer-focused services, the Bank aims to be India’s top banking choice.</p>
             <a href="https://www.federalbank.co.in" target="_blank">View Website</a>
         </div>
-        
+
+        <div class="company-card">
+            <img src="../images/company_logo/teal.jpg"  alt="Federal Bank">
+            <h3>TEAL</h3>
+            <p>Titan Engineering & Automation Limited (TEAL) is a subsidiary of Titan Company Limited, focused on providing end-to-end automation solutions, precision manufacturing, and customized engineering services.</p>
+            <a href="https://www.titanteal.com/" target="_blank">View Website</a>
+        </div>
     </div>
 </div>
 <script>
-          function loadProfilePicture() {
+    function loadProfilePicture() {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'fetch_profilepicture.php', true);
         xhr.onload = function () {
             if (xhr.status === 200) {
                 var profilePath = xhr.responseText.trim();
-                
                 document.getElementById('profileIcon').src = profilePath;
             }
         };
         xhr.send();
     }
-          window.onload = loadProfilePicture;
+    window.onload = loadProfilePicture;
 
     // Change profile image
     function triggerFileInput() {
-            document.getElementById('fileInput').click();
-        }
+        document.getElementById('fileInput').click();
+    }
 
     function changeProfilePicture(event) {
         const file = event.target.files[0];
@@ -486,9 +494,10 @@
             });
 
             function goToProfile() {
-    showSection('personal'); // Redirect to profile section
-    toggleDropdown(); // Close the dropdown after redirection
-}
+                showSection('personal'); // Redirect to profile section
+                toggleDropdown(); // Close the dropdown after redirection
+            }
+
             // Adjust main content and container margin based on sidebar width
             const sidebar = document.querySelector('.sidebar');
             const mainContent = document.querySelector('.main-content');
@@ -503,26 +512,24 @@
                 mainContent.style.marginLeft = '245px'; // Normal sidebar width
                 container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
             });
-    
           
         });
-    //Search Company
-    function filterCompanies() {
-        let input = document.getElementById('companySearch');
-        let filter = input.value.toUpperCase();
-        let companyInfo = document.querySelector('.company-info');
-        let cards = companyInfo.getElementsByClassName('company-card');
+        //Search Company
+        function filterCompanies() {
+            let input = document.getElementById('companySearch');
+            let filter = input.value.toUpperCase();
+            let companyInfo = document.querySelector('.company-info');
+            let cards = companyInfo.getElementsByClassName('company-card');
     
-        for (let i = 0; i < cards.length; i++) {
-            let title = cards[i].getElementsByTagName('h3')[0];
-            if (title.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                cards[i].style.display = "";
-            } else {
-                cards[i].style.display = "none";
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].getElementsByTagName('h3')[0];
+                if (title.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
             }
         }
-    }
-
-</script>
+    </script>
 </body>
 </html>
