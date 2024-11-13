@@ -328,8 +328,8 @@ $result = $conn->query($sql);
 <body>
     <!-- Profile Container -->
     <div class="container">
-    <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
-    <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
@@ -374,7 +374,6 @@ $result = $conn->query($sql);
                 </div>
                 <div class="job-info">
                     <div class="salary">Salary: <?php echo htmlspecialchars($row['salary']); ?></div>
-                   
                     <button class="apply-now">view details</button>
                 </div>
             </div>
@@ -406,7 +405,7 @@ $result = $conn->query($sql);
             }
         };
         xhr.send();
-    }
+        }
           window.onload = loadProfilePicture;
         // Change Profile Picture
         function triggerFileInput() {

@@ -444,8 +444,7 @@ if (isset($_SESSION['user_id'])) {
         <h3>Welcome to Lavoro</h3>
         <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-
-        <!-- Dropdown Menu -->
+        <!-- Dropdown  Menu-->
         <div id="dropdownMenu" class="dropdown-content">
             <a href="../profile_redirect.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
