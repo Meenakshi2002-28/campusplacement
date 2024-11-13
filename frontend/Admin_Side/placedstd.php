@@ -264,7 +264,7 @@ $conn->close();
         }
 
         .filter_std{
-            margin-left: 800px;
+            margin-left: 790px;
         }
 
         .filter_std label{
