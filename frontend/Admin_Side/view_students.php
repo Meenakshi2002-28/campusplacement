@@ -393,7 +393,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         }
 
         .search-bar-container button {
-            padding: 5px 15px;
+            padding: 5px 12px;
             background-color: #1e165f;
             color: white;
             border: none;
@@ -404,15 +404,14 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 
         .approval button{
             margin-left :950px;
-            padding: 7px 20px;
-            background-color: #AFC8F3;
-            color: black;
+            padding: 5px 15px;
+            background-color: #1e165f;
+            color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 600;
-            margin-top: -100px;
         }
 
     </style>
@@ -450,11 +449,9 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
     <div class="main-content">
         <div class="search-bar-container">
             <input type="text" id="search-input" class="search-bar" placeholder="Search by Roll No or Name...">
-            <button onclick="performSearch()">Search</button>
+            <button onclick="performSearch()">Search</button><button style="margin-left:270px" >Account Approvals</button>
         </div>
-        <div class="approval">
-        <button onclick="window.location.href='acc_approval.php'">Account Approvals</button>
-        </div>
+        
         <div class="students">
             <table>
                 <thead>
