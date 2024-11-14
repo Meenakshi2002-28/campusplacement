@@ -1,12 +1,12 @@
 <?php
-session_start(); // Start the session to access session variables
+session_start(); 
 
-// Check if user_id is set in the session
+
 if (isset($_SESSION['user_id'])) {
     $servername = "localhost";
-    $db_username = "root"; // MySQL username
-    $db_password = ""; // MySQL password
-    $dbname = "campus_placement"; // Replace with your database name
+    $db_username = "root"; 
+    $db_password = ""; 
+    $dbname = "campus_placement"; 
 
     // Create connection
     $conn = new mysqli($servername, $db_username, $db_password, $dbname);
