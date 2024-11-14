@@ -34,13 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bind_result($db_user_id, $db_password, $db_role, $approval_status);
             $stmt->fetch();
     
-            if ($approval_status !== 'approved') {
-                die("Your account is pending approval or has been rejected.");
-            }
     
-
-            // Verify the password
-            if (password_verify($form_password, $db_password)) {
+            if ($approval_status !== 'approved') {
+                $error = "Your account is pending approval or has been rejected."; // Assign the error message
+            } elseif (password_verify($form_password, $db_password)) {
                 // Password matches, create session variables
                 $_SESSION['user_id'] = $db_user_id;
                 $_SESSION['role'] = $db_role;

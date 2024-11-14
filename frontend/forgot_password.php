@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->Port = 465; // Port for SSL (465)
 
             // Recipients
-            $mail->setFrom('no-reply@yourwebsite.com', 'Your Website');
+            $mail->setFrom('no-reply@yourwebsite.com', 'Lavoro');
             $mail->addAddress($email); // Add recipient
 
             // Content

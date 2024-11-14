@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
                 // Insert data into login table
-                $stmt = $conn->prepare("INSERT INTO login (user_id, email, password,role) VALUES (?, ?, ?,'student')");
+                $stmt = $conn->prepare("INSERT INTO login (user_id, email, password,role,approval_status) VALUES (?, ?, ?,'student','pending')");
                 $stmt->bind_param("sss", $rollno, $email, $hashed_password);
 
                 if ($stmt->execute()) {

@@ -35,14 +35,31 @@ if ($result->num_rows > 0) {
 }
 
 // Close connection
-$conn->close();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $user_id = $_POST['user_id'];
+    $action = $_POST['action'];
 
-// Only return JSON if the request is an AJAX call
-if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-    header('Content-Type: application/json');
-    echo json_encode($students);
-    exit; // Terminate the script to prevent HTML output
+    if ($action == 'approve') {
+        $update_sql = "UPDATE login SET approval_status = 'approved' WHERE user_id = ?";
+    } elseif ($action == 'reject') {
+        $update_sql = "UPDATE login SET approval_status = 'rejected' WHERE user_id = ?";
+    }
+
+    $stmt = $conn->prepare($update_sql);
+    $stmt->bind_param("s", $user_id);
+
+    if ($stmt->execute()) {
+        header("Location: acc_approval.php");
+    exit; 
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
 }
+
+// Close database connection
+$conn->close();
 ?>
 
 
@@ -487,8 +504,12 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
                                 <td><?php echo $student['name']; ?></td>
                                 <td><?php echo $student['email']; ?></td>
                                 <td>
-                                    <button style="background-color: #0aad0a; color:white;">accept</button>
-                                    <button style="background-color: #e81313; color:white;">reject</button>
+                                <form action="" method="post">
+                                <input type="hidden" name="user_id" value="<?php echo $student['user_id']; ?>">
+                                <button type="submit" name="action" value="approve" style="background-color: #0aad0a; color: white;">Accept</button>
+<button type="submit" name="action" value="reject" style="background-color: #e81313; color: white;">Reject</button>
+
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
