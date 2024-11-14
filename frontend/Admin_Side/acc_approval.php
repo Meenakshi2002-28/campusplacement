@@ -355,14 +355,14 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         }
 
         th {
-            padding: 10px 20px;
+            padding: 5px 20px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
 
         th,
         td {
-            padding: 10px 20px;
+            padding: 7px 10px;
         }
 
         /* Style the top bar container */
@@ -415,6 +415,18 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             font-weight: 600;
             margin-top: -100px;
         }
+        button {
+            padding: 5px 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        button:hover {
+            font-weight: 700;
+        }
 
     </style>
 </head>
@@ -463,7 +475,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
                         <th>Roll no</th>
                         <th>Name</th>
                         <th>email</th>
-                        
+                        <th>Account Status</th>
                     </tr>
                 </thead>
                 <tbody id="studentData">
@@ -474,7 +486,10 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
                                 <td><?php echo $student['user_id']; ?></td>
                                 <td><?php echo $student['name']; ?></td>
                                 <td><?php echo $student['email']; ?></td>
-                                
+                                <td>
+                                    <button style="background-color: #0aad0a; color:white;">accept</button>
+                                    <button style="background-color: #e81313; color:white;">reject</button>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>

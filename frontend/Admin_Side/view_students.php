@@ -402,18 +402,20 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             font-size: 18px;
         }
 
+        .approval{
+            margin-top: -35px;
+            margin-left: 900px;
+        }
+
         .approval button{
-            margin-left :950px;
-            padding: 5px 15px;
+            padding: 5px 12px;
             background-color: #1e165f;
             color: white;
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 18px;
         }
-
     </style>
 </head>
 
@@ -449,9 +451,11 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
     <div class="main-content">
         <div class="search-bar-container">
             <input type="text" id="search-input" class="search-bar" placeholder="Search by Roll No or Name...">
-            <button onclick="performSearch()">Search</button><button style="margin-left:270px" >Account Approvals</button>
+            <button onclick="performSearch()">Search</button>
         </div>
-        
+        <div class="approval">
+            <button onclick="window.location.href='acc_approval.php'">Account Approvals</button>
+        </div>
         <div class="students">
             <table>
                 <thead>
