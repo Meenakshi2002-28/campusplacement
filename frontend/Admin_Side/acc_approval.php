@@ -14,10 +14,11 @@ if ($conn->connect_error) {
 
 // SQL query to fetch user_id, name, graduation_year, and course_name for 10 students
 $sql = "
-    SELECT s.user_id, s.name, s.graduation_year, c.course_name
-    FROM student s
-    JOIN course c ON s.course_id = c.course_id
-    LIMIT 11
+   SELECT l.user_id, l.email, s.name
+FROM login l
+JOIN student s ON l.user_id = s.user_id
+WHERE l.approval_status = 'pending'
+
 ";
 
 $result = $conn->query($sql);
@@ -453,7 +454,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             <button onclick="performSearch()">Search</button>
         </div>
         <div class="approval">
-        <button onclick="window.location.href='acc_approval.php'">Account Approvals</button>
+            <button>Account Approvals</button>
         </div>
         <div class="students">
             <table>
@@ -461,8 +462,8 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
                     <tr>
                         <th>Roll no</th>
                         <th>Name</th>
-                        <th>Graduation Year</th>
-                        <th>Course Name</th>
+                        <th>email</th>
+                        
                     </tr>
                 </thead>
                 <tbody id="studentData">
@@ -472,8 +473,8 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
                             <tr onclick="window.location.href='profileredirect.php?user_id=<?php echo $student['user_id']; ?>'">
                                 <td><?php echo $student['user_id']; ?></td>
                                 <td><?php echo $student['name']; ?></td>
-                                <td><?php echo $student['graduation_year']; ?></td>
-                                <td><?php echo $student['course_name']; ?></td>
+                                <td><?php echo $student['email']; ?></td>
+                                
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
