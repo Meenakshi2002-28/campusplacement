@@ -22,19 +22,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form_password = $_POST['password'];
 
     // SQL query to check the user in the database
-    $query = "SELECT user_id, password, role FROM login WHERE user_id = ? LIMIT 1";
+    $query = "SELECT user_id, password, role, approval_status FROM login WHERE user_id = ? LIMIT 1";
 
     // Prepare the statement to prevent SQL injection
     if ($stmt = $conn->prepare($query)) {
-        // Bind the username parameter
         $stmt->bind_param('s', $form_username);
         $stmt->execute();
         $stmt->store_result();
-
-        // Check if the user exists
+    
         if ($stmt->num_rows == 1) {
-            $stmt->bind_result($db_user_id, $db_password, $db_role);
+            $stmt->bind_result($db_user_id, $db_password, $db_role, $approval_status);
             $stmt->fetch();
+    
+            if ($approval_status !== 'approved') {
+                die("Your account is pending approval or has been rejected.");
+            }
+    
 
             // Verify the password
             if (password_verify($form_password, $db_password)) {
