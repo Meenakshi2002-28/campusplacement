@@ -15,8 +15,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
-
 // Get the user_id from the URL
 $user_id = $_GET['user_id'] ?? null; // Use null coalescing to handle missing user_id
 
@@ -36,15 +34,16 @@ $stmt->fetch();
 
 // If current_year and phone_number exist, redirect to view.php
 if ($stmt->num_rows > 0 && !empty($current_year) && !empty($phone_number)) {
+    // Close the statement and connection before redirecting
+    $stmt->close();
+    $conn->close();
     header("Location: adminpersonalview.php?user_id=" . urlencode($user_id)); // Redirect to view details
     exit();
 } else {
     // If no records found, redirect to storepr_std.php
+    $stmt->close();
+    $conn->close();
     header("Location: Student_Side/personal.php?user_id=" . urlencode($user_id)); // Redirect to store details
     exit();
 }
-
-// Close connection
-$stmt->close();
-$conn->close();
 ?>
