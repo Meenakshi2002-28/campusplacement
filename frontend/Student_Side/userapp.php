@@ -42,13 +42,12 @@ $stmt->close();
 $conn->close();
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavoro - Campus Recruitment System</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
@@ -57,27 +56,25 @@ $conn->close();
             background-color: #d9e6f4;
             color: #333;
             overflow: hidden;
-
         }
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    height: 97vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-    transition: width 0.4s ease-in-out;
-    padding-top: 80px; /* Added padding for space at the top */
-}
-
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px; /* Added padding for space at the top */
+        }
 
         .sidebar .logo {
             position: absolute;
@@ -141,19 +138,19 @@ $conn->close();
             width: 100%;
             text-align: center;
         }
+
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
-}
+            background-color: #d9e6f4; /* Background color for active link */
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            color:#000000;
+            position: relative;
+            z-index: 1;
+            height: 45px; 
+        }
 
 
         /* Main content styling */
@@ -195,20 +192,24 @@ $conn->close();
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
             transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-}
-.icon {
+        }
+        .icon {
             margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
+        .logo img{
+            height: 250px;
+            width: auto;
+            margin-top: -90px;
         }
+
         img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
+            height: 40px; /* Adjust size as needed */
+            width: auto;
+        }
+
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
@@ -243,17 +244,17 @@ $conn->close();
         }
         
         .sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
+            position: absolute;
+            top: 20px; /* Keep the same positioning */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px; /* Increase the font size here */
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
 
-table {
+        table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
@@ -283,8 +284,9 @@ table {
         th:nth-child(3), td:nth-child(3) {
             width: 25%; /* Course Column */
         }
-/* Filter Section */
-.filters {
+
+        /* Filter Section */
+        .filters {
             position: absolute;
             top: 80px;
             right: 20px;
@@ -308,7 +310,7 @@ table {
 <body>
     <!-- Profile Container -->
     <div class="container">
-    <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+    <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon">
     <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
@@ -320,7 +322,9 @@ table {
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
+        <div class="logo">
+            <img src="../images/logo_white.png">
+        </div>
         <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="userapp.php"class="active"><i class="fa fa-fw fa-envelope"></i> Applications</a>
