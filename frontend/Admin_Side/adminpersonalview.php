@@ -554,7 +554,9 @@ $conn->close();
                         Use 300 X 300 px image for profile pic.</p>
 
                     <!-- Form for file upload -->
-                    <form id="uploadForm" action="picture.php" method="post" enctype="multipart/form-data">
+                    <form id="uploadForm" action="stdpicture.php" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>">
+
                         <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
                         <button type="submit" name="submit">Submit</button>
                     </form>
