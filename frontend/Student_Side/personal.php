@@ -839,11 +839,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         return true; // Validation passed
     }
-    window.onload = function() {
-        document.getElementById('cgpa').onblur = validateCGPA;
-        document.getElementById('percentage_twelfth').onblur = validatePercentage12th;
-        document.getElementById('percentage_tenth').onblur = validatePercentage10th;
-    };
+  
 
     function validateForm() {
         let isValid = true;
