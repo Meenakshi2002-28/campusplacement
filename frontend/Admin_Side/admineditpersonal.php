@@ -66,6 +66,8 @@ $conn->close();
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -90,17 +92,6 @@ $conn->close();
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
             transition: width 0.4s ease-in-out;
             padding-top: 80px; /* Added padding for space at the top */
-        }
-
-        .sidebar .logo {
-            position: absolute;
-            top: 20px; /* Positions logo/title closer to the top */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            text-align: center;
         }
 
         .sidebar:hover {
@@ -214,10 +205,6 @@ $conn->close();
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
-        }
-
         img{
             height: 40px;
             width: auto;
@@ -261,10 +248,11 @@ $conn->close();
             top: 20px; /* Keep the same positioning */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 36px; /* Increase the font size here */
+            font-size: 32px; /* Increase the font size here */
             font-weight: bold;
             color: white;
             text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .tabs {
@@ -517,8 +505,8 @@ $conn->close();
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
         <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php"  class="active"><i class="fas fa-briefcase"></i> Jobs</a>
-        <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="joblist_admin.php" ><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="view_students.php"  class="active"><i class="fas fa-user-graduate"></i> Students</a>
         <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
         <a href="company.html"><i class="fas fa-building"></i> Company</a>
         <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
