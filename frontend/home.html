@@ -25,50 +25,49 @@
         }
 
         .login {
-    width: 110px;
-    height: 35px;
-    background: none;
-    border: none;
-    color: white;
-    padding: 7px 20px;
-    margin-left: 5px;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-}
+            width: 110px;
+            height: 35px;
+            background: none;
+            border: none;
+            color: white;
+            padding: 7px 20px;
+            margin-left: 5px;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
 
-.login:hover {
-    color: black;
-    background-color: white;
-    transform: scale(1.1);
-    font-weight: 700;
-}
-
+        .login:hover {
+            color: black;
+            background-color: white;
+            transform: scale(1.1);
+            font-weight: 700;
+        }
 
         .signup {
-    background: white;
-    border: none;
-    width: 110px;
-    height: 35px;
-    color: black;
-    padding: 7px 20px;
-    margin-left: 20px;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
+            background: white;
+            border: none;
+            width: 110px;
+            height: 35px;
+            color: black;
+            padding: 7px 20px;
+            margin-left: 20px;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
 
-.signup:hover {
-    font-weight: 700;
-    letter-spacing: 1px;
-    transform: scale(1.1);
-}
+        .signup:hover {
+            font-weight: 700;
+            letter-spacing: 1px;
+            transform: scale(1.1);
+        }
 
         .footer {
-            position: fixed;
+            position: relative;
             left: 0;
             bottom: 0;
             width: 100%;
@@ -76,6 +75,7 @@
             color: white;
             text-align: center;
             padding: 25px;
+            margin-top: 10px;
         }
 
         .content {
@@ -127,92 +127,91 @@
         }
 
         .animated-button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 7px 35px;
-  margin-left: 30px;
-  margin-top: 15px;
-  border: 4px solid;
-  border-color: transparent;
-  font-size: 16px;
-  background-color: #241A64;
-  border-radius: 100px;
-  font-weight: 600;
-  color: white;
-  box-shadow: 0 0 0 2px #ffffff;
-  cursor: pointer;
-  overflow: hidden;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  text-decoration: none
-}
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 7px 35px;
+            margin-left: 30px;
+            margin-top: 15px;
+            border: 4px solid;
+            border-color: transparent;
+            font-size: 16px;
+            background-color: #241A64;
+            border-radius: 100px;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 0 0 2px #ffffff;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            text-decoration: none
+        }
 
-.animated-button svg {
-  position: absolute;
-  width: 24px;
-  fill: #ffffff;
-  z-index: 9;
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
+        .animated-button svg {
+            position: absolute;
+            width: 24px;
+            fill: #ffffff;
+            z-index: 9;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
 
-.animated-button .arr-1 {
-  right: 16px;
-}
+        .animated-button .arr-1 {
+            right: 16px;
+        }
 
-.animated-button .arr-2 {
-  left: -25%;
-}
+        .animated-button .arr-2 {
+            left: -25%;
+        }
 
-.animated-button .circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  background-color: #edf9f9;
-  border-radius: 50%;
-  opacity: 0;
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
+        .animated-button .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: #edf4f4;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
 
-.animated-button .text {
-  position: relative;
-  z-index: 1;
-  transform: translateX(-12px);
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-  text-decoration: none; /* This prevents underline on hover */
-}
+        .animated-button .text {
+            position: relative;
+            z-index: 1;
+            transform: translateX(-12px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            text-decoration: none; /* This prevents underline on hover */
+        }
 
-.animated-button:hover {
-  box-shadow: 0 0 0 12px transparent;
-  color: #212121;
-  border-radius: 12px;
-}
+        .animated-button:hover {
+            box-shadow: 0 0 0 12px transparent;
+            color: #212121;
+            border-radius: 12px;
+        }
 
-.animated-button:hover .arr-1 {
-  right: -25%;
-}
+        .animated-button:hover .arr-1 {
+            right: -25%;
+        }
 
-.animated-button:hover .arr-2 {
-  left: 16px;
-}
+        .animated-button:hover .arr-2 {
+            left: 16px;
+        }
 
-.animated-button:hover .text {
-  transform: translateX(12px);
-}
+        .animated-button:hover .text {
+            transform: translateX(12px);
+        }
 
-.animated-button:hover svg {
-  fill: #000000;
-}
+        .animated-button:hover svg {
+            fill: #000000;
+        }
 
-.animated-button:hover .circle {
-  width: 220px;
-  height: 220px;
-  opacity: 1;
-}
-
+        .animated-button:hover .circle {
+            width: 220px;
+            height: 220px;
+            opacity: 1;
+        }
 
         .image {
             flex: 1;
@@ -228,6 +227,85 @@
             max-width: 700px;
             height: auto;
         }
+
+        
+.about-us-container {
+    width: 100%;
+    max-width: 100%;
+    margin-top: -10px;
+    padding: 20px;
+    
+    background-color: #0c122e;
+    overflow-x: hidden;
+ }
+
+ @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+ 
+.about-us-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 20px; 
+    margin-left: 190px;
+    margin-right: 190px;
+    margin-top: 30px;
+    font-family: serif;
+  
+}
+
+.text-section {
+    max-width: 60%;
+}
+
+.text-section h1 {
+    font-size: 2.5rem;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+.text-section p {
+    font-size: 19px;
+    color: #292323;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.cta-button {
+    background-color: #fcae06;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+}
+
+.cta-button:hover {
+    background-color: #fc8f0a;
+}
+
+.image-section img {
+    max-width: 600px;
+   
+    margin-left:810px;
+    margin-top: -500px;
+    width:500px;
+    
+}
+
     </style>
 </head>
 <body>
@@ -251,12 +329,32 @@
                     </svg>
                 </button>
             </a>
-            
-            
         </div>
         <div class="image">
             <img src="images/placement.png" alt="welcome">
         </div>
+    </div>
+
+    <div class="about-us-container">
+        
+        <div class="about-us-content">
+            <div class="text-section">
+                <h1>ABOUT US</h1>
+                <p>
+                    Welcome to Lavoro, the official campus recruitment platform for the students of Amrita Vishwa Vidyapeetham, Kochi Campus. 
+                    Our mission is to bridge the gap between students and career opportunities by providing a streamlined and user-friendly platform to support every step of the recruitment journey.
+                    At Lavoro, we believe that every student should have easy access to the best career opportunities that match their skills and aspirations. 
+                    Lavoro enables students to browse, search, and apply for job openings in a centralized, organized manner. 
+                    By simplifying the recruitment process, we aim to make it easier for students to take charge of their career paths.
+                </p>
+                <a href="../create_account.php" class="cta-button">SIGN UP</a>
+            </div>
+        </div>     
+            
+            <div class="image-section">
+                <img src="images/aboutus2.png" alt="Team Illustration">
+            </div>
+            
     </div>
     <div class="footer"></div>
 </body>

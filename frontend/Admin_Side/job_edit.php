@@ -340,18 +340,19 @@ $conn->close();
     .job-form-container {
         flex: 1;
         padding-top: 0px;
-        padding-left: 30px;
+        padding-left: 15px;
         background-color:white;
         
         top: 0;           
         right: 0;         
         bottom: 0;        
-        left: 250px;      
+        left: 300px;      
         overflow-y:auto; 
        
     }
     .job-form-container h3 {
-            margin-bottom: 30px;
+        margin-top: 5px;
+            margin-bottom: 20px;
             text-align: justify;
             color:black;
             font-weight: 550;  
@@ -359,9 +360,9 @@ $conn->close();
             
             
     .job-form-container h2 {
-        text-align: center;
+       margin-left: 500px;
 
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             color:black;
             font-weight: 600;      
     }
@@ -385,13 +386,9 @@ $conn->close();
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            margin-left: -60px;
-     }
-
-    .job-form input[type="radio"] {
-            margin-right: 3px;
-            margin-left:1px;
+            margin-left: -177px;
     }
+
 
     .job-form textarea {
             grid-column: span 2;
@@ -402,7 +399,7 @@ $conn->close();
             resize: none;
             height: 100px;
             font-family: Arial, Helvetica, sans-serif;
-            margin-left: -60px;
+            margin-left: -175px;
         }
 
     .job-form input[type="submit"] {
@@ -458,14 +455,22 @@ $conn->close();
     cursor: pointer;
 }
 
+.error-message {
+    color: red;
+    font-size: 12px;
+    height: 20px; /* Set a fixed height */
+    margin-top: 5px; /* Space between input and error message */
+}
+
     </style>
 </head>
 <body>
-     <!-- Profile Container -->
-     <div class="container">
+    <!-- Profile Container -->
+    <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -475,84 +480,94 @@ $conn->close();
 
     <!-- Sidebar -->
     <div class="sidebar">
-    <!-- Logo or Website Name -->
-    <div class="logo">Lavoro</div>
-    <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
-    <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
-    <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
-    <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
-    <a href="company.html"><i class="fas fa-building"></i> Company</a>
-    <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-    <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
-    <div class="logout">
-        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        <!-- Logo or Website Name -->
+        <div class="logo">Lavoro</div>
+        <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
+        <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
+        <a href="company.html"><i class="fas fa-building"></i> Company</a>
+        <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+        <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
     </div>
-</div>
     
-<div class="main-content">
+    <div class="main-content">
         <div class="job-form-container">
             <h2>Edit Job Details</h2>
             <?php if ($job): ?>
-            <form class="job-form" method="POST" action="job_edit.php?job_id=<?php echo $job_id; ?>">
+            <form class="job-form" method="POST" action="job_edit.php?job_id=<?php echo $job_id; ?>" onsubmit="return validateForm()">
                 <label for="title">Title</label>
-                <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($job['job_title']); ?>" required>
+                <div>
+                    <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($job['job_title']); ?>" required>
+                    <span id="title-error" class="error-message" style="color:red; font-size:12px;"></span>
+                </div>
 
                 <label for="company">Company</label>
-                <input type="text" id="company" name="company" value="<?php echo htmlspecialchars($job['company_name']); ?>" required>
+                <div>
+                    <input type="text" id="company" name="company" value="<?php echo htmlspecialchars($job['company_name']); ?>" required>
+                    <span id="company-error" class="error-message" style="color:red; font-size:12px;"></span>
+                </div>
 
                 <label for="location">Location</label>
-                <input type="text" id="location" name="location" value="<?php echo htmlspecialchars($job['location']); ?>" required>
+                <div>
+                    <input type="text" id="location" name="location" value="<?php echo htmlspecialchars($job['location']); ?>" required>
+                    <span id="location-error" class="error-message" style="color:red; font-size:12px;"></span>
+                </div>
 
                 <label for="work-mode">Work Mode</label>
-                <input type="text" id="work-mode" name="work-mode" value="<?php echo htmlspecialchars($job['work_environment']); ?>" required>
+                <div>
+                    <input type="text" id="work-mode" name="work-mode" value="<?php echo htmlspecialchars($job['work_environment']); ?>" required>
+                    <span id="work-mode-error" class="error-message" style="color:red; font-size:12px;"></span>
+                </div>
 
                 <label for="salary">Salary</label>
                 <input type="number" id="salary" name="salary" value="<?php echo htmlspecialchars($job['salary']); ?>" required>
 
                 <label for="deadline">Application Deadline</label>
-                <input type="date" id="deadline" name="deadline" value="<?php echo htmlspecialchars($job['application_deadline']); ?>" required>
-                
-                <label for="type">Type </label>
-            <div>
-                <input type="radio" id="job" name="type" value="job" checked>
-                <label for="job">Job</label>
-                <input type="radio" id="internship" name="type" value="internship">
-                <label for="internship">Internship </label>
-            </div>
+                <div>
+                    <input type="date" id="deadline" name="deadline" value="<?php echo htmlspecialchars($job['application_deadline']); ?>" required>
+                    <span id="deadline-error" class="error-message" style="color:red; font-size:12px;"></span>
+                </div>
 
                 <label for="cgpa">Required CGPA</label>
                 <input type="number" id="cgpa" name="cgpa" step="0.01" value="<?php echo htmlspecialchars($job['cgpa_requirement']); ?>" required>
+                
                 <label for="course">Eligible Courses </label>
-            <div>
-                <input type="text" id="selectedOptions" name="selectedOptions" readonly placeholder="Select Eligible Courses">
-                    <select name="options[]" id="course" multiple>
-                    <option value="B.com taxation and finance" <?php echo in_array('B.com taxation and finance', $selected_courses) ? 'selected' : ''; ?>>B.com Taxation and Finance</option>
-                    <option value="BBA" <?php echo in_array('BBA', $selected_courses) ? 'selected' : ''; ?>>BBA</option>
-                    <option value="B.com fintech" <?php echo in_array('B.com fintech', $selected_courses) ? 'selected' : ''; ?>>B.com Fintech</option>
-                    <option value="Int MCA" <?php echo in_array('Int MCA', $selected_courses) ? 'selected' : ''; ?>>INT MCA</option>
-                    <option value="BCA" <?php echo in_array('BCA', $selected_courses) ? 'selected' : ''; ?>>BCA</option>
-                    <option value="BCA DataScience" <?php echo in_array('BCA DataScience', $selected_courses) ? 'selected' : ''; ?>>BCA Data Science</option>
-                    <option value="BA English and Literature" <?php echo in_array('BA English and Literature', $selected_courses) ? 'selected' : ''; ?>>BA English and Literature</option>
-                    <option value="Int MA English and Literature" <?php echo in_array('Int MA English and Literature', $selected_courses) ? 'selected' : ''; ?>>INT MA English and Literature</option>
-                    <option value="Int MSC mathematics" <?php echo in_array('Int MSC mathematics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Mathematics</option>
-                    <option value="Int Physics" <?php echo in_array('Int Physics', $selected_courses) ? 'selected' : ''; ?>>INT Physics</option>
-                    <option value="Int Msc Physics" <?php echo in_array('Int Msc Physics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Physics</option>
-                    <option value="Int Msc Mathematics" <?php echo in_array('Int Msc Mathematics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Mathematics</option>
-                    </select>
-            </div>
+                <div>
+                    <input type="text" id="selectedOptions" name="selectedOptions" readonly placeholder="Select Eligible Courses">
+                        <select name="options[]" id="course" multiple>
+                            <option value="B.com taxation and finance" <?php echo in_array('B.com taxation and finance', $selected_courses) ? 'selected' : ''; ?>>B.com Taxation and Finance</option>
+                            <option value="BBA" <?php echo in_array('BBA', $selected_courses) ? 'selected' : ''; ?>>BBA</option>
+                            <option value="B.com fintech" <?php echo in_array('B.com fintech', $selected_courses) ? 'selected' : ''; ?>>B.com Fintech</option>
+                            <option value="Int MCA" <?php echo in_array('Int MCA', $selected_courses) ? 'selected' : ''; ?>>INT MCA</option>
+                            <option value="BCA" <?php echo in_array('BCA', $selected_courses) ? 'selected' : ''; ?>>BCA</option>
+                            <option value="BCA DataScience" <?php echo in_array('BCA DataScience', $selected_courses) ? 'selected' : ''; ?>>BCA Data Science</option>
+                            <option value="BA English and Literature" <?php echo in_array('BA English and Literature', $selected_courses) ? 'selected' : ''; ?>>BA English and Literature</option>
+                            <option value="Int MA English and Literature" <?php echo in_array('Int MA English and Literature', $selected_courses) ? 'selected' : ''; ?>>INT MA English and Literature</option>
+                            <option value="Int MSC mathematics" <?php echo in_array('Int MSC mathematics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Mathematics</option>
+                            <option value="Int Physics" <?php echo in_array('Int Physics', $selected_courses) ? 'selected' : ''; ?>>INT Physics</option>
+                            <option value="Int Msc Physics" <?php echo in_array('Int Msc Physics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Physics</option>
+                            <option value="Int Msc Mathematics" <?php echo in_array('Int Msc Mathematics', $selected_courses) ? 'selected' : ''; ?>>INT M.Sc Mathematics</option>
+                        </select>
+                </div>
                 
                 <label for="pass_out_year">Pass Out Year</label>
-            <div>
-                <select name="pass_out_year" id="pass_out_year">
-                    <option value="2024" <?php echo ($job['passout_year'] == 2024) ? 'selected' : ''; ?>>2024</option>
-                    <option value="2025" <?php echo ($job['passout_year'] == 2025) ? 'selected' : ''; ?>>2025</option>
-                    <option value="2026" <?php echo ($job['passout_year'] == 2026) ? 'selected' : ''; ?>>2026</option>
-                </select>
-            </div>
+                <div>
+                    <select name="pass_out_year" id="pass_out_year">
+                        <option value="2024" <?php echo ($job['passout_year'] == 2024) ? 'selected' : ''; ?>>2024</option>
+                        <option value="2025" <?php echo ($job['passout_year'] == 2025) ? 'selected' : ''; ?>>2025</option>
+                        <option value="2026" <?php echo ($job['passout_year'] == 2026) ? 'selected' : ''; ?>>2026</option>
+                    </select>
+                </div>
+
                 <label for="description">Description</label>
                 <div>
-                <textarea id="description" name="description" required><?php echo htmlspecialchars($job['description']); ?></textarea>
+                    <textarea id="description" name="description" required><?php echo htmlspecialchars($job['description']); ?></textarea>
                 </div>
+
                 <label for="max-arrears">Maximum Arrears</label>
                 <input type="text" id="max-arrears" name="max-arrears" value="<?php echo htmlspecialchars($job['max_arrears']); ?>">
 
@@ -572,16 +587,19 @@ $conn->close();
                 <br>
                 <label for="round-1">Round 1</label>
                 <div>
-                <input type="text" id="round-1" name="round-1" value="<?php echo htmlspecialchars($job['round_1']); ?>">
+                    <input type="text" id="round-1" name="round-1" value="<?php echo htmlspecialchars($job['round_1']); ?>">
                 </div>
+
                 <label for="round-2">Round 2</label>
                 <div>
-                <input type="text" id="round-2" name="round-2" value="<?php echo htmlspecialchars($job['round_2']); ?>">
+                    <input type="text" id="round-2" name="round-2" value="<?php echo htmlspecialchars($job['round_2']); ?>">
                 </div>
+
                 <label for="round-3">Round 3</label>
                 <div>
-                <input type="text" id="round-3" name="round-3" value="<?php echo htmlspecialchars($job['round_3']); ?>">
+                    <input type="text" id="round-3" name="round-3" value="<?php echo htmlspecialchars($job['round_3']); ?>">
                 </div>
+
                 <input type="submit" value="Update Job">
             </form>
             <?php else: ?>
@@ -589,9 +607,92 @@ $conn->close();
             <?php endif; ?>
         </div>
         <div class="success-message" id="successMessage">
-    Job has been successfully updated.
-    <button class="close-btn" onclick="hideSuccessMessage()">×</button>
-</div>
+        Job has been successfully updated.
+        <button class="close-btn" onclick="hideSuccessMessage()">×</button>
+    </div>
+<script>
+    const selectElement = document.getElementById('course');
+    const selectedOptionsTextBox = document.getElementById('selectedOptions');
+
+    // Add an event listener for when the user selects options
+    selectElement.addEventListener('change', function() {
+      const selectedOptions = Array.from(selectElement.selectedOptions)
+                                   .map(option => option.text); // Get selected option text
+      selectedOptionsTextBox.value = selectedOptions.join(', '); // Show selected options in text box
+    });
+
+    function isFutureDate(dateString) {
+    const today = new Date();
+    const inputDate = new Date(dateString);
+    
+    // Set time to 00:00:00 for comparison
+    today.setHours(0, 0, 0, 0);
+    return inputDate >= today; // Returns true if input date is today or in the future
+}
+
+function validateApplicationDeadline() {
+    const deadline = document.getElementById('deadline');
+    const errorContainer = document.getElementById('deadline-error');
+
+    // Clear previous error message
+    errorContainer.textContent = "";
+
+    if (!isFutureDate(deadline.value)) {
+        errorContainer.textContent = "Application deadline must be today or in the future.";
+        return false; // Validation failed
+    }
+    return true; // Validation passed
+}
+
+function validateForm() {
+    let isValid = true;
+
+    // Clear previous error messages
+    const errorElements = document.querySelectorAll('.error-message');
+    errorElements.forEach(function (element) {
+        element.textContent = ""; // Clear any previous error message
+    });
+
+    // Validate title, company, location, work mode, application deadline, and job status
+    const title = document.getElementById('title').value;
+    const company = document.getElementById('company').value;
+    const location = document.getElementById('location').value;
+    const workMode = document.getElementById('work-mode').value;
+    const applicationDeadline = document.getElementById('deadline').value;
+    const jobStatus = document.getElementById('job-status').value;
+
+    if (!title) {
+        document.getElementById('title-error').textContent = " Job title is required.";
+        isValid = false;
+    }
+    if (!company) {
+        document.getElementById('company-error').textContent = "Company name is required.";
+        isValid = false;
+    }
+    if (!location) {
+        document.getElementById('location-error').textContent = "Location is required.";
+        isValid = false;
+    }
+    if (!workMode) {
+        document.getElementById('work-mode-error').textContent = "Work mode is required.";
+        isValid = false;
+    }
+    if (!applicationDeadline) {
+        document.getElementById('deadline-error').textContent = "Application deadline is required.";
+        isValid = false;
+    } else {
+        if (!validateApplicationDeadline()) {
+            isValid = false; // Validation for application deadline failed
+        }
+    }
+    if (!jobStatus) {
+        document.getElementById('job-status-error').textContent = "Job status is required.";
+        isValid = false;
+    }
+
+    return isValid; // Return overall validity
+}
+</script>
 <script>
 function showSuccessMessage() {
     var successMessage = document.getElementById('successMessage');
