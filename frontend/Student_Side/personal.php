@@ -245,8 +245,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
+        .logo img{
+            height: 250px;
+            width: auto;
+            margin-top: -90px;
         }
 
         img{
@@ -540,7 +542,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
+        <div class="logo">
+            <img src="../images/logo_white.png">
+        </div>
         <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
