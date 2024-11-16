@@ -24,7 +24,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavoro - Campus Recruitment System</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
@@ -33,27 +33,25 @@ $result = $conn->query($sql);
             background-color: #d9e6f4;
             color: #333;
             overflow: hidden;
-
         }
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    height: 97vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-    transition: width 0.4s ease-in-out;
-    padding-top: 80px; /* Added padding for space at the top */
-}
-
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px; /* Added padding for space at the top */
+        }
 
         .sidebar .logo {
             position: absolute;
@@ -118,19 +116,17 @@ $result = $conn->query($sql);
             text-align: center;
         }
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
-}
-
+            background-color: #d9e6f4; /* Background color for active link */
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            color:#000000;
+            position: relative;
+            z-index: 1;
+            height: 45px; 
+        }
 
         /* Main content styling */
         .main-content {
@@ -171,20 +167,25 @@ $result = $conn->query($sql);
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
             transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-}
-.icon {
+        }
+
+        .icon {
             margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
+        .logo img{
+            height: 250px;
+            width: auto;
+            margin-top: -90px;
         }
+
         img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
+            height: 40px; /* Adjust size as needed */
+            width: auto;
+        }
+
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
@@ -219,116 +220,112 @@ $result = $conn->query($sql);
         }
         
         .sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-.job-card {
-    width: 130vh;
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space out items */
-    align-items: center; /* Align items vertically */
-    margin-bottom: 20px;
-    /* Set the width of the card */
-    height: 110px; /* Adjust height based on content */
-    padding: 20px; /* Add padding inside the card */
-    border: 1px solid #ddd; /* Optional: border for visual separation */
-    border-radius: 5px; /* Optional: rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow for depth */
-    transition: transform 0.3s, box-shadow 0.3s;
-     /* Smooth transition for transform and box-shadow */
-     margin-left:50px;
-     background-color: white;
-     position:relative;
-}
+            position: absolute;
+            top: 20px; /* Keep the same positioning */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px; /* Increase the font size here */
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
 
-.job-card:hover {
-    transform: translateY(-5px); /* Lift the card up on hover */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
-    border-color: #063dc9;
-}
+        .job-card {
+            width: 130vh;
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space out items */
+            align-items: center; /* Align items vertically */
+            margin-bottom: 20px;
+            height: 110px; /* Adjust height based on content */
+            padding: 20px; /* Add padding inside the card */
+            border: 1px solid #ddd; /* Optional: border for visual separation */
+            border-radius: 5px; /* Optional: rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow for depth */
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-left:50px;
+            background-color: white;
+            position:relative;
+        }
 
-.job-details {
-    flex: 1; /* Take up available space */
-}
+        .job-card:hover {
+            transform: translateY(-5px); /* Lift the card up on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+            border-color: #063dc9;
+        }
 
-.job-info {
-    text-align: right; /* Align text to the right */
-}
+        .job-details {
+            flex: 1; /* Take up available space */
+        }
 
-.company-name {
-    font-size: 1.5rem; /* Increase company name font size */
-    font-weight: bold;
-}
+        .job-info {
+            text-align: right; /* Align text to the right */
+        }
 
-.position {
-    font-size: 1.2rem; /* Position font size */
-}
+        .company-name {
+            font-size: 1.5rem; /* Increase company name font size */
+            font-weight: bold;
+        }
 
-.salary {
-    font-size: 1.2rem; /* Salary font size */
-    font-weight: bold; /* Make salary bold */
-    margin-right: 175px;
-    margin-top: 25px;
-}
+        .position {
+            font-size: 1.2rem; /* Position font size */
+        }
 
-.apply-now {
-    background-color: #0056b3; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    height: 45px;
-    border-radius: 5px; /* Rounded corners for button */
-    cursor: pointer; 
-    margin-bottom: 25px;
-   
-    /* Pointer on hover */
-}
+        .salary {
+            font-size: 1.2rem; /* Salary font size */
+            font-weight: bold; /* Make salary bold */
+            margin-right: 175px;
+            margin-top: 25px;
+        }
 
-.apply-now:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-.remote {
-    background-color:white; /* Green background for remote label */
-    color: black; /* White text color */
-    padding: 3px 8px; /* Padding around the label */
-     /* Rounded corners */
-    font-size: 0.8rem; /* Smaller font size */
-    /* Increased space between company name and remote label */
-    vertical-align: middle; /* Align vertically with text */
-    font-weight: bold;
-    font-size: 16px;
-    margin-left: 230px;
-}
-.open {
-    position: absolute;
-    top: 50px; /* Adjust as needed */
-    left: 250px; /* Adjust as needed */
-    background-color: #075138;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    margin-left: 130px;
-}
+        .apply-now {
+            background-color: #0056b3; /* Button background color */
+            color: white; /* Button text color */
+            border: none; /* Remove border */
+            height: 45px;
+            border-radius: 5px; /* Rounded corners for button */
+            cursor: pointer; 
+            margin-bottom: 25px;
+        }
 
-.company-logo {
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
-    margin-right: 20px; /* Space between logo and job details */
-    border-radius: 5px; /* Optional: rounded edges */
-}
+        .apply-now:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
 
+        .remote {
+            background-color:white; /* Green background for remote label */
+            color: black; /* White text color */
+            padding: 3px 8px; /* Padding around the label */
+            font-size: 0.8rem; /* Smaller font size */
+            vertical-align: middle; /* Align vertically with text */
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 230px;
+        }
+
+        .open {
+            position: absolute;
+            top: 50px; /* Adjust as needed */
+            left: 250px; /* Adjust as needed */
+            background-color: #075138;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-left: 130px;
+        }
+
+        .company-logo {
+            width: 50px; /* Adjust as needed */
+            height: 50px; /* Adjust as needed */
+            margin-right: 20px; /* Space between logo and job details */
+            border-radius: 5px; /* Optional: rounded edges */
+        }
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         
         <!-- Dropdown Menu -->
@@ -341,7 +338,9 @@ $result = $conn->query($sql);
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
+        <div class="logo">
+            <img src="../images/logo_white.png">
+        </div>
         <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="job.php" class="active"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
@@ -386,12 +385,8 @@ $result = $conn->query($sql);
     // Close the database connection
     $conn->close();
     ?>
-
   </div>
   
-  
-    
-
     <!-- JavaScript -->
     <script>
             function loadProfilePicture() {
@@ -462,26 +457,6 @@ $result = $conn->query($sql);
                 });
             });
     
-            // Dashboard stats extraction
-            
-            // Animate counter values
-            function animateCounter(element, endValue) {
-                let startValue = 0;
-                const duration = 2000; // Animation duration in milliseconds
-                const incrementTime = Math.floor(duration / endValue);
-                
-                const counterInterval = setInterval(() => {
-                    if (startValue < endValue) {
-                        startValue++;
-                        element.textContent = startValue;
-                    } else {
-                        clearInterval(counterInterval);
-                    }
-                }, incrementTime);
-            }
-    
-          
-    
             // Adjust main content and container margin based on sidebar width
             const sidebar = document.querySelector('.sidebar');
             const mainContent = document.querySelector('.main-content');
@@ -500,6 +475,5 @@ $result = $conn->query($sql);
           
         });
     </script>
-    
 </body>
 </html>

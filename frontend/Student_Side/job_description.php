@@ -66,7 +66,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavoro - Campus Recruitment System</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
@@ -77,7 +77,6 @@ $conn->close();
             background-color: #d9e6f4;
             color: #333;
             overflow: hidden;
-
         }
 
         /* Sidebar styling */
@@ -99,7 +98,6 @@ $conn->close();
             padding-top: 80px;
             /* Added padding for space at the top */
         }
-
 
         .sidebar .logo {
             position: absolute;
@@ -191,21 +189,17 @@ $conn->close();
         }
 
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
-}
-
-        /* Main content styling */
-
+            background-color: #d9e6f4; /* Background color for active link */
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            color:#000000;
+            position: relative;
+            z-index: 1;
+            height: 45px;
+        }
 
         /* Profile section styling */
         .container {
@@ -213,7 +207,6 @@ $conn->close();
             width: 1268px;
             height: 55px;
             margin-left: 245px;
-            /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
             display: flex;
@@ -223,7 +216,6 @@ $conn->close();
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
             transition: margin-left 0.4s ease-in-out;
-            /* Smooth transition for margin */
         }
 
         .icon {
@@ -232,13 +224,17 @@ $conn->close();
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
+        .logo img{
+            height: 250px;
+            width: auto;
+            margin-top: -90px;
         }
+
         img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
+            height: 40px; /* Adjust size as needed */
+            width: auto;
+        }
+
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;
@@ -275,14 +271,11 @@ $conn->close();
         .sidebar .logo {
             position: absolute;
             top: 20px;
-            /* Keep the same positioning */
             left: 50%;
             transform: translateX(-50%);
             font-size: 36px;
-            /* Increase the font size here */
             font-weight: bold;
             color: white;
-
             text-align: center;
         }
 
@@ -321,49 +314,48 @@ $conn->close();
         }
 
         .apply-btn {
-  padding: 7px 35px;
-  border-radius: 50px;
-  cursor: pointer;
-  border: 2px solid #aeaeae;
-  background: linear-gradient(135deg, #022a52fd, #063dc9);
-  color: white;
-  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
-  letter-spacing: 1.5px;
-  font-size: 18px;
-  transition: all 0.5s ease;
-  text-align: center;
-  display: block;
-  margin-left: 450px;
-  margin-top: 15px;
-  font-weight: 650;
-  text-transform: uppercase;
-  box-shadow: rgb(93 24 220) 0px 7px 10px 0px;
-}
+            padding: 7px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            border: 2px solid #aeaeae;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+            letter-spacing: 1.5px;
+            font-size: 18px;
+            transition: all 0.5s ease;
+            text-align: center;
+            display: block;
+            margin-left: 450px;
+            margin-top: 15px;
+            font-weight: 650;
+            text-transform: uppercase;
+            box-shadow: rgb(93 24 220) 0px 7px 10px 0px;
+        }
 
-.apply-btn:hover {
-  letter-spacing: 3px;
-  background: linear-gradient(135deg, #022a52fd, #063dc9);
-  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
-  color: white;
-}
+        .apply-btn:hover {
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+            color: white;
+        }
 
-.apply-btn:active {
-  letter-spacing: 2px;
-  background: linear-gradient(135deg, #022a52fd, #063dc9);
-  color: hsl(0, 0%, 100%);
-  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
-  transform: translateY(10px);
-  transition: 100ms;
-  color: white;
-}
+        .apply-btn:active {
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: hsl(0, 0%, 100%);
+            box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+            transform: translateY(10px);
+            transition: 100ms;
+            color: white;
+        }
+
         .eligibility-section {
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             border: 1px solid #cccccc;
             box-shadow: 0 4px 10px rgba(0, 0, 139, 0.3);
-            /* Dark blue shadow */
-
         }
 
         .eligibility-section h3 {
@@ -374,9 +366,7 @@ $conn->close();
         .eligibility-1 {
             display: grid;
             grid-template-columns: repeat(3, 50px);
-            /* Three equal-width columns */
             gap: 30px;
-            /* Spacing between columns */
             padding-left: 50px;
             margin-left: 70px;
             column-gap: 280px;
@@ -392,16 +382,13 @@ $conn->close();
         .form-group {
             display: inline-block;
             margin-bottom: 10px;
-            /* Adds space between each row */
         }
 
         .form-group label {
             display: inline-block;
             width: 80px;
-            /* Set a fixed width for label */
             text-align: left;
             margin-right: 66px;
-            /* Space between label and input */
             padding-top: 20px;
             padding-left: 20px;
         }
@@ -506,24 +493,13 @@ $conn->close();
             width: 100%;
             margin-top: 5px;
         }
-
-        .small-icon {
-            width: 50px;
-            /* Set desired width */
-            height: 50px;
-            /* Set desired height */
-            object-fit: cover;
-            /* Ensures the image scales properly */
-            border-radius: 50%;
-            /* Makes the image circular */
-        }
     </style>
 </head>
 
 <body>
     <!-- Profile Container -->
     <div class="container">
-    <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+    <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon">
     <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
 
         <!-- Dropdown Menu -->
@@ -536,7 +512,9 @@ $conn->close();
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
+        <div class="logo">
+            <img src="../images/logo_white.png">
+        </div>
         <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="job.php" class="active"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
@@ -632,8 +610,6 @@ $conn->close();
                     echo nl2br(htmlspecialchars($description));
                     ?>
                 </p>
-
-
 
             </div>
 
@@ -755,26 +731,6 @@ $conn->close();
                 });
             });
 
-            // Dashboard stats extraction
-
-            // Animate counter values
-            function animateCounter(element, endValue) {
-                let startValue = 0;
-                const duration = 2000; // Animation duration in milliseconds
-                const incrementTime = Math.floor(duration / endValue);
-
-                const counterInterval = setInterval(() => {
-                    if (startValue < endValue) {
-                        startValue++;
-                        element.textContent = startValue;
-                    } else {
-                        clearInterval(counterInterval);
-                    }
-                }, incrementTime);
-            }
-
-
-
             // Adjust main content and container margin based on sidebar width
             const sidebar = document.querySelector('.sidebar');
             const mainContent = document.querySelector('.main-content');
@@ -788,8 +744,6 @@ $conn->close();
                 mainContent.style.marginLeft = '245px'; // Normal sidebar width
                 container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
             });
-
-
         });
     </script>
 

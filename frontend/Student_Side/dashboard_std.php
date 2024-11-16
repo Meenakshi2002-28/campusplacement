@@ -313,10 +313,6 @@ if (isset($_SESSION['user_id'])) {
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
-        }
-
         img {
             height: 40px;
             width: auto;
@@ -403,11 +399,8 @@ if (isset($_SESSION['user_id'])) {
             display: flex;
             align-items: center;
             justify-content: center;
-            /* background-color: #ffffff; Background color matching main content */
             padding: 10px 0;
-            /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); */
             border-radius: 10px;
-            /* margin-top: 20px; */
             margin-top: 60px;
         }
 
