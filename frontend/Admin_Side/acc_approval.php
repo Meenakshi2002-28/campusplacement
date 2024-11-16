@@ -1,9 +1,15 @@
 <?php
+// Include PHPMailer classes
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php'; // Adjust the path if PHPMailer is installed elsewhere
+
 // Database connection
 $servername = "localhost";
-$username = "root"; // Update with your database username
-$password = "";     // Update with your database password
-$dbname = "campus_placement"; // Update with your database name
+$username = "root";
+$password = "";
+$dbname = "campus_placement";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -12,38 +18,86 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// SQL query to fetch user_id, name, graduation_year, and course_name for 10 students
+// Fetch pending students
 $sql = "
-   SELECT l.user_id, l.email, s.name
-FROM login l
-JOIN student s ON l.user_id = s.user_id
-WHERE l.approval_status = 'pending'
-
+    SELECT l.user_id, l.email, s.name
+    FROM login l
+    JOIN student s ON l.user_id = s.user_id
+    WHERE l.approval_status = 'pending'
 ";
 
 $result = $conn->query($sql);
+$students = $result->num_rows > 0 ? $result->fetch_all(MYSQLI_ASSOC) : [];
 
-// Check if there are results and output them
-if ($result->num_rows > 0) {
-    // Store results in an array
-    $students = [];
-    while ($row = $result->fetch_assoc()) {
-        $students[] = $row; // Add each row to the students array
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $user_id = $_POST['user_id'];
+    $action = $_POST['action'];
+
+    $update_sql = "UPDATE login SET approval_status = ? WHERE user_id = ?";
+    $approval_status = ($action == 'approve') ? 'approved' : 'rejected';
+
+    $stmt = $conn->prepare($update_sql);
+    $stmt->bind_param("ss", $approval_status, $user_id);
+
+    if ($stmt->execute()) {
+        // Fetch user details for email
+        $query = $conn->prepare("SELECT l.email, s.name FROM login l JOIN student s ON l.user_id = s.user_id WHERE l.user_id = ?");
+        $query->bind_param("s", $user_id);
+        $query->execute();
+        $user_result = $query->get_result();
+
+        if ($user_result->num_rows > 0) {
+            $user = $user_result->fetch_assoc();
+            $email = $user['email'];
+            $name = $user['name'];
+
+            // Initialize PHPMailer
+            $mail = new PHPMailer(true);
+
+            try {
+                // SMTP configuration
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com'; // Replace with your SMTP server
+                $mail->SMTPAuth = true;
+                $mail->Username = 'meenakshiasas45@gmail.com'; // Your Gmail address
+                $mail->Password = 'xpxr ottm oljg aine'; // Your app-specific password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                $mail->Port = 465; // Port for SSL (465)
+
+                // Sender and recipient settings
+                $mail->setFrom('no-reply@yourwebsite.com', 'Lavoro'); // Update sender details
+                $mail->addAddress($email, $name);
+
+                // Email content
+                $mail->isHTML(true);
+                $subject = $action == 'approve' ? "Application Approved" : "Application Rejected";
+                $message = $action == 'approve'
+                    ? "Dear $name,<br><br>Your application for the Lavoro website has been <strong>approved</strong>.<br><br>Regards,<br>Admin Team"
+                    : "Dear $name,<br><br>Your application for the Lavoro website has been <strong>rejected</strong>.<br><br>Regards,<br>Admin Team";
+
+                $mail->Subject = $subject;
+                $mail->Body = $message;
+
+                // Send email
+                $mail->send();
+                echo "Email sent successfully to $email.";
+            } catch (Exception $e) {
+                echo "Failed to send email. Error: {$mail->ErrorInfo}";
+            }
+        }
+
+        header("Location: acc_approval.php");
+        exit;
+    } else {
+        echo "Error: " . $stmt->error;
     }
-} else {
-    $students = []; // No students found
+
+    $stmt->close();
 }
 
-// Close connection
 $conn->close();
-
-// Only return JSON if the request is an AJAX call
-if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-    header('Content-Type: application/json');
-    echo json_encode($students);
-    exit; // Terminate the script to prevent HTML output
-}
 ?>
+
 
 
 <!DOCTYPE html>
@@ -403,8 +457,8 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             font-size: 18px;
         }
 
-        .approval button{
-            margin-left :950px;
+        .approval button {
+            margin-left: 950px;
             padding: 7px 20px;
             background-color: #AFC8F3;
             color: black;
@@ -415,6 +469,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             font-weight: 600;
             margin-top: -100px;
         }
+
         button {
             padding: 5px 15px;
             border: none;
@@ -427,7 +482,6 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         button:hover {
             font-weight: 700;
         }
-
     </style>
 </head>
 
@@ -487,8 +541,14 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
                                 <td><?php echo $student['name']; ?></td>
                                 <td><?php echo $student['email']; ?></td>
                                 <td>
-                                    <button style="background-color: #0aad0a; color:white;">accept</button>
-                                    <button style="background-color: #e81313; color:white;">reject</button>
+                                    <form action="" method="post">
+                                        <input type="hidden" name="user_id" value="<?php echo $student['user_id']; ?>">
+                                        <button type="submit" name="action" value="approve"
+                                            style="background-color: #0aad0a; color: white;">Accept</button>
+                                        <button type="submit" name="action" value="reject"
+                                            style="background-color: #e81313; color: white;">Reject</button>
+
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -689,52 +689,56 @@ $conn->close();
 
     <!-- JavaScript -->
     <script>
-          function validateForm2() {
-        let isValid = true;
-        const errorMessage = "All fields are required.";
+        function validateForm2() {
+    let isValid = true;
+    const errorMessage = "All fields are required.";
 
-        // Clear previous error messages
-        const errorElements = document.querySelectorAll('.error-message');
-        errorElements.forEach(function (element) {
-            element.textContent = ""; // Clear any previous error message
-        });
+    // UG Fields
+    const branch = document.getElementById('branch').value.trim();
+    const course = document.getElementById('course').value.trim();
+    const currentArrears = document.getElementById('current_arrears').value.trim();
+    const cgpa = document.getElementById('cgpa').value.trim();
 
-        // Get all required fields and validate them
-        const branch = document.getElementById('branch').value.trim();
-        const course = document.getElementById('course').value.trim();
-    
-        const currentArrears = document.getElementById('current_arrears').value.trim();
-        const cgpa = document.getElementById('cgpa').value.trim();
+    // 12th Fields
+    const schoolName12 = document.getElementById('school_name_twelfth').value.trim();
+    const board12 = document.getElementById('board_twelfth').value.trim();
+    const passOutYear12 = document.getElementById('pass_out_year_twelfth').value.trim();
+    const percentage12 = document.getElementById('percentage_twelfth').value.trim();
 
-        const schoolName12 = document.getElementById('school_name_twelfth').value.trim();
-        const board12 = document.getElementById('board_twelfth').value.trim();
-        const passOutYear12 = document.getElementById('pass_out_year_twelfth').value.trim();
-        const percentage12 = document.getElementById('percentage_twelfth').value.trim();
+    // 10th Fields
+    const schoolName10 = document.getElementById('school_name_tenth').value.trim();
+    const board10 = document.getElementById('board_tenth').value.trim();
+    const passOutYear10 = document.getElementById('pass_out_year_tenth').value.trim();
+    const percentage10 = document.getElementById('percentage_tenth').value.trim();
 
-        const schoolName10 = document.getElementById('school_name_tenth').value.trim();
-        const board10 = document.getElementById('board_tenth').value.trim();
-        const passOutYear10 = document.getElementById('pass_out_year_tenth').value.trim();
-        const percentage10 = document.getElementById('percentage_tenth').value.trim();
+    // Clear previous errors
+    const errorElements = document.querySelectorAll('.error-message');
+    errorElements.forEach(element => {
+        element.textContent = ''; // Clear any previous error message
+    });
 
-        // Validate UG fields
-        if ( !currentArrears || !cgpa) {
-            document.getElementById('cgpa-error').textContent = errorMessage;
-            isValid = false;
-        }
-
-        // Validate 12th fields
-        if (!schoolName12 || !board12 || !passOutYear12 || !percentage12) {
-            document.getElementById('percentage12th-error').textContent = errorMessage;
-            isValid = false;
-        }
-
-        // Validate 10th fields
-        if (!schoolName10 || !board10 || !passOutYear10 || !percentage10) {
-            document.getElementById('percentage10th-error').textContent = errorMessage;
-            isValid = false;
-        }
-        return isValid; // Form submission will only proceed if true
+    // Validate UG fields
+    if (!branch || !course || !currentArrears || !cgpa) {
+        alert("Please fill out all UG details.");
+        isValid = false;
     }
+
+    // Validate 12th fields
+    if (!schoolName12 || !board12 || !passOutYear12 || !percentage12) {
+        alert("Please fill out all 12th details.");
+        isValid = false;
+    }
+
+    // Validate 10th fields
+    if (!schoolName10 || !board10 || !passOutYear10 || !percentage10) {
+        alert("Please fill out all 10th details.");
+        isValid = false;
+    }
+
+    return isValid; // Return true only if all fields are valid
+}
+
+
          function loadProfilePicture() {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'fetch_profilepicture.php', true);
