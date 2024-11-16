@@ -97,9 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $conn->close();
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,13 +106,13 @@ $conn->close();
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
             color: #333;
             overflow: hidden;
-
         }
 
         /* Sidebar styling */
@@ -138,17 +135,17 @@ $conn->close();
             /* Added padding for space at the top */
         }
 
-
         .sidebar .logo {
             position: absolute;
             top: 20px;
             /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
             text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .sidebar:hover {
@@ -247,7 +244,6 @@ $conn->close();
 
         }
 
-
         /* Main content styling */
         .main-content {
             margin-left: 245px;
@@ -300,10 +296,6 @@ $conn->close();
             margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
-        }
-
-        .icon:hover {
-            transform: scale(1.1);
         }
 
         img {
@@ -488,10 +480,11 @@ $conn->close();
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*"
             onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -528,7 +521,7 @@ $conn->close();
                     <tr>
                         <th>Roll no</th>
                         <th>Name</th>
-                        <th>email</th>
+                        <th>E-mail</th>
                         <th>Account Status</th>
                     </tr>
                 </thead>
@@ -588,9 +581,6 @@ $conn->close();
                 })
                 .catch(error => console.error('Error fetching student data:', error));
 
-
-
-
             // Change profile image
             function triggerFileInput() {
                 document.getElementById('fileInput').click();
@@ -645,7 +635,6 @@ $conn->close();
                         tab.classList.add('active');
                     });
                 });
-
 
 
                 // Adjust main content and container margin based on sidebar width
