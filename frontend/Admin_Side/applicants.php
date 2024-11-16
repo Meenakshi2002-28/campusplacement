@@ -35,7 +35,6 @@ if (isset($_GET['job_id'])) {
     while ($row = $result->fetch_assoc()) {
         $applications[] = $row;
     }
-
     $stmt->close();
 }
 
@@ -47,12 +46,13 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Applicants</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
     <style>
-            *{
+        *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -64,37 +64,36 @@ $conn->close();
             background-color: #d9e6f4;
             color: #333;
             overflow: hidden;
-
         }
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    height: 97vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-    transition: width 0.4s ease-in-out;
-    padding-top: 80px; /* Added padding for space at the top */
-}
-
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px; /* Added padding for space at the top */
+        }
 
         .sidebar .logo {
             position: absolute;
             top: 20px; /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
             text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .sidebar:hover {
@@ -149,19 +148,17 @@ $conn->close();
             text-align: center;
         }
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
-}
-
+            background-color: #d9e6f4; /* Background color for active link */
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            color:#000000;
+            position: relative;
+            z-index: 1;
+            height: 45px;
+        }
 
         /* Main content styling */
         .main-content {
@@ -176,8 +173,7 @@ $conn->close();
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
-            overflow-y: auto;
-            
+            overflow-y: auto; 
         }
 
         .main-content h1 {
@@ -204,20 +200,20 @@ $conn->close();
             background-color: #ffffff;
             transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
         }
+
         .icon {
             margin-left: 15px;
             cursor: pointer;
             transition: transform 0.3s;
         }
-        .icon:hover {
-            transform: scale(1.1);
-        }
+
         img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
-/* Dropdown menu styling */
-.dropdown-content {
+            height: 40px; /* Adjust size as needed */
+            width: auto;
+        }
+
+        /* Dropdown menu styling */
+        .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
@@ -232,22 +228,23 @@ $conn->close();
             padding-right: 2px;
         }
 
-.dropdown-content.show {
-    display: block;
-    opacity: 1;
-}
+        .dropdown-content.show {
+            display: block;
+            opacity: 1;
+        }
 
-.dropdown-content a {
-    color: white;
-    padding: 12px;
-    text-decoration: none;
-    display: block;
-    transition: background-color 0.2s;
-}
+        .dropdown-content a {
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s;
+        }
 
-.dropdown-content a:hover {
-    background-color: #1e3d7a;
-}
+        .dropdown-content a:hover {
+            background-color: #1e3d7a;
+        }
+
         /* Table Styling */
         .applicants {
             margin-top: 0px
@@ -273,7 +270,7 @@ $conn->close();
 
         /* Setting specific column widths */
         th:nth-child(1), td:nth-child(1) {
-            width: 15%; /* Roll No Column */
+            width: 20%; /* Roll No Column */
         }
 
         th:nth-child(2), td:nth-child(2) {
@@ -294,14 +291,12 @@ $conn->close();
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0,0,0,0.1);
             border: 0.5px solid #BBC4C2;
-
         }
 
         .filters label {
             display: block;
             padding: 1px;
             font-size: 14px;
-            
         }
 
         .filters input[type="checkbox"] {
@@ -318,115 +313,95 @@ $conn->close();
             font-size: 20px;
             margin-top: 210px;
         }
-        img {
-            height: 40px;
-            width: auto;
-        }
-        .icon {
-            margin-left: 1px;
+
+        .filters button {
+            position: relative;
+            overflow: hidden;
+            height: 1.7rem; /* Set desired height */
+            width: 95px; /* Set desired width */
+            padding: 4px; /* Set desired padding */
+            border-radius: 1.5rem;
+            background-color: #1e3d7a;
+            background-size: 400%;
+            color: white;
+            border: none;
             cursor: pointer;
-            transition: transform 0.3s;
+            display: block;
+            margin-top: -10px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 16px;
+            transition: all 0.475s;
+            margin-bottom: 5px;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
+        /* Add gradient animation effect */
+        .filters button:hover::before {
+            transform: scaleX(1);
         }
 
-       
-.filters button {
-    position: relative;
-    overflow: hidden;
-    height: 1.5rem; /* Set desired height */
-    width: 85px; /* Set desired width */
-    padding: 2px; /* Set desired padding */
-    border-radius: 1.5rem;
-    background-color: #1e3d7a;
-    background-size: 400%;
-    color: white;
-    border: none;
-    cursor: pointer;
-    display: block;
-    margin-top: 0;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 14px;
-    transition: all 0.475s;
-}
+        .filters button .button-content {
+            position: relative;
+            z-index: 1;
+        }
 
-/* Add gradient animation effect */
-.filters button:hover::before {
-    transform: scaleX(1);
-}
+        .filters button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            width: 100%;
+            height: inherit;
+            border-radius: inherit;
+            background: linear-gradient(82.3deg, rgba(150, 93, 233, 1) 10.8%, rgba(99, 88, 238, 1) 94.3%);
+            transition: all 0.475s;
+        }
 
-.filters button .button-content {
-    position: relative;
-    z-index: 1;
-}
+        input[type="file"]{
+            padding-left: 550px;
+        }
 
-.filters button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-    width: 100%;
-    height: inherit;
-    border-radius: inherit;
-    background: linear-gradient(82.3deg, rgba(150, 93, 233, 1) 10.8%, rgba(99, 88, 238, 1) 94.3%);
-    transition: all 0.475s;
-}
+        /* Styling for the file upload section */
+        form[action="status.php"] {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-input[type="file"]{
-    padding-left: 550px;
-}
+        form[action="status.php"] input[type="file"] {
+            width: auto;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 1px solid #d1d1d1;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-/* Styling for the file upload section */
-form[action="status.php"] {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-form[action="status.php"] input[type="file"] {
-    width: auto;
-    padding: 8px 12px;
-    font-size: 14px;
-    border: 1px solid #d1d1d1;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    color: #333;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form[action="status.php"] input[type="file"]:hover {
-    background-color: #e0e0e0;
-}
-
-form[action="status.php"] input[type="submit"] {
-    padding: 8px 16px;
-    font-size: 14px;
-    border: none;
-    border-radius: 8px;
-    background-color: #1e3d7a;
-    color: #ffffff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form[action="status.php"] input[type="submit"]:hover {
-    background-color: #3c6bb6;
-}
-
+        form[action="status.php"] input[type="submit"] {
+            padding: 8px 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background-color: #1e3d7a;
+            color: #ffffff;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+    <div class="container">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -436,19 +411,19 @@ form[action="status.php"] input[type="submit"]:hover {
 
     <!-- Sidebar -->
     <div class="sidebar">
-    <!-- Logo or Website Name -->
-    <div class="logo">Lavoro</div>
-    <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
-    <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
-    <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
-    <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
-    <a href="company.html"><i class="fas fa-building"></i> Company</a>
-    <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-    <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
-    <div class="logout">
-        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        <!-- Logo or Website Name -->
+        <div class="logo">Lavoro</div>
+        <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
+        <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
+        <a href="company.html"><i class="fas fa-building"></i> Company</a>
+        <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+        <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
     </div>
-</div>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -485,32 +460,32 @@ form[action="status.php"] input[type="submit"]:hover {
 
         <!-- Filter Section -->
          <form id="exportForm" method="POST" action="export.php">
-         <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
-    <div class="filters">
-        <label><input type="checkbox" name="fields[]" value="name" checked> Name</label><br>
-        <label><input type="checkbox" name="fields[]" value="user_id" checked> Roll Number</label><br>
-        <label><input type="checkbox" name="fields[]" value="course_name" checked> Course</label><br>
-        <label><input type="checkbox" name="fields[]" value="course_branch" checked> Branch</label><br>
-        <label><input type="checkbox" name="fields[]" value="cgpa" checked> CGPA</label><br>
-        <label><input type="checkbox" name="fields[]" value="email"> E-Mail ID</label><br>
-        <label><input type="checkbox" name="fields[]" value="current_arrears" checked> Current Arrears</label><br>
-        <label><input type="checkbox" name="fields[]" value="graduation_year" checked> Pass out Year</label><br>
-        <label><input type="checkbox" name="fields[]" value="percentage_tenth"> Tenth Percentage</label><br>
-        <label><input type="checkbox" name="fields[]" value="percentage_twelfth"> Twelfth Percentage</label><br>
-        <label><input type="checkbox" name="fields[]" value="resume" checked> Resume</label><br>
+            <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
+            <div class="filters">
+                <label><input type="checkbox" name="fields[]" value="name" checked> Name</label><br>
+                <label><input type="checkbox" name="fields[]" value="user_id" checked> Roll Number</label><br>
+                <label><input type="checkbox" name="fields[]" value="course_name" checked> Course</label><br>
+                <label><input type="checkbox" name="fields[]" value="course_branch" checked> Branch</label><br>
+                <label><input type="checkbox" name="fields[]" value="cgpa" checked> CGPA</label><br>
+                <label><input type="checkbox" name="fields[]" value="email"> E-Mail ID</label><br>
+                <label><input type="checkbox" name="fields[]" value="current_arrears" checked> Current Arrears</label><br>
+                <label><input type="checkbox" name="fields[]" value="graduation_year" checked> Pass out Year</label><br>
+                <label><input type="checkbox" name="fields[]" value="percentage_tenth"> Tenth Percentage</label><br>
+                <label><input type="checkbox" name="fields[]" value="percentage_twelfth"> Twelfth Percentage</label><br>
+                <label><input type="checkbox" name="fields[]" value="resume" checked> Resume</label><br>
  
-    <button type="submit" class="button">
-        <span class="button-content">Export</span>
-    </button>
-    </div>
-</form>
-<!-- HTML Form to upload Excel file -->
-<form action="status.php" method="post" enctype="multipart/form-data">
-<input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
-    <input type="file" name="excel_file" required>
-    <input type="submit" value="Upload Excel">
+            <button type="submit" class="button">
+                <span class="button-content">Export</span>
+            </button>
+            </div>
+        </form>
+        <!-- HTML Form to upload Excel file -->
+        <form action="status.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($job_id); ?>">
+                <input type="file" name="excel_file" required>
+                <input type="submit" value="Upload Excel">
 
-</form>
+        </form>
 <?php
     if (isset($_GET['status']) && $_GET['status'] == 'success') {
         echo "<script>
@@ -528,9 +503,7 @@ form[action="status.php"] input[type="submit"]:hover {
     }
     ?>
     </div>
-
     <script>
-
         // Change profile image
         function triggerFileInput() {
                 document.getElementById('fileInput').click();
@@ -586,9 +559,9 @@ form[action="status.php"] input[type="submit"]:hover {
             });
 
             function goToProfile() {
-    showSection('personal'); // Redirect to profile section
-    toggleDropdown(); // Close the dropdown after redirection
-}
+                showSection('personal'); // Redirect to profile section
+                toggleDropdown(); // Close the dropdown after redirection
+            }
             // Adjust main content and container margin based on sidebar width
             const sidebar = document.querySelector('.sidebar');
             const mainContent = document.querySelector('.main-content');
@@ -603,8 +576,6 @@ form[action="status.php"] input[type="submit"]:hover {
                 mainContent.style.marginLeft = '245px'; // Normal sidebar width
                 container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
             });
-    
-          
         });
     </script>
 </body>

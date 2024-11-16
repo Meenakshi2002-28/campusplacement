@@ -135,47 +135,45 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Job</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
     <style>
-        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
             color: #333;
-            
-
         }
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    height: 97vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-    transition: width 0.4s ease-in-out;
-    padding-top: 80px; /* Added padding for space at the top */
-}
-
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px; /* Added padding for space at the top */
+        }
 
         .sidebar .logo {
             position: absolute;
             top: 20px; /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
             text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .sidebar:hover {
@@ -230,19 +228,17 @@ $conn->close();
             text-align: center;
         }
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
-}
-
+            background-color: #d9e6f4; /* Background color for active link */
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            color:#000000;
+            position: relative;
+            z-index: 1;
+            height: 45px; 
+        }
 
         /* Main content styling */
         .main-content {
@@ -283,16 +279,14 @@ $conn->close();
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
             transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-        }
+        }
+
         .icon {
             margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
-        }
         .dropdown-content {
             display: none;
             opacity: 0;
@@ -325,60 +319,46 @@ $conn->close();
             background-color: #1e3d7a;
         }
 
-        
-        .sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
+        .job-form-container {
+            flex: 1;
+            padding-top: 0px;
+            padding-left: 15px;
+            background-color:white;
+            top: 0;           
+            right: 0;         
+            bottom: 0;        
+            left: 300px;      
+            overflow-y:auto;  
+        }
 
-    .job-form-container {
-        flex: 1;
-        padding-top: 0px;
-        padding-left: 15px;
-        background-color:white;
-        
-        top: 0;           
-        right: 0;         
-        bottom: 0;        
-        left: 300px;      
-        overflow-y:auto; 
-       
-    }
-    .job-form-container h3 {
-        margin-top: 5px;
+        .job-form-container h3 {
+            margin-top: 5px;
             margin-bottom: 20px;
             text-align: justify;
             color:black;
             font-weight: 550;  
-    }
+        }
             
-            
-    .job-form-container h2 {
-       margin-left: 500px;
-
+         
+        .job-form-container h2 {
+            margin-left: 500px;
             margin-bottom: 30px;
             color:black;
             font-weight: 600;      
-    }
+        }
 
-    .job-form {
+        .job-form {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-     }
+        }
 
-     .job-form label {
+        .job-form label {
             font-weight:0;
             padding: 10px;
-     }
+        }
 
-    .job-form input[type="text"], 
+        .job-form input[type="text"], 
         .job-form input[type="number"], 
         .job-form input[type="date"],
         .job-form select {
@@ -387,10 +367,9 @@ $conn->close();
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-left: -177px;
-    }
+        }
 
-
-    .job-form textarea {
+        .job-form textarea {
             grid-column: span 2;
             width: 100%;
             padding: 8px;
@@ -402,7 +381,7 @@ $conn->close();
             margin-left: -175px;
         }
 
-    .job-form input[type="submit"] {
+        .job-form input[type="submit"] {
             grid-column:span 1;
             padding: 5px 10px;
             background-color: #27428f;
@@ -416,58 +395,56 @@ $conn->close();
             font-weight: 600;
         }
 
-    .job-form input[type="submit"]:hover {
+        .job-form input[type="submit"]:hover {
             background-color: #1e165f;
         }
 
-    img {
-        height: 40px; 
-        width: auto;
-        display:flex;
-    }
+        img {
+            height: 40px; 
+            width: auto;
+        }
     
-    
-    .success-message {
-    display: none; /* Hidden by default */
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #2F5597;
-    color: white;
-    padding: 16px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    font-size: 16px;
-}
 
-.success-message.show {
-    display: block;
-}
+        .success-message {
+            display: none; /* Hidden by default */
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2F5597;
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-size: 16px;
+        }
 
-.success-message .close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    margin-left: 10px;
-    cursor: pointer;
-}
+        .success-message.show {
+            display: block;
+        }
 
-.error-message {
-    color: red;
-    font-size: 12px;
-    height: 20px; /* Set a fixed height */
-    margin-top: 5px; /* Space between input and error message */
-}
+        .success-message .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
 
+        .error-message {
+            color: red;
+            font-size: 12px;
+            height: 20px; /* Set a fixed height */
+            margin-top: 5px; /* Space between input and error message */
+        }
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
 
@@ -610,6 +587,7 @@ $conn->close();
         Job has been successfully updated.
         <button class="close-btn" onclick="hideSuccessMessage()">×</button>
     </div>
+</div>
 <script>
     const selectElement = document.getElementById('course');
     const selectedOptionsTextBox = document.getElementById('selectedOptions');

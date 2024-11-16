@@ -49,18 +49,16 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavoro - Campus Recruitment System</title>
+    <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
             color: #333;
-
-
         }
 
         /* Sidebar styling */
@@ -83,22 +81,20 @@ $result = $conn->query($sql);
             /* Added padding for space at the top */
         }
 
-
         .sidebar .logo {
             position: absolute;
             top: 20px;
-            /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
             text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .sidebar:hover {
             width: 250px;
-            /* Expands sidebar on hover */
         }
 
         .sidebar a {
@@ -179,7 +175,6 @@ $result = $conn->query($sql);
 
         .sidebar a.active {
             background-color: #d9e6f4;
-            /* Background color for active link */
             border-left: 4px solid #ffffff;
             padding-left: 30px;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
@@ -189,33 +184,27 @@ $result = $conn->query($sql);
             position: relative;
             z-index: 1;
             height: 45px;
-
         }
-
 
         /* Main content styling */
         .main-content {
             margin-left: 245px;
             margin-top: 13px;
             margin-right: 20px;
-            /* Default margin for sidebar */
             padding: 40px;
             font-size: 18px;
             color: #333;
             border-radius: 10px;
             transition: margin-left 0.4s ease-in-out;
-            /* Smooth transition for margin */
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            /* Add shadow effect */
             overflow-y: auto;
         }
 
         .main-content h1 {
             color: #050505;
             font-size: 2.5rem;
-            /* Increased font size */
             font-weight: bold;
             padding-bottom: 10px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -227,7 +216,6 @@ $result = $conn->query($sql);
             width: 1268px;
             height: 55px;
             margin-left: 245px;
-            /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
             display: flex;
@@ -237,31 +225,7 @@ $result = $conn->query($sql);
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
             transition: margin-left 0.4s ease-in-out;
-            /* Smooth transition for margin */
         }
-
-
-        .small-icon {
-            width: 50px;
-            /* Set desired width */
-            height: 50px;
-            /* Set desired height */
-            object-fit: cover;
-            /* Ensures the image scales properly */
-            border-radius: 50%;
-            /* Makes the image circular */
-        }
-
-        .icon {
-            margin-left: 15px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .icon:hover {
-            transform: scale(1.1);
-        }
-
 
         .text {
             padding-top: 1px;
@@ -292,7 +256,6 @@ $result = $conn->query($sql);
 
         .job-table {
             border-collapse: collapse;
-
         }
 
         .job-table th,
@@ -334,9 +297,7 @@ $result = $conn->query($sql);
 
         .job-details:hover {
             transform: translateY(-5px);
-            /* Lift the card up on hover */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            /* Enhance shadow on hover */
             border-color: #063dc9;
         }
 
@@ -368,7 +329,6 @@ $result = $conn->query($sql);
             font-size: 20px;
             margin-left: 10px;
             color: #ff0000;
-            /* Black color for trash icon */
             transition: background-color 0.3s ease;
         }
 
@@ -400,7 +360,6 @@ $result = $conn->query($sql);
             font-weight: 600;
         }
 
-
         .create-button {
             padding: 10px 15px;
             margin-bottom: 5px;
@@ -413,17 +372,13 @@ $result = $conn->query($sql);
             text-transform: uppercase;
             font-size: 17px;
             transition: all 0.5s ease;
-
         }
 
         .create-button:hover {
             letter-spacing: 2.5px;
             background-color: hsl(261deg 80% 48%);
             color: hsl(0, 0%, 100%);
-
-
         }
-
 
         /* Pencil icon styling (Edit option) */
         .edit-icon {
@@ -446,16 +401,10 @@ $result = $conn->query($sql);
             margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
-
-        }
-
-        .icon:hover {
-            transform: scale(1.1);
         }
 
         img {
             height: 40px;
-            /* Adjust size as needed */
             width: auto;
         }
 
@@ -490,20 +439,6 @@ $result = $conn->query($sql);
 
         .dropdown-content a:hover {
             background-color: #1e3d7a;
-        }
-
-
-        .sidebar .logo {
-            position: absolute;
-            top: 20px;
-            /* Keep the same positioning */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px;
-            /* Increase the font size here */
-            font-weight: bold;
-            color: white;
-            text-align: center;
         }
 
         .logout {
@@ -551,11 +486,10 @@ $result = $conn->query($sql);
         }
     </style>
 </head>
-
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*"
             onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
