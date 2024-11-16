@@ -216,8 +216,10 @@ $conn->close();
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
+        .logo img{
+            height: 250px;
+            width: auto;
+            margin-top: -90px;
         }
 
         img{
@@ -257,8 +259,7 @@ $conn->close();
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
-
-        
+  
         .sidebar .logo {
             position: absolute;
             top: 20px; /* Keep the same positioning */
@@ -486,7 +487,7 @@ $conn->close();
 <body>
     <!-- Profile Container -->
     <div class="container">
-    <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon">
+    <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon">
     <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
 
 
@@ -500,7 +501,9 @@ $conn->close();
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
+        <div class="logo">
+            <img src="../images/logo_white.png">
+        </div>
         <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
