@@ -708,7 +708,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             };
             xhr.send();
         }
-        window.onload = loadProfilePicture;
+       
  function showEditButton() {
     document.getElementById('editImageButton').style.display = 'block';
 }
@@ -830,6 +830,7 @@ function uploadProfilePicture() {
         return true; // Validation passed
     }
     window.onload = function() {
+        loadProfilePicture();
         document.getElementById('cgpa').onblur = validateCGPA;
         document.getElementById('percentage_twelfth').onblur = validatePercentage12th;
         document.getElementById('percentage_tenth').onblur = validatePercentage10th;
