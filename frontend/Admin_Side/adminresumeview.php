@@ -24,11 +24,11 @@ if ($conn->connect_error) {
 
 
 // Prepare SQL statement
-$sql = "SELECT resume FROM student WHERE user_id = ?";
+$sql = "SELECT resume,name FROM student WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $user_id);
 $stmt->execute();
-$stmt->bind_result($resume);
+$stmt->bind_result($resume,$name);
 $stmt->fetch();
 
 

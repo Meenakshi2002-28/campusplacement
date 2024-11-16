@@ -329,7 +329,8 @@ $conn->close();
             overflow: hidden; /* Hide overflow for perfect circle */
             border: 3px solid #1e3d7a; /* Optional border for profile picture */
             margin-bottom: 20px; /* Space below profile picture */
-            
+             position: relative;
+            display: inline-block;
         }
 
         .profile-picture img {
@@ -457,6 +458,54 @@ $conn->close();
             font-size: 18px;
             color: black;
         }
+        
+        #editImageButton {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            background-color: #AFC8F3;
+            color: black;
+            font-size: 15px;
+            border: none;
+            margin-bottom: 2px;
+            width: 60px;
+            height: 30px;
+            padding: 0px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .profile-picture:hover #editImageButton {
+            display: block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 260px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .modal button{
+            margin-left: 120px;
+            margin-top: 5px;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #000;
+        }
     </style>
 </head>
 <body>
@@ -491,8 +540,25 @@ $conn->close();
     <!-- Main Content -->
     <div class="main-content">
         <div class="sub-sidebar">
-            <div class="profile-picture">
-                <img src="../images/Customer.png" alt="Profile Picture"> <!-- Add your profile picture source here -->
+        <div class="profile-picture" onmouseover="showEditButton()" onmouseout="hideEditButton()">
+                <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture">
+                <button id="editImageButton" style="display: none;" onclick="openModal()">EDIT</button>
+            </div>
+
+            <!-- Modal Structure -->
+            <div id="profileModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeModal()">&times;</span>
+                    <h4>Profile Pic</h4>
+                    <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
+                        Use 300 X 300 px image for profile pic.</p>
+
+                    <!-- Form for file upload -->
+                    <form id="uploadForm" action="picture.php" method="post" enctype="multipart/form-data">
+                        <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
+                        <button type="submit" name="submit">Submit</button>
+                    </form>
+                </div>
             </div>
 
             <div class="text">
@@ -572,6 +638,42 @@ $conn->close();
         </div>
     <!-- JavaScript -->
     <script>
+        var user_id = '<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>';
+            function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_stdprofilepicture.php?user_id=' + encodeURIComponent(user_id), true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                document.getElementById('sidebarProfilePicture').src = profilePath;
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+
+    window.onload = loadProfilePicture;
+    function showEditButton() {
+        document.getElementById('editImageButton').style.display = 'block';
+    }
+
+    function hideEditButton() {
+        document.getElementById('editImageButton').style.display = 'none';
+    }
+
+    function openModal() {
+        document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('profileModal').style.display = 'none';
+    }
+
+    function uploadProfilePicture() {
+    // Implement file upload logic here
+        alert('Upload functionality goes here');
+    }
+
     // Change Profile Picture
     function triggerFileInput() {
         document.getElementById('fileInput').click();

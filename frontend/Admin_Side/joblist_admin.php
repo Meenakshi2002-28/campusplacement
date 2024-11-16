@@ -11,6 +11,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$show_success_message = false;
 // Handle delete request
 if (isset($_POST['delete_job_id'])) {
     $job_id = $_POST['delete_job_id'];
@@ -44,44 +45,49 @@ $result = $conn->query($sql);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lavoro - Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-<style>
-    
-    body {
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <style>
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
             color: #333;
-        
+
 
         }
 
         /* Sidebar styling */
         .sidebar {
-    width: 220px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    height: 97vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: linear-gradient(135deg, #022a52fd, #063dc9);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
-    transition: width 0.4s ease-in-out;
-    padding-top: 80px; /* Added padding for space at the top */
-}
+            width: 220px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            border-radius: 10px;
+            height: 97vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #022a52fd, #063dc9);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            /* Transparent glow effect */
+            transition: width 0.4s ease-in-out;
+            padding-top: 80px;
+            /* Added padding for space at the top */
+        }
 
 
         .sidebar .logo {
             position: absolute;
-            top: 20px; /* Positions logo/title closer to the top */
+            top: 20px;
+            /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
             font-size: 24px;
@@ -91,7 +97,8 @@ $result = $conn->query($sql);
         }
 
         .sidebar:hover {
-            width: 250px; /* Expands sidebar on hover */
+            width: 250px;
+            /* Expands sidebar on hover */
         }
 
         .sidebar a {
@@ -110,18 +117,45 @@ $result = $conn->query($sql);
 
         /* Fade-in effect for sidebar links */
         @keyframes fadeIn {
-            0% { opacity: 0; transform: translateX(-20px); }
-            100% { opacity: 1; transform: translateX(0); }
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* Delayed animation for each link */
-        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
-        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
-        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
-        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
-        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
-        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
-        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
+        .sidebar a:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .sidebar a:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .sidebar a:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .sidebar a:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .sidebar a:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .sidebar a:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+
+        .sidebar a:nth-child(8) {
+            animation-delay: 0.7s;
+        }
 
         .sidebar a i {
             margin-right: 15px;
@@ -132,7 +166,8 @@ $result = $conn->query($sql);
             background-color: #1e3d7a;
             border-left: 4px solid #ffffff;
             padding-left: 30px;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            /* Glow effect */
         }
 
         .sidebar .logout {
@@ -141,40 +176,46 @@ $result = $conn->query($sql);
             width: 100%;
             text-align: center;
         }
+
         .sidebar a.active {
-    background-color: #d9e6f4; /* Background color for active link */
-    border-left: 4px solid #ffffff;
-    padding-left: 30px;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    color:#000000;
-    position: relative;
-    z-index: 1;
-    height: 45px;
-    
-}
+            background-color: #d9e6f4;
+            /* Background color for active link */
+            border-left: 4px solid #ffffff;
+            padding-left: 30px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            color: #000000;
+            position: relative;
+            z-index: 1;
+            height: 45px;
+
+        }
 
 
         /* Main content styling */
         .main-content {
             margin-left: 245px;
-            margin-top: 13px; 
-            margin-right: 20px;/* Default margin for sidebar */
+            margin-top: 13px;
+            margin-right: 20px;
+            /* Default margin for sidebar */
             padding: 40px;
             font-size: 18px;
             color: #333;
             border-radius: 10px;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            transition: margin-left 0.4s ease-in-out;
+            /* Smooth transition for margin */
             background-color: #ffffff;
             height: 86.5vh;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            /* Add shadow effect */
             overflow-y: auto;
         }
 
         .main-content h1 {
             color: #050505;
-            font-size: 2.5rem; /* Increased font size */
+            font-size: 2.5rem;
+            /* Increased font size */
             font-weight: bold;
             padding-bottom: 10px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -185,7 +226,8 @@ $result = $conn->query($sql);
             padding: 18px 20px;
             width: 1268px;
             height: 55px;
-            margin-left: 245px; /* Default margin for container */
+            margin-left: 245px;
+            /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
             display: flex;
@@ -194,18 +236,23 @@ $result = $conn->query($sql);
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
-}
+            transition: margin-left 0.4s ease-in-out;
+            /* Smooth transition for margin */
+        }
 
 
-.small-icon {
-    width: 50px; /* Set desired width */
-    height: 50px; /* Set desired height */
-    object-fit: cover; /* Ensures the image scales properly */
-    border-radius: 50%;
-     /* Makes the image circular */
-}
-.icon {
+        .small-icon {
+            width: 50px;
+            /* Set desired width */
+            height: 50px;
+            /* Set desired height */
+            object-fit: cover;
+            /* Ensures the image scales properly */
+            border-radius: 50%;
+            /* Makes the image circular */
+        }
+
+        .icon {
             margin-left: 15px;
             cursor: pointer;
             transition: transform 0.3s;
@@ -216,197 +263,204 @@ $result = $conn->query($sql);
         }
 
 
-.text {
-    padding-top: 1px;
-}
+        .text {
+            padding-top: 1px;
+        }
 
-.tabs {
-    display: flex;
-    align-items: center;
-    word-break: keep-all;
-}
+        .tabs {
+            display: flex;
+            align-items: center;
+            word-break: keep-all;
+        }
 
-.tab-button {
-    background-color: white;
-    border: 1px solid #000000;
-    padding: 0px;
-    border-radius: 50px;
-    margin-right: 50px;
-    cursor: pointer;
-    font-size: 16px;
-    height: 26px;
-    width: 130px;
-}
+        .tab-button {
+            background-color: white;
+            border: 1px solid #000000;
+            padding: 0px;
+            border-radius: 50px;
+            margin-right: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            height: 26px;
+            width: 130px;
+        }
 
-.tab-button.active {
-    background-color: #1c4a82;
-        color: white;
-}
+        .tab-button.active {
+            background-color: #1c4a82;
+            color: white;
+        }
 
-.job-table {
-    border-collapse: collapse;
-    
-}
+        .job-table {
+            border-collapse: collapse;
 
-.job-table th, .job-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    padding-left: 200px;
-}
+        }
 
-.job-table th {
-    background-color: #f5f5f5;
-    font-weight: bold;
-    color: #333;
-    border-bottom: 1px solid black;
-}
+        .job-table th,
+        .job-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            padding-left: 200px;
+        }
 
-.job-table td {
-    font-size: 15px;
-    word-break: break-all;
-} 
+        .job-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 1px solid black;
+        }
 
-.job-table tr:hover {
-    background-color: #f1f1f1;
-}
+        .job-table td {
+            font-size: 15px;
+            word-break: break-all;
+        }
 
-.job-details {
-    position: relative;
-    background-color: white;
-    padding: 15px;
-    padding-bottom: 0px;
-    border-radius: 10px;
-    border: 1px solid #cccccc;
-    margin-bottom: 30px;
-    margin-right: 100px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
+        .job-table tr:hover {
+            background-color: #f1f1f1;
+        }
 
-.job-details:hover {
-    transform: translateY(-5px); /* Lift the card up on hover */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
-    border-color: #063dc9;
-}
+        .job-details {
+            position: relative;
+            background-color: white;
+            padding: 15px;
+            padding-bottom: 0px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            margin-bottom: 30px;
+            margin-right: 100px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
 
-.job-details h3 {
-    margin-top: 0;
-    color:black;
-    margin-left: 20px;
-}
+        .job-details:hover {
+            transform: translateY(-5px);
+            /* Lift the card up on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            /* Enhance shadow on hover */
+            border-color: #063dc9;
+        }
 
-.job-details p{
-    margin-left: 100px;
-    font-size: ;
-}
+        .job-details h3 {
+            margin-top: 0;
+            color: black;
+            margin-left: 20px;
+        }
 
-.jobimg a {
-    display:inline-flexbox;
-    text-decoration: none;
-    color:black;
-    padding: 60px;
-    border-left: 3px solid transparent;  
-}
+        .job-details p {
+            margin-left: 100px;
+            font-size: ;
+        }
 
-.delete-btn {
-    background-color: transparent;
-    border: none;
-    width: 50px;
-    cursor: pointer;
-    padding: 10px;
-    font-size: 20px;
-    margin-left: 10px;
-    color: #ff0000; /* Black color for trash icon */
-    transition: background-color 0.3s ease;
-}
+        .jobimg a {
+            display: inline-flexbox;
+            text-decoration: none;
+            color: black;
+            padding: 60px;
+            border-left: 3px solid transparent;
+        }
 
-.delete-btn:hover {
-    background-color: #ffffff;
-}
+        .delete-btn {
+            background-color: transparent;
+            border: none;
+            width: 50px;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 20px;
+            margin-left: 10px;
+            color: #ff0000;
+            /* Black color for trash icon */
+            transition: background-color 0.3s ease;
+        }
 
-.jobstatus{
-    padding-left: 10px;
-    display: flex;
-    align-items: center;
-    margin-left: 810px;
-}
+        .delete-btn:hover {
+            background-color: #ffffff;
+        }
 
-.jobstatus input {
-    background-color:#e2e2e2;
-    border-radius: 10px;
-    border: 1px solid rgb(197, 197, 197) ;
-    width: 270px; 
-    height: 25px; 
-    font-size: 16px;
-    margin-top: 20px;
-    margin-left: 370px;
-    text-align: center; 
-    line-height: 40px; 
-    padding: 0px; 
-    padding-left: 20px;
-    box-sizing:content-box;
-    font-weight: 600;
-}
+        .jobstatus {
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            margin-left: 810px;
+        }
 
-
-.create-button {
-  padding: 10px 15px;
-  margin-bottom: 5px;
-  border-radius: 30px;
-  cursor: pointer;
-  border: 0;
-  background-color: #d9e6f4;
-  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
-  letter-spacing: 1.5px;
- text-transform: uppercase;
-  font-size: 17px;
-  transition: all 0.5s ease;
-  
-}
-
-.create-button:hover {
-  letter-spacing: 2.5px;
-  background-color: hsl(261deg 80% 48%);
-  color: hsl(0, 0%, 100%);
-  
-
-}
+        .jobstatus input {
+            background-color: #e2e2e2;
+            border-radius: 10px;
+            border: 1px solid rgb(197, 197, 197);
+            width: 270px;
+            height: 25px;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-left: 370px;
+            text-align: center;
+            line-height: 40px;
+            padding: 0px;
+            padding-left: 20px;
+            box-sizing: content-box;
+            font-weight: 600;
+        }
 
 
-/* Pencil icon styling (Edit option) */
-.edit-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    color: rgb(95, 95, 95);
-    font-size: 18px;
-    transition: color 0.3s ease;
-}
+        .create-button {
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            border-radius: 30px;
+            cursor: pointer;
+            border: 0;
+            background-color: #d9e6f4;
+            box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 17px;
+            transition: all 0.5s ease;
 
-/* Pencil icon hover effect */
-.edit-icon:hover {
-    color: rgb(95, 95, 95); /* Blue color on hover */
-}
+        }
 
-.icon {
-    margin-left: 1px;
-    cursor: pointer;
-    transition: transform 0.3s;
-    
-}
+        .create-button:hover {
+            letter-spacing: 2.5px;
+            background-color: hsl(261deg 80% 48%);
+            color: hsl(0, 0%, 100%);
 
-.icon:hover {
-    transform: scale(1.1);
-}
-img {
-        height: 40px; /* Adjust size as needed */
-        width: auto;
-    }
 
-/* Dropdown menu styling */
-.dropdown-content {
+        }
+
+
+        /* Pencil icon styling (Edit option) */
+        .edit-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: rgb(95, 95, 95);
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        /* Pencil icon hover effect */
+        .edit-icon:hover {
+            color: rgb(95, 95, 95);
+            /* Blue color on hover */
+        }
+
+        .icon {
+            margin-left: 1px;
+            cursor: pointer;
+            transition: transform 0.3s;
+
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
+
+        img {
+            height: 40px;
+            /* Adjust size as needed */
+            width: auto;
+        }
+
+        /* Dropdown menu styling */
+        .dropdown-content {
             display: none;
             opacity: 0;
             position: absolute;
@@ -421,84 +475,90 @@ img {
             padding-right: 2px;
         }
 
-.dropdown-content.show {
-    display: block;
-    opacity: 1;
-}
+        .dropdown-content.show {
+            display: block;
+            opacity: 1;
+        }
 
-.dropdown-content a {
-    color: white;
-    padding: 12px;
-    text-decoration: none;
-    display: block;
-    transition: background-color 0.2s;
-}
+        .dropdown-content a {
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s;
+        }
 
-.dropdown-content a:hover {
-    background-color: #1e3d7a;
-}
+        .dropdown-content a:hover {
+            background-color: #1e3d7a;
+        }
 
-        
-.sidebar .logo {
-    position: absolute;
-    top: 20px; /* Keep the same positioning */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 36px; /* Increase the font size here */
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-.logout{
-        position: absolute;
-        bottom: 20px;
-        width: 100%;
-}
 
-.logout a {
-    font-size: 20px;
-    margin-top: 210px;
-}
+        .sidebar .logo {
+            position: absolute;
+            top: 20px;
+            /* Keep the same positioning */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            /* Increase the font size here */
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
 
-.fas fa-trash-alt{
-    text-align: center;
-}
+        .logout {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+        }
 
-.success-message {
-    display: none; /* Hidden by default */
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #2F5597;
-    color: white;
-    padding: 16px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    font-size: 16px;
-}
+        .logout a {
+            font-size: 20px;
+            margin-top: 210px;
+        }
 
-.success-message.show {
-    display: block;
-}
+        .fas fa-trash-alt {
+            text-align: center;
+        }
 
-.success-message .close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    margin-left: 10px;
-    cursor: pointer;
-}
+        .success-message {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2F5597;
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-size: 16px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
+
 <body>
     <!-- Profile Container -->
     <div class="container">
         <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-<input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
-<i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+        <input type="file" id="fileInput" style="display: none;" accept="image/*"
+            onchange="changeProfilePicture(event)">
+        <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
 <<<<<<< HEAD
@@ -547,19 +607,19 @@ img {
 
     <!-- Sidebar -->
     <div class="sidebar">
-    <!-- Logo or Website Name -->
-    <div class="logo">Lavoro</div>
-    <a href="dashboard_admin.php" ><i class="fas fa-home"></i> Home</a>
-    <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
-    <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
-    <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
-    <a href="company.html"><i class="fas fa-building"></i> Company</a>
-    <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
-    <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
-    <div class="logout">
-        <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        <!-- Logo or Website Name -->
+        <div class="logo">Lavoro</div>
+        <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
+        <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
+        <a href="company.html"><i class="fas fa-building"></i> Company</a>
+        <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
+        <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
+        <div class="logout">
+            <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
+        </div>
     </div>
-</div>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -568,53 +628,59 @@ img {
                 Create <i class="fas fa-plus"></i>
             </button>
         </div>
-    
-            <!-- Job List Table -->
-            <table class="job-table" id="jobTable">
-                <div class="maincontent">
-                    <?php if ($result->num_rows > 0): ?>
-                        <?php while ($job = $result->fetch_assoc()): ?>
-                            <div class="job-details">
+
+        <!-- Job List Table -->
+        <table class="job-table" id="jobTable">
+            <div class="maincontent">
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while ($job = $result->fetch_assoc()): ?>
+                        <div class="job-details">
                             <a href="job_edit.php?job_id=<?php echo $job['job_id']; ?>" title="Edit" class="edit-icon-link">
-                        <i class="fas fa-pencil-alt edit-icon"></i>
-                        </a>
-                                <h3><?php echo htmlspecialchars($job['job_title']); ?></h3>
-                                <p><?php echo htmlspecialchars($job['company_name']); ?></p>
-                                <div class="jobimg">
-                                    <a href="#location-dot"><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($job['location']); ?></a>
-                                    <a href="#briefacse"><i class="fa fa-fw fa-solid fa-briefcase"></i> Full Time</a>
-                                    <a href="#indian-rupee-sign"><i class="fas fa-rupee-sign"></i> <?php echo htmlspecialchars($job['salary']); ?></a>
-                                    <a href="#calendar-days"><i class="fa fa-fw fa-solid fa-calendar"></i> Apply By <?php echo htmlspecialchars($job['application_deadline']); ?></a>
-                                </div>
-                                <div class="jobstatus">
-                                    <form method="POST" action="">
-                                        <input type="hidden" name="delete_job_id" value="<?php echo $job['job_id']; ?>">
-                                        <button class="delete-btn" type="submit" onclick="return confirm('Are you sure you want to delete this job?');">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                    <a href="applicants.php?job_id=<?php echo htmlspecialchars($job['job_id']); ?>" class="view-btn"><b>View Applicants</b></a>
-                                </div>
+                                <i class="fas fa-pencil-alt edit-icon"></i>
+                            </a>
+                            <h3><?php echo htmlspecialchars($job['job_title']); ?></h3>
+                            <p><?php echo htmlspecialchars($job['company_name']); ?></p>
+                            <div class="jobimg">
+                                <a href="#location-dot"><i class="fas fa-map-marker-alt"></i>
+                                    <?php echo htmlspecialchars($job['location']); ?></a>
+                                <a href="#briefacse"><i class="fa fa-fw fa-solid fa-briefcase"></i> Full Time</a>
+                                <a href="#indian-rupee-sign"><i class="fas fa-rupee-sign"></i>
+                                    <?php echo htmlspecialchars($job['salary']); ?></a>
+                                <a href="#calendar-days"><i class="fa fa-fw fa-solid fa-calendar"></i> Apply By
+                                    <?php echo htmlspecialchars($job['application_deadline']); ?></a>
                             </div>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <p>No jobs available</p>
-                    <?php endif; ?>
-                </div>
-            </table>
-        </div>
-         <!-- Success message box -->
-         <div class="success-message" id="successMessage">
-            Job deleted successfully
-            <button class="close-btn" onclick="hideSuccessMessage()">×</button>
-        </div>
-        
-       
-        
+                            <div class="jobstatus">
+                                <form method="POST" action="" id="deleteForm<?php echo $job['job_id']; ?>">
+                                    <input type="hidden" name="delete_job_id" value="<?php echo $job['job_id']; ?>">
+                                    <button class="delete-btn" type="button"
+                                        onclick="confirmDeletion('<?php echo $job['job_id']; ?>', event)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                                <a href="applicants.php?job_id=<?php echo htmlspecialchars($job['job_id']); ?>"
+                                    class="view-btn"><b>View Applicants</b></a>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>No jobs available</p>
+                <?php endif; ?>
+            </div>
+        </table>
     </div>
+    <!-- Success message box -->
+    <div class="success-message" id="successMessage">
+        Job deleted successfully
+        <button class="close-btn" onclick="hideSuccessMessage()">×</button>
+    </div>
+
+
+
+    
 
     <!-- JavaScript -->
     <script>
+<<<<<<< HEAD
 <<<<<<< HEAD
         // Change Profile Picture
         function triggerFileInput() {
@@ -675,11 +741,37 @@ img {
             
 =======
     function showSuccessMessage() {
+=======
+function confirmDeletion(jobId, event) {
+    // Prevent the form submission
+    event.preventDefault();
+
+    // Show the confirmation dialog
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this record!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            // Submit the form if user confirms
+            document.getElementById('deleteForm' + jobId).submit();
+            swal("Poof! Your record has been deleted!", {
+                icon: "success",
+            });
+        } else {
+            swal("Your record is safe!");
+        }
+    });
+}
+        function showSuccessMessage() {
+>>>>>>> 536c971 (..)
             var successMessage = document.getElementById('successMessage');
             successMessage.classList.add('show');
-            
+
             // Auto-hide the message after 5 seconds
-            setTimeout(function() {
+            setTimeout(function () {
                 successMessage.classList.remove('show');
             }, 5000);
         }
@@ -698,34 +790,33 @@ img {
         function triggerFileInput() {
             document.getElementById('fileInput').click();
         }
-        </script>
-        <script>
+    
 
-    function changeProfilePicture(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
-                document.getElementById('profileIcon').src = e.target.result; // Update profile icon
-            };
-            reader.readAsDataURL(file); // Read the image file
+        function changeProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('sidebarProfilePicture').src = e.target.result; // Update the profile image in sidebar
+                    document.getElementById('profileIcon').src = e.target.result; // Update profile icon
+                };
+                reader.readAsDataURL(file); // Read the image file
+            }
         }
-    }
-    // Dropdown toggle with smooth opening
-    function toggleDropdown() {
+        // Dropdown toggle with smooth opening
+        function toggleDropdown() {
             const dropdown = document.getElementById("dropdownMenu");
             dropdown.classList.toggle("show");
         }
-    
+
         // Hide dropdown on click outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (!event.target.matches('.icon')) {
                 const dropdown = document.getElementById("dropdownMenu");
                 dropdown.classList.remove("show");
             }
         };
-    
+
         document.addEventListener("DOMContentLoaded", function () {
             // Sidebar tab click effect
             const tabs = document.querySelectorAll('.sidebar a');
@@ -735,13 +826,13 @@ img {
                     tab.classList.add('active');
                 });
             });
-    
+
             // Set default active link on page load
             const defaultLink = document.querySelector('.sidebar a.active');
             if (defaultLink) {
                 defaultLink.classList.add('active');
             }
-    
+
             // Mobile nav handling (optional)
             const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
             mobileTabs.forEach(tab => {
@@ -750,6 +841,7 @@ img {
                     tab.classList.add('active');
                 });
             });
+<<<<<<< HEAD
     
 <<<<<<< HEAD
             // Dashboard stats extraction
@@ -776,22 +868,28 @@ img {
         
 >>>>>>> 5575968 (change)
     
+=======
+
+
+
+>>>>>>> 536c971 (..)
             // Adjust main content and container margin based on sidebar width
             const sidebar = document.querySelector('.sidebar');
             const mainContent = document.querySelector('.main-content');
             const container = document.querySelector('.container');
-    
+
             sidebar.addEventListener('mouseenter', () => {
                 mainContent.style.marginLeft = '270px'; // Expanded sidebar width
                 container.style.marginLeft = '270px'; // Adjust container margin
             });
-    
+
             sidebar.addEventListener('mouseleave', () => {
                 mainContent.style.marginLeft = '245px'; // Normal sidebar width
                 container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
             });
         });
     </script>
-    
+
 </body>
+
 </html>
