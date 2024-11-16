@@ -68,8 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,19 +104,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 30px;
             width: 350px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-
         }
 
         .login-box h2 {
-            margin: 0;
-            font-size: 50px;
-
+            margin: -10px;
+            margin-bottom: 2px;
+            font-size: 60px;
+            font-family: serif;
         }
 
         .login-box h1 {
             margin: 0;
             font-size: 35px;
-
+            font-family: Georgia, serif;
         }
 
         .login-box form {
@@ -146,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .login-box .forgot-password a {
-            color: #ddd;
+            color: white;
             text-decoration: none;
         }
 
@@ -163,10 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border: none;
             border-radius: 8px;
             cursor: pointer;
-        }
-
-        .login-box button:hover {
-            background-color: #f0f0f0;
+            font-weight: 600;
         }
 
         .login-box .signup {
@@ -193,8 +188,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             align-items: flex;
             border-spacing: 5mm;
             padding-block: 10px;
-
-
         }
 
         .illustration img {
@@ -258,7 +251,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <img src="images/login.png" alt="Login Illustration">
         </div>
     </div>
-
 </body>
-
 </html>

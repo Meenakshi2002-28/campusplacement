@@ -102,10 +102,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             width: 350px;
             background-color: #281f63;
             color: white;
+            padding-top: 10px;
+            padding-right: 60px;
         }
 
         .signup-box h2 {
             margin-bottom: 20px;
+        }
+
+        .signup-box label{
+            margin-left: 10px;
         }
 
         .signup-box input[type="text"],
@@ -113,28 +119,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .signup-box input[type="password"] {
             width: 100%;
             padding: 10px;
-            margin: 10px 0;
+            margin-top: 2.5px;
             border-radius: 10px;
             border: none;
             font-size: 14px;
+            margin-bottom: 15px;
         }
 
         .signup-box button {
             width: 105%;
             padding: 10px;
-            margin: 20px 0px;
+            margin-top: 20px;
             justify-content: center;
             background-color: white;
-            color: #281969;
+            color: #1e165f;
             border: none;
             font-size: 16px;
             border-radius: 10px;
             cursor: pointer;
-            font-weight: bolder;
-        }
-
-        .signup-box button:hover {
-            background-color: #f0f0f0;
+            font-weight: 600;
         }
 
         .error-message {
@@ -228,7 +231,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div id="email-error" class="error-message"></div>
 
                 <label for="rollno">University Roll No</label>
-                <input type="text" id="rollno" name="rollno" placeholder="University Roll No" required>
+                <input type="text" id="rollno" name="rollno" placeholder="University Roll No(eg: KHENU3CDS22001)" required>
 
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Password" required

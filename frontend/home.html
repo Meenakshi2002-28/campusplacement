@@ -22,13 +22,17 @@
             display: flex;
             justify-content: flex-end;
             padding: 15px;
+            width: 100%;
+            position: fixed;
+            z-index: 1000; /* Ensure it is above other content */
+      
         }
 
         .login {
             width: 110px;
             height: 35px;
             background: none;
-            border: none;
+            border-color: #ffffff;
             color: white;
             padding: 7px 20px;
             margin-left: 5px;
@@ -36,11 +40,11 @@
             cursor: pointer;
             border-radius: 5px;
             transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            font-weight: 600;
         }
 
         .login:hover {
-            color: black;
-            background-color: white;
+            color: white;
             transform: scale(1.1);
             font-weight: 700;
         }
@@ -58,6 +62,7 @@
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, background-color 0.3s ease;
+            font-weight: 600;
         }
 
         .signup:hover {
@@ -67,7 +72,7 @@
         }
 
         .footer {
-            position: relative;
+            position: fixed;
             left: 0;
             bottom: 0;
             width: 100%;
@@ -85,13 +90,14 @@
             padding: 40px;
             margin-bottom: 40px;
             font-family: Georgia;
-            padding-top: 10px;
+            padding-top: 90px;
+            margin-bottom: 70px;
         }
         .content h1 {
             font-size: 50px;
             color: black;
             padding: 25px;
-            padding-top: 10px;
+            padding-top: 50px;
             animation: slideIn 1s ease-out forwards;
         }
 
@@ -133,7 +139,7 @@
             gap: 4px;
             padding: 7px 35px;
             margin-left: 30px;
-            margin-top: 15px;
+            margin-top: 20px;
             border: 4px solid;
             border-color: transparent;
             font-size: 16px;
@@ -171,7 +177,7 @@
             transform: translate(-50%, -50%);
             width: 20px;
             height: 20px;
-            background-color: #edf4f4;
+            background-color: #f9ffff;
             border-radius: 50%;
             opacity: 0;
             transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
@@ -224,22 +230,21 @@
             padding: 15px;
             padding-top: 30px;
             width: 100%;
-            max-width: 700px;
+            max-width: 800px;
             height: auto;
         }
-
         
-.about-us-container {
-    width: 100%;
-    max-width: 100%;
-    margin-top: -10px;
-    padding: 20px;
-    
-    background-color: #0c122e;
-    overflow-x: hidden;
- }
+        .about-us-container {
+            width: 100%;
+            max-width: 100%;
+            margin-top: -25px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #0c122e;
+            overflow-x: hidden;
+        }
 
- @keyframes slideIn {
+        @keyframes slideIn {
             0% {
                 opacity: 0;
                 transform: translateY(-20px);
@@ -250,62 +255,56 @@
             }
         }
 
- 
-.about-us-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 20px; 
-    margin-left: 190px;
-    margin-right: 190px;
-    margin-top: 30px;
-    font-family: serif;
-  
-}
+        .about-us-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px; 
+            margin-left: 190px;
+            margin-right: 190px;
+            margin-top: 20px;
+            font-family: serif;
+            margin-bottom: 5x;
+        }
 
-.text-section {
-    max-width: 60%;
-}
+        .text-section {
+            max-width: 60%;
+        }
 
-.text-section h1 {
-    font-size: 2.5rem;
-    color: #003366;
-    margin-bottom: 20px;
-}
+        .text-section h1 {
+            font-size: 2.5rem;
+            color: #003366;
+            margin-bottom: 20px;
+        }
 
-.text-section p {
-    font-size: 19px;
-    color: #292323;
-    margin-bottom: 20px;
-    line-height: 1.5;
-}
+        .text-section p {
+            font-size: 19px;
+            color: #292323;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
 
-.cta-button {
-    background-color: #fcae06;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    margin-left: 10px;
-}
+        .cta-button {
+            background-color: #fcae06;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-left: 10px;
+        }
 
-.cta-button:hover {
-    background-color: #fc8f0a;
-}
+        .cta-button:hover {
+            background-color: #fc8f0a;
+        }
 
-.image-section img {
-    max-width: 600px;
-   
-    margin-left:810px;
-    margin-top: -500px;
-    width:500px;
-    
-}
-
+        .image-section img {
+            max-width: 600px;
+            width:500px;  
+        }
     </style>
 </head>
 <body>
@@ -313,6 +312,7 @@
         <a href="login.php"><button class="login">LOGIN</button></a>
         <a href="create_account.php"><button class="signup">SIGN UP</button></a>
     </div>
+
     <div class="content">
         <div class="text">
             <h1>Explore the Latest Job <br> Opportunities Tailored<br> for You</h1>
@@ -331,12 +331,11 @@
             </a>
         </div>
         <div class="image">
-            <img src="images/placement.png" alt="welcome">
+            <img src="images/job.png" alt="welcome">
         </div>
     </div>
 
     <div class="about-us-container">
-        
         <div class="about-us-content">
             <div class="text-section">
                 <h1>ABOUT US</h1>
@@ -347,14 +346,11 @@
                     Lavoro enables students to browse, search, and apply for job openings in a centralized, organized manner. 
                     By simplifying the recruitment process, we aim to make it easier for students to take charge of their career paths.
                 </p>
-                <a href="../create_account.php" class="cta-button">SIGN UP</a>
             </div>
-        </div>     
-            
             <div class="image-section">
                 <img src="images/aboutus2.png" alt="Team Illustration">
             </div>
-            
+        </div>     
     </div>
     <div class="footer"></div>
 </body>
