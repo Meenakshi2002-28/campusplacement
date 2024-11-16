@@ -217,13 +217,15 @@ $conn->close();
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
-        }
-
         img {
             height: 40px; /* Adjust size as needed */
             width: auto;
+        }
+
+        .logo img{
+            height: 250px;
+            width: auto;
+            margin-top: -90px;
         }
 
         /* Dropdown menu styling */
@@ -518,7 +520,9 @@ $conn->close();
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
-        <div class="logo">Lavoro</div>
+        <div class="logo">
+            <img src="../images/logo_white.png">
+        </div>
         <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
