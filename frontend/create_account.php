@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     if ($stmt->execute()) {
                         // Redirect to success page
-                        header("Location: ../frontend/acc_created.html");
+                        header("Location: ../frontend/acc_pending.html");
                         exit();
                     } else {
                         echo "<script>alert('Error inserting into student table.');</script>";
