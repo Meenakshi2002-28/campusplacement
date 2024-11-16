@@ -130,6 +130,7 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
@@ -162,10 +163,11 @@ if (isset($_SESSION['user_id'])) {
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
             text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .sidebar:hover {
@@ -256,17 +258,6 @@ if (isset($_SESSION['user_id'])) {
             height: 45px;
         }
 
-        .sidebar .logo {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px;
-            font-weight: bold;
-            color: white;
-            text-align: center;
-        }
-
         /* Main content styling */
         .main-content {
             margin-left: 245px;
@@ -316,12 +307,6 @@ if (isset($_SESSION['user_id'])) {
         img {
             height: 40px;
             width: auto;
-        }
-
-        .logo img{
-            height: 250px;
-            width: auto;
-            margin-top: -90px;
         }
 
         /* Dropdown menu styling */
@@ -447,9 +432,7 @@ if (isset($_SESSION['user_id'])) {
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
-        <div class="logo">
-            <img src="../images/logo_white.png">
-        </div>
+        <div class="logo">Lavoro</div>
         <a href="dashboard_std.php" class="active"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
@@ -511,8 +494,8 @@ if (isset($_SESSION['user_id'])) {
 
         <!-- Calendar Section -->
         <canvas id="placementChart"
-            style="width: 100%; max-width: 450px; height: 120px; float:left; margin-top: 50px;"></canvas>
-
+            style="width: 100%; max-width: 450px; height: 120px; float:left; margin-top: 50px;">
+        </canvas>
 
         <!-- Scrolling Marquee Section for Company Logos -->
         <div class="scrolling-section">
