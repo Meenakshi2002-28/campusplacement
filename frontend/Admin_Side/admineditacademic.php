@@ -429,6 +429,53 @@ $conn->close();
             background-color: #1e3d7e;
             color: white;
         }
+        #editImageButton {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            background-color: #AFC8F3;
+            color: black;
+            font-size: 15px;
+            border: none;
+            margin-bottom: 2px;
+            width: 60px;
+            height: 30px;
+            padding: 0px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .profile-picture:hover #editImageButton {
+            display: block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 260px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .modal button{
+            margin-left: 120px;
+            margin-top: 5px;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #000;
+        }
     </style>
 </head>
 <body>
@@ -464,10 +511,27 @@ $conn->close();
     <!-- Main Content -->
     <div class="main-content">
         <div class="sub-sidebar">
-            <div class="profile-picture">
-                <img src="profile-pic.jpg" alt="Profile Picture"> <!-- Add your profile picture source here -->
+        <div class="profile-picture" onmouseover="showEditButton()" onmouseout="hideEditButton()">
+                <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture">
+                <button id="editImageButton" style="display: none;" onclick="openModal()">EDIT</button>
             </div>
 
+            <!-- Modal Structure -->
+            <div id="profileModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeModal()">&times;</span>
+                    <h4>Profile Pic</h4>
+                    <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
+                        Use 300 X 300 px image for profile pic.</p>
+
+                    <!-- Form for file upload -->
+                    <form id="uploadForm" action="stdpicture.php" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
+                        <button type="submit" name="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
             <div class="text">
                 <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->  
             </div>
@@ -482,7 +546,7 @@ $conn->close();
 
         <!-- Academic Details Section -->
         <div id="academic" class="details ">
-            <form action="2.php" method="post">
+            <form action="2.php" method="post" onsubmit="return validateForm2()">
                 <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
                 <table>
                     <th>UG Details</th>
@@ -498,6 +562,7 @@ $conn->close();
                                 <option value="PHYSICS" <?php echo ($course_branch == 'PHYSICS') ? 'selected' : ''; ?>>Physics</option>
                                 <option value="VM" <?php echo ($course_branch == 'VM') ? 'selected' : ''; ?>>Visual Media</option>
                             </select>
+                            <div id="[field-id]-error" class="error-message" style="color:red; font-size:12px;"></div>
                         </td>
                     </tr>
                     <tr>
@@ -522,6 +587,7 @@ $conn->close();
                                 <option value="BBA(Hons./Hons. with Research)" <?php echo ($course_name == 'BBA(Hons./Hons. with Research)') ? 'selected' : ''; ?>>BBA(Hons./Hons. with Research)</option>
                                 <option value="B.Sc(Hons.) in Visual Media" <?php echo ($course_name == 'B.Sc(Hons.) in Visual Media') ? 'selected' : ''; ?>>B.Sc(Hons.) in Visual Media</option>
                             </select>
+                            <div id="[field-id]-error" class="error-message" style="color:red; font-size:12px;"></div>
                         </td>
                     </tr>
                     <tr>
@@ -535,6 +601,7 @@ $conn->close();
                                 <option value="4" <?php echo ($current_year == '4') ? 'selected' : ''; ?>>4</option>
                                 <option value="5" <?php echo ($current_year == '5') ? 'selected' : ''; ?>>5</option>
                             </select>
+                            <div id="[field-id]-error" class="error-message" style="color:red; font-size:12px;"></div>
                         </td>
                     </tr>
                     <tr>
@@ -547,18 +614,23 @@ $conn->close();
                                 <option value="2026" <?php echo ($graduation_year == '2026') ? 'selected' : ''; ?>>2026</option>
                                 <option value="2027" <?php echo ($graduation_year == '2027') ? 'selected' : ''; ?>>2027</option>
                             </select>
+                            <div id="[field-id]-error" class="error-message" style="color:red; font-size:12px;"></div>
                         </td>
                     </tr>
                     <tr>
                         <td>Current Arrears </td>
                         <td>
                             <input type="text" id="current_arrears" name="current_arrears" value="<?php echo htmlspecialchars($current_arrears); ?>">
+                            <div id="[field-id]-error" class="error-message" style="color:red; font-size:12px;"></div>
                         </td>
+                        
                     </tr>
                     <tr>
                         <td>CGPA </td>
                         <td>
-                            <input type="number" id="cgpa" name="cgpa" value="<?php echo htmlspecialchars($cgpa); ?>">
+                            <input type="number" id="cgpa" name="cgpa" value="<?php echo htmlspecialchars($cgpa); ?>"step="0.01">
+                            <div id="cgpa-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
+
                         </td>
                     </tr>
                 </table>
@@ -569,6 +641,7 @@ $conn->close();
                         <td>School Name </td>
                         <td>
                             <input type="text" id="school_name_twelfth" name="school_name_twelfth" value="<?php echo htmlspecialchars($school_twelfth); ?>">
+                            <div id="[field-id]-error" class="error-message" style="color:red; font-size:12px;"></div>
                         </td>
                     </tr>
                     <tr>
@@ -587,6 +660,8 @@ $conn->close();
                         <td>Percentage </td>
                         <td>
                             <input type="text" id="percentage_twelfth" name="percentage_twelfth" value="<?php echo htmlspecialchars($percentage_twelfth); ?>">
+                            <div id="percentage12th-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
+
                         </td>
                     </tr>
                 </table>
@@ -615,6 +690,8 @@ $conn->close();
                         <td>Percentage </td>
                         <td>
                             <input type="text" id="percentage_tenth" name="percentage_tenth" value="<?php echo htmlspecialchars($percentage_tenth); ?>">
+                            <div id="percentage10th-error" class="error-message" style="color:red; font-size:12px;"></div> <!-- Error below input -->
+
                         </td>
                     </tr>
                 </table>
@@ -627,6 +704,267 @@ $conn->close();
 
     <!-- JavaScript -->
     <script>
+           var user_id = '<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>';
+            function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_stdprofilepicture.php?user_id=' + encodeURIComponent(user_id), true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                document.getElementById('sidebarProfilePicture').src = profilePath;
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+
+    window.onload = loadProfilePicture;
+    function showEditButton() {
+        document.getElementById('editImageButton').style.display = 'block';
+    }
+
+    function hideEditButton() {
+        document.getElementById('editImageButton').style.display = 'none';
+    }
+
+    function openModal() {
+        document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('profileModal').style.display = 'none';
+    }
+        function validateForm2() {
+    let isValid = true;
+    let errorMessages = document.getElementsByClassName('error-message');
+    
+    // Clear all previous error messages
+    for(let msg of errorMessages) {
+        msg.textContent = '';
+    }
+
+    // Function to create/update error message
+    function showError(elementId, message) {
+        let errorDiv = document.getElementById(elementId + '-error');
+        if (!errorDiv) {
+            errorDiv = document.createElement('div');
+            errorDiv.id = elementId + '-error';
+            errorDiv.className = 'error-message';
+            errorDiv.style.color = 'red';
+            errorDiv.style.fontSize = '12px';
+            document.getElementById(elementId).parentNode.appendChild(errorDiv);
+        }
+        errorDiv.textContent = message;
+        isValid = false;
+    }
+
+    // Validate Branch
+    const branch = document.getElementById('branch');
+    if (!branch.value) {
+        showError('branch', 'Branch is required');
+    }
+
+    // Validate Course
+    const course = document.getElementById('course');
+    if (!course.value) {
+        showError('course', 'Course is required');
+    }
+
+    // Validate Current Year
+    const currentYear = document.getElementById('current_year');
+    if (!currentYear.value) {
+        showError('current_year', 'Current year is required');
+    }
+
+    // Validate Pass Out Year
+    const passOutYear = document.getElementById('pass_out_year');
+    if (!passOutYear.value) {
+        showError('pass_out_year', 'Pass out year is required');
+    }
+
+    // Validate Current Arrears
+    const currentArrears = document.getElementById('current_arrears');
+    if (!currentArrears.value.trim()) {
+        showError('current_arrears', 'Current arrears is required');
+    }
+
+    // Validate CGPA
+    const cgpa = document.getElementById('cgpa');
+    if (!cgpa.value) {
+        showError('cgpa', 'CGPA is required');
+    } else if (isNaN(cgpa.value) || cgpa.value < 0 || cgpa.value > 10) {
+        showError('cgpa', 'Please enter a valid CGPA between 0 and 10');
+    }
+
+    // Validate 12th Details
+    const schoolName12th = document.getElementById('school_name_twelfth');
+    if (!schoolName12th.value.trim()) {
+        showError('school_name_twelfth', '12th school name is required');
+    }
+
+    const board12th = document.getElementById('board_twelfth');
+    if (!board12th.value.trim()) {
+        showError('board_twelfth', '12th board is required');
+    }
+
+    const passOutYear12th = document.getElementById('pass_out_year_twelfth');
+    if (!passOutYear12th.value.trim()) {
+        showError('pass_out_year_twelfth', '12th pass out year is required');
+    }
+
+    const percentage12th = document.getElementById('percentage_twelfth');
+    if (!percentage12th.value.trim()) {
+        showError('percentage_twelfth', '12th percentage is required');
+    } else if (isNaN(percentage12th.value) || percentage12th.value < 0 || percentage12th.value > 100) {
+        showError('percentage_twelfth', 'Please enter a valid percentage between 0 and 100');
+    }
+
+    // Validate 10th Details
+    const schoolName10th = document.getElementById('school_name_tenth');
+    if (!schoolName10th.value.trim()) {
+        showError('school_name_tenth', '10th school name is required');
+    }
+
+    const board10th = document.getElementById('board_tenth');
+    if (!board10th.value.trim()) {
+        showError('board_tenth', '10th board is required');
+    }
+
+    const passOutYear10th = document.getElementById('pass_out_year_tenth');
+    if (!passOutYear10th.value.trim()) {
+        showError('pass_out_year_tenth', '10th pass out year is required');
+    }
+
+    const percentage10th = document.getElementById('percentage_tenth');
+    if (!percentage10th.value.trim()) {
+        showError('percentage_tenth', '10th percentage is required');
+    } else if (isNaN(percentage10th.value) || percentage10th.value < 0 || percentage10th.value > 100) {
+        showError('percentage_tenth', 'Please enter a valid percentage between 0 and 100');
+    }
+
+    return isValid;
+}
+           function validateDOB() {
+        const dob = document.getElementById('dob').value;
+        const dobError = document.getElementById('dob-error');
+        const minDate = new Date('1990-01-01');
+        const maxDate = new Date('2009-01-01');
+        const selectedDate = new Date(dob);
+
+        if (selectedDate < minDate || selectedDate > maxDate) {
+            dobError.textContent = "Date of birth must be between 1st Jan 1990 and 1st Jan 2009.";
+            return false;
+        } else {
+            dobError.textContent = ""; // Clear error
+            return true;
+        }
+    }
+
+    // Validate Phone Number
+    function validatePhone() {
+        const phone = document.getElementById('number').value;
+        const phoneError = document.getElementById('phone-error');
+        const phoneRegex = /^[0-9]{10}$/; // Regex for 10 digits
+
+        if (!phoneRegex.test(phone)) {
+            phoneError.textContent = "Phone number must be a 10-digit number.";
+            return false;
+        } else {
+            phoneError.textContent = ""; 
+            return true;// Clear error
+        }
+    }
+
+    // Validate Email
+    function validateEmail() {
+        const email = document.getElementById('email').value;
+        const emailError = document.getElementById('email-error');
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/; // Simple email regex
+
+        if (!emailRegex.test(email)) {
+            emailError.textContent = "Please enter a valid email address.";
+            return false;
+        } else {
+            emailError.textContent = "";
+            return true; // Clear error
+        }
+    }
+    function isNumeric(value) {
+        return !isNaN(value) && value.trim() !== ""; // Check if the value is a number and not empty
+    }
+
+    function validateCGPA() {
+        const cgpa = document.getElementById('cgpa');
+        const errorContainer = document.getElementById('cgpa-error');
+    
+        // Clear previous error message
+        errorContainer.textContent = ""; 
+
+        // Check if CGPA is a numeric value
+        if (!isNumeric(cgpa.value)) {
+            errorContainer.textContent = "CGPA must be a numeric value.";
+            return false; // Validation failed
+        }
+
+         // Check if CGPA is within the range of 0 to 10
+        const cgpaValue = parseFloat(cgpa.value);
+        if (cgpaValue < 0 || cgpaValue > 10) {
+            errorContainer.textContent = "CGPA must be between 0 and 10.";
+            return false; // Validation failed
+        }
+        return true; // Validation passed
+    }
+
+    function validatePercentage12th() {
+        const percentage12th = document.getElementById('percentage_twelfth');
+        const errorContainer = document.getElementById('percentage12th-error');
+    
+        // Clear previous error message
+        errorContainer.textContent = ""; 
+
+        if (!isNumeric(percentage12th.value)) {
+            errorContainer.textContent = "Percentage in 12th must be a numeric value.";
+            return false; // Validation failed
+        }
+        return true; // Validation passed
+    }
+
+    function validatePercentage10th() {
+        const percentage10th = document.getElementById('percentage_tenth');
+        const errorContainer = document.getElementById('percentage10th-error');
+    
+        // Clear previous error message
+        errorContainer.textContent = ""; 
+
+        if (!isNumeric(percentage10th.value)) {
+            errorContainer.textContent = "Percentage in 10th must be a numeric value.";
+            return false; // Validation failed
+        }
+        return true; // Validation passed
+    }
+    window.onload = function() {
+        loadProfilePicture();
+        document.getElementById('cgpa').onblur = validateCGPA;
+        document.getElementById('percentage_twelfth').onblur = validatePercentage12th;
+        document.getElementById('percentage_tenth').onblur = validatePercentage10th;
+    };
+
+
+   
+// Add event listeners when the document loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Bind validation functions to input events
+    document.getElementById('cgpa').addEventListener('input', validateCGPA);
+    document.getElementById('percentage_twelfth').addEventListener('input', validatePercentage12th);
+    document.getElementById('percentage_tenth').addEventListener('input', validatePercentage10th);
+    
+    // Add form submit event listener
+    document.querySelector('form').addEventListener('submit', function(e) {
+        if (!validateForm2()) {
+            e.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+});
     // Change Profile Picture
     function triggerFileInput() {
         document.getElementById('fileInput').click();
@@ -679,7 +1017,7 @@ $conn->close();
             tab.addEventListener('click', () => {
                 mobileTabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-            );
+            });
         });
     
         // Adjust main content and container margin based on sidebar width
