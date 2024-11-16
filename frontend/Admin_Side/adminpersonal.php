@@ -219,6 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .container {
             padding: 18px 20px;
             width: 1268px;
+            height: 55px;
             margin-left: 245px; /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
@@ -228,11 +229,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+        }
+
+        .container h3{
+            margin-right: 450px;
+            font-weight: 700;
         }
 
         .icon {
-            margin-left: 15px;
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -241,6 +247,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             transform: scale(1.1);
         }
 
+        img {
+            height: 40px; /* Adjust size as needed */
+            width: auto;
+        }
+
+          
         /* Dropdown menu styling */
         .dropdown-content {
             display: none;

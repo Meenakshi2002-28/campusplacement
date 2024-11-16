@@ -224,6 +224,7 @@ $conn->close();
             margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
+            border-radius: 100px;
         }
 
         .icon:hover {
@@ -268,19 +269,20 @@ $conn->close();
             background-color: #1e3d7a;
         }
 
-        .profile img {
-            height: 200px;
-            width: auto;
-            margin: 0;
-            padding-left: 150px;
-            cursor: pointer;
-            border-radius: 50%;
-            object-fit: cover;
+        .profile-picture {
+            width: 200px; /* Adjust width as needed */
+            height: 200px; /* Ensure height equals width for a square */
+            border-radius: 100px;/* Make it circular; use 0% for square */
+            overflow: hidden; /* Hide overflow for perfect circle */
+             /* Optional border for profile picture */
+            margin-bottom: 20px; /* Space below profile picture */
+            position: relative;
+            display: inline-block;
         }
 
-        .profile {
-            margin-top: -10px;
-            margin-left: -110px;
+        .profile-picture img {
+            width: 100%; /* Ensure image fits the container */
+            height: auto; /* Maintain aspect ratio */
         }
 
         .text {
@@ -362,6 +364,53 @@ $conn->close();
             background-color: #1e165f;
             color: white;
         }
+        #editImageButton {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            background-color: #AFC8F3;
+            color: black;
+            font-size: 15px;
+            border: none;
+            margin-bottom: 2px;
+            width: 60px;
+            height: 30px;
+            padding: 0px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .profile-picture:hover #editImageButton {
+            display: block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 260px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .modal button{
+            margin-left: 120px;
+            margin-top: 5px;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #000;
+        }
     </style>
 </head>
 
@@ -397,19 +446,36 @@ $conn->close();
         </div>
     </div>
     <div class="main-content">
-        <div class="profile">
-            <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture"
-                onclick="triggerFileInput()">
+    <div class="profile-picture" onmouseover="showEditButton()" onmouseout="hideEditButton()">
+                <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture">
+                <button id="editImageButton" style="display: none;" onclick="openModal()">EDIT</button>
+            </div>
+
+            <!-- Modal Structure -->
+            <div id="profileModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeModal()">&times;</span>
+                    <h4>Profile Pic</h4>
+                    <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
+                        Use 300 X 300 px image for profile pic.</p>
+
+                    <!-- Form for file upload -->
+                    <form id="uploadForm" action="adminpicture.php" method="post" enctype="multipart/form-data">
+                        <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
+                        <button type="submit" name="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
             <div class="text">
                 <h4><?php echo htmlspecialchars($adminDetails['name']); ?></h4> <!-- Admin's name -->
                 <p>Admin</p>
             </div>
-        </div>
+       
 
         <div id="personal" class="details active">
             <h2>Personal Details</h2>
-            <form>
-                <table>
+            <form method="POST" action="profileedit.php">
+            <table>
                     <tr>
                         <td>Name </td>
                         <td>
@@ -430,13 +496,79 @@ $conn->close();
                     </tr>
                 </table>
                 <div class="button-container">
-                    <button type="button" onclick="enableEdit()">EDIT</button> <!-- Add an edit button -->
+                <button type="button" onclick="enableEdit()">EDIT</button> <!-- Add an edit button -->
+                <button type="submit" id="saveBtn" style="display: none;">SAVE</button> <!-- Save button initially hidden -->
                 </div>
             </form>
         </div>
     </div>
 
     <script>
+         function enableEdit() {
+        // Get all input fields
+        var inputs = document.querySelectorAll('#name, #email, #phone');
+        
+        // Loop through inputs and remove the 'readonly' attribute
+        inputs.forEach(function(input) {
+            input.removeAttribute('readonly');
+        });
+
+        // Show the Save button
+        document.querySelector('#saveBtn').style.display = 'inline-block';
+
+        // Change button text to "Save"
+        document.querySelector('.button-container button').textContent = "Cancel";
+        document.querySelector('.button-container button').setAttribute('type', 'button');
+        document.querySelector('.button-container button').setAttribute('onclick', 'cancelEdit()');
+    }
+
+    function cancelEdit() {
+        // Get all input fields
+        var inputs = document.querySelectorAll('#name, #email, #phone');
+        
+        // Loop through inputs and reset the value to original
+        inputs.forEach(function(input) {
+            input.value = input.defaultValue;
+            input.setAttribute('readonly', 'readonly');
+        });
+
+        // Hide the Save button
+        document.querySelector('#saveBtn').style.display = 'none';
+
+        // Change button text back to "Edit"
+        document.querySelector('.button-container button').textContent = "EDIT";
+        document.querySelector('.button-container button').setAttribute('onclick', 'enableEdit()');
+    }
+             function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_adminprofilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                document.getElementById('sidebarProfilePicture').src = profilePath;
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+
+    window.onload = loadProfilePicture;
+    function showEditButton() {
+        document.getElementById('editImageButton').style.display = 'block';
+    }
+
+    function hideEditButton() {
+        document.getElementById('editImageButton').style.display = 'none';
+    }
+
+    function openModal() {
+        document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('profileModal').style.display = 'none';
+    }
+
     // Change profile image
     function triggerFileInput() {
         document.getElementById('fileInput').click();

@@ -446,15 +446,66 @@ $conn->close();
             height: 100%;
             object-fit: cover; /* Ensures the image scales properly within the div */
         }
+        .error-message {
+            color: red;
+            font-size: 12px; /* Make the error message text smaller */
+            margin-top: 5px; /* Add space between input and error message */
+        }
+        #editImageButton {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            background-color: #AFC8F3;
+            color: black;
+            font-size: 15px;
+            border: none;
+            margin-bottom: 2px;
+            width: 60px;
+            height: 30px;
+            padding: 0px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .profile-picture:hover #editImageButton {
+            display: block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 260px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .modal button{
+            margin-left: 120px;
+            margin-top: 5px;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #000;
+        }
     </style>
 </head>
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+    <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -480,8 +531,26 @@ $conn->close();
     <!-- Main Content -->
     <div class="main-content">
         <div class="sub-sidebar">
-            <div class="profile-picture">
-                <img src="../images/Customer.png" alt="Profile Picture"> <!-- Add your profile picture source here -->
+        <div class="profile-picture" onmouseover="showEditButton()" onmouseout="hideEditButton()">
+                <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture">
+                <button id="editImageButton" style="display: none;" onclick="openModal()">EDIT</button>
+            </div>
+
+            <!-- Modal Structure -->
+            <div id="profileModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeModal()">&times;</span>
+                    <h4>Profile Pic</h4>
+                    <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
+                        Use 300 X 300 px image for profile pic.</p>
+
+                    <!-- Form for file upload -->
+                    <form id="uploadForm" action="stdpicture.php" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
+                        <button type="submit" name="submit">Submit</button>
+                    </form>
+                </div>
             </div>
 
             <div class="text">
@@ -614,6 +683,184 @@ $conn->close();
     </div>
     <!-- JavaScript -->
     <script>
+          var user_id = '<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>';
+            function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_stdprofilepicture.php?user_id=' + encodeURIComponent(user_id), true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                document.getElementById('sidebarProfilePicture').src = profilePath;
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+
+    window.onload = loadProfilePicture;
+    function showEditButton() {
+        document.getElementById('editImageButton').style.display = 'block';
+    }
+
+    function hideEditButton() {
+        document.getElementById('editImageButton').style.display = 'none';
+    }
+
+    function openModal() {
+        document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('profileModal').style.display = 'none';
+    }
+
+         function validateDOB() {
+        const dob = document.getElementById('dob').value;
+        const dobError = document.getElementById('dob-error');
+        const minDate = new Date('1990-01-01');
+        const maxDate = new Date('2009-01-01');
+        const selectedDate = new Date(dob);
+
+        if (selectedDate < minDate || selectedDate > maxDate) {
+            dobError.textContent = "Date of birth must be between 1st Jan 1990 and 1st Jan 2009.";
+            return false;
+        } else {
+            dobError.textContent = ""; // Clear error
+            return true;
+        }
+    }
+
+    // Validate Phone Number
+    function validatePhone() {
+        const phone = document.getElementById('number').value;
+        const phoneError = document.getElementById('phone-error');
+        const phoneRegex = /^[0-9]{10}$/; // Regex for 10 digits
+
+        if (!phoneRegex.test(phone)) {
+            phoneError.textContent = "Phone number must be a 10-digit number.";
+            return false;
+        } else {
+            phoneError.textContent = ""; 
+            return true;// Clear error
+        }
+    }
+
+    // Validate Email
+    function validateEmail() {
+        const email = document.getElementById('email').value;
+        const emailError = document.getElementById('email-error');
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/; // Simple email regex
+
+        if (!emailRegex.test(email)) {
+            emailError.textContent = "Please enter a valid email address.";
+            return false;
+        } else {
+                emailError.textContent = "";
+                return true; // Clear error
+        }
+    }
+
+    function isNumeric(value) {
+        return !isNaN(value) && value.trim() !== ""; // Check if the value is a number and not empty
+    }
+
+    function validateCGPA() {
+        const cgpa = document.getElementById('cgpa');
+        const errorContainer = document.getElementById('cgpa-error');
+    
+        // Clear previous error message
+        errorContainer.textContent = ""; 
+
+        // Check if CGPA is a numeric value
+        if (!isNumeric(cgpa.value)) {
+            errorContainer.textContent = "CGPA must be a numeric value.";
+            return false; // Validation failed
+        }
+
+        // Check if CGPA is within the range of 0 to 10
+        const cgpaValue = parseFloat(cgpa.value);
+        if (cgpaValue < 0 || cgpaValue > 10) {
+            errorContainer.textContent = "CGPA must be between 0 and 10.";
+            return false; // Validation failed
+        }
+        return true; // Validation passed
+    }
+
+    function validatePercentage12th() {
+        const percentage12th = document.getElementById('percentage_twelfth');
+        const errorContainer = document.getElementById('percentage12th-error');
+    
+        // Clear previous error message
+        errorContainer.textContent = ""; 
+
+        if (!isNumeric(percentage12th.value)) {
+            errorContainer.textContent = "Percentage in 12th must be a numeric value.";
+            return false; // Validation failed
+        }
+        return true; // Validation passed
+    }
+
+    function validatePercentage10th() {
+        const percentage10th = document.getElementById('percentage_tenth');
+        const errorContainer = document.getElementById('percentage10th-error');
+    
+        // Clear previous error message
+        errorContainer.textContent = ""; 
+
+        if (!isNumeric(percentage10th.value)) {
+            errorContainer.textContent = "Percentage in 10th must be a numeric value.";
+            return false; // Validation failed
+        }
+        return true; // Validation passed
+    }
+  
+
+    function validateForm() {
+        let isValid = true;
+        const errorContainer = document.getElementById('form-error');
+        errorContainer.textContent = ""; // Clear previous error message
+
+        // Call individual validations
+        if (!validateDOB()) isValid = false;
+        if (!validatePhone()) isValid = false;
+        if (!validateEmail()) isValid = false;
+
+        // Check if branch is selected
+        const branch = document.getElementById('branch').value;
+        if (branch === "") {
+            isValid = false;
+        }
+
+        // Check if course is selected
+        const course = document.getElementById('course').value;
+        if (course === "") {
+            isValid = false;
+        }
+
+        // Check if current year is selected
+        const currentYear = document.getElementById('current_year').value;
+        if (currentYear === "") {
+            isValid = false;
+        }
+
+        // Check if pass-out year is selected
+        const passOutYear = document.getElementById('pass_out_year').value;
+        if (passOutYear === "") {
+            isValid = false;
+        }
+
+        // Check if gender is selected
+        const gender = document.querySelector('input[name="gender"]:checked');
+        if (!gender) {
+            isValid = false;
+        }
+
+        // If any required field is missing, show a unified error message
+        if (!isValid) {
+            errorContainer.textContent = "All fields are required and must be valid.";
+        }
+        return isValid; // Form submits only if all validations pass
+    }
     // Change Profile Picture
     function triggerFileInput() {
         document.getElementById('fileInput').click();
