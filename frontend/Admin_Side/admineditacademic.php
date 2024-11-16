@@ -65,6 +65,8 @@ $conn->close();
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -96,10 +98,11 @@ $conn->close();
             top: 20px; /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
             text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .sidebar:hover {
@@ -211,10 +214,6 @@ $conn->close();
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
-        }
-
         img{
             height: 40px;
             width: auto;
@@ -253,17 +252,6 @@ $conn->close();
             background-color: #1e3d7a;
         }
         
-        .sidebar .logo {
-            position: absolute;
-            top: 20px; /* Keep the same positioning */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px; /* Increase the font size here */
-            font-weight: bold;
-            color: white;
-            text-align: center;
-        }
-
         .tabs {
             display: flex;
             flex-direction: column; /* Arrange tabs vertically */
@@ -321,6 +309,7 @@ $conn->close();
             width: 100%; /* Ensure image fits the container */
             height: auto; /* Maintain aspect ratio */
         }
+
         .text {
             padding-top: 1px;
         }
@@ -429,6 +418,7 @@ $conn->close();
             background-color: #1e3d7e;
             color: white;
         }
+
         #editImageButton {
             position: absolute;
             top: 90%;
@@ -464,10 +454,12 @@ $conn->close();
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
+
         .modal button{
             margin-left: 120px;
             margin-top: 5px;
         }
+
         .close-button {
             position: absolute;
             top: 10px;
@@ -481,7 +473,7 @@ $conn->close();
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/profile.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
 
@@ -492,13 +484,12 @@ $conn->close();
         </div>
     </div>    
 
-
     <div class="sidebar">
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
         <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php"  class="active"><i class="fas fa-briefcase"></i> Jobs</a>
-        <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="view_students.php" class="active"><i class="fas fa-user-graduate"></i> Students</a>
         <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
         <a href="company.html"><i class="fas fa-building"></i> Company</a>
         <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>

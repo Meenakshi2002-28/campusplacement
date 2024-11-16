@@ -42,6 +42,7 @@ $conn->close();
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -64,27 +65,24 @@ $conn->close();
             background: linear-gradient(135deg, #022a52fd, #063dc9);
             color: white;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            /* Transparent glow effect */
             transition: width 0.4s ease-in-out;
             padding-top: 80px;
-            /* Added padding for space at the top */
         }
 
         .sidebar .logo {
             position: absolute;
             top: 20px;
-            /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
             text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .sidebar:hover {
             width: 250px;
-            /* Expands sidebar on hover */
         }
 
         .sidebar a {
@@ -153,7 +151,6 @@ $conn->close();
             border-left: 4px solid #ffffff;
             padding-left: 30px;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-            /* Glow effect */
         }
 
         .sidebar .logout {
@@ -165,7 +162,6 @@ $conn->close();
 
         .sidebar a.active {
             background-color: #d9e6f4;
-            /* Background color for active link */
             border-left: 4px solid #ffffff;
             padding-left: 30px;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
@@ -197,7 +193,6 @@ $conn->close();
         .main-content h1 {
             color: #050505;
             font-size: 2.5rem;
-            /* Increased font size */
             font-weight: bold;
             padding-bottom: 10px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -225,10 +220,6 @@ $conn->close();
             cursor: pointer;
             transition: transform 0.3s;
             border-radius: 100px;
-        }
-
-        .icon:hover {
-            transform: scale(1.1);
         }
 
         img {
@@ -274,7 +265,6 @@ $conn->close();
             height: 200px; /* Ensure height equals width for a square */
             border-radius: 100px;/* Make it circular; use 0% for square */
             overflow: hidden; /* Hide overflow for perfect circle */
-             /* Optional border for profile picture */
             margin-bottom: 20px; /* Space below profile picture */
             position: relative;
             display: inline-block;
@@ -286,8 +276,8 @@ $conn->close();
         }
 
         .text {
-            padding-top: 1px;
-            padding-left: 150px;
+            padding-top: -10px;
+            padding-left: 20px;
         }
 
         .text p {
@@ -389,8 +379,8 @@ $conn->close();
         .modal {
             display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 45%;
+            left: 45%;
             transform: translate(-50%, -50%);
             width: 400px;
             height: 260px;
@@ -403,6 +393,7 @@ $conn->close();
             margin-left: 120px;
             margin-top: 5px;
         }
+
         .close-button {
             position: absolute;
             top: 10px;
@@ -421,6 +412,7 @@ $conn->close();
         <input type="file" id="fileInput" style="display: none;" accept="image/*"
             onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
+
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -428,8 +420,6 @@ $conn->close();
         </div>
     </div>
 
-
-    <!-- Sidebar -->
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->

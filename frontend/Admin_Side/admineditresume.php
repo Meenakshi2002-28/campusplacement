@@ -43,7 +43,9 @@ $conn->close();
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> 
+    <!-- SweetAlert CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
@@ -76,10 +78,11 @@ $conn->close();
             top: 20px; /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
             text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .sidebar:hover {
@@ -192,10 +195,6 @@ $conn->close();
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
-        }
-
         img{
             height: 40px;
             width: auto;
@@ -234,17 +233,6 @@ $conn->close();
             background-color: #1e3d7a;
         }
         
-        .sidebar .logo {
-            position: absolute;
-            top: 20px; /* Keep the same positioning */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px; /* Increase the font size here */
-            font-weight: bold;
-            color: white;
-            text-align: center;
-        }
-
         .tabs {
             display: flex;
             flex-direction: column; /* Arrange tabs vertically */

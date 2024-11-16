@@ -88,7 +88,6 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         .sidebar .logo {
             position: absolute;
             top: 20px;
-            /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
             font-size: 32px;
@@ -326,19 +325,6 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             font-weight: bold;
             color: #04070b;
             transition: transform 0.3s ease-in-out;
-        }
-
-        .sidebar .logo {
-            position: absolute;
-            top: 20px;
-            /* Keep the same positioning */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px;
-            /* Increase the font size here */
-            font-weight: bold;
-            color: white;
-            text-align: center;
         }
 
         .container h3 {
