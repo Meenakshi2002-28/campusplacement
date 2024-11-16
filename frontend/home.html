@@ -23,7 +23,7 @@
             justify-content: flex-end;
             padding: 15px;
             width: 100%;
-            position: fixed;
+            position: relative;
             z-index: 1000; /* Ensure it is above other content */
       
         }
@@ -72,26 +72,26 @@
         }
 
         .footer {
-            position: fixed;
+            position:relative;
             left: 0;
             bottom: 0;
             width: 100%;
             background-color: #241A64;
             color: white;
             text-align: center;
-            padding: 25px;
-            margin-top: 10px;
+            padding: 40px;
+            margin-top:30px;
         }
 
         .content {
-            display: flex;
+            display:flex;
             justify-content: space-between;
             align-items: center;
             padding: 40px;
-            margin-bottom: 40px;
+            margin-bottom: -30px;
             font-family: Georgia;
             padding-top: 90px;
-            margin-bottom: 70px;
+            position:relative;
         }
         .content h1 {
             font-size: 50px;
@@ -236,12 +236,14 @@
         
         .about-us-container {
             width: 100%;
+            height:100%;
             max-width: 100%;
-            margin-top: -25px;
+            margin-top: 0px;
             padding: 20px;
             margin-bottom: 30px;
             background-color: #0c122e;
             overflow-x: hidden;
+            
         }
 
         @keyframes slideIn {
@@ -262,15 +264,16 @@
             background-color: #fff;
             padding: 40px;
             border-radius: 20px; 
-            margin-left: 200px;
-            margin-right: 200px;
-            margin-top: 20px;
-            font-family: Arial, sans-serif;
-            margin-bottom: 5x;
+            margin-left: 190px;
+            margin-right: 190px;
+            margin-top: 90px;
+            font-family: serif;
+            margin-bottom: x;
         }
 
         .text-section {
-            max-width: 60%;
+            max-width: 70%;
+            width:70%;
         }
 
         .text-section h1 {
@@ -284,17 +287,20 @@
             color: #292323;
             margin-bottom: 20px;
             line-height: 1.5;
+            
         }
 
         .cta-button {
             background-color: #fcae06;
             color: #fff;
-            padding: 10px 20px;
+            padding: 10px 30px;
             border-radius: 10px;
-            text-decoration: none;
             font-weight: bold;
             transition: background-color 0.3s ease;
-            margin-left: 10px;
+            margin-left: 6px;
+            font-size: 15px;
+            border: #fcae06;
+            
         }
 
         .cta-button:hover {
@@ -333,7 +339,9 @@
         <div class="image">
             <img src="images/job.png" alt="welcome">
         </div>
+        
     </div>
+    <div class="footer"></div>
 
     <div class="about-us-container">
         <div class="about-us-content">
@@ -346,12 +354,19 @@
                     Lavoro enables students to browse, search, and apply for job openings in a centralized, organized manner. 
                     By simplifying the recruitment process, we aim to make it easier for students to take charge of their career paths.
                 </p>
+                <a href="create_account.php">
+                    <button class="cta-button">SIGN UP</button>
+                </a>
             </div>
+        
             <div class="image-section">
                 <img src="images/aboutus2.png" alt="Team Illustration">
             </div>
+            <div>
+           
+            </div>
         </div>     
     </div>
-    <div class="footer"></div>
+    
 </body>
 </html>
