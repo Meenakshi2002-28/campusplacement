@@ -19,6 +19,8 @@ if ($conn->connect_error) {
 
 // Get user_id from session
 $user_id = $_SESSION['user_id'];
+$_SESSION['current_page'] = $_SERVER['REQUEST_URI'];  // Store the current page URL
+
 
 // Prepare SQL statement
 $sql = "SELECT resume,name FROM student WHERE user_id = ?";
