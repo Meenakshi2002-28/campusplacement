@@ -91,8 +91,8 @@ if (isset($_GET['token'])) {
         }
 
         .password-box h1 {
-            font-size: 24px;
-            margin-bottom: 30px;
+            font-size: 26px;
+            margin-bottom: 20px;
             font-weight: bold;
         }
 
@@ -104,7 +104,7 @@ if (isset($_GET['token'])) {
 
         .password-box input {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             margin-bottom: 20px;
             border-radius: 5px;
             border: none;
@@ -118,13 +118,14 @@ if (isset($_GET['token'])) {
 
         .password-box button {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background-color: #ffffff;
             color: #281f63;
             border: none;
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 17px;
         }
 
         .password-box button:hover {
@@ -162,17 +163,14 @@ if (isset($_GET['token'])) {
             height: 35px;
         }
         .logo-container {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    }
-    .logo {
-    height: 55px;
-    width: auto;
-    }
-    .error-message {
-            color: red;
-            font-size: 12px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .logo {
+            height: 55px;
+            width: auto;
         }
     </style>
 </head>
@@ -189,23 +187,18 @@ if (isset($_GET['token'])) {
     <?php endif; ?>
         <form action="#" method="POST">
             <div class="input-wrapper">
-                <input type="password" name="new_password"placeholder="New Password" id="password"  required
-                    onblur="validatePassword()">
-                <div id="password-error" class="error-message"></div>
-                </span>
+                <input type="password" name="new_password"placeholder="New Password" id="new-password" required>
+                <span class="toggle-visibility" onclick="togglePasswordVisibility('new-password', this)"></span>
             </div>
+            
             <div class="input-wrapper">
-                <input type="password" placeholder="Confirm Password" name="confirm_password" id="confirm-password" required onblur="validateConfirmPassword()"required>
-                <div id="confirm-password-error" class="error-message"></div>
-
-                   
-                </span>
+                <input type="password" placeholder="Confirm Password" name="confirm_password" id="confirm-password" required>
+                <span class="toggle-visibility" onclick="togglePasswordVisibility('confirm-password', this)"></span>
             </div>
             <button type="submit">SUBMIT</button>
         </form>
         <a href="login.php" class="back-to-login">← Back to Login</a>
     </div>
-
     <script>
           function validatePassword() {
             var password = document.getElementById('password').value;

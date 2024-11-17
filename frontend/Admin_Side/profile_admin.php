@@ -219,7 +219,6 @@ $conn->close();
             margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
-            border-radius: 100px;
         }
 
         img {
@@ -263,11 +262,14 @@ $conn->close();
         .profile-picture {
             width: 200px; /* Adjust width as needed */
             height: 200px; /* Ensure height equals width for a square */
-            border-radius: 100px;/* Make it circular; use 0% for square */
+            border-radius: 10px;/* Make it circular; use 0% for square */
             overflow: hidden; /* Hide overflow for perfect circle */
             margin-bottom: 20px; /* Space below profile picture */
             position: relative;
             display: inline-block;
+            margin-top: 10px;
+            margin-left: 15px;
+            
         }
 
         .profile-picture img {
@@ -281,13 +283,13 @@ $conn->close();
         }
 
         .text p {
-            padding-left: 35px;
+            padding-left: 55px;
             font-size: 22px;
         }
 
         .text h4 {
             font-size: 23px;
-            padding-left: 16px;
+            padding-left: -10px;
         }
 
         .text h4,p {
@@ -299,7 +301,7 @@ $conn->close();
             background-color: white;
             max-width: 700px;
             margin: auto;
-            margin-top: -210px;
+            margin-top: -230px;
             display: none;
         }
 
@@ -322,6 +324,7 @@ $conn->close();
             vertical-align: middle;
             text-align: left;
             border: none;
+            margin-left: 40px;
         }
 
         input,select {
@@ -330,6 +333,7 @@ $conn->close();
             border: 1px solid #ddd;
             font-size: 16px;
             width: 100%;
+            margin-left: 20px;
         }
 
         .button-container {
@@ -380,7 +384,7 @@ $conn->close();
             display: none;
             position: fixed;
             top: 45%;
-            left: 45%;
+            left: 47%;
             transform: translate(-50%, -50%);
             width: 400px;
             height: 260px;
