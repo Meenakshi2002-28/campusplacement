@@ -56,7 +56,9 @@ $conn->close();
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+    <!-- SweetAlert CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
@@ -89,10 +91,11 @@ $conn->close();
             top: 20px; /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
             text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .sidebar:hover {
@@ -205,12 +208,6 @@ $conn->close();
             transition: transform 0.3s;
         }
 
-        .logo img{
-            height: 250px;
-            width: auto;
-            margin-top: -90px;
-        }
-
         img{
             height: 40px;
             width: auto;
@@ -247,17 +244,6 @@ $conn->close();
 
         .dropdown-content a:hover {
             background-color: #1e3d7a;
-        }
-
-        .sidebar .logo {
-            position: absolute;
-            top: 20px; /* Keep the same positioning */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px; /* Increase the font size here */
-            font-weight: bold;
-            color: white;
-            text-align: center;
         }
 
         .tabs {
@@ -418,6 +404,7 @@ $conn->close();
             padding: 20px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
+            overflow: hidden;
         }
 
         .modal button{
@@ -451,9 +438,7 @@ $conn->close();
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Logo or Website Name -->
-        <div class="logo">
-            <img src="../images/logo_white.png">
-        </div>
+        <div class="logo">Lavoro</div>
         <a href="dashboard_std.php"><i class="fa fa-fw fa-home"></i> Home</a>
         <a href="job.php"><i class="fa fa-fw fa-search"></i> Jobs</a>
         <a href="userapp.php"><i class="fa fa-fw fa-envelope"></i> Applications</a>
