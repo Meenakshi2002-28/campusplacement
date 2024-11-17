@@ -359,7 +359,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 
         /* Style the search bar container */
         .search-bar-container {
-            margin-left: 350px;
+            margin-left: 320px;
         }
 
         /* Style the search bar */
@@ -368,7 +368,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            width: 250px;
+            width: 350px;
         }
 
         .search-bar:focus {

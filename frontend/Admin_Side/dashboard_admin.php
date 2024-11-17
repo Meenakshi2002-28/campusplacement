@@ -201,7 +201,6 @@ if (isset($_SESSION['user_id'])) {
             background-color: #ffffff;
             height: 86.5vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */   
-            overflow-y: auto; 
         }
 
         .main-content h1 {
