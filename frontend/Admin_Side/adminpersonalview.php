@@ -72,6 +72,7 @@ $conn->close();
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -103,10 +104,11 @@ $conn->close();
             top: 20px; /* Positions logo/title closer to the top */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
             text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .sidebar:hover {
@@ -225,10 +227,6 @@ $conn->close();
             transition: transform 0.3s;
         }
 
-        .icon:hover {
-            transform: scale(1.1);
-        }
-
         img {
             height: 40px; /* Adjust size as needed */
             width: auto;
@@ -265,17 +263,6 @@ $conn->close();
 
         .dropdown-content a:hover {
             background-color: #1e3d7a;
-        }
-
-        .sidebar .logo {
-            position: absolute;
-            top: 20px; /* Keep the same positioning */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px; /* Increase the font size here */
-            font-weight: bold;
-            color: white;
-            text-align: center;
         }
 
         .tabs {
@@ -554,7 +541,9 @@ $conn->close();
                         Use 300 X 300 px image for profile pic.</p>
 
                     <!-- Form for file upload -->
-                    <form id="uploadForm" action="picture.php" method="post" enctype="multipart/form-data">
+                    <form id="uploadForm" action="stdpicture.php" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>">
+
                         <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
                         <button type="submit" name="submit">Submit</button>
                     </form>
