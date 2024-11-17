@@ -63,7 +63,8 @@ if (isset($_GET['token'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Password</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+    <title>Campus Recruitment System</title>
     <style>
         * {
             margin: 0;
@@ -77,7 +78,7 @@ if (isset($_GET['token'])) {
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f7f7f7;
+            background-color: white;
         }
 
         .password-box {
@@ -135,7 +136,7 @@ if (isset($_GET['token'])) {
         .back-to-login {
             display: block;
             margin-top: 20px;
-            color: #f8f8f8;
+            color: white;
             text-decoration: none;
         }
 
@@ -164,20 +165,26 @@ if (isset($_GET['token'])) {
         }
         .logo-container {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 10px; /* Positions logo/title closer to the top */
+            left: 30px;
+            font-size: 30px;
+            font-weight:bold;
+            color: #1e3d7a;
+            text-align: center;
+            font-family: 'Merienda', cursive;
         }
-
-        .logo {
-            height: 55px;
-            width: auto;
+    .logo {
+    height: 55px;
+    width: auto;
+    }
+    .error-message {
+            color: red;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
-    <div class="logo-container">
-        <img src="../frontend/images/logo1.png" alt="Logo" class="logo">
-    </div>
+    <div class="logo-container">Lavoro</div>
     <div class="password-box">
         <h1>Change Password</h1>
         <?php if (!empty($message)): ?>

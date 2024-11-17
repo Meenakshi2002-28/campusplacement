@@ -74,7 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Recruitment System - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+    <title>Campus Recruitment System</title>
     <style>
         body {
             margin: 0;
@@ -94,7 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             max-width: 800px;
             padding-left: 350px;
             height: 480px;
-
         }
 
         .login-box {
@@ -104,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 30px;
             width: 350px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
         }
 
         .login-box h2 {
@@ -207,8 +208,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .logo-container {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 10px; /* Positions logo/title closer to the top */
+            left: 30px;
+            font-size: 30px;
+            font-weight:bold;
+            color: #1e3d7a;
+            text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .logo {
@@ -219,9 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
-    <div class="logo-container">
-        <img src="../frontend/images/logo1.png" alt="Logo" class="logo">
-    </div>
+    <div class="logo-container">Lavoro</div>
     <div class="login-container">
         <!-- Login Box -->
         <div class="login-box">
