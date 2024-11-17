@@ -165,21 +165,13 @@ if (isset($_GET['token'])) {
         }
         .logo-container {
             position: absolute;
-            top: 10px; /* Positions logo/title closer to the top */
-            left: 30px;
-            font-size: 30px;
-            font-weight:bold;
-            color: #1e3d7a;
-            text-align: center;
-            font-family: 'Merienda', cursive;
+            top: 10px;
+            left: 10px;
         }
-    .logo {
-    height: 55px;
-    width: auto;
-    }
-    .error-message {
-            color: red;
-            font-size: 12px;
+
+        .logo {
+            height: 55px;
+            width: auto;
         }
     </style>
 </head>

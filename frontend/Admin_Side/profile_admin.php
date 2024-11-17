@@ -399,8 +399,8 @@ $conn->close();
         .modal {
             display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 45%;
+            left: 47%;
             transform: translate(-50%, -50%);
             width: 400px;
             height: 300px;
