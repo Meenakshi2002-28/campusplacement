@@ -104,7 +104,8 @@ if (isset($_SESSION['user_id'])) {
         FROM placement p
         JOIN job j ON p.job_id = j.job_id
         GROUP BY p.job_id
-        ORDER BY students_placed DESC
+        ORDER BY students_placed  DESC
+    LIMIT 4
     ";
     $result = $conn->query($query);
 

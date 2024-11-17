@@ -49,11 +49,11 @@ if (isset($_SESSION['user_id'])) {
     $companies = [];
     $students_placed = [];
     $query = "
-    SELECT j.company_name, COUNT(p.user_id) AS students_placed
-    FROM placement p
-    JOIN job j ON p.job_id = j.job_id
-    GROUP BY p.job_id, j.company_name
-    ORDER BY students_placed DESC
+     SELECT j.company_name, COUNT(p.user_id) AS students_placed
+        FROM placement p
+        JOIN job j ON p.job_id = j.job_id
+        GROUP BY p.job_id
+        ORDER BY students_placed  DESC
     LIMIT 4
 ";
 

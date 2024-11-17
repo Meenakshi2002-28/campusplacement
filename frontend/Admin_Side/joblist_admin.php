@@ -38,7 +38,10 @@ if (isset($_POST['delete_job_id'])) {
 }
 
 // Fetch jobs from the database
-$sql = "SELECT job_id, job_title, company_name, location,  salary, application_deadline FROM job WHERE is_active = 1";
+$sql = "SELECT job_id, job_title, company_name, location, salary, application_deadline 
+        FROM job 
+        WHERE is_active = 1 
+        ORDER BY posted_at DESC";
 $result = $conn->query($sql);
 
 ?>
@@ -718,9 +721,7 @@ function confirmDeletion(jobId, event) {
                     swal("Poof! Your record has been deleted!", {
                         icon: "success",
                     });
-                } else {
-                    swal("Your record is safe!");
-                }
+                } 
             });
         }
         function showSuccessMessage() {
