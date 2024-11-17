@@ -49,12 +49,14 @@ if (isset($_SESSION['user_id'])) {
     $companies = [];
     $students_placed = [];
     $query = "
-        SELECT j.company_name, COUNT(p.user_id) AS students_placed
-        FROM placement p
-        JOIN job j ON p.job_id = j.job_id
-        GROUP BY p.job_id
-        ORDER BY students_placed DESC
-    ";
+    SELECT j.company_name, COUNT(p.user_id) AS students_placed
+    FROM placement p
+    JOIN job j ON p.job_id = j.job_id
+    GROUP BY p.job_id, j.company_name
+    ORDER BY students_placed DESC
+    LIMIT 4
+";
+
     $result = $conn->query($query);
 
     while ($row = $result->fetch_assoc()) {
@@ -424,6 +426,35 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
 <script>
+      function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_adminprofilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+
+    window.onload = loadProfilePicture;
+    function showEditButton() {
+        document.getElementById('editImageButton').style.display = 'block';
+    }
+
+    function hideEditButton() {
+        document.getElementById('editImageButton').style.display = 'none';
+    }
+
+    function openModal() {
+        document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('profileModal').style.display = 'none';
+    }
      const companies = <?php echo json_encode($companies); ?>;
     const studentsPlaced = <?php echo json_encode($students_placed); ?>;
 
