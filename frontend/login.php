@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     
             if ($approval_status !== 'approved') {
-                $error = "Your account is pending approval or has been rejected."; // Assign the error message
+                $error = "<span style='color: red;'>Your account is pending approval or has been rejected.</span>"; // Assign the error message
             } elseif (password_verify($form_password, $db_password)) {
                 // Password matches, create session variables
                 $_SESSION['user_id'] = $db_user_id;
@@ -48,14 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 } elseif ($db_role == 'student') {
                     header('Location: Student_Side/dashboard_std.php');
                 } else {
-                    $error = "Invalid role.";
+                    $error = "<span style='color: red;'>Invalid Role.</span>"; // Assign the error message
                 }
                 exit();
             } else {
-                $error = "Invalid password."; // Assign error message
+                $error = "<span style='color: red;'>Invalid password.</span>"; // Assign the error message
             }
         } else {
-            $error = "No account found with that username."; // Assign error message
+            $error = "<span style='color: red;'>No account found with that username.</span>"; // Assign the error message
+
         }
 
         $stmt->close(); // Close the statement

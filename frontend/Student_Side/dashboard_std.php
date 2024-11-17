@@ -19,27 +19,40 @@ if (isset($_SESSION['user_id'])) {
     // Retrieve the user ID from the session
     $user_id = $_SESSION['user_id'];
 
-    // Initialize variables for user details and profile completion
+    $query = "SELECT name ,resume,cgpa FROM student WHERE user_id = ?";
     $name = '';
-    $cgpa = 0.0;
-    $profile_completion = 0;
-
-    // 1. Fetch the user's name, CGPA, and resume from the student table
-    $query = "SELECT name, cgpa, resume FROM student WHERE user_id = ?";
-    $has_student_row = false;
-    $resume = '';
-
+    
     if ($stmt = $conn->prepare($query)) {
         $stmt->bind_param("s", $user_id);
         $stmt->execute();
-        $stmt->bind_result($name, $cgpa, $resume);
+        $stmt->bind_result($name,$resume,$cgpa);
+        $stmt->fetch(); // Fetch the result immediately
+        $stmt->close(); // Close the statement after use
+    }
+    $query = "SELECT phone_number, email FROM student WHERE user_id = ?";
+    $phone_number = '';
+    $email = '';
+    $has_student_row = false;
 
+    $profile_completion = 0; // Default to 0 if phone_number or email is missing
+    
+    if ($stmt = $conn->prepare($query)) {
+        $stmt->bind_param("s", $user_id);
+        $stmt->execute();
+        $stmt->bind_result( $phone_number, $email);
+    
         if ($stmt->fetch()) {
-            $has_student_row = true;
-            $profile_completion = 40; // Profile completion is 40% if row exists in student table
+            // Check if both phone_number and email are stored
+            if (!empty($phone_number) && !empty($email)) {
+                $profile_completion = 40; // Set profile completion to 40% if both fields are stored
+            }
         }
+    
         $stmt->close();
     }
+    
+    // You now have $name, $phone_number, $email, and $profile_completion available
+    
 
     // 2. Check if there is a row for the user in the academic_details table
     if ($has_student_row) { // Only check if student row exists
