@@ -80,6 +80,7 @@ $result = $conn->query($sql);
             /* Transparent glow effect */
             transition: width 0.4s ease-in-out;
             padding-top: 80px;
+            
             /* Added padding for space at the top */
         }
 
@@ -210,6 +211,7 @@ $result = $conn->query($sql);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             /* Add shadow effect */
             overflow-y: auto;
+            
         }
 
         .main-content h1 {
@@ -223,8 +225,9 @@ $result = $conn->query($sql);
 
         /* Profile section styling */
         .container {
+            
             padding: 18px 20px;
-            width: 1268px;
+            width: 1250px;
             height: 55px;
             margin-left: 245px;
             /* Default margin for container */
@@ -238,9 +241,9 @@ $result = $conn->query($sql);
             background-color: #ffffff;
             transition: margin-left 0.4s ease-in-out;
             /* Smooth transition for margin */
+            
         }
-
-
+       
         .small-icon {
             width: 50px;
             /* Set desired width */
