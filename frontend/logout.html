@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logout Successful</title>
+    <title>Campus Recruitment System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,10 +17,10 @@
         }
 
         .container {
-            background-color: #281f63; 
+            background-color: #281f63;
             color: white;
             border-radius: 15px;
-            padding: 40px;
+            padding: 30px;
             text-align: center;
             width: 350px;
             height: 350px;
@@ -38,7 +39,7 @@
 
         p {
             margin-bottom: 30px;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .back-to-home {
@@ -50,24 +51,46 @@
             font-size: 18px;
         }
 
+        .content a:hover {
+            text-decoration: underline;
+        }
+
         .arrow-icon {
             width: 20px;
             height: 20px;
             margin-right: 10px;
-            vertical-align: middle; 
+            vertical-align: middle;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .logo {
+            height: 55px;
+            width: auto;
         }
     </style>
 </head>
+
 <body>
+    <div class="logo-container">
+        <img src="../frontend/images/logo1.png" alt="Logo" class="logo">
+    </div>
+
     <div class="container">
         <div class="content">
             <img src="images/logout.png" height="60px" class="check">
             <h1>Logout Successfully</h1>
-            <p><p>You have successfully logged out. We hope to see you again soon!</p>
+            <p>
+            <p>You have successfully logged out. We hope to see you again soon!</p>
             <a href="home.html" class="back-to-home">
                 <img src="images/leftarrow.svg" alt="Back arrow" class="arrow-icon"> Back to Home
             </a>
         </div>
     </div>
 </body>
+
 </html>
