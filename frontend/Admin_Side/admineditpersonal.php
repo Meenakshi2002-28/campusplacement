@@ -52,14 +52,23 @@ $sql_academic = "SELECT school_tenth, board_tenth, percentage_tenth, year_tenth,
 $stmt = $conn->prepare($sql_academic);
 $stmt->bind_param("s", $user_id);
 $stmt->execute();
-$stmt->bind_result($school_tenth, $board_tenth, $percentage_tenth, $year_tenth, 
-                   $school_twelfth, $board_twelfth, $percentage_twelfth, $year_twelfth);
+$stmt->bind_result(
+    $school_tenth,
+    $board_tenth,
+    $percentage_tenth,
+    $year_tenth,
+    $school_twelfth,
+    $board_twelfth,
+    $percentage_twelfth,
+    $year_twelfth
+);
 $stmt->fetch();
 $stmt->close();
 $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,13 +98,16 @@ $conn->close();
             top: 0;
             background: linear-gradient(135deg, #022a52fd, #063dc9);
             color: white;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            /* Transparent glow effect */
             transition: width 0.4s ease-in-out;
-            padding-top: 80px; /* Added padding for space at the top */
+            padding-top: 80px;
+            /* Added padding for space at the top */
         }
 
         .sidebar:hover {
-            width: 250px; /* Expands sidebar on hover */
+            width: 250px;
+            /* Expands sidebar on hover */
         }
 
         .sidebar a {
@@ -114,18 +126,45 @@ $conn->close();
 
         /* Fade-in effect for sidebar links */
         @keyframes fadeIn {
-            0% { opacity: 0; transform: translateX(-20px); }
-            100% { opacity: 1; transform: translateX(0); }
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* Delayed animation for each link */
-        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
-        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
-        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
-        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
-        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
-        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
-        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
+        .sidebar a:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .sidebar a:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .sidebar a:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .sidebar a:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .sidebar a:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .sidebar a:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+
+        .sidebar a:nth-child(8) {
+            animation-delay: 0.7s;
+        }
 
         .sidebar a i {
             margin-right: 15px;
@@ -136,7 +175,8 @@ $conn->close();
             background-color: #1e3d7a;
             border-left: 4px solid #ffffff;
             padding-left: 30px;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            /* Glow effect */
         }
 
         .sidebar .logout {
@@ -147,13 +187,14 @@ $conn->close();
         }
 
         .sidebar a.active {
-            background-color: #d9e6f4; /* Background color for active link */
+            background-color: #d9e6f4;
+            /* Background color for active link */
             border-left: 4px solid #ffffff;
             padding-left: 30px;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
             border-top-left-radius: 30px;
             border-bottom-left-radius: 30px;
-            color:#000000;
+            color: #000000;
             position: relative;
             z-index: 1;
             height: 45px;
@@ -162,21 +203,25 @@ $conn->close();
         /* Main content styling */
         .main-content {
             margin-left: 245px;
-            margin-top: 13px; 
-            margin-right: 20px;/* Default margin for sidebar */
+            margin-top: 13px;
+            margin-right: 20px;
+            /* Default margin for sidebar */
             padding: 40px;
             font-size: 18px;
             color: #333;
             border-radius: 10px;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            transition: margin-left 0.4s ease-in-out;
+            /* Smooth transition for margin */
             background-color: #ffffff;
             height: 86.5vh;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            /* Add shadow effect */
         }
 
         .main-content h1 {
             color: #050505;
-            font-size: 2.5rem; /* Increased font size */
+            font-size: 2.5rem;
+            /* Increased font size */
             font-weight: bold;
             padding-bottom: 10px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -187,7 +232,8 @@ $conn->close();
             padding: 18px 20px;
             width: 1268px;
             height: 55px;
-            margin-left: 245px; /* Default margin for container */
+            margin-left: 245px;
+            /* Default margin for container */
             margin-top: 12px;
             margin-right: 20px;
             display: flex;
@@ -196,7 +242,8 @@ $conn->close();
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #ffffff;
-            transition: margin-left 0.4s ease-in-out; /* Smooth transition for margin */
+            transition: margin-left 0.4s ease-in-out;
+            /* Smooth transition for margin */
         }
 
         .icon {
@@ -205,7 +252,7 @@ $conn->close();
             transition: transform 0.3s;
         }
 
-        img{
+        img {
             height: 40px;
             width: auto;
         }
@@ -242,13 +289,15 @@ $conn->close();
         .dropdown-content a:hover {
             background-color: #1e3d7a;
         }
-        
+
         .sidebar .logo {
             position: absolute;
-            top: 20px; /* Keep the same positioning */
+            top: 20px;
+            /* Keep the same positioning */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 32px; /* Increase the font size here */
+            font-size: 32px;
+            /* Increase the font size here */
             font-weight: bold;
             color: white;
             text-align: center;
@@ -257,8 +306,10 @@ $conn->close();
 
         .tabs {
             display: flex;
-            flex-direction: column; /* Arrange tabs vertically */
-            margin-bottom: 20px; /* Space between tabs and content */
+            flex-direction: column;
+            /* Arrange tabs vertically */
+            margin-bottom: 20px;
+            /* Space between tabs and content */
             width: 200px;
         }
 
@@ -274,7 +325,8 @@ $conn->close();
         }
 
         .tab.active {
-            background-color: #1e3d7a; /* Active tab color */
+            background-color: #1e3d7a;
+            /* Active tab color */
             color: white;
         }
 
@@ -291,42 +343,53 @@ $conn->close();
 
         /* Tab content */
         .tab-content {
-            display: none; /* Hide all tab content by default */
+            display: none;
+            /* Hide all tab content by default */
         }
 
         .tab-content.active {
-             display: block; /* Show active tab content */
+            display: block;
+            /* Show active tab content */
         }
 
         /* Profile section styling */
         .profile-picture {
-            width: 200px; /* Adjust width as needed */
-            height: 200px; /* Ensure height equals width for a square */
-            border-radius: 10px;/* Make it circular; use 0% for square */
-            overflow: hidden; /* Hide overflow for perfect circle */
-            border: 3px solid #1e3d7a; /* Optional border for profile picture */
-            margin-bottom: 20px; /* Space below profile picture */
+            width: 200px;
+            /* Adjust width as needed */
+            height: 200px;
+            /* Ensure height equals width for a square */
+            border-radius: 10px;
+            /* Make it circular; use 0% for square */
+            overflow: hidden;
+            /* Hide overflow for perfect circle */
+            border: 3px solid #1e3d7a;
+            /* Optional border for profile picture */
+            margin-bottom: 20px;
+            /* Space below profile picture */
         }
 
         .profile-picture img {
-            width: 100%; /* Ensure image fits the container */
-            height: auto; /* Maintain aspect ratio */
+            width: 100%;
+            /* Ensure image fits the container */
+            height: auto;
+            /* Maintain aspect ratio */
         }
 
         .text {
             padding-top: 1px;
         }
 
-        .text h4, p {
+        .text h4,
+        p {
             margin: 2px;
             font-size: 18px;
             color: #000000;
         }
 
-        .text h4{
-            padding-left: 35px; 
-            margin-bottom:15px; 
-            margin-top :-12.5px;
+        .text h4 {
+            padding-left: 35px;
+            margin-bottom: 15px;
+            margin-top: -12.5px;
             font-size: 18px;
             color: black;
         }
@@ -334,9 +397,11 @@ $conn->close();
         /* Adjust sub-sidebar to float left */
         .sub-sidebar {
             float: left;
-            width: 250px; /* Adjust width if needed */
+            width: 250px;
+            /* Adjust width if needed */
             padding: 10px;
-            margin-right: 20px; /* Spacing between sub-sidebar and form */
+            margin-right: 20px;
+            /* Spacing between sub-sidebar and form */
         }
 
         /* Adjust details container */
@@ -357,7 +422,8 @@ $conn->close();
         table {
             width: 100%;
             margin-bottom: 20px;
-            border-collapse: collapse; /* Ensure table layout doesn't break */
+            border-collapse: collapse;
+            /* Ensure table layout doesn't break */
         }
 
         table td {
@@ -372,26 +438,33 @@ $conn->close();
         table td:first-child {
             width: 30%;
             text-align: left;
-            padding-right: 20px; /* Adjust for alignment between label and input */
+            padding-right: 20px;
+            /* Adjust for alignment between label and input */
         }
 
         input[type="radio"] {
-            margin-right: 2px; /* Adds space between radio button and label */
+            margin-right: 2px;
+            /* Adds space between radio button and label */
         }
 
         .gender-options {
-            display: flex; /* Ensures horizontal layout */
-            gap: 5px; /* Adds space between radio button groups */
-            align-items: center; /* Aligns radio buttons with labels */
+            display: flex;
+            /* Ensures horizontal layout */
+            gap: 5px;
+            /* Adds space between radio button groups */
+            align-items: center;
+            /* Aligns radio buttons with labels */
         }
 
         .gender-options label {
             display: flex;
             align-items: center;
-            gap: 1px; /* Adds space between radio button and its label */
+            gap: 1px;
+            /* Adds space between radio button and its label */
         }
 
-        input, select {
+        input,
+        select {
             padding: 8px;
             border-radius: 3px;
             border: 1px solid #ddd;
@@ -403,7 +476,7 @@ $conn->close();
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-top: 20px;   
+            margin-top: 20px;
         }
 
         button {
@@ -423,22 +496,31 @@ $conn->close();
         }
 
         .profile-picture1 {
-            width: 100px; /* Adjust width */
-            height: 100px; /* Adjust height */
-            overflow: hidden; /* Ensures the image fits within the div */
-            border-radius: 50%; /* Makes the image circular */
+            width: 100px;
+            /* Adjust width */
+            height: 100px;
+            /* Adjust height */
+            overflow: hidden;
+            /* Ensures the image fits within the div */
+            border-radius: 50%;
+            /* Makes the image circular */
         }
 
         .profile-picture1 img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures the image scales properly within the div */
+            object-fit: cover;
+            /* Ensures the image scales properly within the div */
         }
+
         .error-message {
             color: red;
-            font-size: 12px; /* Make the error message text smaller */
-            margin-top: 5px; /* Add space between input and error message */
+            font-size: 12px;
+            /* Make the error message text smaller */
+            margin-top: 5px;
+            /* Add space between input and error message */
         }
+
         #editImageButton {
             position: absolute;
             top: 90%;
@@ -474,10 +556,12 @@ $conn->close();
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
-        .modal button{
+
+        .modal button {
             margin-left: 120px;
             margin-top: 5px;
         }
+
         .close-button {
             position: absolute;
             top: 10px;
@@ -488,25 +572,28 @@ $conn->close();
         }
     </style>
 </head>
+
 <body>
     <!-- Profile Container -->
     <div class="container">
-    <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profile_Icon"
+            onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*"
+            onchange="changeProfilePicture1(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
-    </div>    
+    </div>
 
     <div class="sidebar">
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
         <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php" ><i class="fas fa-briefcase"></i> Jobs</a>
-        <a href="view_students.php"  class="active"><i class="fas fa-user-graduate"></i> Students</a>
+        <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="view_students.php" class="active"><i class="fas fa-user-graduate"></i> Students</a>
         <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
         <a href="company.html"><i class="fas fa-building"></i> Company</a>
         <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
@@ -519,7 +606,7 @@ $conn->close();
     <!-- Main Content -->
     <div class="main-content">
         <div class="sub-sidebar">
-        <div class="profile-picture" onmouseover="showEditButton()" onmouseout="hideEditButton()">
+            <div class="profile-picture" onmouseover="showEditButton()" onmouseout="hideEditButton()">
                 <img src="../images/Customer.png" alt="profile picture" id="sidebarProfilePicture">
                 <button id="editImageButton" style="display: none;" onclick="openModal()">EDIT</button>
             </div>
@@ -534,7 +621,8 @@ $conn->close();
 
                     <!-- Form for file upload -->
                     <form id="uploadForm" action="stdpicture.php" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="hidden" name="user_id"
+                            value="<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
                         <button type="submit" name="submit">Submit</button>
                     </form>
@@ -542,7 +630,7 @@ $conn->close();
             </div>
 
             <div class="text">
-                <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->  
+                <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->
             </div>
 
             <!-- Profile Picture Section -->
@@ -564,12 +652,17 @@ $conn->close();
                         <td>
                             <select name="branch" id="branch">
                                 <option value="">Select a branch</option>
-                                <option value="CS" <?php echo ($course_branch == 'CS') ? 'selected' : ''; ?>>Computer Science</option>
-                                <option value="COMMERCE" <?php echo ($course_branch == 'COMMERCE') ? 'selected' : ''; ?>>Commerce</option>
-                                <option value="ENGLISH" <?php echo ($course_branch == 'ENGLISH') ? 'selected' : ''; ?>>English</option>
+                                <option value="CS" <?php echo ($course_branch == 'CS') ? 'selected' : ''; ?>>Computer
+                                    Science</option>
+                                <option value="COMMERCE" <?php echo ($course_branch == 'COMMERCE') ? 'selected' : ''; ?>>
+                                    Commerce</option>
+                                <option value="ENGLISH" <?php echo ($course_branch == 'ENGLISH') ? 'selected' : ''; ?>>
+                                    English</option>
                                 <option value="PHYSICAL SCIENCES" <?php echo ($course_branch == 'PHYSICAL SCIENCES') ? 'selected' : ''; ?>>Physical Sciences</option>
-                                <option value="PHYSICS" <?php echo ($course_branch == 'PHYSICS') ? 'selected' : ''; ?>>Physics</option>
-                                <option value="VM" <?php echo ($course_branch == 'VM') ? 'selected' : ''; ?>>Visual Media</option>
+                                <option value="PHYSICS" <?php echo ($course_branch == 'PHYSICS') ? 'selected' : ''; ?>>
+                                    Physics</option>
+                                <option value="VM" <?php echo ($course_branch == 'VM') ? 'selected' : ''; ?>>Visual Media
+                                </option>
                             </select>
                         </td>
                     </tr>
@@ -580,19 +673,23 @@ $conn->close();
                                 <option value="">Select a course</option>
                                 <option value="BCA" <?php echo ($course_name == 'BCA') ? 'selected' : ''; ?>>BCA</option>
                                 <option value="BCA DataScience" <?php echo ($course_name == 'BCA DataScience') ? 'selected' : ''; ?>>BCA Data Science</option>
-                                <option value="Int MCA" <?php echo ($course_name == 'Int MCA') ? 'selected' : ''; ?>>INT MCA</option>
+                                <option value="Int MCA" <?php echo ($course_name == 'Int MCA') ? 'selected' : ''; ?>>INT
+                                    MCA</option>
                                 <option value="B.com taxation and finance" <?php echo ($course_name == 'B.com taxation and finance') ? 'selected' : ''; ?>>B.com Taxation and Finance</option>
                                 <option value="BBA" <?php echo ($course_name == 'BBA') ? 'selected' : ''; ?>>BBA</option>
                                 <option value="B.com Fintech" <?php echo ($course_name == 'B.com Fintech') ? 'selected' : ''; ?>>B.com Fintech</option>
                                 <option value="BA English and Literature" <?php echo ($course_name == 'BA English and Literature') ? 'selected' : ''; ?>>BA English and Literature</option>
                                 <option value="INT MA English and Literature" <?php echo ($course_name == 'INT MA English and Literature') ? 'selected' : ''; ?>>INT MA English and Literature</option>
                                 <option value="INT M.Sc Mathematics" <?php echo ($course_name == 'INT M.Sc Mathematics') ? 'selected' : ''; ?>>INT M.Sc Mathematics</option>
-                                <option value="B.des(Hons.) in Communicative Design" <?php echo ($course_name == 'B.des(Hons.) in Communicative Design') ? 'selected' : ''; ?>>B.des(Hons.) in Communicative Design</option>
+                                <option value="B.des(Hons.) in Communicative Design" <?php echo ($course_name == 'B.des(Hons.) in Communicative Design') ? 'selected' : ''; ?>>
+                                    B.des(Hons.) in Communicative Design</option>
                                 <option value="B.Sc in Visual Media" <?php echo ($course_name == 'B.Sc in Visual Media') ? 'selected' : ''; ?>>B.Sc in Visual Media</option>
                                 <option value="BCA(Hons.)" <?php echo ($course_name == 'BCA(Hons.)') ? 'selected' : ''; ?>>BCA(Hons.)</option>
-                                <option value="B.Com.(Hons.) in Taxation & Finance" <?php echo ($course_name == 'B.Com.(Hons.) in Taxation & Finance') ? 'selected' : ''; ?>>B.Com.(Hons.) in Taxation & Finance</option>
+                                <option value="B.Com.(Hons.) in Taxation & Finance" <?php echo ($course_name == 'B.Com.(Hons.) in Taxation & Finance') ? 'selected' : ''; ?>>
+                                    B.Com.(Hons.) in Taxation & Finance</option>
                                 <option value="B.Com(Hons.) in FinTech" <?php echo ($course_name == 'B.Com(Hons.) in FinTech') ? 'selected' : ''; ?>>B.Com(Hons.) in FinTech</option>
-                                <option value="BBA(Hons./Hons. with Research)" <?php echo ($course_name == 'BBA(Hons./Hons. with Research)') ? 'selected' : ''; ?>>BBA(Hons./Hons. with Research)</option>
+                                <option value="BBA(Hons./Hons. with Research)" <?php echo ($course_name == 'BBA(Hons./Hons. with Research)') ? 'selected' : ''; ?>>
+                                    BBA(Hons./Hons. with Research)</option>
                                 <option value="B.Sc(Hons.) in Visual Media" <?php echo ($course_name == 'B.Sc(Hons.) in Visual Media') ? 'selected' : ''; ?>>B.Sc(Hons.) in Visual Media</option>
                             </select>
                         </td>
@@ -615,10 +712,14 @@ $conn->close();
                         <td>
                             <select name="pass_out_year" id="pass_out_year">
                                 <option value="">Select Year</option>
-                                <option value="2024" <?php echo ($graduation_year == '2024') ? 'selected' : ''; ?>>2024</option>
-                                <option value="2025" <?php echo ($graduation_year == '2025') ? 'selected' : ''; ?>>2025</option>
-                                <option value="2026" <?php echo ($graduation_year == '2026') ? 'selected' : ''; ?>>2026</option>
-                                <option value="2027" <?php echo ($graduation_year == '2027') ? 'selected' : ''; ?>>2027</option>
+                                <option value="2024" <?php echo ($graduation_year == '2024') ? 'selected' : ''; ?>>2024
+                                </option>
+                                <option value="2025" <?php echo ($graduation_year == '2025') ? 'selected' : ''; ?>>2025
+                                </option>
+                                <option value="2026" <?php echo ($graduation_year == '2026') ? 'selected' : ''; ?>>2026
+                                </option>
+                                <option value="2027" <?php echo ($graduation_year == '2027') ? 'selected' : ''; ?>>2027
+                                </option>
                             </select>
                         </td>
                     </tr>
@@ -651,14 +752,16 @@ $conn->close();
                     <tr>
                         <td>Phone Number<span style="color:red;">*</span></td>
                         <td>
-                            <input type="text" id="number" name="number" value="<?php echo $phone_number; ?>" onblur="validatePhone()">
+                            <input type="text" id="number" name="number" value="<?php echo $phone_number; ?>"
+                                onblur="validatePhone()">
                         </td>
                         <div id="phone-error" class="error-message"></div>
                     </tr>
                     <tr>
                         <td>Email<span style="color:red;">*</span></td>
                         <td>
-                            <input type="text" id="email" name="email" value="<?php echo $email; ?>" onblur="validateEmail()">
+                            <input type="text" id="email" name="email" value="<?php echo $email; ?>"
+                                onblur="validateEmail()">
                         </td>
                         <div id="email-error" class="error-message"></div>
                     </tr>
@@ -671,254 +774,274 @@ $conn->close();
     </div>
     <!-- JavaScript -->
     <script>
-          var user_id = '<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>';
-            function loadProfilePicture() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'fetch_stdprofilepicture.php?user_id=' + encodeURIComponent(user_id), true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                var profilePath = xhr.responseText.trim();
-                document.getElementById('sidebarProfilePicture').src = profilePath;
-                document.getElementById('profileIcon').src = profilePath;
+        function loadProfilePicture1() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'fetch_adminprofilepicture.php', true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var profilePath = xhr.responseText.trim();
+
+                    document.getElementById('profile_Icon').src = profilePath;
+                }
+            };
+            xhr.send();
+        }
+
+
+
+        var user_id = '<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>';
+        function loadProfilePicture() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'fetch_stdprofilepicture.php?user_id=' + encodeURIComponent(user_id), true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var profilePath = xhr.responseText.trim();
+                    document.getElementById('sidebarProfilePicture').src = profilePath;
+                    document.getElementById('profileIcon').src = profilePath;
+                }
+            };
+            xhr.send();
+        }
+
+        function loadAll() {
+            loadProfilePicture();
+            loadProfilePicture1();
+        }
+        window.onload = loadAll;
+        function showEditButton() {
+            document.getElementById('editImageButton').style.display = 'block';
+        }
+
+        function hideEditButton() {
+            document.getElementById('editImageButton').style.display = 'none';
+        }
+
+        function openModal() {
+            document.getElementById('profileModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+
+        function validateDOB() {
+            const dob = document.getElementById('dob').value;
+            const dobError = document.getElementById('dob-error');
+            const minDate = new Date('1990-01-01');
+            const maxDate = new Date('2009-01-01');
+            const selectedDate = new Date(dob);
+
+            if (selectedDate < minDate || selectedDate > maxDate) {
+                dobError.textContent = "Date of birth must be between 1st Jan 1990 and 1st Jan 2009.";
+                return false;
+            } else {
+                dobError.textContent = ""; // Clear error
+                return true;
             }
-        };
-        xhr.send();
-    }
-
-    window.onload = loadProfilePicture;
-    function showEditButton() {
-        document.getElementById('editImageButton').style.display = 'block';
-    }
-
-    function hideEditButton() {
-        document.getElementById('editImageButton').style.display = 'none';
-    }
-
-    function openModal() {
-        document.getElementById('profileModal').style.display = 'block';
-    }
-
-    function closeModal() {
-        document.getElementById('profileModal').style.display = 'none';
-    }
-
-         function validateDOB() {
-        const dob = document.getElementById('dob').value;
-        const dobError = document.getElementById('dob-error');
-        const minDate = new Date('1990-01-01');
-        const maxDate = new Date('2009-01-01');
-        const selectedDate = new Date(dob);
-
-        if (selectedDate < minDate || selectedDate > maxDate) {
-            dobError.textContent = "Date of birth must be between 1st Jan 1990 and 1st Jan 2009.";
-            return false;
-        } else {
-            dobError.textContent = ""; // Clear error
-            return true;
         }
-    }
 
-    // Validate Phone Number
-    function validatePhone() {
-        const phone = document.getElementById('number').value;
-        const phoneError = document.getElementById('phone-error');
-        const phoneRegex = /^[0-9]{10}$/; // Regex for 10 digits
+        // Validate Phone Number
+        function validatePhone() {
+            const phone = document.getElementById('number').value;
+            const phoneError = document.getElementById('phone-error');
+            const phoneRegex = /^[0-9]{10}$/; // Regex for 10 digits
 
-        if (!phoneRegex.test(phone)) {
-            phoneError.textContent = "Phone number must be a 10-digit number.";
-            return false;
-        } else {
-            phoneError.textContent = ""; 
-            return true;// Clear error
+            if (!phoneRegex.test(phone)) {
+                phoneError.textContent = "Phone number must be a 10-digit number.";
+                return false;
+            } else {
+                phoneError.textContent = "";
+                return true;// Clear error
+            }
         }
-    }
 
-    // Validate Email
-    function validateEmail() {
-        const email = document.getElementById('email').value;
-        const emailError = document.getElementById('email-error');
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/; // Simple email regex
+        // Validate Email
+        function validateEmail() {
+            const email = document.getElementById('email').value;
+            const emailError = document.getElementById('email-error');
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/; // Simple email regex
 
-        if (!emailRegex.test(email)) {
-            emailError.textContent = "Please enter a valid email address.";
-            return false;
-        } else {
+            if (!emailRegex.test(email)) {
+                emailError.textContent = "Please enter a valid email address.";
+                return false;
+            } else {
                 emailError.textContent = "";
                 return true; // Clear error
-        }
-    }
-
-    function isNumeric(value) {
-        return !isNaN(value) && value.trim() !== ""; // Check if the value is a number and not empty
-    }
-
-    function validateCGPA() {
-        const cgpa = document.getElementById('cgpa');
-        const errorContainer = document.getElementById('cgpa-error');
-    
-        // Clear previous error message
-        errorContainer.textContent = ""; 
-
-        // Check if CGPA is a numeric value
-        if (!isNumeric(cgpa.value)) {
-            errorContainer.textContent = "CGPA must be a numeric value.";
-            return false; // Validation failed
+            }
         }
 
-        // Check if CGPA is within the range of 0 to 10
-        const cgpaValue = parseFloat(cgpa.value);
-        if (cgpaValue < 0 || cgpaValue > 10) {
-            errorContainer.textContent = "CGPA must be between 0 and 10.";
-            return false; // Validation failed
-        }
-        return true; // Validation passed
-    }
-
-    function validatePercentage12th() {
-        const percentage12th = document.getElementById('percentage_twelfth');
-        const errorContainer = document.getElementById('percentage12th-error');
-    
-        // Clear previous error message
-        errorContainer.textContent = ""; 
-
-        if (!isNumeric(percentage12th.value)) {
-            errorContainer.textContent = "Percentage in 12th must be a numeric value.";
-            return false; // Validation failed
-        }
-        return true; // Validation passed
-    }
-
-    function validatePercentage10th() {
-        const percentage10th = document.getElementById('percentage_tenth');
-        const errorContainer = document.getElementById('percentage10th-error');
-    
-        // Clear previous error message
-        errorContainer.textContent = ""; 
-
-        if (!isNumeric(percentage10th.value)) {
-            errorContainer.textContent = "Percentage in 10th must be a numeric value.";
-            return false; // Validation failed
-        }
-        return true; // Validation passed
-    }
-  
-
-    function validateForm() {
-        let isValid = true;
-        const errorContainer = document.getElementById('form-error');
-        errorContainer.textContent = ""; // Clear previous error message
-
-        // Call individual validations
-        if (!validateDOB()) isValid = false;
-        if (!validatePhone()) isValid = false;
-        if (!validateEmail()) isValid = false;
-
-        // Check if branch is selected
-        const branch = document.getElementById('branch').value;
-        if (branch === "") {
-            isValid = false;
+        function isNumeric(value) {
+            return !isNaN(value) && value.trim() !== ""; // Check if the value is a number and not empty
         }
 
-        // Check if course is selected
-        const course = document.getElementById('course').value;
-        if (course === "") {
-            isValid = false;
+        function validateCGPA() {
+            const cgpa = document.getElementById('cgpa');
+            const errorContainer = document.getElementById('cgpa-error');
+
+            // Clear previous error message
+            errorContainer.textContent = "";
+
+            // Check if CGPA is a numeric value
+            if (!isNumeric(cgpa.value)) {
+                errorContainer.textContent = "CGPA must be a numeric value.";
+                return false; // Validation failed
+            }
+
+            // Check if CGPA is within the range of 0 to 10
+            const cgpaValue = parseFloat(cgpa.value);
+            if (cgpaValue < 0 || cgpaValue > 10) {
+                errorContainer.textContent = "CGPA must be between 0 and 10.";
+                return false; // Validation failed
+            }
+            return true; // Validation passed
         }
 
-        // Check if current year is selected
-        const currentYear = document.getElementById('current_year').value;
-        if (currentYear === "") {
-            isValid = false;
+        function validatePercentage12th() {
+            const percentage12th = document.getElementById('percentage_twelfth');
+            const errorContainer = document.getElementById('percentage12th-error');
+
+            // Clear previous error message
+            errorContainer.textContent = "";
+
+            if (!isNumeric(percentage12th.value)) {
+                errorContainer.textContent = "Percentage in 12th must be a numeric value.";
+                return false; // Validation failed
+            }
+            return true; // Validation passed
         }
 
-        // Check if pass-out year is selected
-        const passOutYear = document.getElementById('pass_out_year').value;
-        if (passOutYear === "") {
-            isValid = false;
+        function validatePercentage10th() {
+            const percentage10th = document.getElementById('percentage_tenth');
+            const errorContainer = document.getElementById('percentage10th-error');
+
+            // Clear previous error message
+            errorContainer.textContent = "";
+
+            if (!isNumeric(percentage10th.value)) {
+                errorContainer.textContent = "Percentage in 10th must be a numeric value.";
+                return false; // Validation failed
+            }
+            return true; // Validation passed
         }
 
-        // Check if gender is selected
-        const gender = document.querySelector('input[name="gender"]:checked');
-        if (!gender) {
-            isValid = false;
+
+        function validateForm() {
+            let isValid = true;
+            const errorContainer = document.getElementById('form-error');
+            errorContainer.textContent = ""; // Clear previous error message
+
+            // Call individual validations
+            if (!validateDOB()) isValid = false;
+            if (!validatePhone()) isValid = false;
+            if (!validateEmail()) isValid = false;
+
+            // Check if branch is selected
+            const branch = document.getElementById('branch').value;
+            if (branch === "") {
+                isValid = false;
+            }
+
+            // Check if course is selected
+            const course = document.getElementById('course').value;
+            if (course === "") {
+                isValid = false;
+            }
+
+            // Check if current year is selected
+            const currentYear = document.getElementById('current_year').value;
+            if (currentYear === "") {
+                isValid = false;
+            }
+
+            // Check if pass-out year is selected
+            const passOutYear = document.getElementById('pass_out_year').value;
+            if (passOutYear === "") {
+                isValid = false;
+            }
+
+            // Check if gender is selected
+            const gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                isValid = false;
+            }
+
+            // If any required field is missing, show a unified error message
+            if (!isValid) {
+                errorContainer.textContent = "All fields are required and must be valid.";
+            }
+            return isValid; // Form submits only if all validations pass
+        }
+        // Change Profile Picture
+        function triggerFileInput() {
+            document.getElementById('fileInput').click();
         }
 
-        // If any required field is missing, show a unified error message
-        if (!isValid) {
-            errorContainer.textContent = "All fields are required and must be valid.";
+        function changeProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('profileIcon').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         }
-        return isValid; // Form submits only if all validations pass
-    }
-    // Change Profile Picture
-    function triggerFileInput() {
-        document.getElementById('fileInput').click();
-    }
-    
-    function changeProfilePicture(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('profileIcon').src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-    
-    // Dropdown toggle with smooth opening
-    function toggleDropdown() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdown.classList.toggle("show");
-    }
-    
-    // Hide dropdown on click outside
-    window.onclick = function(event) {
-        if (!event.target.matches('.icon')) {
+
+        // Dropdown toggle with smooth opening
+        function toggleDropdown() {
             const dropdown = document.getElementById("dropdownMenu");
-            dropdown.classList.remove("show");
+            dropdown.classList.toggle("show");
         }
-    };
-    
-    document.addEventListener("DOMContentLoaded", function () {
-         // Sidebar tab click effect
-        const tabs = document.querySelectorAll('.sidebar a');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-            });
-        });
-    
-        // Set default active link on page load
-        const defaultLink = document.querySelector('.sidebar a.active');
-        if (defaultLink) {
-            defaultLink.classList.add('active');
-        }
-    
-        // Mobile nav handling (optional)
-        const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
-        mobileTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                mobileTabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-            });
-        });
 
-        // Adjust main content and container margin based on sidebar width
-        const sidebar = document.querySelector('.sidebar');
-        const mainContent = document.querySelector('.main-content');
-        const container = document.querySelector('.container');
-    
-        sidebar.addEventListener('mouseenter', () => {
-            mainContent.style.marginLeft = '270px'; // Expanded sidebar width
-            container.style.marginLeft = '270px'; // Adjust container margin
+        // Hide dropdown on click outside
+        window.onclick = function (event) {
+            if (!event.target.matches('.icon')) {
+                const dropdown = document.getElementById("dropdownMenu");
+                dropdown.classList.remove("show");
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Sidebar tab click effect
+            const tabs = document.querySelectorAll('.sidebar a');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+
+            // Set default active link on page load
+            const defaultLink = document.querySelector('.sidebar a.active');
+            if (defaultLink) {
+                defaultLink.classList.add('active');
+            }
+
+            // Mobile nav handling (optional)
+            const mobileTabs = document.querySelectorAll('.navbar-nav .nav-link');
+            mobileTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    mobileTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+
+            // Adjust main content and container margin based on sidebar width
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const container = document.querySelector('.container');
+
+            sidebar.addEventListener('mouseenter', () => {
+                mainContent.style.marginLeft = '270px'; // Expanded sidebar width
+                container.style.marginLeft = '270px'; // Adjust container margin
+            });
+
+            sidebar.addEventListener('mouseleave', () => {
+                mainContent.style.marginLeft = '245px'; // Normal sidebar width
+                container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
+            });
         });
-    
-        sidebar.addEventListener('mouseleave', () => {
-            mainContent.style.marginLeft = '245px'; // Normal sidebar width
-            container.style.marginLeft = '245px'; // Adjust container margin to align with sidebar
-        });  
-    });
-</script> 
+    </script>
 </body>
+
 </html>

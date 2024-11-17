@@ -473,8 +473,10 @@ $conn->close();
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
-        <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
+    <img src="../images/images.jpeg" alt="Profile Icon" class="icon" id="profileIcon1"
+            onclick="triggerFileInput()">
+        <input type="file" id="fileInput" style="display: none;" accept="image/*"
+            onchange="changeProfilePicture1(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
 
         <!-- Dropdown Menu -->
@@ -695,36 +697,54 @@ $conn->close();
 
     <!-- JavaScript -->
     <script>
-           var user_id = '<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>';
-            function loadProfilePicture() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'fetch_stdprofilepicture.php?user_id=' + encodeURIComponent(user_id), true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                var profilePath = xhr.responseText.trim();
-                document.getElementById('sidebarProfilePicture').src = profilePath;
-                document.getElementById('profileIcon').src = profilePath;
-            }
-        };
-        xhr.send();
-    }
+                function loadProfilePicture1() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'fetch_adminprofilepicture.php', true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var profilePath = xhr.responseText.trim();
 
-    window.onload = loadProfilePicture;
-    function showEditButton() {
-        document.getElementById('editImageButton').style.display = 'block';
-    }
+                    document.getElementById('profileIcon1').src = profilePath;
+                }
+            };
+            xhr.send();
+        }
 
-    function hideEditButton() {
-        document.getElementById('editImageButton').style.display = 'none';
-    }
 
-    function openModal() {
-        document.getElementById('profileModal').style.display = 'block';
-    }
 
-    function closeModal() {
-        document.getElementById('profileModal').style.display = 'none';
-    }
+        var user_id = '<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>';
+        function loadProfilePicture() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'fetch_stdprofilepicture.php?user_id=' + encodeURIComponent(user_id), true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var profilePath = xhr.responseText.trim();
+                    document.getElementById('sidebarProfilePicture').src = profilePath;
+                }
+            };
+            xhr.send();
+        }
+
+        function loadAll() {
+            loadProfilePicture();
+            loadProfilePicture1();
+        }
+        window.onload = loadAll;
+        function showEditButton() {
+            document.getElementById('editImageButton').style.display = 'block';
+        }
+
+        function hideEditButton() {
+            document.getElementById('editImageButton').style.display = 'none';
+        }
+
+        function openModal() {
+            document.getElementById('profileModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
         function validateForm2() {
     let isValid = true;
     let errorMessages = document.getElementsByClassName('error-message');
