@@ -473,7 +473,7 @@ $conn->close();
 <body>
     <!-- Profile Container -->
     <div class="container">
-    <img src="../images/images.jpeg" alt="Profile Icon" class="icon" id="profileIcon1"
+    <img src="../images/admin_profile.jpg" alt="Profile Icon" class="icon" id="profileIcon1"
             onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*"
             onchange="changeProfilePicture1(event)">
