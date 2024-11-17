@@ -97,7 +97,8 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+    <title>Campus Recruitment System</title>
     <style>
         * {
     margin: 0;
@@ -194,9 +195,14 @@ body {
             padding-right: 10px;
         }
         .logo-container {
-    position: absolute;
-    top: 10px;
-    left: 10px;
+            position: absolute;
+            top: 10px; /* Positions logo/title closer to the top */
+            left: 30px;
+            font-size: 30px;
+            font-weight:bold;
+            color: #1e3d7a;
+            text-align: center;
+            font-family: 'Merienda', cursive;
     }
     .logo {
     height: 55px;
@@ -206,9 +212,7 @@ body {
     </style>
 </head>
 <body>
-<div class="logo-container">
-        <img src="../frontend/images/logo1.png" alt="Logo" class="logo">
-    </div>
+<div class="logo-container">Lavoro</div>
     <center>
     <div class="forgot-password-container">
         <div class="forgot-password-box">

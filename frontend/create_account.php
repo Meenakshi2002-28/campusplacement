@@ -77,7 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Recruitment Signup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+    <title>Campus Recruitment System</title>
     <style>
         body {
             margin: 0;
@@ -98,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-color: white;
             border-radius: 20px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+            padding: 50px;
             width: 350px;
             background-color: #281f63;
             color: white;
@@ -108,6 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .signup-box h2 {
             margin-bottom: 20px;
+            font-family: Georgia;
+            font-size: 30px;
         }
 
         .signup-box label{
@@ -147,8 +150,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .logo-container {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 10px; /* Positions logo/title closer to the top */
+            left: 30px;
+            font-size: 30px;
+            font-weight:bold;
+            color: #1e3d7a;
+            text-align: center;
+            font-family: 'Merienda', cursive;
         }
 
         .logo {
@@ -214,9 +222,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <div class="logo-container">
-        <img src="../frontend/images/logo1.png" alt="Logo" class="logo">
-    </div>
+    <div class="logo-container">Lavoro</div>
     <div class="container">
         <div class="signup-box">
             <center>
