@@ -529,7 +529,6 @@ $conn->close();
                     <!-- Student data will be populated here using JavaScript -->
                     <?php if (!empty($students)): ?>
                         <?php foreach ($students as $student): ?>
-                            <tr onclick="window.location.href='profileredirect.php?user_id=<?php echo $student['user_id']; ?>'">
                                 <td><?php echo $student['user_id']; ?></td>
                                 <td><?php echo $student['name']; ?></td>
                                 <td><?php echo $student['email']; ?></td>
