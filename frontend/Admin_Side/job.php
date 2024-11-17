@@ -1,89 +1,64 @@
 <?php
-// Start session to get the logged-in user's ID
-session_start();
-
-// Assuming you have stored the user's ID in session
-$user_id = $_SESSION['user_id']; // Replace with the actual session key if different
-
-// Database connection
+// Database connection using mysqli
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "campus_placement";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$show_success_message = false;
+// Handle delete request
+if (isset($_POST['delete_job_id'])) {
+    $job_id = $_POST['delete_job_id'];
 
-// Check if a filter has been set
-$whereClause = '';
-if (isset($_GET['filter'])) {
-    $filter = $_GET['filter'];
+    // Start transaction
+    $conn->begin_transaction();
 
-    switch ($filter) {
-        case '1_week':
-            $whereClause = "WHERE p.placement_date >= NOW() - INTERVAL 1 WEEK";
-            break;
-        case '2_weeks':
-            $whereClause = "WHERE p.placement_date >= NOW() - INTERVAL 2 WEEK";
-            break;
-        case 'no_filter':
-        default:
-            // No filter, show all records
-            $whereClause = '';
-            break;
+    try {
+        // Update the job to set is_active to 0
+        $softDeleteSql = "UPDATE job SET is_active = 0 WHERE job_id = ?";
+        $stmt = $conn->prepare($softDeleteSql);
+        $stmt->bind_param("i", $job_id);
+        $stmt->execute();
+
+        // Commit transaction
+        $conn->commit();
+        $show_success_message = true;
+
+    } catch (Exception $e) {
+        // Rollback transaction if there's an error
+        $conn->rollback();
+        echo "Error removing job: " . $e->getMessage();
     }
 }
-// SQL query with the filter
-$sql = "
-SELECT j.company_name, j.job_title, p.user_id, s.name
-FROM placement p
-JOIN job j ON p.job_id = j.job_id
-JOIN student s ON p.user_id = s.user_id
-$whereClause
-ORDER BY s.name ASC
-";
 
-// Execute the query
+// Fetch jobs from the database
+$sql = "SELECT job_id, job_title, company_name, location,  salary, application_deadline FROM job WHERE is_active = 1";
 $result = $conn->query($sql);
 
-// Fetch all results into an array
-$placed_students = $result->fetch_all(MYSQLI_ASSOC);
-
-// Close the connection
-$conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Recruitment System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
-    <!-- SweetAlert CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
             color: #333;
-            overflow: hidden;
-
         }
 
         /* Sidebar styling */
@@ -100,10 +75,11 @@ $conn->close();
             background: linear-gradient(135deg, #022a52fd, #063dc9);
             color: white;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            /* Transparent glow effect */
             transition: width 0.4s ease-in-out;
             padding-top: 80px;
+            /* Added padding for space at the top */
         }
-
 
         .sidebar .logo {
             position: absolute;
@@ -251,86 +227,185 @@ $conn->close();
             transition: margin-left 0.4s ease-in-out;
         }
 
-        /* Table Styling */
-        .applicants {
-            margin-top: 5px;
+        .text {
+            padding-top: 1px;
         }
 
-        .applicants h2 {
-            color: black;
-            font-weight: 600;
-            margin-left: 400px;
-            margin-bottom: 30px;
-            margin-top: -30px;
+        .tabs {
+            display: flex;
+            align-items: center;
+            word-break: keep-all;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 5px;
-            background-color: #ffffff;
-        }
-
-        th,
-        td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #ffffff;
-            font-weight: bold;
-        }
-
-        /* Setting specific column widths */
-        th:nth-child(1),
-        td:nth-child(1) {
-            width: 15%;
-            /* Roll No Column */
-        }
-
-        th:nth-child(2),
-        td:nth-child(2) {
-            width: 25%;
-            /* Name Column */
-        }
-
-        th:nth-child(3),
-        td:nth-child(3) {
-            width: 25%;
-            /* Course Column */
-        }
-
-        .filter_std {
-            margin-left: 790px;
-        }
-
-        .filter_std label {
-            font-size: 18px;
-            color: black;
-            margin-right: 5px;
-        }
-
-        .filter_std select {
-            width: 100px;
-            height: 25px;
-        }
-
-        .filter_std button {
-            padding: 5px 20px;
-            background-color: #AFC8F3;
-            color: black;
-            border: none;
-            border-radius: 5px;
+        .tab-button {
+            background-color: white;
+            border: 1px solid #000000;
+            padding: 0px;
+            border-radius: 50px;
+            margin-right: 50px;
             cursor: pointer;
             font-size: 16px;
+            height: 26px;
+            width: 130px;
+        }
+
+        .tab-button.active {
+            background-color: #1c4a82;
+            color: white;
+        }
+
+        .job-table {
+            border-collapse: collapse;
+        }
+
+        .job-table th,
+        .job-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            padding-left: 200px;
+        }
+
+        .job-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 1px solid black;
+        }
+
+        .job-table td {
+            font-size: 15px;
+            word-break: break-all;
+        }
+
+        .job-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .job-details {
+            position: relative;
+            background-color: white;
+            padding: 15px;
+            padding-bottom: 0px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+            margin-bottom: 30px;
+            margin-right: 100px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .job-details:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-color: #063dc9;
+        }
+
+        .job-details h3 {
+            margin-top: 0;
+            color: black;
+            margin-left: 20px;
+        }
+
+        .job-details p {
+            margin-left: 100px;
+            font-size: ;
+        }
+
+        .jobimg a {
+            display: inline-flexbox;
+            text-decoration: none;
+            color: black;
+            padding: 60px;
+            border-left: 3px solid transparent;
+        }
+
+        .delete-btn {
+            background-color: transparent;
+            border: none;
+            width: 50px;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 20px;
+            margin-left: 10px;
+            color: #ff0000;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #ffffff;
+        }
+
+        .jobstatus {
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            margin-left: 810px;
+        }
+
+        .jobstatus input {
+            background-color: #e2e2e2;
+            border-radius: 10px;
+            border: 1px solid rgb(197, 197, 197);
+            width: 270px;
+            height: 25px;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-left: 370px;
+            text-align: center;
+            line-height: 40px;
+            padding: 0px;
+            padding-left: 20px;
+            box-sizing: content-box;
             font-weight: 600;
         }
 
-        button:hover {
-            background-color: #1e3d7e;
-            color: white;
+        .create-button {
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            border-radius: 30px;
+            cursor: pointer;
+            border: 0;
+            background-color: #d9e6f4;
+            box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 17px;
+            transition: all 0.5s ease;
+        }
+
+        .create-button:hover {
+            letter-spacing: 2.5px;
+            background-color: hsl(261deg 80% 48%);
+            color: hsl(0, 0%, 100%);
+        }
+
+        /* Pencil icon styling (Edit option) */
+        .edit-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: rgb(95, 95, 95);
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        /* Pencil icon hover effect */
+        .edit-icon:hover {
+            color: rgb(95, 95, 95);
+            /* Blue color on hover */
+        }
+
+        .icon {
+            margin-left: 1px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        img {
+            height: 40px;
+            width: auto;
         }
 
         /* Dropdown menu styling */
@@ -366,26 +441,58 @@ $conn->close();
             background-color: #1e3d7a;
         }
 
-        .icon {
-            margin-left: 1px;
-            cursor: pointer;
-            transition: transform 0.3s;
+        .logout {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
         }
 
-        img {
-            height: 40px;
-            width: auto;
+        .logout a {
+            font-size: 20px;
+            margin-top: 210px;
+        }
+
+        .fas fa-trash-alt {
+            text-align: center;
+        }
+
+        .success-message {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2F5597;
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-size: 16px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            margin-left: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
-
 <body>
+    <!-- Profile Container -->
     <div class="container">
         <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*"
             onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
-
         <!-- Dropdown Menu -->
         <div id="dropdownMenu" class="dropdown-content">
             <a href=" profile_admin.php"><i class="fa fa-user-circle"></i> Profile</a>
@@ -398,9 +505,9 @@ $conn->close();
         <!-- Logo or Website Name -->
         <div class="logo">Lavoro</div>
         <a href="dashboard_admin.php"><i class="fas fa-home"></i> Home</a>
-        <a href="joblist_admin.php"><i class="fas fa-briefcase"></i> Jobs</a>
+        <a href="joblist_admin.php" class="active"><i class="fas fa-briefcase"></i> Jobs</a>
         <a href="view_students.php"><i class="fas fa-user-graduate"></i> Students</a>
-        <a href="placedstd.php" class="active"><i class="fas fa-laptop-code"></i> Placements</a>
+        <a href="placedstd.php"><i class="fas fa-laptop-code"></i> Placements</a>
         <a href="company.html"><i class="fas fa-building"></i> Company</a>
         <a href="profile_admin.php"><i class="fas fa-user"></i> Profile</a>
         <a href="feedbacklist.php"><i class="fas fa-comment"></i> Feedback</a>
@@ -408,87 +515,114 @@ $conn->close();
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
+
     <!-- Main Content -->
     <div class="main-content">
-        <form method="GET" action="">
-            <div class="filter_std">
-                <label for="filter">Filter by Date:</label>
-                <select name="filter" id="filter">
-                    <option value="no_filter">No Filter</option>
-                    <option value="1_week" <?php echo (isset($_GET['filter']) && $_GET['filter'] == '1_week') ? 'selected' : ''; ?>>1 week ago</option>
-                    <option value="2_weeks" <?php echo (isset($_GET['filter']) && $_GET['filter'] == '2_weeks') ? 'selected' : ''; ?>>2 weeks ago</option>
-                </select>
-                <button type="submit">Apply Filter</button>
-            </div>
-        </form>
-        <!-- Applicants Table -->
-        <div class="applicants">
-            <h2>Placed Students</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Company</th>
-                        <th>Position</th>
-                        <th>Student</th>
-                        <th>Roll no</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (!empty($placed_students)): ?>
-                        <?php foreach ($placed_students as $student): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($student['company_name']); ?></td>
-                                <td><?php echo htmlspecialchars($student['job_title']); ?></td>
-                                <td><?php echo htmlspecialchars($student['name']); ?></td>
-                                <td><?php echo htmlspecialchars($student['user_id']); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="4">No placed students found.</td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
+        <div class="tabs">
+            <button class="create-button" onclick="window.location.href='job_creation.php'">
+                Create <i class="fas fa-plus"></i>
+            </button>
         </div>
 
-        <!-- Filter Section -->
+        <!-- Job List Table -->
+        <table class="job-table" id="jobTable">
+            <div class="maincontent">
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while ($job = $result->fetch_assoc()): ?>
+                        <div class="job-details">
+                            <a href="job_edit.php?job_id=<?php echo $job['job_id']; ?>" title="Edit" class="edit-icon-link">
+                                <i class="fas fa-pencil-alt edit-icon"></i>
+                            </a>
+                            <h3><?php echo htmlspecialchars($job['job_title']); ?></h3>
+                            <p><?php echo htmlspecialchars($job['company_name']); ?></p>
+                            <div class="jobimg">
+                                <a href="#location-dot"><i class="fas fa-map-marker-alt"></i>
+                                    <?php echo htmlspecialchars($job['location']); ?></a>
+                                <a href="#briefacse"><i class="fa fa-fw fa-solid fa-briefcase"></i> Full Time</a>
+                                <a href="#indian-rupee-sign"><i class="fas fa-rupee-sign"></i>
+                                    <?php echo htmlspecialchars($job['salary']); ?></a>
+                                <a href="#calendar-days"><i class="fa fa-fw fa-solid fa-calendar"></i> Apply By
+                                    <?php echo htmlspecialchars($job['application_deadline']); ?></a>
+                            </div>
+                            <div class="jobstatus">
+                                <form method="POST" action="" id="deleteForm<?php echo $job['job_id']; ?>">
+                                    <input type="hidden" name="delete_job_id" value="<?php echo $job['job_id']; ?>">
+                                    <button class="delete-btn" type="button"
+                                        onclick="confirmDeletion('<?php echo $job['job_id']; ?>', event)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                                <a href="applicants.php?job_id=<?php echo htmlspecialchars($job['job_id']); ?>"
+                                    class="view-btn"><b>View Applicants</b></a>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>No jobs available</p>
+                <?php endif; ?>
+            </div>
+        </table>
     </div>
+    <!-- Success message box -->
+    <div class="success-message" id="successMessage">
+        Job deleted successfully
+        <button class="close-btn" onclick="hideSuccessMessage()">×</button>
+    </div>
+
+
+
+    
+
+    <!-- JavaScript -->
     <script>
-        function loadProfilePicture() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'fetch_adminprofilepicture.php', true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                var profilePath = xhr.responseText.trim();
-                
-                document.getElementById('profileIcon').src = profilePath;
-            }
-        };
-        xhr.send();
-    }
+function confirmDeletion(jobId, event) {
+    // Prevent the form submission
+    event.preventDefault();
 
-    window.onload = loadProfilePicture;
-    function showEditButton() {
-        document.getElementById('editImageButton').style.display = 'block';
-    }
+    // Show the confirmation dialog
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this record!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            // Submit the form if user confirms
+            document.getElementById('deleteForm' + jobId).submit();
+            swal("Poof! Your record has been deleted!", {
+                icon: "success",
+            });
+        } else {
+            swal("Your record is safe!");
+        }
+    });
+}
+        function showSuccessMessage() {
+            var successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
 
-    function hideEditButton() {
-        document.getElementById('editImageButton').style.display = 'none';
-    }
+            // Auto-hide the message after 5 seconds
+            setTimeout(function () {
+                successMessage.classList.remove('show');
+            }, 5000);
+        }
 
-    function openModal() {
-        document.getElementById('profileModal').style.display = 'block';
-    }
+        // Function to hide the success message manually
+        function hideSuccessMessage() {
+            var successMessage = document.getElementById('successMessage');
+            successMessage.classList.remove('show');
+        }
 
-    function closeModal() {
-        document.getElementById('profileModal').style.display = 'none';
-    }
-        // Change profile image
+        // Display success message if PHP flag is true
+        <?php if ($show_success_message): ?>
+            showSuccessMessage();
+        <?php endif; ?>
+
         function triggerFileInput() {
             document.getElementById('fileInput').click();
         }
+    
 
         function changeProfilePicture(event) {
             const file = event.target.files[0];
@@ -540,6 +674,8 @@ $conn->close();
                 });
             });
 
+
+
             // Adjust main content and container margin based on sidebar width
             const sidebar = document.querySelector('.sidebar');
             const mainContent = document.querySelector('.main-content');
@@ -556,6 +692,7 @@ $conn->close();
             });
         });
     </script>
+
 </body>
 
 </html>
