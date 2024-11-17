@@ -265,20 +265,6 @@ $result = $conn->query($sql);
             background-color: #1e3d7a;
         }
 
-
-        .sidebar .logo {
-            position: absolute;
-            top: 20px;
-            /* Keep the same positioning */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px;
-            /* Increase the font size here */
-            font-weight: bold;
-            color: white;
-            text-align: center;
-        }
-
         .feedback-container {
             margin-top: -10px;
             padding: 5px;

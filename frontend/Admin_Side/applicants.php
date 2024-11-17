@@ -202,7 +202,7 @@ $conn->close();
         }
 
         .icon {
-            margin-left: 15px;
+            margin-left: 1px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -296,7 +296,7 @@ $conn->close();
         .filters label {
             display: block;
             padding: 1px;
-            font-size: 14px;
+            font-size: 15px;
         }
 
         .filters input[type="checkbox"] {

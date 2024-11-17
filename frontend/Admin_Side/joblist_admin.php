@@ -59,6 +59,7 @@ $result = $conn->query($sql);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #d9e6f4;
             color: #333;
+            overflow: hidden;
         }
 
         /* Sidebar styling */
@@ -74,19 +75,17 @@ $result = $conn->query($sql);
             top: 0;
             background: linear-gradient(135deg, #022a52fd, #063dc9);
             color: white;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            /* Transparent glow effect */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Transparent glow effect */
             transition: width 0.4s ease-in-out;
-            padding-top: 80px;
-            /* Added padding for space at the top */
+            padding-top: 80px; /* Added padding for space at the top */
         }
 
         .sidebar .logo {
             position: absolute;
-            top: 20px;
+            top: 20px; /* Keep the same positioning */
             left: 50%;
             transform: translateX(-50%);
-            font-size: 32px;
+            font-size: 32px; /* Increase the font size here */
             font-weight: bold;
             color: white;
             text-align: center;
@@ -94,7 +93,7 @@ $result = $conn->query($sql);
         }
 
         .sidebar:hover {
-            width: 250px;
+            width: 250px; /* Expands sidebar on hover */
         }
 
         .sidebar a {
@@ -113,45 +112,18 @@ $result = $conn->query($sql);
 
         /* Fade-in effect for sidebar links */
         @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
         }
 
         /* Delayed animation for each link */
-        .sidebar a:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .sidebar a:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-
-        .sidebar a:nth-child(4) {
-            animation-delay: 0.3s;
-        }
-
-        .sidebar a:nth-child(5) {
-            animation-delay: 0.4s;
-        }
-
-        .sidebar a:nth-child(6) {
-            animation-delay: 0.5s;
-        }
-
-        .sidebar a:nth-child(7) {
-            animation-delay: 0.6s;
-        }
-
-        .sidebar a:nth-child(8) {
-            animation-delay: 0.7s;
-        }
+        .sidebar a:nth-child(2) { animation-delay: 0.1s; }
+        .sidebar a:nth-child(3) { animation-delay: 0.2s; }
+        .sidebar a:nth-child(4) { animation-delay: 0.3s; }
+        .sidebar a:nth-child(5) { animation-delay: 0.4s; }
+        .sidebar a:nth-child(6) { animation-delay: 0.5s; }
+        .sidebar a:nth-child(7) { animation-delay: 0.6s; }
+        .sidebar a:nth-child(8) { animation-delay: 0.7s; }
 
         .sidebar a i {
             margin-right: 15px;
@@ -162,8 +134,7 @@ $result = $conn->query($sql);
             background-color: #1e3d7a;
             border-left: 4px solid #ffffff;
             padding-left: 30px;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-            /* Glow effect */
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
         }
 
         .sidebar .logout {
@@ -174,13 +145,13 @@ $result = $conn->query($sql);
         }
 
         .sidebar a.active {
-            background-color: #d9e6f4;
+            background-color: #d9e6f4; /* Background color for active link */
             border-left: 4px solid #ffffff;
             padding-left: 30px;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
             border-top-left-radius: 30px;
             border-bottom-left-radius: 30px;
-            color: #000000;
+            color:#000000;
             position: relative;
             z-index: 1;
             height: 45px;
@@ -290,7 +261,7 @@ $result = $conn->query($sql);
             border-radius: 10px;
             border: 1px solid #cccccc;
             margin-bottom: 30px;
-            margin-right: 100px;
+            margin-right: 70px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -441,17 +412,6 @@ $result = $conn->query($sql);
             background-color: #1e3d7a;
         }
 
-        .logout {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-        }
-
-        .logout a {
-            font-size: 20px;
-            margin-top: 210px;
-        }
-
         .fas fa-trash-alt {
             text-align: center;
         }
@@ -486,6 +446,7 @@ $result = $conn->query($sql);
         }
     </style>
 </head>
+
 <body>
     <!-- Profile Container -->
     <div class="container">
@@ -515,7 +476,6 @@ $result = $conn->query($sql);
             <a href="../logout.php"><i class="fas fa-power-off"></i> Log Out</a>
         </div>
     </div>
-
     <!-- Main Content -->
     <div class="main-content">
         <div class="tabs">
@@ -571,33 +531,33 @@ $result = $conn->query($sql);
 
 
 
-    
+
 
     <!-- JavaScript -->
     <script>
-function confirmDeletion(jobId, event) {
-    // Prevent the form submission
-    event.preventDefault();
+        function confirmDeletion(jobId, event) {
+            // Prevent the form submission
+            event.preventDefault();
 
-    // Show the confirmation dialog
-    swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this record!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-    }).then((willDelete) => {
-        if (willDelete) {
-            // Submit the form if user confirms
-            document.getElementById('deleteForm' + jobId).submit();
-            swal("Poof! Your record has been deleted!", {
-                icon: "success",
+            // Show the confirmation dialog
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    // Submit the form if user confirms
+                    document.getElementById('deleteForm' + jobId).submit();
+                    swal("Poof! Your record has been deleted!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Your record is safe!");
+                }
             });
-        } else {
-            swal("Your record is safe!");
         }
-    });
-}
         function showSuccessMessage() {
             var successMessage = document.getElementById('successMessage');
             successMessage.classList.add('show');
@@ -622,7 +582,7 @@ function confirmDeletion(jobId, event) {
         function triggerFileInput() {
             document.getElementById('fileInput').click();
         }
-    
+
 
         function changeProfilePicture(event) {
             const file = event.target.files[0];
