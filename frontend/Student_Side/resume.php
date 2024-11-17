@@ -12,6 +12,8 @@ if ($conn->connect_error) {
 
 // Assuming you have user_id stored in session after login
 $user_id = $_SESSION['user_id']; // Retrieve user_id from session
+$_SESSION['current_page'] = $_SERVER['REQUEST_URI'];  // Store the current page URL
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $resume_link = $_POST['resume_link'];

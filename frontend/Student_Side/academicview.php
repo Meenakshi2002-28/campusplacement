@@ -7,6 +7,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$_SESSION['current_page'] = $_SERVER['REQUEST_URI'];  // Store the current page URL
+
 
 // Database connection
 $servername = "localhost";
