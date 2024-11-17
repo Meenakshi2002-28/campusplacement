@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die("User not logged in.");
     }
     $user_id = $_SESSION['user_id'];
-    $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];  // Store the current page URL
 
 
     // Retrieve form data

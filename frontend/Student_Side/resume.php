@@ -25,21 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->execute()) {
         // Output SweetAlert after successful submission
-        echo "
-        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-        <script>
-            Swal.fire({
-                title: 'Good job!',
-                text: 'Resume Updation Successful!',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'resumeview.php'; // Replace with your desired URL
-                }
-            });
-        </script>
-        ";
+        header("Location: resumeview.php"); // Change "anotherfile.php" to the desired file
+        exit();
     } else {
         echo "Error inserting resume: " . $stmt->error;
     }
