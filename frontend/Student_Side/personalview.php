@@ -549,12 +549,27 @@ $conn->close();
 
             <!-- Modal Structure -->
             <div id="profileModal" class="modal">
-                <div class="modal-content">
-                    <span class="close-button" onclick="closeModal()">&times;</span>
-                    <h4>Profile Pic</h4>
-                    <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
-                        Use 300 X 300 px image for profile pic.</p>
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <h4>Profile Pic</h4>
+        <p>Use <a href="#" target="_blank">Background Removal</a> site for removing Background.<br>
+            Use 300 X 300 px image for profile pic.</p>
 
+        <!-- Form for file upload -->
+        <form id="uploadForm" action="picture.php" method="post" enctype="multipart/form-data">
+            <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
+            <button type="submit" name="submit">Submit</button>
+        </form>
+
+        <!-- Delete Profile Picture Button -->
+        <form id="deleteForm" action="delete_pic.php" method="POST">
+            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>">
+            <button type="submit" name="delete" style="background-color: red; color: white;">Delete Profile Picture</button>
+        </form>
+    </div>
+</div>
+
+<<<<<<< HEAD
                     <!-- Form for file upload -->
                     <form id="uploadForm" action="picture.php" method="post" enctype="multipart/form-data">
                         <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
@@ -569,6 +584,8 @@ $conn->close();
 =======
 =======
 >>>>>>> 72f94ac (done)
+=======
+>>>>>>> 2a8caa0 (..)
 
             <div class="text">
                 <h4><?php echo htmlspecialchars($name); ?></h4> <!-- Admin's name -->  
