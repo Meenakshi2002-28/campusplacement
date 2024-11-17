@@ -20,10 +20,10 @@ if ($conn->connect_error) {
 
 // Fetch pending students
 $sql = "
-    SELECT l.user_id, l.email, s.name
+    SELECT l.user_id, l.email, s.name,l.approval_status
     FROM login l
     JOIN student s ON l.user_id = s.user_id
-    WHERE l.approval_status = 'pending'
+    
 ";
 
 $result = $conn->query($sql);
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        header("Location: acc_approval.php");
+        header("Location: allusers.php");
         exit;
     } else {
         echo "Error: " . $stmt->error;
@@ -508,13 +508,8 @@ $conn->close();
         </div>
     </div>
     <div class="main-content">
-        <div class="search-bar-container">
-            <input type="text" id="search-input" class="search-bar" placeholder="Search by Roll No or Name...">
-            <button onclick="performSearch()">Search</button>
-        </div>
-        <div class="approval">
-        <button onclick="window.location.href='allusers.php'" style="background-color: #007bff; color: white;">All Users</button>
-        </div>
+      
+       
         <div class="students">
             <table>
                 <thead>
@@ -535,13 +530,27 @@ $conn->close();
                                 <td><?php echo $student['email']; ?></td>
                                 <td>
                                     <form action="" method="post">
-                                        <input type="hidden" name="user_id" value="<?php echo $student['user_id']; ?>">
-                                        <button type="submit" name="action" value="approve"
-                                            style="background-color: #0aad0a; color: white;">Accept</button>
-                                        <button type="submit" name="action" value="reject"
-                                            style="background-color: #e81313; color: white;">Reject</button>
 
+                                        <input type="hidden" name="user_id" value="<?php echo $student['user_id']; ?>">
+
+                                        <!-- Accept button -->
+                                        <button type="submit" name="action" value="approve" style="<?php
+                                        echo ($student['approval_status'] === 'approved')
+                                            ? 'background-color: grey; color: white; cursor: not-allowed;'
+                                            : 'background-color: #0aad0a; color: white;'; ?>" <?php echo ($student['approval_status'] === 'approved') ? 'disabled' : ''; ?>>
+                                            Accept
+                                        </button>
+
+                                        <!-- Reject button -->
+                                        <button type="submit" name="action" value="reject" style="<?php
+                                        echo ($student['approval_status'] === 'rejected')
+                                            ? 'background-color: grey; color: white; cursor: not-allowed;'
+                                            : 'background-color: #e81313; color: white;'; ?>" <?php echo ($student['approval_status'] === 'rejected') ? 'disabled' : ''; ?>>
+                                            Reject
+                                        </button>
                                     </form>
+
+
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -556,60 +565,35 @@ $conn->close();
 
         <script>
             function loadProfilePicture() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'fetch_adminprofilepicture.php', true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                var profilePath = xhr.responseText.trim();
-                
-                document.getElementById('profileIcon').src = profilePath;
-            }
-        };
-        xhr.send();
-    }
-
-    window.onload = loadProfilePicture;
-    function showEditButton() {
-        document.getElementById('editImageButton').style.display = 'block';
-    }
-
-    function hideEditButton() {
-        document.getElementById('editImageButton').style.display = 'none';
-    }
-
-    function openModal() {
-        document.getElementById('profileModal').style.display = 'block';
-    }
-
-    function closeModal() {
-        document.getElementById('profileModal').style.display = 'none';
-    }
-            function performSearch() {
-                const query = document.getElementById('search-input').value;
-
-                // Use AJAX to send the search request
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', 'search_students.php?q=' + encodeURIComponent(query), true);
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'fetch_adminprofilepicture.php', true);
                 xhr.onload = function () {
-                    if (this.status === 200) {
-                        // Update results container with the response
-                        document.getElementById('studentData').innerHTML = this.responseText;
+                    if (xhr.status === 200) {
+                        var profilePath = xhr.responseText.trim();
+
+                        document.getElementById('profileIcon').src = profilePath;
                     }
                 };
                 xhr.send();
-            }        // Fetch student data
-            fetch(window.location.href, { headers: { 'Accept': 'application/json' } })
-                .then(response => response.json())
-                .then(data => {
-                    const tableBody = document.getElementById('studentData');
-                    data.forEach(student => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `<td>${student.user_id}</td><td>${student.name}</td><td>${student.graduation_year}</td><td>${student.course_name}</td>`;
-                        tableBody.appendChild(row);
-                    });
-                })
-                .catch(error => console.error('Error fetching student data:', error));
+            }
 
+            window.onload = loadProfilePicture;
+            function showEditButton() {
+                document.getElementById('editImageButton').style.display = 'block';
+            }
+
+            function hideEditButton() {
+                document.getElementById('editImageButton').style.display = 'none';
+            }
+
+            function openModal() {
+                document.getElementById('profileModal').style.display = 'block';
+            }
+
+            function closeModal() {
+                document.getElementById('profileModal').style.display = 'none';
+            }
+         
             // Change profile image
             function triggerFileInput() {
                 document.getElementById('fileInput').click();

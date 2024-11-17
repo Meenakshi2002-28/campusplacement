@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 
 // Database connection
 $servername = "localhost";
@@ -594,7 +595,7 @@ $conn->close();
             </table>
            
             <div class="button-container">
-                <a href="editpersonal.php"><button>EDIT </button></a>
+            <button type="submit">EDIT</button>
             </div>
         </div>
     </div>    

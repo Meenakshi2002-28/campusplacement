@@ -38,7 +38,10 @@ if (isset($_POST['delete_job_id'])) {
 }
 
 // Fetch jobs from the database
-$sql = "SELECT job_id, job_title, company_name, location,  salary, application_deadline FROM job WHERE is_active = 1";
+$sql = "SELECT job_id, job_title, company_name, location, salary, application_deadline 
+        FROM job 
+        WHERE is_active = 1 
+        ORDER BY posted_at DESC";
 $result = $conn->query($sql);
 
 ?>
@@ -563,9 +566,38 @@ $result = $conn->query($sql);
 
     <!-- JavaScript -->
     <script>
-        function confirmDeletion(jobId, event) {
-            // Prevent the form submission
-            event.preventDefault();
+          function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_adminprofilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+
+    window.onload = loadProfilePicture;
+    function showEditButton() {
+        document.getElementById('editImageButton').style.display = 'block';
+    }
+
+    function hideEditButton() {
+        document.getElementById('editImageButton').style.display = 'none';
+    }
+
+    function openModal() {
+        document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('profileModal').style.display = 'none';
+    }
+function confirmDeletion(jobId, event) {
+    // Prevent the form submission
+    event.preventDefault();
 
             // Show the confirmation dialog
             swal({
@@ -581,9 +613,7 @@ $result = $conn->query($sql);
                     swal("Poof! Your record has been deleted!", {
                         icon: "success",
                     });
-                } else {
-                    swal("Your record is safe!");
-                }
+                } 
             });
         }
         function showSuccessMessage() {

@@ -478,25 +478,25 @@ $conn->close();
             <form class="job-form" method="POST" action="job_edit.php?job_id=<?php echo $job_id; ?>" onsubmit="return validateForm()">
                 <label for="title">Title</label>
                 <div>
-                    <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($job['job_title']); ?>" required>
+                    <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($job['job_title']); ?>">
                     <span id="title-error" class="error-message" style="color:red; font-size:12px;"></span>
                 </div>
 
                 <label for="company">Company</label>
                 <div>
-                    <input type="text" id="company" name="company" value="<?php echo htmlspecialchars($job['company_name']); ?>" required>
+                    <input type="text" id="company" name="company" value="<?php echo htmlspecialchars($job['company_name']); ?>">
                     <span id="company-error" class="error-message" style="color:red; font-size:12px;"></span>
                 </div>
 
                 <label for="location">Location</label>
                 <div>
-                    <input type="text" id="location" name="location" value="<?php echo htmlspecialchars($job['location']); ?>" required>
+                    <input type="text" id="location" name="location" value="<?php echo htmlspecialchars($job['location']); ?>">
                     <span id="location-error" class="error-message" style="color:red; font-size:12px;"></span>
                 </div>
 
                 <label for="work-mode">Work Mode</label>
                 <div>
-                    <input type="text" id="work-mode" name="work-mode" value="<?php echo htmlspecialchars($job['work_environment']); ?>" required>
+                    <input type="text" id="work-mode" name="work-mode" value="<?php echo htmlspecialchars($job['work_environment']); ?>" >
                     <span id="work-mode-error" class="error-message" style="color:red; font-size:12px;"></span>
                 </div>
 
@@ -505,7 +505,7 @@ $conn->close();
 
                 <label for="deadline">Application Deadline</label>
                 <div>
-                    <input type="date" id="deadline" name="deadline" value="<?php echo htmlspecialchars($job['application_deadline']); ?>" required>
+                    <input type="date" id="deadline" name="deadline" value="<?php echo htmlspecialchars($job['application_deadline']); ?>" onblur="validateApplicationDeadline()">
                     <span id="deadline-error" class="error-message" style="color:red; font-size:12px;"></span>
                 </div>
 
@@ -553,13 +553,15 @@ $conn->close();
 
                 <label for="tenth-req">10th Requirement</label>
                 <input type="text" id="tenth-req" name="tenth-req" value="<?php echo htmlspecialchars($job['tenth_requirement']); ?>">
-
+                
                 <label for="twelfth-req">12th Requirement</label>
                 <input type="text" id="twelfth-req" name="twelfth-req" value="<?php echo htmlspecialchars($job['tweflth_requirement']); ?>">
-
+               
                 <label for="job-status">Job Status</label>
-                <input type="text" id="job-status" name="job-status" value="<?php echo htmlspecialchars($job['job_status']); ?>">
-
+                <div>
+                <input type="text" id="job-status" name="job-status" value="<?php echo htmlspecialchars($job['job_status']); ?>"placeholder="Applications Open/Closed">
+                <span id="job-status-error" class="error-message" style="color:red; font-size:12px;"></span>
+               </div>
                 <h4>Hiring Workflow Rounds</h4>
                 <br>
                 <label for="round-1">Round 1</label>
@@ -589,6 +591,35 @@ $conn->close();
     </div>
 </div>
 <script>
+      function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_adminprofilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+
+    window.onload = loadProfilePicture;
+    function showEditButton() {
+        document.getElementById('editImageButton').style.display = 'block';
+    }
+
+    function hideEditButton() {
+        document.getElementById('editImageButton').style.display = 'none';
+    }
+
+    function openModal() {
+        document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('profileModal').style.display = 'none';
+    }
     const selectElement = document.getElementById('course');
     const selectedOptionsTextBox = document.getElementById('selectedOptions');
 
@@ -670,8 +701,8 @@ function validateForm() {
 
     return isValid; // Return overall validity
 }
-</script>
-<script>
+
+
 function showSuccessMessage() {
     var successMessage = document.getElementById('successMessage');
     successMessage.classList.add('show');

@@ -553,7 +553,7 @@ $conn->close();
 
         <!-- Personal Details Section -->
         <div id="personal" class="details active">
-            <form action="personal.php" method="post" onsubmit="return validateForm()">
+            <form action="3.php" method="post" onsubmit="return validateForm()">
                 <div id="form-error" class="error-message" style="color:red;"></div>
                 <table>
                     <tr>

@@ -46,7 +46,8 @@ if (isset($_POST["submit"])) {
             $stmt = $conn->prepare("UPDATE student SET photo = ? WHERE user_id = ?");
             $stmt->bind_param("ss", $new_filename, $user_id);
             if ($stmt->execute()) {
-                echo "Profile picture updated successfully.";
+                header("Location: " . $_SESSION['current_page']);
+    exit();
             } else {
                 echo "Error updating profile picture: " . $conn->error;
             }

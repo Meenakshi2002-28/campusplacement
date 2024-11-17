@@ -1,6 +1,8 @@
 <?php
 session_start();
 $user_id = $_GET['user_id'] ?? null; // Use null coalescing to handle missing user_id
+$_SESSION['current_page'] = $_SERVER['REQUEST_URI'];  // Store the current page URL
+
 
 // Check if user_id is set
 if (!$user_id) {
