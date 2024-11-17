@@ -29,22 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("ss", $resume_link, $user_id);
 
     if ($stmt->execute()) {
-        // Output SweetAlert after successful submission
-        echo "
-        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-        <script>
-            Swal.fire({
-                title: 'Good job!',
-                text: 'Resume Updation Successful!',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'resumeview.php'; // Replace with your desired URL
-                }
-            });
-        </script>
-        ";
+        header("Location: adminresumeview.php?user_id=" . urlencode($user_id));// Redirect to the desired page
+        exit();
     } else {
         echo "Error inserting resume: " . $stmt->error;
     }
@@ -505,9 +491,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+    <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profile_Icon"
+            onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*"
-            onchange="changeProfilePicture(event)">
+            onchange="changeProfilePicture1(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
 
         <!-- Dropdown Menu -->
@@ -574,7 +561,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <h2>Resume</h2>
             <p>Paste the public link to your resume (Google Drive link). Make sure the link has public access
                 permissions.</p>
-            <form action="resume.php" method="POST">
+            <form action="" method="POST">
                 <input type="url" id="resume_link" name="resume_link" placeholder="Enter your resume link" required>
                 <div class="button-container">
                     <button type="submit">SUBMIT</button>
@@ -586,6 +573,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- JavaScript -->
     <script>
+    function loadProfilePicture1() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'fetch_adminprofilepicture.php', true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var profilePath = xhr.responseText.trim();
+
+                    document.getElementById('profile_Icon').src = profilePath;
+                }
+            };
+            xhr.send();
+        }
+
+
+
         var user_id = '<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>';
         function loadProfilePicture() {
             var xhr = new XMLHttpRequest();
@@ -600,7 +602,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             xhr.send();
         }
 
-        window.onload = loadProfilePicture;
+        function loadAll() {
+            loadProfilePicture();
+            loadProfilePicture1();
+        }
+        window.onload = loadAll;
         function showEditButton() {
             document.getElementById('editImageButton').style.display = 'block';
         }
