@@ -169,7 +169,7 @@ body {
 
 .back-to-login {
     display: block;
-    margin-top: 10px;
+    margin-top: 20px;
     color: #f8f8f8;
     text-decoration: none;
 }

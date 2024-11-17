@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Created</title>
+    <title>Campus Recruitment System</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <style>
@@ -33,12 +33,13 @@
         }
 
         h2 {
-            margin-top: 10px;
+            margin-top: -15px;
+            font-size: 28px;
         }
 
         p {
         
-            font-size: 20px;
+            font-size: 19px;
             text-align: center;
         }
 
@@ -70,14 +71,29 @@
         }
 
         .loading-icon {
-    margin-top: 30px ;
+    margin-top: 20px ;
     font-size: 3rem;
     color: #ffffff;
     margin-left: 20px;
+    margin-bottom: 5px;
 }
 
+        .back-to-home {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            font-size: 17px;
+            margin-top: 10px;
+        }
 
-
+        .arrow-icon {
+            width: 20px; /* Adjust the size of the arrow */
+            height: 20px;
+            margin-right: 10px; /* Adds spacing between the arrow and the text */
+            vertical-align: middle; /* Aligns the arrow vertically with the text */
+        }
     </style>
 </head>
 <body>
@@ -93,6 +109,9 @@
             <div class="loading-icon">
                 <i class="fas fa-spinner fa-spin"></i>
             </div>
+            <a href="home.html" class="back-to-home">
+                <img src="images/leftarrow.svg" alt="Back arrow" class="arrow-icon"> Back to Home
+            </a>
         </div>
     </div>
 </body>

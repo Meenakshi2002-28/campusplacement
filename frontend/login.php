@@ -110,13 +110,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin: -10px;
             margin-bottom: 2px;
             font-size: 60px;
-            font-family: serif;
+            font-family: Georgia;
         }
 
         .login-box h1 {
             margin: 0;
             font-size: 35px;
-            font-family: Georgia, serif;
+            font-family: Georgia;
         }
 
         .login-box form {
