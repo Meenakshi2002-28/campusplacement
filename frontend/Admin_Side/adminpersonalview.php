@@ -498,7 +498,7 @@ $conn->close();
 <body>
     <!-- Profile Container -->
     <div class="container">
-        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profileIcon" onclick="triggerFileInput()">
+        <img src="../images/Customer.png" alt="Profile Icon" class="icon" id="profile_Icon" onclick="triggerFileInput()">
         <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="changeProfilePicture(event)">
         <i class="fas fa-caret-down fa-lg icon" aria-hidden="true" onclick="toggleDropdown()"></i>
 
@@ -627,6 +627,21 @@ $conn->close();
         </div>
     <!-- JavaScript -->
     <script>
+        function loadProfilePicture1() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_adminprofilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                
+                document.getElementById('profile_Icon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+
+  
+
         var user_id = '<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>';
             function loadProfilePicture() {
         var xhr = new XMLHttpRequest();
@@ -641,7 +656,11 @@ $conn->close();
         xhr.send();
     }
 
-    window.onload = loadProfilePicture;
+    function loadAll() {
+    loadProfilePicture();
+    loadProfilePicture1();
+}
+window.onload = loadAll;
     function showEditButton() {
         document.getElementById('editImageButton').style.display = 'block';
     }
