@@ -643,6 +643,7 @@ $result = $conn->query($sql);
     <script>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Change Profile Picture
         function triggerFileInput() {
             document.getElementById('fileInput').click();
@@ -703,6 +704,37 @@ $result = $conn->query($sql);
 =======
     function showSuccessMessage() {
 =======
+=======
+          function loadProfilePicture() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_adminprofilepicture.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var profilePath = xhr.responseText.trim();
+                
+                document.getElementById('profileIcon').src = profilePath;
+            }
+        };
+        xhr.send();
+    }
+
+    window.onload = loadProfilePicture;
+    function showEditButton() {
+        document.getElementById('editImageButton').style.display = 'block';
+    }
+
+    function hideEditButton() {
+        document.getElementById('editImageButton').style.display = 'none';
+    }
+
+    function openModal() {
+        document.getElementById('profileModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('profileModal').style.display = 'none';
+    }
+>>>>>>> 2a03051 (..)
 function confirmDeletion(jobId, event) {
     // Prevent the form submission
     event.preventDefault();
