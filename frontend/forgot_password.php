@@ -68,14 +68,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->Body = "Please click the link below to reset your password:<br><br><a href='" . $resetLink . "'>Reset Password</a>";
             $mail->AltBody = "Please click the link below to reset your password:\n\n" . $resetLink;
 
-            $mail->send();
-            echo "An email has been sent to $email with a link to reset your password.";
+            if ($mail->send()) {
+                // Redirect to the forgot-password page with a success message
+                header("Location: forgot_password.php?status=success&email=" . urlencode($email));
+                exit;
+            }
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            // Redirect with an error message
+            header("Location: forgot_password.php?status=error");
+            exit;
         }
-    } else {
-        echo "No account found with that email address.";
-    }
+        } else {
+            // Redirect with a message that no account was found
+            header("Location: forgot_password.php?status=not_found");
+            exit;
+        }
 
     $stmt->close();
 }
@@ -205,6 +212,19 @@ body {
     <center>
     <div class="forgot-password-container">
         <div class="forgot-password-box">
+        <?php
+if (isset($_GET['status'])) {
+    $status = $_GET['status'];
+    $email = isset($_GET['email']) ? htmlspecialchars($_GET['email']) : '';
+
+    if ($status === 'success') {
+        echo "<p style='color: #0f0;'>An email has been sent to $email with a link to reset your password.</p>";
+    } elseif ($status === 'error') {
+        echo "<p style='color: #f00;'>There was an error sending the email. Please try again later.</p>";
+    }
+}
+?>
+
             <h1>Forgot your password?</h1>
             <p>Please enter your E-mail ID to get instructions to reset your password</p>
             <form action="forgot_password.php" method="POST">

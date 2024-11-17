@@ -41,22 +41,19 @@ if (isset($_GET['token'])) {
                 $updateStmt->bind_param("ss", $hashedPassword, $email);
 
                 if ($updateStmt->execute()) {
-                    echo "Your password has been successfully updated.";
-                
-                    // Clear the reset token and expiration time
+                    $message = "Your password has been successfully updated.";
                     $clearTokenStmt = $conn->prepare("UPDATE login SET reset_token_hash = NULL, reset_token_expires_at = NULL WHERE email = ?");
                     $clearTokenStmt->bind_param("s", $email);
                     $clearTokenStmt->execute();
                 } else {
-                    echo "Error updating password.";
+                    $message = "Error updating password. Please try again.";
                 }
-            } 
-            else {
-                echo "Passwords do not match.";
+            } else {
+                $message = "Passwords do not match.";
             }
         }
     } else {
-        echo "Invalid or expired token.";
+        $message = "Invalid or expired token.";
     }
 }
 ?>
@@ -173,6 +170,10 @@ if (isset($_GET['token'])) {
     height: 55px;
     width: auto;
     }
+    .error-message {
+            color: red;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -181,31 +182,53 @@ if (isset($_GET['token'])) {
     </div>
     <div class="password-box">
         <h1>Change Password</h1>
+        <?php if (!empty($message)): ?>
+        <p style="background-color: #ffffff; color: #281f63; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+            <?php echo htmlspecialchars($message); ?>
+        </p>
+    <?php endif; ?>
         <form action="#" method="POST">
             <div class="input-wrapper">
-                <input type="password" name="new_password"placeholder="New Password" id="new-password" required>
-                <span class="toggle-visibility" onclick="togglePasswordVisibility('new-password', this)">
-                    <img src="../images/eyes.png" alt="Show/Hide password">
+                <input type="password" name="new_password"placeholder="New Password" id="password"  required
+                    onblur="validatePassword()">
+                <div id="password-error" class="error-message"></div>
                 </span>
             </div>
             <div class="input-wrapper">
-                <input type="password" placeholder="Confirm Password" name="confirm_password" id="confirm-password" required>
-                <span class="toggle-visibility" onclick="togglePasswordVisibility('confirm-password', this)">
-                    <img src="../images/eyes.png" alt="Show/Hide Password">
+                <input type="password" placeholder="Confirm Password" name="confirm_password" id="confirm-password" required onblur="validateConfirmPassword()"required>
+                <div id="confirm-password-error" class="error-message"></div>
+
+                   
                 </span>
             </div>
             <button type="submit">SUBMIT</button>
         </form>
-        <a href="#" class="back-to-login">← Back to Login</a>
+        <a href="login.php" class="back-to-login">← Back to Login</a>
     </div>
 
     <script>
-        function togglePasswordVisibility(inputId, iconElement) {
-            const inputField = document.getElementById(inputId);
-            const isPasswordVisible = inputField.type === 'password';
-            inputField.type = isPasswordVisible ? 'text' : 'password';
-            iconElement.querySelector('img').src = isPasswordVisible ? '../images/eye-off.png' : '../images/eye.png';
+          function validatePassword() {
+            var password = document.getElementById('password').value;
+            var passwordError = document.getElementById('password-error');
+
+            if (password.length > 0 && password.length < 8) {
+                passwordError.textContent = "Password must be at least 8 characters long.";
+            } else {
+                passwordError.textContent = ""; // Clear error
+            }
         }
+        function validateConfirmPassword() {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirm-password').value;
+            var confirmPasswordError = document.getElementById('confirm-password-error');
+
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = "Passwords do not match.";
+            } else {
+                confirmPasswordError.textContent = ""; // Clear error
+            }
+        }
+       
     </script>
 
 </body>
