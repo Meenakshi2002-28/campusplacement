@@ -38,7 +38,7 @@ if (isset($_POST['delete_job_id'])) {
 }
 
 // Fetch jobs from the database
-$sql = "SELECT job_id, job_title, company_name, location, salary, application_deadline 
+$sql = "SELECT job_id,work_environment,job_title, company_name, location, salary, application_deadline 
         FROM job 
         WHERE is_active = 1 
         ORDER BY posted_at DESC";
@@ -566,7 +566,7 @@ $result = $conn->query($sql);
                             <div class="jobimg">
                                 <a href="#location-dot"><i class="fas fa-map-marker-alt"></i>
                                     <?php echo htmlspecialchars($job['location']); ?></a>
-                                <a href="#briefacse"><i class="fa fa-fw fa-solid fa-briefcase"></i> Full Time</a>
+                                <a href="#briefacse"><i class="fa fa-fw fa-solid fa-briefcase"></i><?php echo htmlspecialchars($job['work_environment']); ?></a>
                                 <a href="#indian-rupee-sign"><i class="fas fa-rupee-sign"></i>
                                     <?php echo htmlspecialchars($job['salary']); ?></a>
                                 <a href="#calendar-days"><i class="fa fa-fw fa-solid fa-calendar"></i> Apply By
