@@ -401,16 +401,18 @@ $conn->close();
             left: 50%;
             transform: translate(-50%, -50%);
             width: 400px;
-            height: 260px;
+            height: 300px;
             background-color: white;
             padding: 20px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            z-index: 100;
+            overflow: hidden;
         }
-        .modal button{
-            margin-left: 120px;
-            margin-top: 5px;
+
+        .modal button {
+            margin-left: 70px;
         }
+
         .close-button {
             position: absolute;
             top: 10px;
@@ -419,6 +421,45 @@ $conn->close();
             cursor: pointer;
             color: #000;
         }
+
+        .text h4 {
+            padding-left: 35px;
+            margin-bottom: 15px;
+            margin-top: -12.5px;
+            font-size: 18px;
+            color: black;
+        }
+
+        .fas.fa-trash-alt {
+            margin-left: 190px;
+            margin-top: -50px
+        }
+
+        .modal-content form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    gap: 10px; /* Space between items */
+}
+
+.modal-content button {
+    margin-left: 0; /* Remove the margin applied earlier */
+    display: inline-block; /* Keep buttons inline */
+}
+
+#deleteForm button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 0;
+}
+
+#uploadForm button{
+        margin-left: 90px;
+}
     </style>
 </head>
 <body>
@@ -472,6 +513,16 @@ $conn->close();
                     <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="file" name="profilePicture" id="fileInput" accept="image/*" required>
                         <button type="submit" name="submit">Submit</button>
+                    </form>
+
+                    <!-- Delete Profile Picture Button -->
+                    <form id="deleteForm" action="delete_pic.php" method="POST">
+                        <input type="hidden" name="user_id"
+                            value="<?php echo htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8'); ?>">
+                        <button type="submit" name="delete" style="background-color:transparent">
+                            <i class="fas fa-trash-alt" style="color: red; font-size: 24px;"></i>
+                        </button>
+
                     </form>
                 </div>
             </div>
