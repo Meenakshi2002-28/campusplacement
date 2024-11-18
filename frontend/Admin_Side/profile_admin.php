@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Database connection
 $servername = "localhost"; // Change to your server name
 $username = "root";        // Change to your database username
@@ -12,7 +13,22 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$user_id = 'JESINE'; 
+$role_query = "SELECT role FROM login WHERE user_id = ?";
+$user_role = "";
 
+if ($stmt = $conn->prepare($role_query)) {
+    $stmt->bind_param("s", $user_id); // Assuming user_id is a string
+    $stmt->execute();
+    $stmt->bind_result($user_role);
+    $stmt->fetch();
+    $stmt->close();
+}
+// If the user is not an admin, display unauthorized access message
+if ($user_role !== 'admin') {
+    echo "<h1>Unauthorized Access</h1>";
+    exit(); // Stop further script execution
+}
 // Assuming you have the user_id available (for example, from a session)
 $user_id = 'JESINE'; // Replace with the actual user ID
 
@@ -479,13 +495,16 @@ $conn->close();
                     <tr>
                         <td>Email </td>
                         <td>
-                            <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($adminDetails['email']); ?>" readonly>
+                            <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($adminDetails['email']); ?>" readonly  onblur="validateEmail()">
+                <span id="emailError" style="color: red; font-size: small;"></span>
+            </td>
                         </td>
                     </tr>
                     <tr>
                         <td>Phone No </td>
                         <td>
-                            <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($adminDetails['phone_number']); ?>" readonly>
+                            <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($adminDetails['phone_number']); ?>" readonly onblur="validatePhone()">
+                            <span id="phoneError" style="color: red; font-size: small;"></span>
                         </td>
                     </tr>
                 </table>
@@ -498,6 +517,29 @@ $conn->close();
     </div>
 
     <script>
+        function validateEmail() {
+    const emailField = document.getElementById("email");
+    const emailError = document.getElementById("emailError");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for email validation
+
+    if (!emailRegex.test(emailField.value)) {
+        emailError.textContent = "Please enter a valid email address.";
+    } else {
+        emailError.textContent = ""; // Clear error message
+    }
+}
+
+function validatePhone() {
+    const phoneField = document.getElementById("phone");
+    const phoneError = document.getElementById("phoneError");
+    const phoneRegex = /^\d{10}$/; // Regex for exactly 10 digits
+
+    if (!phoneRegex.test(phoneField.value)) {
+        phoneError.textContent = "Phone number must be exactly 10 digits.";
+    } else {
+        phoneError.textContent = ""; // Clear error message
+    }
+}
          function enableEdit() {
         // Get all input fields
         var inputs = document.querySelectorAll('#name, #email, #phone');
@@ -515,6 +557,7 @@ $conn->close();
         document.querySelector('.button-container button').setAttribute('type', 'button');
         document.querySelector('.button-container button').setAttribute('onclick', 'cancelEdit()');
     }
+
 
     function cancelEdit() {
         // Get all input fields

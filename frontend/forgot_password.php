@@ -226,6 +226,9 @@ if (isset($_GET['status'])) {
     } elseif ($status === 'error') {
         echo "<p style='color: #f00;'>There was an error sending the email. Please try again later.</p>";
     }
+    else{
+        echo "<p style='color: #f00;'>There is not account under this email address.</p>";
+    }
 }
 ?>
 
