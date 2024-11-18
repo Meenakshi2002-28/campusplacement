@@ -338,7 +338,7 @@ $conn->close();
         }
 
         .students {
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         /* Card styling with hover effects */
@@ -375,19 +375,6 @@ $conn->close();
             font-weight: bold;
             color: #04070b;
             transition: transform 0.3s ease-in-out;
-        }
-
-        .sidebar .logo {
-            position: absolute;
-            top: 20px;
-            /* Keep the same positioning */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px;
-            /* Increase the font size here */
-            font-weight: bold;
-            color: white;
-            text-align: center;
         }
 
         .container h3 {
@@ -450,16 +437,16 @@ $conn->close();
         }
 
         .approval button {
-            margin-left: 950px;
+            margin-left: 1000px;
             padding: 7px 20px;
             background-color: #AFC8F3;
             color: black;
             border: none;
-            border-radius: 5px;
+            border-radius: 15px;
             cursor: pointer;
             font-size: 18px;
             font-weight: 600;
-            margin-top: -100px;
+            margin-top: -10px;
         }
 
         button {
@@ -508,12 +495,8 @@ $conn->close();
         </div>
     </div>
     <div class="main-content">
-        <div class="search-bar-container">
-            <input type="text" id="search-input" class="search-bar" placeholder="Search by Roll No or Name...">
-            <button onclick="performSearch()">Search</button>
-        </div>
         <div class="approval">
-        <button onclick="window.location.href='allusers.php'" style="background-color: #007bff; color: white;">All Users</button>
+        <button onclick="window.location.href='allusers.php'" style="background-color:#1e165f; color: white;">All Users</button>
         </div>
         <div class="students">
             <table>

@@ -377,19 +377,6 @@ $conn->close();
             transition: transform 0.3s ease-in-out;
         }
 
-        .sidebar .logo {
-            position: absolute;
-            top: 20px;
-            /* Keep the same positioning */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px;
-            /* Increase the font size here */
-            font-weight: bold;
-            color: white;
-            text-align: center;
-        }
-
         .container h3 {
             margin-right: 450px;
             font-weight: 700;
