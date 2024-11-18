@@ -1,7 +1,7 @@
 <?php
 session_start(); // Start the session to access session variables
 
-// Assuming you have already set the user_id or email in the session during login
+// Check if the user is logged in
 if (isset($_SESSION['user_id'])) {
     $servername = "localhost";
     $db_username = "root"; // MySQL username
@@ -19,9 +19,28 @@ if (isset($_SESSION['user_id'])) {
     // Retrieve the user ID from the session
     $user_id = $_SESSION['user_id'];
 
-    // Prepare and execute a SQL query to fetch the admin's name
+    // Check the user's role
+    $role_query = "SELECT role FROM login WHERE user_id = ?";
+    $user_role = "";
+
+    if ($stmt = $conn->prepare($role_query)) {
+        $stmt->bind_param("s", $user_id); // Assuming user_id is a string
+        $stmt->execute();
+        $stmt->bind_result($user_role);
+        $stmt->fetch();
+        $stmt->close();
+    }
+
+    // If the user is not an admin, display unauthorized access message
+    if ($user_role !== 'admin') {
+        echo "<h1>Unauthorized Access</h1>";
+        exit(); // Stop further script execution
+    }
+
+    // Fetch admin details
     $query = "SELECT name FROM admin WHERE user_id = ?";
-    
+    $name = "";
+
     if ($stmt = $conn->prepare($query)) {
         $stmt->bind_param("s", $user_id); // Assuming user_id is a string
         $stmt->execute();
@@ -49,13 +68,13 @@ if (isset($_SESSION['user_id'])) {
     $companies = [];
     $students_placed = [];
     $query = "
-     SELECT j.company_name, COUNT(p.user_id) AS students_placed
+        SELECT j.company_name, COUNT(p.user_id) AS students_placed
         FROM placement p
         JOIN job j ON p.job_id = j.job_id
         GROUP BY p.job_id
-        ORDER BY students_placed  DESC
-    LIMIT 4
-";
+        ORDER BY students_placed DESC
+        LIMIT 4
+    ";
 
     $result = $conn->query($query);
 
@@ -72,6 +91,7 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

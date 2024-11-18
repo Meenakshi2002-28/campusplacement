@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost"; // Server name
 $db_username = "root"; // MySQL username
 $db_password = ""; // MySQL password
@@ -10,6 +11,21 @@ $conn = new mysqli($servername, $db_username, $db_password, $dbname);
 // Check the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+}
+$role_query = "SELECT role FROM login WHERE user_id = ?";
+$user_role = "";
+
+if ($stmt = $conn->prepare($role_query)) {
+    $stmt->bind_param("s", $user_id); // Assuming user_id is a string
+    $stmt->execute();
+    $stmt->bind_result($user_role);
+    $stmt->fetch();
+    $stmt->close();
+}
+// If the user is not an admin, display unauthorized access message
+if ($user_role !== 'admin') {
+    echo "<h1>Unauthorized Access</h1>";
+    exit(); // Stop further script execution
 }
 
 // Fetch feedback from the database
