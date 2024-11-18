@@ -1,5 +1,6 @@
 <?php
 // Database connection
+session_start();
 $servername = "localhost";
 $username = "root"; // Update with your database username
 $password = "";     // Update with your database password
@@ -11,6 +12,23 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$user_id = 'JESINE'; 
+$role_query = "SELECT role FROM login WHERE user_id = ?";
+$user_role = "";
+
+if ($stmt = $conn->prepare($role_query)) {
+    $stmt->bind_param("s", $user_id); // Assuming user_id is a string
+    $stmt->execute();
+    $stmt->bind_result($user_role);
+    $stmt->fetch();
+    $stmt->close();
+}
+// If the user is not an admin, display unauthorized access message
+if ($user_role !== 'admin') {
+    echo "<h1>Unauthorized Access</h1>";
+    exit(); // Stop further script execution
+}
+
 
 // SQL query to fetch user_id, name, graduation_year, and course_name for 10 students
 $sql = "
