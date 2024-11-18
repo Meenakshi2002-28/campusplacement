@@ -305,6 +305,33 @@ $result = $conn->query($sql);
             margin-right: 20px; /* Space between logo and job details */
             border-radius: 5px; /* Optional: rounded edges */
         }
+        .search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.search-bar input {
+    width: 500px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-bar button {
+    padding: 5px 15px;
+    background-color: #1e165f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    font-weight: 700;
+}
+
     </style>
 </head>
 <body>
@@ -337,13 +364,32 @@ $result = $conn->query($sql);
 
     <!-- Main Content -->
     <div class="main-content">
-        <?php
-    if ($result->num_rows > 0) {
+    <!-- Search Bar -->
+    <form method="GET" action="" class="search-bar">
+        <input type="text" name="search" placeholder="Search by company or job title" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+        <button type="submit">Search</button>
+    </form>
+
+    <?php
+    // Establish database connection (ensure $conn is defined earlier)
+    
+    // Check if a search query is provided
+    $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+    $query = "SELECT * FROM job";
+
+    // Modify query if search term is provided
+    if (!empty($search)) {
+        $search = $conn->real_escape_string($search);
+        $query .= " WHERE company_name LIKE '%$search%' OR job_title LIKE '%$search%'";
+    }
+
+    $result = $conn->query($query);
+
+    if ($result && $result->num_rows > 0) {
         // Output data of each job row
         while ($row = $result->fetch_assoc()) {
             ?>
               <div class="job-card" onclick="window.location.href='job_description.php?job_id=<?php echo $row['job_id']; ?>'">
-               
                 <div class="job-details">
                     <div class="company-name"><?php echo htmlspecialchars($row['company_name']); ?></div>
                     <div class="position"><?php echo htmlspecialchars($row['job_title']); ?></div>
@@ -356,7 +402,7 @@ $result = $conn->query($sql);
                 </div>
                 <div class="job-info">
                     <div class="salary">Salary: <?php echo htmlspecialchars($row['salary']); ?></div>
-                    <button class="apply-now">view details</button>
+                    <button class="apply-now">View Details</button>
                 </div>
             </div>
             <?php
@@ -368,7 +414,8 @@ $result = $conn->query($sql);
     // Close the database connection
     $conn->close();
     ?>
-  </div>
+</div>
+
   
     <!-- JavaScript -->
     <script>
